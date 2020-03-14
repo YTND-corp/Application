@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.MainActivityBinding
 import uz.uzmobile.templatex.viewModel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.uzmobile.templatex.extension.inputMethodManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +34,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initViews()
+
+        navController.addOnDestinationChangedListener(viewModel.listener)
+
+        viewModel.navDestination.observe(this, Observer {
+            inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
+        })
     }
 
     fun initViews() {
@@ -56,15 +65,13 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(id)
             }
         }
-
-        navController.addOnDestinationChangedListener(viewModel.listener)
-
-
     }
 
-    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        return navController.navigateUp(appBarConfiguration) ||  super.onSupportNavigateUp()
-//    }
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(
+            navController,
+            appBarConfiguration
+        ) || super.onSupportNavigateUp()
+    }
 }
