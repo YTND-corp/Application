@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.FavoriteFragmentBinding
+import uz.uzmobile.templatex.ui.profile.ProfileAdapter
 
 class FavoriteFragment: Fragment() {
 
     val viewModel: FavoriteViewModel by viewModel()
 
     private val binding  by lazy { FavoriteFragmentBinding.inflate(layoutInflater) }
+
+    private lateinit var adapter: FavoriteAdapter
 
     companion object {
         fun newInstance() = FavoriteFragment()
@@ -29,12 +33,27 @@ class FavoriteFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+
+        viewModel.products.observe(requireActivity(), Observer {
+            if (it.isNullOrEmpty()) {
+                binding.placeholderView.visibility = View.VISIBLE
+            } else {
+                binding.placeholderView.visibility = View.GONE
+                adapter.setItems(it)
+                adapter.notifyDataSetChanged()
+            }
+
+        })
     }
 
     private fun initViews() {
         binding.apply {
             viewModel = this@FavoriteFragment.viewModel
             executePendingBindings()
+
+            adapter = FavoriteAdapter(arrayListOf())
+            favoriteRecyclerView.hasFixedSize()
+            favoriteRecyclerView.adapter = adapter
         }
     }
 }

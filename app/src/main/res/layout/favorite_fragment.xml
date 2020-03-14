@@ -15,9 +15,25 @@
             android:layout_height="match_parent"
             tools:context=".ui.favorite.FavoriteFragment">
 
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/favorite_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingTop="10dp"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                app:spanCount="2"
+                tools:listitem="@layout/favorite_item" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/placeholder_view"
                 android:layout_width="match_parent"
+                android:background="@color/windowBackgroundColor"
                 android:layout_height="match_parent">
 
             <TextView
@@ -59,7 +75,5 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/placeholder_message_text_view" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

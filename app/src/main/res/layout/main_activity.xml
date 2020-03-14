@@ -21,6 +21,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/AppTheme.AppBarOverlay"
                 app:elevation="0dp"
+                android:visibility="@{viewModel.isToolbarVisible}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -126,7 +127,7 @@
                     android:drawableTop="@drawable/ic_profile"
                     android:drawableTint="@color/bottom_navigation_tint"
                     android:gravity="center_horizontal|bottom"
-                    android:text="@string/nav_menu_item_favorite"
+                    android:text="@string/nav_menu_item_profile"
                     android:textColor="@color/bottom_navigation_tint"
                     android:textSize="@dimen/text_size_tiny" />
 

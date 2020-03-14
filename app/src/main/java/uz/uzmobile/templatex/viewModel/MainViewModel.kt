@@ -27,6 +27,13 @@ class MainViewModel constructor(application: Application) : AndroidViewModel(app
         }
     }
 
+    var isToolbarVisible: LiveData<Boolean> = Transformations.map(navDestination) {
+        when (it.id) {
+            R.id.favoriteFragment -> false
+            else -> true
+        }
+    }
+
     var isBottomBarVisible: LiveData<Boolean> = Transformations.map(navDestination) {
         when (it.id) {
             R.id.selectionFragment,
