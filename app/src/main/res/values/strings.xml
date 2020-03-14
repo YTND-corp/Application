@@ -20,6 +20,7 @@
     <string name="action_forgot_password">Забыли пароль?</string>
     <string name="action_sign_in">Войти</string>
     <string name="action_sign_up">Регистрировать</string>
+    <string name="action_see_products">Смотреть товары</string>
 
     <!--Errors-->
     <string name="error_no_connection">Нет интернет подключения</string>
@@ -57,8 +58,8 @@
     <string name="hint_password">Введите пароль</string>
     <string name="hint_repeat_password">Повторите пароль</string>
 
-    <!--    -->
-    <string name="cart_fragment_empty_message">В вашей корзине пока ничего нет</string>
+    <!--Cart-->
+    <string name="cart_placeholder_message">В вашей корзине пока ничего нет</string>
 
     <!--Profile-->
     <string name="auth_view_title">Привилегии</string>
@@ -71,5 +72,9 @@
     <string name="profile_call_you">Позвонить Вам</string>
     <string name="profile_call_support_center">Центр поддержки MOD</string>
     <string name="profile_about_app">О MOD</string>
+
+    <!--Favorite-->
+    <string name="favorite_placeholder_title">Здесь пока пусто</string>
+    <string name="favorite_placeholder_message">Вы пока ничего не добавили в избранное</string>
 
 </resources>

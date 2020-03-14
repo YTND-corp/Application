@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
-    <data >
-        <variable name="viewModel" type="uz.uzmobile.templatex.ui.cart.CartViewModel"/>
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.uzmobile.templatex.ui.cart.CartViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,38 +16,38 @@
             tools:context=".ui.cart.CartFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/empty_layout"
+                android:id="@+id/placeholder_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
             <TextView
-                    android:id="@+id/empty_cart_text_view"
+                    android:id="@+id/placeholder_text_view"
+                    style="@style/Regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/secondaryTextColor"
                     android:gravity="center"
-                    style="@style/Regular"
+                    android:text="@string/cart_placeholder_message"
+                    android:textColor="@color/secondaryTextColor"
                     android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/placeholder_button"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:layout_constraintBottom_toTopOf="@id/start_shopping_button"
-                    android:text="@string/cart_fragment_empty_message" />
+                    app:layout_constraintVertical_chainStyle="packed" />
+
             <Button
-                    android:id="@+id/start_shopping_button"
+                    android:id="@+id/placeholder_button"
                     style="@style/OutlinedButtonStyle"
-                    android:layout_marginTop="30dp"
                     android:layout_width="wrap_content"
+                    android:layout_marginTop="30dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/empty_cart_text_view"
                     android:text="@string/action_start_shopping"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/placeholder_text_view" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
