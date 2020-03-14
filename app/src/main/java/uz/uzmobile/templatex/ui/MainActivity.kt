@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val navController by lazy { findNavController(R.id.navHostFragment) }
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,15 +51,18 @@ class MainActivity : AppCompatActivity() {
             )
 
             toolbar.setupWithNavController(navController, appBarConfiguration)
-            bottomNavigationView.setupWithNavController(navController)
+
+            bottomNavigationView.setOnCheckedChangeListener { group, id ->
+                navController.navigate(id)
+            }
         }
 
         navController.addOnDestinationChangedListener(viewModel.listener)
+
+
     }
 
-
-
-    override fun onSupportNavigateUp() = findNavController(R.id.navHostFragment).navigateUp()
+    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
 
 //    override fun onSupportNavigateUp(): Boolean {
 //        return navController.navigateUp(appBarConfiguration) ||  super.onSupportNavigateUp()
