@@ -60,15 +60,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
                 app:navGraph="@navigation/main_graph" />
+
         <RadioGroup
                 android:id="@+id/bottom_navigation_View"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@color/bottomNavBgColor"
+                android:checkedButton="@id/selectionFragment"
+                android:orientation="horizontal"
                 android:visibility="@{viewModel.isBottomBarVisible}"
                 android:weightSum="5"
-                android:checkedButton="@id/selectionFragment"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -78,7 +79,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-
                     android:background="@drawable/bg_main_bottom_nav_item"
                     android:button="@null"
                     android:drawableTop="@drawable/ic_selection"
