@@ -72,7 +72,17 @@
                             tools:text="Rontgenstrasse 30" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-
+                <CheckBox
+                        android:id="@+id/password_toggle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/windowBackgroundColor"
+                        android:button="@drawable/bg_password_toggle"
+                        app:layout_constraintTop_toTopOf="@id/til_password"
+                        app:layout_constraintBottom_toBottomOf="@id/til_password"
+                        app:layout_constraintEnd_toEndOf="@id/til_password"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        />
                 <Button
                         android:id="@+id/continue_button"
                         style="@style/ContainedButtonStyle"

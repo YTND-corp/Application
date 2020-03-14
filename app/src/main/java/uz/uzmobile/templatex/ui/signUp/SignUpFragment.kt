@@ -42,7 +42,7 @@ class SignUpFragment : Fragment() {
             executePendingBindings()
 
             passwordToggle.setOnCheckedChangeListener { _, b ->
-                val cursorPosition: Int = etPassword.selectionStart
+                val cursorPosition = etPassword.selectionStart
                 etPassword.transformationMethod =
                     if (b) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
                 etPassword.setSelection(cursorPosition)

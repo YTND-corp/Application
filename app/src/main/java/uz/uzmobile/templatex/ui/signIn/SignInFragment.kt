@@ -1,6 +1,8 @@
 package uz.uzmobile.templatex.ui.signIn
 
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +40,13 @@ class SignInFragment : Fragment() {
         binding.apply {
             viewModel = this@SignInFragment.viewModel
             executePendingBindings()
+
+            passwordToggle.setOnCheckedChangeListener { _, b ->
+                val cursorPosition = etPassword.selectionStart
+                etPassword.transformationMethod =
+                    if (b) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
+                etPassword.setSelection(cursorPosition)
+            }
 
             forgotPasswordButton.setOnClickListener {
                 goRecoveryPage()

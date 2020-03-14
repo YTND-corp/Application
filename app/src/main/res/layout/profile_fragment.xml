@@ -10,16 +10,19 @@
                 type="uz.uzmobile.templatex.ui.profile.ProfileViewModel" />
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.profile.ProfileFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/auth_view"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:padding="@dimen/activity_horizontal_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                     android:id="@+id/title_auth_text_view"
@@ -78,6 +81,8 @@
                 android:id="@+id/list_top_divider"
                 style="@style/Divider"
                 android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/auth_view" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -85,14 +90,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/list_top_divider"
-                tools:listitem="@layout/profile_item"/>
+                tools:listitem="@layout/profile_item" />
 
         <View
                 android:id="@+id/list_bottom_divider"
                 style="@style/Divider"
                 android:layout_marginBottom="20dp"
-                app:layout_constraintTop_toBottomOf="@id/profile_recycler_view"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_recycler_view" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
