@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/sign_in_graph"
+        app:startDestination="@id/signInFragment"
+        tools:ignore="UnusedNavigation">
+    <fragment
+            android:id="@+id/signInFragment"
+            android:name="uz.uzmobile.templatex.ui.signIn.SignInFragment"
+            android:label="@string/title_sign_in">
+        <action
+                android:id="@+id/action_signInFragment_to_recoveryPasswordFragment"
+                app:destination="@id/recoveryPasswordFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/recoveryPasswordFragment"
+            android:name="uz.uzmobile.templatex.ui.recoveryPassword.RecoveryPasswordFragment"
+            android:label="@string/title_recovery" />
+
+</navigation>
