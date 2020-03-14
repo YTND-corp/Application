@@ -1,20 +1,17 @@
 package uz.uzmobile.templatex.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.MainActivityBinding
-import uz.uzmobile.templatex.viewModel.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.extension.inputMethodManager
+import uz.uzmobile.templatex.viewModel.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
