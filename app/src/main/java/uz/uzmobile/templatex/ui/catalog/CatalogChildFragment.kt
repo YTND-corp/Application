@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.databinding.CatalogChildFragmentBinding
 
@@ -12,6 +13,8 @@ class CatalogChildFragment : Fragment() {
     val viewModel: CatalogChildViewModel by viewModel()
 
     private val binding by lazy { CatalogChildFragmentBinding.inflate(layoutInflater) }
+
+    private val adapter = CatalogAdapter()
 
     companion object {
         const val POSITION= "POSITION"
@@ -38,12 +41,18 @@ class CatalogChildFragment : Fragment() {
 
         initViews()
 
+        viewModel.catalogs.observe(requireActivity(), Observer {
+            adapter.setItems(it)
+        })
     }
 
     private fun initViews() {
         binding.apply {
             viewModel = this@CatalogChildFragment.viewModel
             executePendingBindings()
+
+            catalogs.hasFixedSize()
+            catalogs.adapter = adapter
 
         }
     }
