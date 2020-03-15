@@ -110,4 +110,6 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:2.0.1"
     implementation "org.koin:koin-androidx-viewmodel:2.0.1"
     implementation "org.koin:koin-android-architecture:0.9.3"
+
+    implementation "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:1.0.1"
 }

@@ -28,7 +28,7 @@
                 android:paddingLeft="9dp"
                 android:paddingRight="9dp"
                 app:spanCount="2"
-                tools:listitem="@layout/favorite_item" />
+                tools:listitem="@layout/product_item" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/placeholder_view"

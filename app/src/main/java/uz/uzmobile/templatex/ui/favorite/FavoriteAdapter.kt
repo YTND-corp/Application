@@ -13,7 +13,7 @@ class FavoriteAdapter(private var items: ArrayList<Product>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.favorite_item, parent, false)
+        val view = inflater.inflate(R.layout.product_item, parent, false)
         return ViewHolder(view)
     }
 

@@ -1,18 +1,20 @@
 package uz.uzmobile.templatex.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.MainActivityBinding
 import uz.uzmobile.templatex.extension.inputMethodManager
-import uz.uzmobile.templatex.utils.BottomNavigationViewHelper
 import uz.uzmobile.templatex.viewModel.MainViewModel
 
 
@@ -34,11 +36,11 @@ class MainActivity : AppCompatActivity() {
 
         initViews()
 
-        navController.addOnDestinationChangedListener(viewModel.listener)
 
-        viewModel.navDestination.observe(this, Observer {
-            inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
-        })
+        navController.addOnDestinationChangedListener(viewModel.destinationChangedlistener)
+
+        KeyboardVisibilityEvent.setEventListener(this, viewModel.keyboardlistener)
+
     }
 
     fun initViews() {
@@ -59,11 +61,9 @@ class MainActivity : AppCompatActivity() {
             )
 
             toolbar.setupWithNavController(navController, appBarConfiguration)
-            BottomNavigationViewHelper.removeShiftMode(bottomNavigationView)
             bottomNavigationView.setupWithNavController(navController)
         }
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(

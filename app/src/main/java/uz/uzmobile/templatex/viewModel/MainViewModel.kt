@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import uz.uzmobile.templatex.R
 
 
@@ -46,8 +47,12 @@ class MainViewModel constructor(application: Application) : AndroidViewModel(app
         }
     }
 
-    val listener =
-        NavController.OnDestinationChangedListener { controller, destination, arguments ->
+    val destinationChangedlistener =
+        NavController.OnDestinationChangedListener { _, destination, _ ->
             navDestination.value = destination
         }
+
+    val keyboardlistener = KeyboardVisibilityEventListener { it ->
+
+    }
 }
