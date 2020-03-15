@@ -20,8 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/AppTheme.AppBarOverlay"
-                app:elevation="0dp"
                 android:visibility="@{viewModel.isToolbarVisible}"
+                app:elevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -62,89 +62,21 @@
                 app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
                 app:navGraph="@navigation/main_graph" />
 
-        <RadioGroup
+        <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation_View"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:animateLayoutChanges="false"
                 android:background="@color/bottomNavBgColor"
-                android:checkedButton="@id/selectionFragment"
-                android:orientation="horizontal"
                 android:visibility="@{viewModel.isBottomBarVisible}"
-                android:weightSum="5"
+                app:itemBackground="@drawable/bg_main_bottom_nav_item"
+                app:itemHorizontalTranslationEnabled="false"
+                app:itemIconSize="20dp"
+                app:itemIconTint="@color/bottom_navigation_tint"
+                app:itemTextColor="@color/bottom_navigation_tint"
+                app:labelVisibilityMode="labeled"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-            <RadioButton
-                    android:id="@+id/selectionFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_main_bottom_nav_item"
-                    android:button="@null"
-                    android:drawableTop="@drawable/ic_selection"
-                    android:drawableTint="@color/bottom_navigation_tint"
-                    android:gravity="center_horizontal|bottom"
-                    android:text="@string/nav_menu_item_selection"
-                    android:textColor="@color/bottom_navigation_tint"
-                    android:textSize="@dimen/text_size_tiny" />
-
-            <RadioButton
-                    android:id="@+id/catalogFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_main_bottom_nav_item"
-                    android:button="@null"
-                    android:drawableTop="@drawable/ic_catalog"
-                    android:drawableTint="@color/bottom_navigation_tint"
-                    android:gravity="center_horizontal|bottom"
-                    android:text="@string/nav_menu_item_catalog"
-                    android:textColor="@color/bottom_navigation_tint"
-                    android:textSize="@dimen/text_size_tiny" />
-
-            <RadioButton
-                    android:id="@+id/favoriteFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_main_bottom_nav_item"
-                    android:button="@null"
-                    android:drawableTop="@drawable/ic_favorite"
-                    android:drawableTint="@color/bottom_navigation_tint"
-                    android:gravity="center_horizontal|bottom"
-                    android:text="@string/nav_menu_item_favorite"
-                    android:textColor="@color/bottom_navigation_tint"
-                    android:textSize="@dimen/text_size_tiny"/>
-
-            <RadioButton
-                    android:id="@+id/profileFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_main_bottom_nav_item"
-                    android:button="@null"
-                    android:drawableTop="@drawable/ic_profile"
-                    android:drawableTint="@color/bottom_navigation_tint"
-                    android:gravity="center_horizontal|bottom"
-                    android:text="@string/nav_menu_item_profile"
-                    android:textColor="@color/bottom_navigation_tint"
-                    android:textSize="@dimen/text_size_tiny" />
-
-            <RadioButton
-                    android:id="@+id/cartFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_main_bottom_nav_item"
-                    android:button="@null"
-                    android:drawableTop="@drawable/ic_cart"
-                    android:drawableTint="@color/bottom_navigation_tint"
-                    android:gravity="center_horizontal|bottom"
-                    android:text="@string/nav_menu_item_favorite"
-                    android:textColor="@color/bottom_navigation_tint"
-                    android:textSize="@dimen/text_size_tiny" />
-        </RadioGroup>
+                app:menu="@menu/main_activity_bottom_bar" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

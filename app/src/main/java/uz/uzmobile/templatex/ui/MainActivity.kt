@@ -6,11 +6,13 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.MainActivityBinding
 import uz.uzmobile.templatex.extension.inputMethodManager
+import uz.uzmobile.templatex.utils.BottomNavigationViewHelper
 import uz.uzmobile.templatex.viewModel.MainViewModel
 
 
@@ -57,10 +59,8 @@ class MainActivity : AppCompatActivity() {
             )
 
             toolbar.setupWithNavController(navController, appBarConfiguration)
-
-            bottomNavigationView.setOnCheckedChangeListener { group, id ->
-                navController.navigate(id)
-            }
+            BottomNavigationViewHelper.removeShiftMode(bottomNavigationView)
+            bottomNavigationView.setupWithNavController(navController)
         }
     }
 

@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.CatalogFragmentBinding
+import uz.uzmobile.templatex.utils.BottomNavigationViewHelper
 
 class CatalogFragment : Fragment() {
 
@@ -33,12 +34,14 @@ class CatalogFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+
     }
 
     private fun initViews() {
         binding.apply {
             viewModel = this@CatalogFragment.viewModel
             executePendingBindings()
+
         }
     }
 }

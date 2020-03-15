@@ -3,7 +3,6 @@
     <item android:gravity="top">
         <shape android:shape="rectangle">
             <size android:height="1.5dp" />
-            <padding android:top="7dp"  android:bottom="2dp"/>
             <solid android:color="@color/bottom_navigation_indicatior" />
         </shape>
     </item>
