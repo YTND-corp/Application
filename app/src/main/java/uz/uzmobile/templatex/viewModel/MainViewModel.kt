@@ -29,6 +29,7 @@ class MainViewModel constructor(application: Application) : AndroidViewModel(app
 
     var isToolbarVisible: LiveData<Boolean> = Transformations.map(navDestination) {
         when (it.id) {
+            R.id.catalogFragment,
             R.id.favoriteFragment -> false
             else -> true
         }

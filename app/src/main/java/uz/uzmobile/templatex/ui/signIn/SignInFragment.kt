@@ -7,14 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.fragment.findNavController
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.SignInFragmentBinding
 
 class SignInFragment : Fragment() {
 
-    val viewModel: SignInViewModel by viewModels()
+    val viewModel: SignInViewModel by viewModel()
 
     private val binding by lazy { SignInFragmentBinding.inflate(layoutInflater) }
 

@@ -5,13 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 import uz.uzmobile.templatex.databinding.RecoveryPasswordFragmentBinding
 
 class RecoveryPasswordFragment : Fragment() {
 
-    val viewModel: RecoveryPasswordViewModel by viewModels()
+    val viewModel: RecoveryPasswordViewModel by viewModel()
 
     private val binding by lazy { RecoveryPasswordFragmentBinding.inflate(layoutInflater) }
 

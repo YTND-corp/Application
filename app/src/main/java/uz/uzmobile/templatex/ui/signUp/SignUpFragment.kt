@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.databinding.SignUpFragmentBinding
 
 
 class SignUpFragment : Fragment() {
 
-    val viewModel: SignUpViewModel by viewModels()
+    val viewModel: SignUpViewModel by viewModel()
 
     private val binding by lazy { SignUpFragmentBinding.inflate(layoutInflater) }
 

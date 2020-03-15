@@ -5,11 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.CatalogFragmentBinding
-import uz.uzmobile.templatex.utils.BottomNavigationViewHelper
 
 class CatalogFragment : Fragment() {
 
@@ -41,6 +39,13 @@ class CatalogFragment : Fragment() {
         binding.apply {
             viewModel = this@CatalogFragment.viewModel
             executePendingBindings()
+
+            pager.adapter = CatalogPagerAdapter(
+                childFragmentManager,
+                resources.getStringArray(R.array.catalog_tab_names)
+            )
+
+            tabs.setupWithViewPager(pager)
 
         }
     }

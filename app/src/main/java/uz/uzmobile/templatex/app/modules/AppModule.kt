@@ -26,6 +26,7 @@ import uz.uzmobile.templatex.model.remote.network.AuthInterceptor
 import uz.uzmobile.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.uzmobile.templatex.model.remote.network.NetworkInterceptor
 import uz.uzmobile.templatex.ui.cart.CartViewModel
+import uz.uzmobile.templatex.ui.catalog.CatalogChildViewModel
 import uz.uzmobile.templatex.ui.catalog.CatalogViewModel
 import uz.uzmobile.templatex.ui.favorite.FavoriteViewModel
 import uz.uzmobile.templatex.ui.profile.ProfileViewModel
@@ -49,9 +50,12 @@ val viewModelModule = module {
     viewModel { FavoriteViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { CartViewModel(get()) }
+
     viewModel { SignUpViewModel(get()) }
     viewModel { SignInViewModel(get()) }
     viewModel { RecoveryPasswordViewModel(get()) }
+
+    viewModel { CatalogChildViewModel(get()) }
 }
 
 val prefsModule = module {

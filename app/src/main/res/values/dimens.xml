@@ -21,4 +21,5 @@
     <dimen name="text_size_big">21sp</dimen>
 
     <dimen name="button_height">37dp</dimen>
+
 </resources>
