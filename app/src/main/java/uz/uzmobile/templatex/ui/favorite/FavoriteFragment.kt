@@ -52,8 +52,8 @@ class FavoriteFragment: Fragment() {
             executePendingBindings()
 
             adapter = FavoriteAdapter(arrayListOf())
-            favoriteRecyclerView.hasFixedSize()
-            favoriteRecyclerView.adapter = adapter
+            favorites.hasFixedSize()
+            favorites.adapter = adapter
         }
     }
 }

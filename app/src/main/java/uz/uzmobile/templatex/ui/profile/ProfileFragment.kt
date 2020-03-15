@@ -62,8 +62,8 @@ class ProfileFragment : Fragment() {
             executePendingBindings()
 
             adapter = ProfileAdapter(getItems())
-            profileRecyclerView.hasFixedSize()
-            profileRecyclerView.adapter = adapter
+            profiles.hasFixedSize()
+            profiles.adapter = adapter
 
             signInButton.setOnClickListener {
                 findNavController().navigate(R.id.action_global_sign_in_graph)

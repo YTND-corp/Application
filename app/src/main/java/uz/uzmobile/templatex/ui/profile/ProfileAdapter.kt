@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.profile_item.view.*
 import uz.uzmobile.templatex.R
-import uz.uzmobile.templatex.databinding.ProfileItemBinding
 import uz.uzmobile.templatex.model.local.entity.ProfileItem
 
 class ProfileAdapter(private val items: List<ProfileItem>) :
@@ -24,8 +23,8 @@ class ProfileAdapter(private val items: List<ProfileItem>) :
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: ProfileItem) {
-            itemView.profile_item_text.text = item.text
-            itemView.profile_item_image.setImageDrawable(item.image)
+            itemView.text.text = item.text
+            itemView.image.setImageDrawable(item.image)
             if (item.id == items.last().id) itemView.profile_item_divider.visibility = View.GONE
         }
     }

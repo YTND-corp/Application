@@ -12,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.CartFragmentBinding
 
-class CartFragment: Fragment() {
+class CartFragment : Fragment() {
 
     val viewModel: CartViewModel by viewModel()
 
@@ -22,7 +22,11 @@ class CartFragment: Fragment() {
         fun newInstance() = CartFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding.lifecycleOwner = this@CartFragment
         return binding.root
     }
