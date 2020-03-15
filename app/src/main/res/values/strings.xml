@@ -78,4 +78,5 @@
     <string name="favorite_placeholder_message">Вы пока ничего не добавили в избранное</string>
 
     <!--Catalog-->
+    <string name="hint_catalog_search">Поиск вещей и  брендов</string>
 </resources>
