@@ -23,6 +23,8 @@
     <!--Bottom Navigation-->
     <color name="bottomNavBgColor">#F9F9F9</color>
 
+    <color name="searchFieldBg">#1f767680</color>
+
     <!--App colors-->
     <color name="errorColor">#FF9500</color>
     <color name="successColor">#34C759</color>

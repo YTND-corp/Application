@@ -199,5 +199,14 @@
         <item name="android:lineSpacingExtra">-1sp</item>
     </style>
 
+    <style name="SearchFieldStyle" parent="Regular">
+        <item name="android:textSize">@dimen/text_size_smaller</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/focusedHintTextColor</item>
+        <item name="android:textColorHint">@color/unfocusedHintTextColor</item>
+        <item name="android:lineSpacingExtra">-1sp</item>
+        <item name="android:background">@drawable/bg_search_field</item>
+    </style>
+
 
 </resources>

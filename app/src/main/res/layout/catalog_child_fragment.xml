@@ -15,12 +15,25 @@
             android:layout_height="match_parent"
             tools:context=".ui.catalog.CatalogChildFragment">
 
+        <EditText
+                android:id="@+id/search_edit_text"
+                style="@style/SearchFieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="14dp"
+                android:hint="􀊫 Поиск вещей и  брендов"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/refresher"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_edit_text">
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/catalogs"
