@@ -15,6 +15,7 @@
         <item name="colorControlActivated">@color/colorEditTextBottomLine</item>
         <item name="colorControlHighlight">@color/colorEditTextBottomLine</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="toolbarNavigationButtonStyle">@style/toolbarButtonStyle</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColor">@color/primaryTextColor</item>
@@ -27,11 +28,14 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">@android:color/transparent</item>
-        <item name="colorControlNormal">#212121</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="android:navigationIcon">@drawable/ic_back</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@android:color/transparent</item>
+        <item name="android:navigationIcon">@drawable/ic_back</item>
     </style>
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
@@ -59,6 +63,12 @@
         <item name="color">@color/colorAccent</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
         <item name="android:navigationIcon">@drawable/ic_back</item>
+        <item name="android:src">@drawable/ic_back</item>
+    </style>
+
+    <style name="toolbarButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:icon">@drawable/ic_back</item>
+        <item name="android:scaleType">centerInside</item>
     </style>
 
     <style name="CircularProgress">
@@ -105,7 +115,7 @@
     </style>
 
     <style name="ContainedButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
-        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">@dimen/text_size_big</item>
         <item name="android:textColor">@color/compound_button_text_selector</item>
@@ -120,7 +130,7 @@
     </style>
 
     <style name="OutlinedButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
-        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:textColor">@color/outlined_button_text_color</item>
@@ -133,7 +143,7 @@
     </style>
 
     <style name="TextButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
-        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:textColor">@color/outlined_button_text_color</item>

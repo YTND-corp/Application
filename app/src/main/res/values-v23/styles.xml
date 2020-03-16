@@ -5,25 +5,26 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">@color/windowBackgroundColor</item>
-        <item name="buttonStyle">@style/ContainedButtonStyle</item>
-        <item name="android:textColorPrimary">@color/primaryTextColor</item>
-        <item name="android:textColorHint">@color/unfocusedHintTextColor</item>
-        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
-        <item name="android:fontFamily">@font/regular</item>
-        <item name="colorControlNormal">@color/colorEditTextBottomLine</item>
-        <item name="colorControlActivated">@color/colorEditTextBottomLine</item>
-        <item name="colorControlHighlight">@color/colorEditTextBottomLine</item>
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:textColor">@color/primaryTextColor</item>
-    </style>
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+<!--        <item name="android:windowLightStatusBar">true</item>-->
+<!--        <item name="android:windowBackground">@color/windowBackgroundColor</item>-->
+<!--        <item name="buttonStyle">@style/ContainedButtonStyle</item>-->
+<!--        <item name="android:textColorPrimary">@color/primaryTextColor</item>-->
+<!--        <item name="android:textColorHint">@color/unfocusedHintTextColor</item>-->
+<!--        <item name="android:textColorSecondary">@color/secondaryTextColor</item>-->
+<!--        <item name="android:fontFamily">@font/regular</item>-->
+<!--        <item name="colorControlNormal">@color/colorEditTextBottomLine</item>-->
+<!--        <item name="colorControlActivated">@color/colorEditTextBottomLine</item>-->
+<!--        <item name="colorControlHighlight">@color/colorEditTextBottomLine</item>-->
+<!--        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>-->
+<!--        <item name="toolbarNavigationButtonStyle">@style/toolbarButtonStyle</item>-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+<!--        <item name="android:textColor">@color/primaryTextColor</item>-->
+<!--    </style>-->
 </resources>

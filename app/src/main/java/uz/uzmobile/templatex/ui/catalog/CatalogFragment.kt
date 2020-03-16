@@ -32,7 +32,6 @@ class CatalogFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-
     }
 
     private fun initViews() {

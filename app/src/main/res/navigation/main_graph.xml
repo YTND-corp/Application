@@ -11,23 +11,23 @@
     <fragment
             android:id="@+id/selectionFragment"
             android:name="uz.uzmobile.templatex.ui.selection.SelectionFragment"
-            android:label="SelectionFragment" />
+            android:label="" />
     <fragment
             android:id="@+id/catalogFragment"
             android:name="uz.uzmobile.templatex.ui.catalog.CatalogFragment"
-            android:label="CatalogFragment" />
+            android:label="" />
     <fragment
             android:id="@+id/favoriteFragment"
             android:name="uz.uzmobile.templatex.ui.favorite.FavoriteFragment"
-            android:label="FavoriteFragment" />
+            android:label="" />
     <fragment
             android:id="@+id/profileFragment"
             android:name="uz.uzmobile.templatex.ui.profile.ProfileFragment"
-            android:label="ProfileFragment" />
+            android:label="" />
     <fragment
             android:id="@+id/cartFragment"
             android:name="uz.uzmobile.templatex.ui.cart.CartFragment"
-            android:label="CartFragment" />
+            android:label="" />
 
     <action
             android:id="@+id/action_global_sign_up_graph"

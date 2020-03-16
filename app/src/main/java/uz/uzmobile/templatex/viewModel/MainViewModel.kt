@@ -1,58 +1,58 @@
 package uz.uzmobile.templatex.viewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import uz.uzmobile.templatex.R
+import uz.uzmobile.templatex.utils.DestinationHelper
 
 
 class MainViewModel constructor(application: Application) : AndroidViewModel(application) {
 
-    val navDestination = MutableLiveData<NavDestination>()
+    private val destination = MutableLiveData<NavDestination>()
 
-    var title: LiveData<String> = Transformations.map(navDestination) { it.label.toString() }
+    var title: LiveData<String> = Transformations.map(destination) { it.label.toString() }
 
-    var isTitleVisible: LiveData<Boolean> = Transformations.map(navDestination) {
-        when (it.id) {
-            R.id.selectionFragment,
-            R.id.catalogFragment,
-            R.id.favoriteFragment,
-            R.id.profileFragment,
-            R.id.cartFragment -> false
-            else -> true
+    var isToolbarVisible = MutableLiveData<Boolean>()
+
+    var isLogoVisible = MutableLiveData<Boolean>()
+
+    var hasBackButton = MutableLiveData<Boolean>()
+
+    var hasBottomBar = MutableLiveData<Boolean>()
+
+    var isBottomBarVisible = MediatorLiveData<Boolean>()
+
+    var isKeyboardVisible = MutableLiveData<Boolean>()
+
+    fun destinationChanged(destination: NavDestination) {
+        this.destination.value = destination
+
+        val c = DestinationHelper.getConfig(destination)
+        this.isToolbarVisible.value = c.toolbar
+        this.hasBackButton.value = c.back
+        this.hasBottomBar.value = c.bottomBar
+        this.isLogoVisible.value = c.logo
+    }
+
+    fun keyboardVisibilityChanged(isVisible: Boolean) {
+        isKeyboardVisible.value = isVisible
+    }
+
+    init {
+        isBottomBarVisible.addSource(hasBottomBar) {
+            checkBottombar()
+        }
+
+        isBottomBarVisible.addSource(isKeyboardVisible) {
+            checkBottombar()
         }
     }
 
-    var isToolbarVisible: LiveData<Boolean> = Transformations.map(navDestination) {
-        when (it.id) {
-            R.id.catalogFragment,
-            R.id.favoriteFragment -> false
-            else -> true
-        }
-    }
-
-    var isBottomBarVisible: LiveData<Boolean> = Transformations.map(navDestination) {
-        when (it.id) {
-            R.id.selectionFragment,
-            R.id.catalogFragment,
-            R.id.favoriteFragment,
-            R.id.profileFragment,
-            R.id.cartFragment -> true
-            else -> false
-        }
-    }
-
-    val destinationChangedlistener =
-        NavController.OnDestinationChangedListener { _, destination, _ ->
-            navDestination.value = destination
-        }
-
-    val keyboardlistener = KeyboardVisibilityEventListener { it ->
-
+    fun checkBottombar() {
+        isBottomBarVisible.value = if (isKeyboardVisible.value == true) false
+        else hasBottomBar.value == true
     }
 }
