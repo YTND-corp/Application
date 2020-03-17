@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
-    <data >
-        <variable name="viewModel" type="uz.uzmobile.templatex.ui.selection.SelectionViewModel"/>
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.uzmobile.templatex.ui.selection.SelectionViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,10 +16,31 @@
             android:layout_height="match_parent"
             tools:context=".ui.selection.SelectionFragment">
 
-        <TextView
+
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="SelectionFragment" />
+                android:layout_height="30dp"
+                android:animateLayoutChanges="false"
+                android:animationCache="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:tabIndicatorGravity="bottom"
+                app:tabInlineLabel="true"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/primaryTextColor"
+                app:tabTextAppearance="@style/CatalogTabTextStyle"
+                app:tabTextColor="@color/secondaryTextColor" />
+
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tabs" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

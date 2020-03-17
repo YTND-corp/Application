@@ -48,6 +48,7 @@
 
     <!-- Menus   -->
     <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
 
 
     <string name="hint_phone">Номер телефона</string>
@@ -79,4 +80,8 @@
 
     <!--Catalog-->
     <string name="hint_catalog_search">Поиск вещей и  брендов</string>
+
+    <!--  Selection  -->
+    <string name="selection_placeholder_title">Раздел наполняется и скоро будет \nдоступен для просмотра</string>
+    <string name="selection_placeholder_message">С УВАЖЕНИЕМ MOD LLC</string>
 </resources>

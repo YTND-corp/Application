@@ -1,10 +1,8 @@
 package uz.uzmobile.templatex.ui.selection
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
@@ -22,7 +20,19 @@ class SelectionFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+        setHasOptionsMenu(true);
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.selection_fragment, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.searchFragment -> true;
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,6 +53,13 @@ class SelectionFragment: Fragment() {
         binding.apply {
             viewModel = this@SelectionFragment.viewModel
             executePendingBindings()
+
+            pager.adapter = SelectionPagerAdapter(
+                childFragmentManager,
+                resources.getStringArray(R.array.catalog_tab_names)
+            )
+
+            tabs.setupWithViewPager(pager)
         }
     }
 }

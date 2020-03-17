@@ -31,6 +31,7 @@ import uz.uzmobile.templatex.ui.catalog.CatalogViewModel
 import uz.uzmobile.templatex.ui.favorite.FavoriteViewModel
 import uz.uzmobile.templatex.ui.profile.ProfileViewModel
 import uz.uzmobile.templatex.ui.recoveryPassword.RecoveryPasswordViewModel
+import uz.uzmobile.templatex.ui.selection.SelectionChildViewModel
 import uz.uzmobile.templatex.ui.selection.SelectionViewModel
 import uz.uzmobile.templatex.ui.signIn.SignInViewModel
 import uz.uzmobile.templatex.ui.signUp.SignUpViewModel
@@ -55,6 +56,7 @@ val viewModelModule = module {
     viewModel { SignInViewModel(get()) }
     viewModel { RecoveryPasswordViewModel(get()) }
 
+    viewModel { SelectionChildViewModel(get()) }
     viewModel { CatalogChildViewModel(get()) }
 }
 
