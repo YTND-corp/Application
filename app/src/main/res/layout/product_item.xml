@@ -13,10 +13,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:paddingBottom="10dp"
-            android:background="?selectableItemBackground">
+            android:paddingBottom="10dp">
 
         <ImageView
                 android:id="@+id/image"
@@ -27,43 +27,46 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="18dp"
                 android:button="@drawable/ic_like"
                 android:text=""
                 app:layout_constraintEnd_toEndOf="@id/image"
-                app:layout_constraintTop_toTopOf="@id/image"
-                android:layout_margin="18dp"/>
+                app:layout_constraintTop_toTopOf="@id/image" />
 
         <TextView
                 android:id="@+id/title"
+                style="@style/SemiBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                style="@style/SemiBold"
-                android:text="Massimo Dutti"
                 android:maxLines="1"
+                android:text="Massimo Dutti"
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintTop_toBottomOf="@id/image"/>
+                app:layout_constraintTop_toBottomOf="@id/image" />
+
         <TextView
                 android:id="@+id/subtitle"
+                style="@style/Regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Regular"
                 android:maxLines="1"
                 android:text="СВИТЕР - ТУНИКА ИЗ ШЕРСТИ И.."
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintTop_toBottomOf="@id/title"/>
+                app:layout_constraintTop_toBottomOf="@id/title" />
+
         <TextView
                 android:id="@+id/price"
+                style="@style/Regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Regular"
-                android:text="769 000,00 so’m"
                 android:maxLines="1"
+                android:text="769 000,00 so’m"
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintTop_toBottomOf="@id/subtitle"/>
+                app:layout_constraintTop_toBottomOf="@id/subtitle" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

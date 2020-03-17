@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
                 name="viewModel"
                 type="uz.uzmobile.templatex.ui.selection.SelectionChildViewModel" />
@@ -32,8 +33,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/placeholder_view"
                 android:layout_width="match_parent"
-                android:background="@color/windowBackgroundColor"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/windowBackgroundColor">
 
             <TextView
                     android:id="@+id/placeholder_title_text_view"

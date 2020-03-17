@@ -14,12 +14,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.favorite.FavoriteFragment">
+
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/placeholder_view"
                 android:layout_width="match_parent"
-                android:visibility="gone"
+                android:layout_height="match_parent"
                 android:background="@color/windowBackgroundColor"
-                android:layout_height="match_parent">
+                android:visibility="gone">
 
             <TextView
                     android:id="@+id/placeholder_title_text_view"
@@ -65,14 +66,14 @@
                 android:id="@+id/favorites"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:paddingLeft="9dp"
+                android:paddingTop="10dp"
+                android:paddingRight="9dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:paddingTop="10dp"
-                android:paddingLeft="9dp"
-                android:paddingRight="9dp"
                 app:spanCount="2"
                 tools:listitem="@layout/product_item" />
 

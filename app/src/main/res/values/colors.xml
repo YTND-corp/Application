@@ -12,19 +12,17 @@
     <color name="unfocusedHintTextColor">#993C3C43</color>
     <color name="focusedHintTextColor">@color/colorAccent</color>
 
-
     <color name="colorEditTextBottomLine">#707070</color>
-    <color name="dividerLineColor">#C8C7CC</color>
 
     <!--Button-->
     <color name="primaryEnabledBtnBgColor">@color/colorAccent</color>
     <color name="primaryDisabledBtnBgColor">#BF212121</color>
 
+    <color name="searchFieldBg">#1f767680</color>
+    <color name="dividerLineColor">#C8C7CC</color>
+
     <!--Bottom Navigation-->
     <color name="bottomNavBgColor">#F9F9F9</color>
-
-    <color name="searchFieldBg">#1f767680</color>
-
     <!--App colors-->
     <color name="errorColor">#FF9500</color>
     <color name="successColor">#34C759</color>

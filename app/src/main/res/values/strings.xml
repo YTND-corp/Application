@@ -30,14 +30,12 @@
     <string name="rationale_gallery">Нужен доступ к галерее</string>
     <string name="rationale_location">Нужен доступ к вашему местоположению</string>
 
-
     <string name="menu_about_app">About App</string>
 
     <!-- Page Titles -->
     <string name="title_sign_in">Войти</string>
     <string name="title_sign_up">Регистрация</string>
     <string name="title_recovery">Восстановить пароль</string>
-
 
     <!--Bottom Menu -->
     <string name="nav_menu_item_selection">Подборка</string>
@@ -50,7 +48,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
 
-
+    <!-- Sign Up -->
     <string name="hint_phone">Номер телефона</string>
     <string name="hint_name">Имя</string>
     <string name="hint_surname">Фамилия</string>
@@ -65,7 +63,6 @@
     <!--Profile-->
     <string name="auth_view_title">Привилегии</string>
     <string name="auth_view_message">Увеличивайте персональную скидку, сохраняйте\nизбранное, получайте персональные рекомендации.</string>
-
     <string name="profile_country">Uzbeksitan</string>
     <string name="profile_check_status_order">Проверить статус заказа</string>
     <string name="profile_ask_question">Задать нам вопрос</string>

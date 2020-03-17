@@ -4,6 +4,6 @@
     <item
             android:id="@+id/settingsFragment"
             android:icon="@drawable/ic_settings"
-            app:showAsAction="always"
-            android:title="@string/action_settings"/>
+            android:title="@string/action_settings"
+            app:showAsAction="always" />
 </menu>

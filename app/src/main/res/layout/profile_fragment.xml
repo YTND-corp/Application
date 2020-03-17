@@ -57,8 +57,8 @@
                     android:layout_marginEnd="8dp"
                     android:text="@string/action_sign_in"
                     android:textSize="@dimen/text_size_small"
-                    app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintEnd_toStartOf="@id/sign_up_button"
+                    app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/message_auth_text_view"
                     app:layout_constraintVertical_chainStyle="spread" />
@@ -72,8 +72,8 @@
                     android:layout_marginEnd="0dp"
                     android:text="@string/action_sign_up"
                     android:textSize="@dimen/text_size_small"
-                    app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toEndOf="@id/sign_in_button"
                     app:layout_constraintTop_toBottomOf="@id/message_auth_text_view"
                     app:layout_constraintVertical_chainStyle="spread" />

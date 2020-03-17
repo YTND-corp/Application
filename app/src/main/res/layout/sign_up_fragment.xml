@@ -68,9 +68,9 @@
                             android:id="@+id/et_name"
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
-                            android:imeOptions="actionNext"
-
                             android:layout_height="wrap_content"
+
+                            android:imeOptions="actionNext"
                             android:inputType="textPersonName" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -124,8 +124,8 @@
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
                             android:imeOptions="actionNext"
+                            android:inputType="text"
                             tools:text="Rontgenstrasse 30" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,9 +142,9 @@
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="15"
-                            android:inputType="textPassword"
                             android:imeOptions="actionNext"
+                            android:inputType="textPassword"
+                            android:maxLength="15"
                             tools:text="Rontgenstrasse 30" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,13 +152,12 @@
                         android:id="@+id/password_toggle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
                         android:background="@color/windowBackgroundColor"
                         android:button="@drawable/bg_password_toggle"
-                        app:layout_constraintTop_toTopOf="@id/til_password"
                         app:layout_constraintBottom_toBottomOf="@id/til_password"
                         app:layout_constraintEnd_toEndOf="@id/til_password"
-                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                        />
+                        app:layout_constraintTop_toTopOf="@id/til_password" />
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_repeat_password"
@@ -173,9 +172,9 @@
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
                             android:inputType="textPassword"
                             android:maxLength="15"
-                            android:imeOptions="actionDone"
                             tools:text="Rontgenstrasse 30" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -183,13 +182,12 @@
                         android:id="@+id/repeat_password_toggle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/bg_password_toggle"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
                         android:background="@color/windowBackgroundColor"
-                        app:layout_constraintTop_toTopOf="@id/til_repeat_password"
+                        android:button="@drawable/bg_password_toggle"
                         app:layout_constraintBottom_toBottomOf="@id/til_repeat_password"
                         app:layout_constraintEnd_toEndOf="@id/til_repeat_password"
-                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                        />
+                        app:layout_constraintTop_toTopOf="@id/til_repeat_password" />
 
                 <Space
                         android:id="@+id/empty_space"

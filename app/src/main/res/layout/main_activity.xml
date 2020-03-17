@@ -20,8 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/AppTheme.AppBarOverlay"
-                app:elevation="0dp"
                 android:visibility="@{viewModel.isToolbarVisible}"
+                app:elevation="0dp"
                 app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
@@ -37,10 +37,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:visibility="@{viewModel.isToolbarVisible}"
-                app:layout_constraintTop_toTopOf="@id/app_bar_layout"
                 app:layout_constraintBottom_toBottomOf="@id/app_bar_layout"
-                android:layout_gravity="center">
+                app:layout_constraintTop_toTopOf="@id/app_bar_layout">
 
             <ImageView
                     android:id="@+id/logo"
@@ -84,6 +84,7 @@
                 android:layout_gravity="bottom"
                 android:animateLayoutChanges="false"
                 android:background="@color/bottomNavBgColor"
+                android:visibility="@{viewModel.isBottomBarVisible}"
                 app:itemBackground="@drawable/bg_main_bottom_nav_item"
                 app:itemHorizontalTranslationEnabled="false"
                 app:itemIconSize="20dp"
@@ -91,7 +92,6 @@
                 app:itemTextColor="@color/bottom_navigation_tint"
                 app:labelVisibilityMode="labeled"
                 app:layout_anchorGravity="bottom"
-                android:visibility="@{viewModel.isBottomBarVisible}"
                 app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:menu="@menu/main_activity_bottom_bar" />
