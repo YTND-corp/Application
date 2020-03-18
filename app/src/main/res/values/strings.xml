@@ -63,11 +63,10 @@
     <!--Profile-->
     <string name="auth_view_title">Привилегии</string>
     <string name="auth_view_message">Увеличивайте персональную скидку, сохраняйте\nизбранное, получайте персональные рекомендации.</string>
-    <string name="profile_country">Uzbeksitan</string>
     <string name="profile_check_status_order">Проверить статус заказа</string>
     <string name="profile_ask_question">Задать нам вопрос</string>
     <string name="profile_call_us">Позвоните нам</string>
-    <string name="profile_call_you">Позвонить Вам</string>
+    <string name="profile_call_me">Позвонить Вам</string>
     <string name="profile_call_support_center">Центр поддержки MOD</string>
     <string name="profile_about_app">О MOD</string>
 

@@ -16,14 +16,6 @@
             android:background="@color/windowBackgroundColor"
             tools:context=".ui.signUp.SignUpFragment">
 
-        <View
-                android:id="@+id/toolbar_bottom_divider"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:background="@color/dividerLineColor"
-                app:layout_constraintTop_toTopOf="parent" />
-
         <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -31,7 +23,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar_bottom_divider">
+                app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -41,16 +33,17 @@
                         android:id="@+id/til_email"
                         style="@style/TextInputLayoutAppearance"
                         android:hint="@string/hint_email"
+                        android:layout_marginTop="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_email"
-                            style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:imeOptions="actionNext"
+                            android:gravity="center_vertical"
+                            style="@style/TextInputEditText"
                             android:inputType="textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -59,6 +52,7 @@
                         android:id="@+id/til_password"
                         style="@style/TextInputLayoutAppearance"
                         android:hint="@string/hint_password"
+                        android:layout_marginTop="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/til_email">
@@ -88,7 +82,7 @@
                         android:id="@+id/continue_button"
                         style="@style/ContainedButtonStyle"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="25dp"
                         android:text="@string/action_continue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +93,7 @@
                         android:id="@+id/forgot_password_button"
                         style="@style/TextButtonStyle"
                         android:layout_width="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="38dp"
                         android:background="?selectableItemBackground"
                         android:drawableStart="@drawable/ic_unlock"
                         android:drawablePadding="8dp"

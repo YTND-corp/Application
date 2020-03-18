@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Bridge">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,9 +11,6 @@
         <item name="android:textColorHint">@color/unfocusedHintTextColor</item>
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
         <item name="android:fontFamily">@font/regular</item>
-        <item name="colorControlNormal">@color/colorEditTextBottomLine</item>
-        <item name="colorControlActivated">@color/colorEditTextBottomLine</item>
-        <item name="colorControlHighlight">@color/colorEditTextBottomLine</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColor">@color/primaryTextColor</item>
@@ -139,23 +136,35 @@
     <style name="TextInputEditText" parent="Widget.AppCompat.EditText">
         <item name="android:textSize">@dimen/text_size_big</item>
         <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:textColorHint">@color/focusedHintTextColor</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:maxLines">1</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:background">@drawable/bg_edit_text</item>
         <item name="android:fontFamily">@font/regular</item>
         <item name="android:textStyle">normal</item>
         <item name="android:singleLine">true</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
 
-    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+
+    <style name="TextInputLayoutAppearance" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxBackgroundColor">@color/transparentColor</item>
+        <item name="hintEnabled">true</item>
+        <item name="hintAnimationEnabled">true</item>
+        <item name="android:textColorHint">@color/secondaryTextColor</item>
+        <item name="hintTextColor">@color/primaryTextColor</item>
         <item name="hintTextAppearance">@style/HintText</item>
         <item name="errorTextAppearance">@style/ErrorText</item>
         <item name="helperTextTextAppearance">@style/HelperText</item>
+        <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
-        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin</item>
     </style>
 
     <style name="ErrorText" parent="TextAppearance.Design.Error">
@@ -201,5 +210,17 @@
         <item name="android:drawableStart">@drawable/ic_search</item>
         <item name="android:drawableTint">@color/unfocusedHintTextColor</item>
         <item name="android:drawablePadding">4dp</item>
+    </style>
+
+    <style name="ProfileTextStyle" parent="Regular">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">7.5dp</item>
+        <item name="android:paddingBottom">12.5dp</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingEnd">@dimen/activity_horizontal_margin</item>
+        <item name="android:background">@drawable/bg_profile_text_view</item>
     </style>
 </resources>

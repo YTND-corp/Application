@@ -12,14 +12,14 @@
     <color name="unfocusedHintTextColor">#993C3C43</color>
     <color name="focusedHintTextColor">@color/colorAccent</color>
 
-    <color name="colorEditTextBottomLine">#707070</color>
+    <color name="colorEditTextBottomLine">#F2F2F7</color>
 
     <!--Button-->
     <color name="primaryEnabledBtnBgColor">@color/colorAccent</color>
     <color name="primaryDisabledBtnBgColor">#BF212121</color>
 
     <color name="searchFieldBg">#1f767680</color>
-    <color name="dividerLineColor">#C8C7CC</color>
+    <color name="dividerLineColor">#EFEFF4</color>
 
     <!--Bottom Navigation-->
     <color name="bottomNavBgColor">#F9F9F9</color>

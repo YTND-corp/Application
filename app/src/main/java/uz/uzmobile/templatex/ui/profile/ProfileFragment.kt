@@ -18,8 +18,6 @@ class ProfileFragment : Fragment() {
 
     private val binding by lazy { ProfileFragmentBinding.inflate(layoutInflater) }
 
-    private lateinit var adapter: ProfileAdapter
-
     companion object {
         fun newInstance() = ProfileFragment()
     }
@@ -61,29 +59,13 @@ class ProfileFragment : Fragment() {
             viewModel = this@ProfileFragment.viewModel
             executePendingBindings()
 
-            adapter = ProfileAdapter(getItems())
-            profiles.hasFixedSize()
-            profiles.adapter = adapter
-
-            signInButton.setOnClickListener {
+            signIn.setOnClickListener {
                 findNavController().navigate(R.id.action_global_sign_in_graph)
             }
 
-            signUpButton.setOnClickListener {
+            signUp.setOnClickListener {
                 findNavController().navigate(R.id.action_global_sign_up_graph)
             }
         }
-    }
-
-    private fun getItems(): ArrayList<ProfileItem> {
-        val list = ArrayList<ProfileItem>()
-        list.add(ProfileItem(0, context?.drawable(R.drawable.ic_country), context?.getString(R.string.profile_country)))
-        list.add(ProfileItem(1, context?.drawable(R.drawable.ic_check_order_status), context?.getString(R.string.profile_check_status_order)))
-        list.add(ProfileItem(2, context?.drawable(R.drawable.ic_message), context?.getString(R.string.profile_ask_question)))
-        list.add(ProfileItem(3, context?.drawable(R.drawable.ic_call), context?.getString(R.string.profile_call_us)))
-        list.add(ProfileItem(4, context?.drawable(R.drawable.ic_recive_call), context?.getString(R.string.profile_call_you)))
-        list.add(ProfileItem(5, context?.drawable(R.drawable.ic_support), context?.getString(R.string.profile_call_support_center)))
-        list.add(ProfileItem(6, context?.drawable(R.drawable.ic_about_app), context?.getString(R.string.profile_about_app)))
-        return list
     }
 }
