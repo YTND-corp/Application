@@ -15,6 +15,7 @@
     <string name="action_update">Обновить</string>
     <string name="action_yes">Да</string>
     <string name="action_no">Нет</string>
+    <string name="action_call">Позвонить</string>
 
     <string name="action_start_shopping">Начать покупки</string>
     <string name="action_forgot_password">Забыли пароль?</string>
@@ -36,6 +37,15 @@
     <string name="title_sign_in">Войти</string>
     <string name="title_sign_up">Регистрация</string>
     <string name="title_recovery">Восстановить пароль</string>
+    <string name="title_products">ВЕРХНЯЯ ОДЕЖДА</string>
+    <string name="title_filter">Фильтры</string>
+    <string name="title_choose_country">Выберите страну</string>
+    <string name="title_check_order_status">Проверить статус заказа</string>
+    <string name="title_call_me">Заказать звонок</string>
+    <string name="title_ask_question">Задать нам вопрос</string>
+    <string name="title_support">Служба поддержки</string>
+    <string name="title_about">Наши контакты</string>
+    <string name="title_checkout">Оформления заказа</string>
 
     <!--Bottom Menu -->
     <string name="nav_menu_item_selection">Подборка</string>
@@ -47,6 +57,7 @@
     <!-- Menus   -->
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
+    <string name="action_share">Share</string>
 
     <!-- Sign Up -->
     <string name="hint_phone">Номер телефона</string>
@@ -80,4 +91,13 @@
     <!--  Selection  -->
     <string name="selection_placeholder_title">Раздел наполняется и скоро будет \nдоступен для просмотра</string>
     <string name="selection_placeholder_message">С УВАЖЕНИЕМ MOD LLC</string>
+
+    <!--  Call Me  -->
+    <string name="call_me_subtitle">Оставьте нам свой номер телефона и мы \nперезвоним Вам в течение 5-ты минут</string>
+
+    <!--  Check Order Status  -->
+    <string name="check_order_status_subtitle">Если у вас остались жалобы и вопросы по заказу или вы не можете вспомнить номер заказа, просим обратиться в службу поддержки</string>
+    <string name="hint_order_id">Номер заказа</string>
+
+    <!--  Checkout  -->
 </resources>

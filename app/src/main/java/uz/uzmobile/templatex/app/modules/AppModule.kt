@@ -25,9 +25,13 @@ import uz.aqlify.yonda.utils.Prefs
 import uz.uzmobile.templatex.model.remote.network.AuthInterceptor
 import uz.uzmobile.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.uzmobile.templatex.model.remote.network.NetworkInterceptor
+import uz.uzmobile.templatex.ui.about.AboutViewModel
+import uz.uzmobile.templatex.ui.callMe.CallMeViewModel
 import uz.uzmobile.templatex.ui.cart.CartViewModel
 import uz.uzmobile.templatex.ui.catalog.CatalogChildViewModel
 import uz.uzmobile.templatex.ui.catalog.CatalogViewModel
+import uz.uzmobile.templatex.ui.checkOrderStatus.CheckOrderStatusViewModel
+import uz.uzmobile.templatex.ui.checkout.CheckoutViewModel
 import uz.uzmobile.templatex.ui.favorite.FavoriteViewModel
 import uz.uzmobile.templatex.ui.profile.ProfileViewModel
 import uz.uzmobile.templatex.ui.recoveryPassword.RecoveryPasswordViewModel
@@ -43,8 +47,6 @@ val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { MainViewModel(get()) }
     viewModel { BrandsViewModel(get(), get()) }
-    viewModel { AboutAppViewModel(get()) }
-
 
     viewModel { SelectionViewModel(get()) }
     viewModel { CatalogViewModel(get()) }
@@ -58,6 +60,13 @@ val viewModelModule = module {
 
     viewModel { SelectionChildViewModel(get()) }
     viewModel { CatalogChildViewModel(get()) }
+
+    viewModel { CallMeViewModel(get()) }
+    viewModel { CheckOrderStatusViewModel(get()) }
+    viewModel { CheckoutViewModel(get()) }
+    viewModel { AboutViewModel(get()) }
+
+
 }
 
 val prefsModule = module {

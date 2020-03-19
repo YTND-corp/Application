@@ -1,26 +1,25 @@
-package uz.uzmobile.templatex.ui.cart
+package uz.uzmobile.templatex.ui.checkout
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import kotlinx.android.synthetic.main.cart_fragment.*
+
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
-import uz.uzmobile.templatex.databinding.CartFragmentBinding
+import uz.uzmobile.templatex.databinding.CheckoutFragmentBinding
 
-class CartFragment : Fragment() {
+class CheckoutFragment : Fragment() {
 
-    val viewModel: CartViewModel by viewModel()
+    val viewModel: CheckoutViewModel by viewModel()
 
-    private val binding by lazy { CartFragmentBinding.inflate(layoutInflater) }
+    private val binding by lazy { CheckoutFragmentBinding.inflate(layoutInflater) }
 
     companion object {
-        fun newInstance() = CartFragment()
+        fun newInstance() = CheckoutFragment()
     }
 
     override fun onCreateView(
@@ -28,25 +27,19 @@ class CartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@CartFragment
+        binding.lifecycleOwner = this@CheckoutFragment
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initViews()
     }
 
     private fun initViews() {
         binding.apply {
-            viewModel = this@CartFragment.viewModel
+            viewModel = this@CheckoutFragment.viewModel
             executePendingBindings()
-
-
-            placeholder_button.setOnClickListener {
-                findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
-            }
         }
     }
 }

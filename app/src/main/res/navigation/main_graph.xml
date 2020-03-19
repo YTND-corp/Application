@@ -3,10 +3,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_graph"
         app:startDestination="@id/selectionFragment">
-    <fragment
-            android:id="@+id/aboutAppFragment"
-            android:name="uz.uzmobile.templatex.ui.fragment.AboutAppFragment"
-            android:label="@string/menu_about_app" />
 
     <fragment
             android:id="@+id/selectionFragment"
@@ -23,30 +19,82 @@
     <fragment
             android:id="@+id/profileFragment"
             android:name="uz.uzmobile.templatex.ui.profile.ProfileFragment"
-            android:label="" />
+            android:label="">
+
+        <action
+                android:id="@+id/action_profileFragment_to_sign_up_graph"
+                app:destination="@id/sign_up_graph"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+                android:id="@+id/action_profileFragment_to_sign_in_graph"
+                app:destination="@id/sign_in_graph"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+                android:id="@+id/action_profileFragment_to_callMeFragment"
+                app:destination="@id/callMeFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileFragment_to_checkOrderStatusFragment"
+                app:destination="@id/checkOrderStatusFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileFragment_to_aboutFragment"
+                app:destination="@id/aboutFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+
+
+    </fragment>
     <fragment
             android:id="@+id/cartFragment"
             android:name="uz.uzmobile.templatex.ui.cart.CartFragment"
-            android:label="" />
+            android:label="" >
+        <action
+                android:id="@+id/action_cartFragment_to_checkoutFragment"
+                app:destination="@id/checkoutFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
-    <action
-            android:id="@+id/action_global_sign_up_graph"
-            app:destination="@id/sign_up_graph"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+            android:id="@+id/callMeFragment"
+            android:name="uz.uzmobile.templatex.ui.callMe.CallMeFragment"
+            android:label="@string/title_call_me" />
 
-    <action
-            android:id="@+id/action_global_sign_in_graph"
-            app:destination="@id/sign_in_graph"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+            android:id="@+id/checkOrderStatusFragment"
+            android:name="uz.uzmobile.templatex.ui.checkOrderStatus.CheckOrderStatusFragment"
+            android:label="@string/title_check_order_status" />
+    <fragment
+            android:id="@+id/checkoutFragment"
+            android:name="uz.uzmobile.templatex.ui.checkout.CheckoutFragment"
+            android:label="@string/title_checkout" />
+    <fragment
+            android:id="@+id/aboutFragment"
+            android:name="uz.uzmobile.templatex.ui.about.AboutFragment"
+            android:label="@string/title_about" />
 
 
     <include app:graph="@navigation/sign_up_graph" />
     <include app:graph="@navigation/sign_in_graph" />
+
 
 </navigation>

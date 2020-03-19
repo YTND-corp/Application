@@ -37,19 +37,19 @@
                 android:background="@color/windowBackgroundColor">
 
             <TextView
-                    android:id="@+id/placeholder_title_text_view"
+                    android:id="@+id/placeholder_title"
                     style="@style/SemiBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:lineSpacingExtra="-0.1sp"
                     android:text="@string/selection_placeholder_title"
-                    app:layout_constraintBottom_toTopOf="@id/placeholder_message_text_view"
+                    app:layout_constraintBottom_toTopOf="@id/placeholder_message"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
-                    android:id="@+id/placeholder_message_text_view"
+                    android:id="@+id/placeholder_message"
                     style="@style/SemiBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                     android:text="@string/selection_placeholder_message"
                     android:textSize="21sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/placeholder_title_text_view"
+                    app:layout_constraintTop_toBottomOf="@id/placeholder_title"
                     app:layout_constraintVertical_chainStyle="packed" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

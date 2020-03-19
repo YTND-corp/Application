@@ -60,11 +60,23 @@ class ProfileFragment : Fragment() {
             executePendingBindings()
 
             signIn.setOnClickListener {
-                findNavController().navigate(R.id.action_global_sign_in_graph)
+                findNavController().navigate(R.id.action_profileFragment_to_sign_in_graph)
             }
 
             signUp.setOnClickListener {
-                findNavController().navigate(R.id.action_global_sign_up_graph)
+                findNavController().navigate(R.id.action_profileFragment_to_sign_up_graph)
+            }
+
+            callMe.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_callMeFragment)
+            }
+
+            checkOrderStatus.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_checkOrderStatusFragment)
+            }
+
+            about.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_aboutFragment)
             }
         }
     }

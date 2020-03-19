@@ -19,7 +19,11 @@ object DestinationHelper {
         DestinationConfig(R.id.cartFragment, false,false,true),
         DestinationConfig(R.id.signInFragment, true,true,false),
         DestinationConfig(R.id.signUpFragment, true,true,false),
-        DestinationConfig(R.id.recoveryPasswordFragment, true,true,false)
+        DestinationConfig(R.id.recoveryPasswordFragment, true,true,false),
+        DestinationConfig(R.id.callMeFragment, true,true,false),
+        DestinationConfig(R.id.checkOrderStatusFragment, true,true,false),
+        DestinationConfig(R.id.checkoutFragment, true,true,false),
+        DestinationConfig(R.id.aboutFragment, true,true,false)
     )
 
     data class DestinationConfig(
