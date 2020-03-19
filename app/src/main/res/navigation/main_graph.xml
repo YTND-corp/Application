@@ -57,21 +57,28 @@
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right"/>
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileFragment_to_askQuestionFragment"
+                app:destination="@id/askQuestionFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
 
 
     </fragment>
     <fragment
             android:id="@+id/cartFragment"
             android:name="uz.uzmobile.templatex.ui.cart.CartFragment"
-            android:label="" >
+            android:label="">
         <action
                 android:id="@+id/action_cartFragment_to_checkoutFragment"
                 app:destination="@id/checkoutFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right"/>
+                app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -91,7 +98,10 @@
             android:id="@+id/aboutFragment"
             android:name="uz.uzmobile.templatex.ui.about.AboutFragment"
             android:label="@string/title_about" />
-
+    <fragment
+            android:id="@+id/askQuestionFragment"
+            android:name="uz.uzmobile.templatex.ui.askQuestion.AskQuestionFragment"
+            android:label="@string/title_ask_question" />
 
     <include app:graph="@navigation/sign_up_graph" />
     <include app:graph="@navigation/sign_in_graph" />

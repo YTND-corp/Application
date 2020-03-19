@@ -75,6 +75,10 @@ class ProfileFragment : Fragment() {
                 findNavController().navigate(R.id.action_profileFragment_to_checkOrderStatusFragment)
             }
 
+            askQuestion.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_askQuestionFragment)
+            }
+
             about.setOnClickListener {
                 findNavController().navigate(R.id.action_profileFragment_to_aboutFragment)
             }

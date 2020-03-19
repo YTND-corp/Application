@@ -1,24 +1,21 @@
-package uz.uzmobile.templatex.ui.about
-
+package uz.uzmobile.templatex.ui.askQuestion
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.databinding.DataBindingUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 import uz.uzmobile.templatex.R
-import uz.uzmobile.templatex.databinding.AboutFragmentBinding
 
-class AboutFragment : Fragment() {
+import uz.uzmobile.templatex.databinding.AskQuestionFragmentBinding
 
-    val viewModel: AboutViewModel by viewModel()
+class AskQuestionFragment : Fragment() {
 
+    val viewModel: AskQuestionViewModel by viewModel()
 
-    private val binding by lazy { AboutFragmentBinding.inflate(layoutInflater) }
+    private val binding by lazy { AskQuestionFragmentBinding.inflate(layoutInflater) }
 
     companion object {
-        fun newInstance() = AboutFragment()
+        fun newInstance() = AskQuestionFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,36 +25,35 @@ class AboutFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.about_fragment, menu)
+        inflater.inflate(R.menu.ask_question_fragment, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.aboutFragment -> true;
+            R.id.askQuestionFragment -> true;
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@AboutFragment
+        binding.lifecycleOwner = this@AskQuestionFragment
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initViews()
     }
 
     private fun initViews() {
         binding.apply {
-            viewModel = this@AboutFragment.viewModel
+            viewModel = this@AskQuestionFragment.viewModel
             executePendingBindings()
-
         }
     }
 }

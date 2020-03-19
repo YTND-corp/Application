@@ -23,6 +23,7 @@ object DestinationHelper {
         DestinationConfig(R.id.callMeFragment, true,true,false),
         DestinationConfig(R.id.checkOrderStatusFragment, true,true,false),
         DestinationConfig(R.id.checkoutFragment, true,true,false),
+        DestinationConfig(R.id.askQuestionFragment, true,true,false),
         DestinationConfig(R.id.aboutFragment, true,true,false)
     )
 

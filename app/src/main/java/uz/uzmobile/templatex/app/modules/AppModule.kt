@@ -26,6 +26,7 @@ import uz.uzmobile.templatex.model.remote.network.AuthInterceptor
 import uz.uzmobile.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.uzmobile.templatex.model.remote.network.NetworkInterceptor
 import uz.uzmobile.templatex.ui.about.AboutViewModel
+import uz.uzmobile.templatex.ui.askQuestion.AskQuestionViewModel
 import uz.uzmobile.templatex.ui.callMe.CallMeViewModel
 import uz.uzmobile.templatex.ui.cart.CartViewModel
 import uz.uzmobile.templatex.ui.catalog.CatalogChildViewModel
@@ -64,6 +65,7 @@ val viewModelModule = module {
     viewModel { CallMeViewModel(get()) }
     viewModel { CheckOrderStatusViewModel(get()) }
     viewModel { CheckoutViewModel(get()) }
+    viewModel { AskQuestionViewModel(get()) }
     viewModel { AboutViewModel(get()) }
 
 

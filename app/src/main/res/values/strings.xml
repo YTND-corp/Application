@@ -99,5 +99,11 @@
     <string name="check_order_status_subtitle">Если у вас остались жалобы и вопросы по заказу или вы не можете вспомнить номер заказа, просим обратиться в службу поддержки</string>
     <string name="hint_order_id">Номер заказа</string>
 
-    <!--  Checkout  -->
+    <!--  Ask Question  -->
+    <string name="hint_message_topic">Тема сообщения</string>
+    <string name="hint_message">Сообщение</string>
+    <string name="ask_question_with_socials">Если у вас возникли любые вопросы по заказу, оформлению, статусу или доставке - пишите нам в чат. Мы будем рады помочь Вам!</string>
+    <string name="ask_question_by_phone">Вы также можете позвонить нам по телефонам</string>
+    <string name="ask_question_phone_for_regions">%1$s - для звонков из региона</string>
+    <string name="ask_question_phone_for_capital">%1$s - для звонков из Ташкента</string>
 </resources>
