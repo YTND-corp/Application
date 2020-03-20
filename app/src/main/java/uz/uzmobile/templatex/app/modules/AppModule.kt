@@ -41,6 +41,7 @@ import uz.uzmobile.templatex.ui.selection.SelectionChildViewModel
 import uz.uzmobile.templatex.ui.selection.SelectionViewModel
 import uz.uzmobile.templatex.ui.signIn.SignInViewModel
 import uz.uzmobile.templatex.ui.signUp.SignUpViewModel
+import uz.uzmobile.templatex.ui.support.SupportViewModel
 import uz.uzmobile.templatex.utils.Const
 import uz.uzmobile.templatex.viewModel.*
 
@@ -66,6 +67,7 @@ val viewModelModule = module {
     viewModel { CallMeViewModel(get()) }
     viewModel { CheckOrderStatusViewModel(get()) }
     viewModel { AskQuestionViewModel(get()) }
+    viewModel { SupportViewModel(get()) }
     viewModel { AboutViewModel(get()) }
 
     viewModel { CheckoutViewModel(get()) }

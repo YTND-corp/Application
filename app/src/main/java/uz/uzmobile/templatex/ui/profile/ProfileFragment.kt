@@ -65,16 +65,20 @@ class ProfileFragment : Fragment() {
                 findNavController().navigate(R.id.action_profileFragment_to_sign_up_graph)
             }
 
-            callMe.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_callMeFragment)
-            }
-
             checkOrderStatus.setOnClickListener {
                 findNavController().navigate(R.id.action_profileFragment_to_checkOrderStatusFragment)
             }
 
             askQuestion.setOnClickListener {
                 findNavController().navigate(R.id.action_profileFragment_to_askQuestionFragment)
+            }
+
+            callMe.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_callMeFragment)
+            }
+
+            supportCenter.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_supportFragment)
             }
 
             about.setOnClickListener {

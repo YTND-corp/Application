@@ -25,7 +25,8 @@ object DestinationHelper {
         DestinationConfig(R.id.checkoutFragment, true,true,false),
         DestinationConfig(R.id.askQuestionFragment, true,true,false),
         DestinationConfig(R.id.aboutFragment, true,true,false),
-        DestinationConfig(R.id.adresFragment, true,true,false)
+        DestinationConfig(R.id.adresFragment, true,true,false),
+        DestinationConfig(R.id.supportFragment, true,true,false)
     )
 
     data class DestinationConfig(

@@ -65,6 +65,14 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileFragment_to_supportFragment"
+                app:destination="@id/supportFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
+                />
 
 
     </fragment>
@@ -93,14 +101,14 @@
     <fragment
             android:id="@+id/checkoutFragment"
             android:name="uz.uzmobile.templatex.ui.checkout.CheckoutFragment"
-            android:label="@string/title_checkout" >
+            android:label="@string/title_checkout">
         <action
                 android:id="@+id/action_checkoutFragment_to_adresFragment"
                 app:destination="@id/adresFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right"/>
+                app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
             android:id="@+id/aboutFragment"
@@ -115,10 +123,12 @@
             android:id="@+id/adresFragment"
             android:name="uz.uzmobile.templatex.ui.adres.AdresFragment"
             android:label="@string/title_adres" />
+    <fragment
+            android:id="@+id/supportFragment"
+            android:name="uz.uzmobile.templatex.ui.support.SupportFragment"
+            android:label="SupportFragment" />
 
     <include app:graph="@navigation/sign_up_graph" />
     <include app:graph="@navigation/sign_in_graph" />
-
-
 
 </navigation>
