@@ -32,8 +32,10 @@ import uz.uzmobile.templatex.ui.callMe.CallMeViewModel
 import uz.uzmobile.templatex.ui.cart.CartViewModel
 import uz.uzmobile.templatex.ui.catalog.CatalogChildViewModel
 import uz.uzmobile.templatex.ui.catalog.CatalogViewModel
+import uz.uzmobile.templatex.ui.catalogDetails.CatalogDetailViewModel
 import uz.uzmobile.templatex.ui.checkOrderStatus.CheckOrderStatusViewModel
 import uz.uzmobile.templatex.ui.checkout.CheckoutViewModel
+import uz.uzmobile.templatex.ui.country.CountryViewModel
 import uz.uzmobile.templatex.ui.favorite.FavoriteViewModel
 import uz.uzmobile.templatex.ui.profile.ProfileViewModel
 import uz.uzmobile.templatex.ui.recoveryPassword.RecoveryPasswordViewModel
@@ -51,29 +53,30 @@ val viewModelModule = module {
     viewModel { MainViewModel(get()) }
     viewModel { BrandsViewModel(get(), get()) }
 
-    viewModel { SelectionViewModel(get()) }
-    viewModel { CatalogViewModel(get()) }
     viewModel { FavoriteViewModel(get()) }
-    viewModel { ProfileViewModel(get()) }
-    viewModel { CartViewModel(get()) }
 
     viewModel { SignUpViewModel(get()) }
     viewModel { SignInViewModel(get()) }
     viewModel { RecoveryPasswordViewModel(get()) }
 
+    viewModel { SelectionViewModel(get()) }
     viewModel { SelectionChildViewModel(get()) }
-    viewModel { CatalogChildViewModel(get()) }
 
+    viewModel { CatalogViewModel(get()) }
+    viewModel { CatalogChildViewModel(get()) }
+    viewModel { CatalogDetailViewModel(get()) }
+
+    viewModel { ProfileViewModel(get()) }
+    viewModel { CountryViewModel(get()) }
     viewModel { CallMeViewModel(get()) }
     viewModel { CheckOrderStatusViewModel(get()) }
     viewModel { AskQuestionViewModel(get()) }
     viewModel { SupportViewModel(get()) }
     viewModel { AboutViewModel(get()) }
 
+    viewModel { CartViewModel(get()) }
     viewModel { CheckoutViewModel(get()) }
     viewModel { AdresViewModel(get()) }
-
-
 }
 
 val prefsModule = module {

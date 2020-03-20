@@ -16,12 +16,16 @@
     <string name="action_yes">Да</string>
     <string name="action_no">Нет</string>
     <string name="action_call">Позвонить</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="action_share">Share</string>
 
     <string name="action_start_shopping">Начать покупки</string>
     <string name="action_forgot_password">Забыли пароль?</string>
     <string name="action_sign_in">Войти</string>
     <string name="action_sign_up">Регистрировать</string>
     <string name="action_see_products">Смотреть товары</string>
+    <string name="action_show_all_products">ПОКАЗАТЬ ВСЕ ТОВАРЫ</string>
 
     <!--Errors-->
     <string name="error_no_connection">Нет интернет подключения</string>
@@ -56,9 +60,7 @@
     <string name="nav_menu_item_cart">Корзина</string>
 
     <!-- Menus   -->
-    <string name="action_settings">Settings</string>
-    <string name="action_search">Search</string>
-    <string name="action_share">Share</string>
+
 
     <!-- Sign Up -->
     <string name="hint_phone">Номер телефона</string>
@@ -92,6 +94,7 @@
     <!--  Selection  -->
     <string name="selection_placeholder_title">Раздел наполняется и скоро будет \nдоступен для просмотра</string>
     <string name="selection_placeholder_message">С УВАЖЕНИЕМ MOD LLC</string>
+    <string name="actual_header">Актуально</string>
 
     <!--  Call Me  -->
     <string name="call_me_subtitle">Оставьте нам свой номер телефона и мы \nперезвоним Вам в течение 5-ты минут</string>
@@ -114,4 +117,7 @@
     <string name="hint_home">Дом</string>
     <string name="hint_flat">Квартира</string>
     <string name="adreses_header">Выберите условия доставки</string>
+
+    <!--  Country  -->
+    <string name="country_header">Выберите страну</string>
 </resources>

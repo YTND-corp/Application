@@ -11,7 +11,16 @@
     <fragment
             android:id="@+id/catalogFragment"
             android:name="uz.uzmobile.templatex.ui.catalog.CatalogFragment"
-            android:label="" />
+            android:label="" >
+        <action
+                android:id="@+id/action_catalogFragment_to_catalogDetailFragment"
+                app:destination="@id/catalogDetailFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
+                />
+    </fragment>
     <fragment
             android:id="@+id/favoriteFragment"
             android:name="uz.uzmobile.templatex.ui.favorite.FavoriteFragment"
@@ -73,6 +82,13 @@
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right"
                 />
+        <action
+                android:id="@+id/action_profileFragment_to_countryFragment"
+                app:destination="@id/countryFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
 
 
     </fragment>
@@ -126,7 +142,15 @@
     <fragment
             android:id="@+id/supportFragment"
             android:name="uz.uzmobile.templatex.ui.support.SupportFragment"
-            android:label="SupportFragment" />
+            android:label="@string/title_support" />
+    <fragment
+            android:id="@+id/catalogDetailFragment"
+            android:name="uz.uzmobile.templatex.ui.catalogDetails.CatalogDetailFragment"
+            android:label="" />
+    <fragment
+            android:id="@+id/countryFragment"
+            android:name="uz.uzmobile.templatex.ui.country.CountryFragment"
+            android:label="" />
 
     <include app:graph="@navigation/sign_up_graph" />
     <include app:graph="@navigation/sign_in_graph" />

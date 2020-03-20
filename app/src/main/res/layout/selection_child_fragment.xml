@@ -12,28 +12,29 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".ui.selection.SelectionChildFragment">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/refresher"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="15dp"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/catalogs"
+                    android:id="@+id/selections"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/catalog_details_item" />
+                    tools:listitem="@layout/selection_item" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/placeholder_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:background="@color/windowBackgroundColor">
 
             <TextView

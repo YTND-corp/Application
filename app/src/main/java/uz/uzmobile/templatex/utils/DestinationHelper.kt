@@ -8,7 +8,7 @@ object DestinationHelper {
     fun getConfig(destination: NavDestination): DestinationConfig {
         return configs.find {
             it.id == destination.id
-        }?: DestinationConfig(0,false,false,false)
+        }?: DestinationConfig(0,true,true,false)
     }
 
     val configs = setOf(
@@ -17,16 +17,7 @@ object DestinationHelper {
         DestinationConfig(R.id.favoriteFragment, false,false,true),
         DestinationConfig(R.id.profileFragment, true,false,true),
         DestinationConfig(R.id.cartFragment, false,false,true),
-        DestinationConfig(R.id.signInFragment, true,true,false),
-        DestinationConfig(R.id.signUpFragment, true,true,false),
-        DestinationConfig(R.id.recoveryPasswordFragment, true,true,false),
-        DestinationConfig(R.id.callMeFragment, true,true,false),
-        DestinationConfig(R.id.checkOrderStatusFragment, true,true,false),
-        DestinationConfig(R.id.checkoutFragment, true,true,false),
-        DestinationConfig(R.id.askQuestionFragment, true,true,false),
-        DestinationConfig(R.id.aboutFragment, true,true,false),
-        DestinationConfig(R.id.adresFragment, true,true,false),
-        DestinationConfig(R.id.supportFragment, true,true,false)
+        DestinationConfig(R.id.signInFragment)
     )
 
     data class DestinationConfig(

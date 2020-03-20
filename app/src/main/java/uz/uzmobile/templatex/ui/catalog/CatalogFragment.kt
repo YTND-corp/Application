@@ -30,7 +30,6 @@ class CatalogFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initViews()
     }
 
@@ -39,6 +38,7 @@ class CatalogFragment : Fragment() {
             viewModel = this@CatalogFragment.viewModel
             executePendingBindings()
 
+            pager.offscreenPageLimit = 3
             pager.adapter = CatalogPagerAdapter(
                 childFragmentManager,
                 resources.getStringArray(R.array.catalog_tab_names)

@@ -7,7 +7,7 @@
 
         <variable
                 name="item"
-                type="uz.uzmobile.templatex.model.local.entity.Catalog" />
+                type="uz.uzmobile.templatex.model.local.entity.CatalogDetail" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +16,7 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
             android:paddingStart="@dimen/activity_horizontal_margin">
 
         <TextView
@@ -23,30 +24,22 @@
                 style="@style/SemiBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginBottom="13dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Uzbekistan" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/image"
+                android:text="Блузки и рубашки" />
 
         <ImageView
+                android:id="@+id/image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:src="@drawable/ic_chevron_right"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="19dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-                android:id="@+id/profile_item_divider"
-                style="@style/Divider"
-                android:layout_width="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

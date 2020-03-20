@@ -65,6 +65,10 @@ class ProfileFragment : Fragment() {
                 findNavController().navigate(R.id.action_profileFragment_to_sign_up_graph)
             }
 
+            country.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_countryFragment)
+            }
+
             checkOrderStatus.setOnClickListener {
                 findNavController().navigate(R.id.action_profileFragment_to_checkOrderStatusFragment)
             }
