@@ -88,26 +88,35 @@
                 android:paddingBottom="15.5dp"
                 android:text="@string/filters"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@id/sort"
+                app:layout_constraintEnd_toStartOf="@id/sort_wrapper"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/filter_top_divider" />
 
-        <TextView
-                android:id="@+id/sort"
+
+        <LinearLayout
+                android:id="@+id/sort_wrapper"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_sort"
-                android:drawablePadding="6dp"
-                android:gravity="end"
-                android:paddingTop="11dp"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingBottom="15.5dp"
-                android:text="по популярности"
-                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/filter"
                 app:layout_constraintTop_toTopOf="@id/filter"
-                app:layout_constraintWidth_percent="0.5" />
+                android:gravity="end"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                >
+            <TextView
+                    android:id="@+id/sort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_sort"
+                    android:drawablePadding="6dp"
+                    android:gravity="end"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="15.5dp"
+                    android:text="по популярности"
+                    android:textSize="14sp"
+                    />
+        </LinearLayout>
+
 
         <View
                 android:id="@+id/filter_bottom_divider"
