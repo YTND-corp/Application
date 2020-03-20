@@ -5,25 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.FavoriteFragmentBinding
 
-class FavoriteFragment: Fragment() {
+class FavoriteFragment : Fragment() {
 
     val viewModel: FavoriteViewModel by viewModel()
 
-    private val binding  by lazy { FavoriteFragmentBinding.inflate(layoutInflater) }
+    private val binding by lazy { FavoriteFragmentBinding.inflate(layoutInflater) }
 
-    private lateinit var adapter: FavoriteAdapter
+    private lateinit var adapter: ProductAdapter
 
     companion object {
         fun newInstance() = FavoriteFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding.lifecycleOwner = this@FavoriteFragment
         return binding.root
     }
@@ -50,7 +52,7 @@ class FavoriteFragment: Fragment() {
             viewModel = this@FavoriteFragment.viewModel
             executePendingBindings()
 
-            adapter = FavoriteAdapter(arrayListOf())
+            adapter = ProductAdapter(arrayListOf())
             favorites.hasFixedSize()
             favorites.adapter = adapter
         }

@@ -48,8 +48,6 @@ class CatalogChildFragment : Fragment() {
         viewModel.catalogs.observe(requireActivity(), Observer {
             adapter.setItems(it)
         })
-
-        adapter
     }
 
     private fun initViews() {
@@ -62,8 +60,10 @@ class CatalogChildFragment : Fragment() {
                     parentFragment?.findNavController()?.navigate(R.id.action_catalogFragment_to_catalogDetailFragment)
                 }
             })
+
             catalogs.hasFixedSize()
             catalogs.adapter = adapter
+
         }
     }
 

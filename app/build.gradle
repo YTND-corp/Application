@@ -113,4 +113,5 @@ dependencies {
     implementation "org.koin:koin-android-architecture:0.9.3"
 
     implementation "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:1.0.1"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
 }

@@ -17,7 +17,7 @@ object DestinationHelper {
         DestinationConfig(R.id.favoriteFragment, false,false,true),
         DestinationConfig(R.id.profileFragment, true,false,true),
         DestinationConfig(R.id.cartFragment, false,false,true),
-        DestinationConfig(R.id.signInFragment)
+        DestinationConfig(R.id.productsFragment, false,false)
     )
 
     data class DestinationConfig(

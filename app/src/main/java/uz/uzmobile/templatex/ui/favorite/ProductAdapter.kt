@@ -8,8 +8,8 @@ import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.model.local.entity.Product
 import java.util.ArrayList
 
-class FavoriteAdapter(private var items: ArrayList<Product>) :
-    RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
+class ProductAdapter(private var items: ArrayList<Product>) :
+    RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)

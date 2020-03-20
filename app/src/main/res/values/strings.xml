@@ -120,4 +120,8 @@
 
     <!--  Country  -->
     <string name="country_header">Выберите страну</string>
+
+    <!--  Products  -->
+    <string name="products_subtitle">%1$s всего</string>
+    <string name="filters">Фильтры</string>
 </resources>

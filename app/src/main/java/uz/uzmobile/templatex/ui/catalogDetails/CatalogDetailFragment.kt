@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.model.local.entity.CatalogDetail
@@ -50,6 +51,10 @@ class CatalogDetailFragment : Fragment() {
                     R.drawable.list_divider
                 )
             )
+
+            continueButton.setOnClickListener {
+                findNavController().navigate(R.id.action_global_productsFragment)
+            }
         }
     }
 }
