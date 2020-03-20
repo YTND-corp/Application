@@ -46,6 +46,7 @@
     <string name="title_support">Служба поддержки</string>
     <string name="title_about">Наши контакты</string>
     <string name="title_checkout">Оформления заказа</string>
+    <string name="title_adres">Адрес доставки</string>
 
     <!--Bottom Menu -->
     <string name="nav_menu_item_selection">Подборка</string>
@@ -106,4 +107,11 @@
     <string name="ask_question_by_phone">Вы также можете позвонить нам по телефонам</string>
     <string name="ask_question_phone_for_regions">%1$s - для звонков из региона</string>
     <string name="ask_question_phone_for_capital">%1$s - для звонков из Ташкента</string>
+
+    <!--  Address  -->
+    <string name="hint_city">Город</string>
+    <string name="hint_street">Улица</string>
+    <string name="hint_home">Дом</string>
+    <string name="hint_flat">Квартира</string>
+    <string name="adreses_header">Выберите условия доставки</string>
 </resources>

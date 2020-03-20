@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.FavoriteFragmentBinding
-import uz.uzmobile.templatex.ui.profile.ProfileAdapter
 
 class FavoriteFragment: Fragment() {
 

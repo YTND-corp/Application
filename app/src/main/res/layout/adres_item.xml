@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="3sp"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="Доставка день в день\n\nСтоимость доставки - 0,00 EPC вне зависомости от суммы покупки\nДата доставки: 17 марта, вторник"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/text_size_small"
+        tools:text="Доставка день в день\n\nСтоимость доставки - 0,00 EPC вне зависомости от суммы покупки\nДата доставки: 17 марта, вторник" />

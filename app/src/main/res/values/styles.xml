@@ -46,7 +46,7 @@
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/divider_line_height</item>
-        <item name="android:background">@color/dividerLineColor</item>
+        <item name="android:background">@drawable/divider</item>
     </style>
 
     <style name="CircularProgress">

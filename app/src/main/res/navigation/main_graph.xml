@@ -93,7 +93,15 @@
     <fragment
             android:id="@+id/checkoutFragment"
             android:name="uz.uzmobile.templatex.ui.checkout.CheckoutFragment"
-            android:label="@string/title_checkout" />
+            android:label="@string/title_checkout" >
+        <action
+                android:id="@+id/action_checkoutFragment_to_adresFragment"
+                app:destination="@id/adresFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
             android:id="@+id/aboutFragment"
             android:name="uz.uzmobile.templatex.ui.about.AboutFragment"
@@ -103,8 +111,14 @@
             android:name="uz.uzmobile.templatex.ui.askQuestion.AskQuestionFragment"
             android:label="@string/title_ask_question" />
 
+    <fragment
+            android:id="@+id/adresFragment"
+            android:name="uz.uzmobile.templatex.ui.adres.AdresFragment"
+            android:label="@string/title_adres" />
+
     <include app:graph="@navigation/sign_up_graph" />
     <include app:graph="@navigation/sign_in_graph" />
+
 
 
 </navigation>

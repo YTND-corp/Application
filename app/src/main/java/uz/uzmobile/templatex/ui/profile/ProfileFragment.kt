@@ -8,8 +8,6 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.ProfileFragmentBinding
-import uz.uzmobile.templatex.extension.drawable
-import uz.uzmobile.templatex.model.local.entity.ProfileItem
 
 
 class ProfileFragment : Fragment() {

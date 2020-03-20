@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.extension.drawable
-import uz.uzmobile.templatex.model.local.entity.ProfileItem
 
 class ProfileViewModel constructor(application: Application): AndroidViewModel(application) {
 

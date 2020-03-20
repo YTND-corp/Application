@@ -40,6 +40,10 @@ class CheckoutFragment : Fragment() {
         binding.apply {
             viewModel = this@CheckoutFragment.viewModel
             executePendingBindings()
+
+            continueButton.setOnClickListener {
+                findNavController().navigate(R.id.action_checkoutFragment_to_adresFragment)
+            }
         }
     }
 }
