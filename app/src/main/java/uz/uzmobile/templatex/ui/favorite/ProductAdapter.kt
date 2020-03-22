@@ -8,13 +8,13 @@ import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.model.local.entity.Product
 import java.util.ArrayList
 
-class ProductAdapter(private var items: ArrayList<Product>) :
+class ProductAdapter(private var items: ArrayList<Product>, val listener: ItemClickListener) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.product_item, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, listener)
     }
 
     override fun getItemCount(): Int = items.size
@@ -26,9 +26,16 @@ class ProductAdapter(private var items: ArrayList<Product>) :
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, listener: ItemClickListener) :
+        RecyclerView.ViewHolder(itemView) {
         fun bind(item: Product) {
-
+            itemView.setOnClickListener {
+                listener.onClick(item)
+            }
         }
+    }
+
+    interface ItemClickListener {
+        fun onClick(item: Product)
     }
 }

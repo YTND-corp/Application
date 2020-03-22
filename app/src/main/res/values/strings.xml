@@ -26,6 +26,7 @@
     <string name="action_sign_up">Регистрировать</string>
     <string name="action_see_products">Смотреть товары</string>
     <string name="action_show_all_products">ПОКАЗАТЬ ВСЕ ТОВАРЫ</string>
+    <string name="action_add_to_cart">Добавить в корзину</string>
 
     <!--Errors-->
     <string name="error_no_connection">Нет интернет подключения</string>

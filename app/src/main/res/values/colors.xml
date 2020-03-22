@@ -8,6 +8,7 @@
     <!--Text-->
     <color name="primaryTextColor">@color/colorAccent</color>
     <color name="secondaryTextColor">#999999</color>
+    <color name="productSizeItemText">#484545</color>
 
     <color name="unfocusedHintTextColor">#993C3C43</color>
     <color name="focusedHintTextColor">@color/colorAccent</color>

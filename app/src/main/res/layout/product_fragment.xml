@@ -1,13 +1,631 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.product.ProductFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.uzmobile.templatex.ui.product.ProductViewModel" />
+    </data>
+
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello" />
+            android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.product.ProductFragment">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/banners"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/product_banner_item" />
+
+            <com.kingfisher.easyviewindicator.RecyclerViewIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    app:avi_animation_enable="false"
+                    app:avi_drawable="@drawable/circle_indicator_selected"
+                    app:avi_drawable_unselected="@drawable/circle_indicator_unselected"
+                    app:avi_height="5dp"
+                    app:avi_margin="2.5dp"
+                    app:avi_width="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/banners"
+                    app:layout_constraintStart_toStartOf="@id/banners" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                        android:id="@+id/back"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                    android:id="@+id/color"
+                    style="@style/SemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="ЧЕРНЫЙ"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/banners" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/colors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/color"
+                    tools:listitem="@layout/product_color_item" />
+
+
+            <TextView
+                    android:id="@+id/title"
+                    style="@style/SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:gravity="start"
+                    android:text="MANGO"
+                    app:layout_constraintTop_toBottomOf="@id/colors" />
+
+            <TextView
+                    android:id="@+id/subtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:lineSpacingExtra="5sp"
+                    android:text="Пальто Tailored из шерсти с лацканами"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <TextView
+                    android:id="@+id/category"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:lineSpacingExtra="5sp"
+                    android:text="Верхняя одежда"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="@dimen/text_size_smaller"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/subtitle" />
+
+            <TextView
+                    android:id="@+id/price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="start"
+                    android:text="951,000 UZS"
+                    android:textSize="@dimen/text_size_smaller"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/category" />
+
+            <View
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/price" />
+
+            <TextView
+                    android:id="@+id/size_header"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="start"
+                    android:text="Размер:"
+                    android:textSize="@dimen/text_size_smaller"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/price" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/sizes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/size_header"
+                    tools:listitem="@layout/prooduct_size_item" />
+
+            <Button
+                    android:id="@+id/continue_button"
+                    style="@style/ContainedButtonStyle"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/action_add_to_cart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sizes"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/like_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/continue_button"
+                    app:layout_constraintWidth_percent="0.5">
+
+                <ImageView
+                        android:id="@+id/like_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:src="@drawable/ic_like"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/like_text"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                        android:id="@+id/like_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="В избранное"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@id/like_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/chare_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/continue_button"
+                    app:layout_constraintWidth_percent="0.5">
+
+                <ImageView
+                        android:id="@+id/share_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:src="@drawable/ic_share"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/share_text"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                        android:id="@+id/share_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="Поделиться"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@id/share_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                    android:id="@+id/info_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:background="@drawable/list_divider"
+                    app:layout_constraintTop_toBottomOf="@id/like_layout" />
+
+            <TextView
+                    android:id="@+id/info_header"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="ИНФОРМАЦИЯ О ПРОДУКТЕ"
+                    app:layout_constraintEnd_toStartOf="@id/info_toggle"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/info_top_divider" />
+
+            <CheckBox
+                    android:id="@+id/info_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/ic_product_info_toggle"
+                    android:text=""
+                    app:layout_constraintBottom_toBottomOf="@id/info_header"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintTop_toTopOf="@id/info_header" />
+
+            <TextView
+                    android:id="@+id/info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="6.5sp"
+                    android:paddingTop="10dp"
+                    android:text="Состав: 53% шерсть, 44% полиэстер, 3% вискоза.
+Подкладка: 52% полиэстер, 48% вискоза. Подкладка
+рука: 100% полиэстер. Кайма: 52% полиэстер, 48%
+вискоза. Подкладка кармана: 80% полиэстер, 20% хлопок"
+                    android:textSize="@dimen/text_size_smaller"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/info_header" />
+
+            <View
+                    android:id="@+id/composition_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginTop="14.5dp"
+                    android:background="@drawable/list_divider"
+                    app:layout_constraintTop_toBottomOf="@id/info" />
+
+            <TextView
+                    android:id="@+id/composition_header"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="СОСТАВ И УХОД"
+                    app:layout_constraintEnd_toStartOf="@id/composition_toggle"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/composition_top_divider" />
+
+            <CheckBox
+                    android:id="@+id/composition_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/ic_product_info_toggle"
+                    android:text=""
+                    app:layout_constraintBottom_toBottomOf="@id/composition_header"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintTop_toTopOf="@id/composition_header" />
+
+            <TextView
+                    android:id="@+id/composition"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="6.5sp"
+                    android:paddingTop="10dp"
+                    android:text="Состав: 53% шерсть, 44% полиэстер, 3% вискоза.
+Подкладка: 52% полиэстер, 48% вискоза. Подкладка
+рука: 100% полиэстер. Кайма: 52% полиэстер, 48%
+вискоза. Подкладка кармана: 80% полиэстер, 20% хлопок"
+                    android:textSize="@dimen/text_size_smaller"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/composition_header" />
+
+            <View
+                    android:id="@+id/delivery_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginTop="14.5dp"
+                    android:background="@drawable/list_divider"
+                    app:layout_constraintTop_toBottomOf="@id/composition" />
+
+            <TextView
+                    android:id="@+id/delivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="14.5dp"
+                    android:text="ДОСТАВКА И ПРИМЕРКА"
+                    android:textSize="@dimen/text_size_smaller"
+                    app:layout_constraintTop_toBottomOf="@id/delivery_top_divider" />
+
+            <View
+                    android:id="@+id/deliver_return_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:background="@drawable/list_divider"
+                    app:layout_constraintTop_toBottomOf="@id/delivery" />
+
+            <TextView
+                    android:id="@+id/delivery_return_header"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="start"
+                    android:text="Deliver and return"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/deliver_return_top_divider" />
+
+            <TextView
+                    android:id="@+id/delivery_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="start"
+                    android:text="Deliver"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/delivery_return_header" />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:gravity="start"
+                    android:lineSpacingExtra="1.9sp"
+                    android:text="16 March, Monday"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintBottom_toBottomOf="@id/delivery_hint"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintStart_toEndOf="@id/delivery_hint"
+                    app:layout_constraintTop_toTopOf="@id/delivery_hint" />
+
+            <TextView
+                    android:id="@+id/return_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:gravity="start"
+                    android:text="Return"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/delivery_hint" />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:gravity="start"
+                    android:lineSpacingExtra="1.9sp"
+                    android:text="During 14 days after receiving product"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintBottom_toBottomOf="@id/return_hint"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintStart_toEndOf="@id/return_hint"
+                    app:layout_constraintTop_toTopOf="@id/return_hint" />
+
+            <View
+                    android:id="@+id/socials_top_divider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/return_hint" />
+
+            <ImageView
+                    android:id="@+id/viber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="9.5dp"
+                    android:src="@drawable/ic_viber"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/socials_top_divider" />
+
+            <ImageView
+                    android:id="@+id/telegram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_telegram"
+                    app:layout_constraintEnd_toStartOf="@id/facebook"
+                    app:layout_constraintStart_toEndOf="@id/viber"
+                    app:layout_constraintTop_toTopOf="@id/viber" />
+
+            <ImageView
+                    android:id="@+id/facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_messanger"
+                    app:layout_constraintEnd_toStartOf="@id/vk"
+                    app:layout_constraintStart_toEndOf="@id/telegram"
+                    app:layout_constraintTop_toTopOf="@id/viber" />
+
+            <ImageView
+                    android:id="@+id/vk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_vk"
+                    app:layout_constraintEnd_toStartOf="@id/ok"
+                    app:layout_constraintStart_toEndOf="@id/facebook"
+                    app:layout_constraintTop_toTopOf="@id/viber" />
+
+            <ImageView
+                    android:id="@+id/ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_ok"
+                    app:layout_constraintEnd_toStartOf="@id/whatsapp"
+                    app:layout_constraintStart_toEndOf="@id/vk"
+                    app:layout_constraintTop_toTopOf="@id/viber" />
+
+            <ImageView
+                    android:id="@+id/whatsapp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_telegram"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/viber" />
+
+            <View
+                    android:id="@+id/socials_bottom_divider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/viber" />
+
+            <TextView
+                    android:id="@+id/relative_products_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:text="Похожие товары"
+                    android:textSize="@dimen/text_size_smaller"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/socials_bottom_divider" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/relative_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/relative_products_header"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/product_item" />
+
+            <View
+                    android:id="@+id/brand_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:background="@drawable/list_divider"
+                    app:layout_constraintTop_toBottomOf="@id/relative_products" />
+
+            <TextView
+                    android:id="@+id/brand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingTop="15.7dp"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="13.8dp"
+                    android:text="Все Mango"
+                    android:textSize="@dimen/text_size_smaller"
+                    app:layout_constraintTop_toBottomOf="@id/brand_top_divider" />
+
+            <View
+                    android:id="@+id/category_brand_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:background="@drawable/list_divider"
+                    app:layout_constraintTop_toBottomOf="@id/brand" />
+
+            <TextView
+                    android:id="@+id/category_brand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingTop="15.7dp"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="13.8dp"
+                    android:text="Все верхняя одежда Mango"
+                    android:textSize="@dimen/text_size_smaller"
+                    app:layout_constraintTop_toBottomOf="@id/category_brand_top_divider" />
+
+            <View
+                    android:id="@+id/relative_category_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:background="@drawable/list_divider"
+                    app:layout_constraintTop_toBottomOf="@id/category_brand" />
+
+            <TextView
+                    android:id="@+id/relative_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingTop="15.7dp"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="13.8dp"
+                    android:text="Другие верхняя одежда"
+                    android:textSize="@dimen/text_size_smaller"
+                    app:layout_constraintTop_toBottomOf="@id/relative_category_top_divider" />
+
+            <View
+                    android:id="@+id/recently_products_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:background="@drawable/list_divider"
+                    app:layout_constraintTop_toBottomOf="@id/relative_category" />
+
+            <TextView
+                    android:id="@+id/recently_products_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:gravity="start"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="9dp"
+                    android:text="Вы недавно просматривали"
+                    android:textSize="@dimen/text_size_smaller"
+                    app:layout_constraintTop_toBottomOf="@id/recently_products_top_divider" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recently_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/recently_products_header"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/product_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

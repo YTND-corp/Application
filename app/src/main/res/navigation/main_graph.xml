@@ -11,15 +11,14 @@
     <fragment
             android:id="@+id/catalogFragment"
             android:name="uz.uzmobile.templatex.ui.catalog.CatalogFragment"
-            android:label="" >
+            android:label="">
         <action
                 android:id="@+id/action_catalogFragment_to_catalogDetailFragment"
                 app:destination="@id/catalogDetailFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right"
-                />
+                app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
             android:id="@+id/favoriteFragment"
@@ -80,15 +79,14 @@
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right"
-                />
+                app:popExitAnim="@anim/slide_out_right" />
         <action
                 android:id="@+id/action_profileFragment_to_countryFragment"
                 app:destination="@id/countryFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right"/>
+                app:popExitAnim="@anim/slide_out_right" />
 
 
     </fragment>
@@ -155,11 +153,28 @@
             android:id="@+id/productsFragment"
             android:name="uz.uzmobile.templatex.ui.products.ProductsFragment"
             android:label="" />
+    <fragment
+            android:id="@+id/productFragment"
+            android:name="uz.uzmobile.templatex.ui.product.ProductFragment"
+            android:label="" />
+
+    <action
+            android:id="@+id/action_global_productsFragment"
+            app:destination="@id/productsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    <action
+            android:id="@+id/action_global_productFragment"
+            app:destination="@id/productFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
     <include app:graph="@navigation/sign_up_graph" />
     <include app:graph="@navigation/sign_in_graph" />
-
-
-    <action android:id="@+id/action_global_productsFragment" app:destination="@id/productsFragment" />
 
 </navigation>

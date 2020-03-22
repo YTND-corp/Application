@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.FavoriteFragmentBinding
+import uz.uzmobile.templatex.model.local.entity.Product
 
 class FavoriteFragment : Fragment() {
 
@@ -52,7 +55,12 @@ class FavoriteFragment : Fragment() {
             viewModel = this@FavoriteFragment.viewModel
             executePendingBindings()
 
-            adapter = ProductAdapter(arrayListOf())
+            adapter = ProductAdapter(arrayListOf(), object : ProductAdapter.ItemClickListener{
+                override fun onClick(item: Product) {
+                    findNavController().navigate(R.id.action_global_productFragment)
+                }
+            })
+
             favorites.hasFixedSize()
             favorites.adapter = adapter
         }

@@ -18,10 +18,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/placeholder_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/windowBackgroundColor">
 
             <TextView
-                    android:id="@+id/placeholder_text_view"
+                    android:id="@+id/placeholder_text"
                     style="@style/Regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,8 +47,9 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/placeholder_text_view" />
+                    app:layout_constraintTop_toBottomOf="@id/placeholder_text" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

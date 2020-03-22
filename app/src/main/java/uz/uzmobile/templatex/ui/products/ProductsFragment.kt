@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 
 import uz.uzmobile.templatex.databinding.ProductsFragmentBinding
 import uz.uzmobile.templatex.ui.favorite.ProductAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.uzmobile.templatex.R
+import uz.uzmobile.templatex.model.local.entity.Product
 
 
 class ProductsFragment : Fragment() {
@@ -52,9 +55,18 @@ class ProductsFragment : Fragment() {
             viewModel = this@ProductsFragment.viewModel
             executePendingBindings()
 
-            adapter = ProductAdapter(arrayListOf())
+            adapter = ProductAdapter(arrayListOf(), object : ProductAdapter.ItemClickListener {
+                override fun onClick(item: Product) {
+                    findNavController().navigate(R.id.action_global_productFragment)
+                }
+            })
+
             products.hasFixedSize()
             products.adapter = adapter
+
+            back.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
 }
