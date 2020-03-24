@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.uzmobile.templatex.ui.filter.FilterViewModel" />
+    </data>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.filter.FilterFragment">
+
+            <View
+                    android:id="@+id/price_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:background="@color/colorEditTextBottomLine"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                    android:id="@+id/price_header"
+                    style="@style/SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:text="Цена"
+                    app:layout_constraintTop_toBottomOf="@id/price_top_divider" />
+
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/prices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal"
+                    app:chipSpacingHorizontal="10dp"
+                    app:chipSpacingVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/price_header"
+                    app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Самый популярный" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Самая высокая цена" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Самая низкая цена" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <View
+                    android:id="@+id/brand_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/colorEditTextBottomLine"
+                    app:layout_constraintTop_toBottomOf="@id/prices" />
+
+            <TextView
+                    android:id="@+id/brand_header"
+                    style="@style/SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:text="Бренд"
+                    app:layout_constraintTop_toBottomOf="@id/brand_top_divider" />
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/brands"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal"
+                    app:chipSpacingHorizontal="10dp"
+                    app:chipSpacingVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/brand_header"
+                    app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Все бренды" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CASUAL" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="COLLECTION" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <View
+                    android:id="@+id/sport_sizes_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/colorEditTextBottomLine"
+                    app:layout_constraintTop_toBottomOf="@id/brands" />
+
+            <TextView
+                    android:id="@+id/sport_sizes_header"
+                    style="@style/SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:text="Спорт / Размер"
+                    app:layout_constraintTop_toBottomOf="@id/sport_sizes_top_divider" />
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/sport_sizes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal"
+                    app:chipSpacingHorizontal="10dp"
+                    app:chipSpacingVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/sport_sizes_header"
+                    app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XS" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="S" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="M" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="L" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XL" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XXL" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XS/34" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="S/36" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="M/38" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="L/40" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XL/42" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XXL/44" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <View
+                    android:id="@+id/sizes_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/colorEditTextBottomLine"
+                    app:layout_constraintTop_toBottomOf="@id/sport_sizes" />
+
+            <TextView
+                    android:id="@+id/sizes_header"
+                    style="@style/SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:text="Размер"
+                    app:layout_constraintTop_toBottomOf="@id/sizes_top_divider" />
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/sizes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal"
+                    app:chipSpacingHorizontal="10dp"
+                    app:chipSpacingVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/sizes_header"
+                    app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="8" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="14" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="16" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <View
+                    android:id="@+id/foot_sizes_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/colorEditTextBottomLine"
+                    app:layout_constraintTop_toBottomOf="@id/sizes" />
+
+            <TextView
+                    android:id="@+id/foot_sizes_header"
+                    style="@style/SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:text="Размер обуви"
+                    app:layout_constraintTop_toBottomOf="@id/foot_sizes_top_divider" />
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/foot_sizes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal"
+                    app:chipSpacingHorizontal="10dp"
+                    app:chipSpacingVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/foot_sizes_header"
+                    app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="8" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="14" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="16" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <View
+                    android:id="@+id/fit_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/colorEditTextBottomLine"
+                    app:layout_constraintTop_toBottomOf="@id/foot_sizes" />
+
+            <TextView
+                    android:id="@+id/fit_sizes_header"
+                    style="@style/SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:text="Fit"
+                    app:layout_constraintTop_toBottomOf="@id/fit_top_divider" />
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/fits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal"
+                    app:chipSpacingHorizontal="10dp"
+                    app:chipSpacingVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/fit_sizes_header"
+                    app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bootcut" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Culotte" />
+
+                <com.google.android.material.chip.Chip
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Straight Fit" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <View
+                    android:id="@+id/color_top_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/colorEditTextBottomLine"
+                    app:layout_constraintTop_toBottomOf="@id/fits" />
+
+            <TextView
+                    android:id="@+id/color_header"
+                    style="@style/SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:text="Цвета"
+                    app:layout_constraintTop_toBottomOf="@id/color_top_divider" />
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="5"
+                    tools:itemCount="12"
+                    app:layout_constraintTop_toBottomOf="@id/color_header"
+                    tools:listitem="@layout/filter_color_item"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

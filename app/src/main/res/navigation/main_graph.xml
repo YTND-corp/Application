@@ -152,7 +152,11 @@
     <fragment
             android:id="@+id/productsFragment"
             android:name="uz.uzmobile.templatex.ui.products.ProductsFragment"
-            android:label="" />
+            android:label="" >
+        <action
+                android:id="@+id/action_productsFragment_to_filterFragment"
+                app:destination="@id/filterFragment" />
+    </fragment>
     <fragment
             android:id="@+id/productFragment"
             android:name="uz.uzmobile.templatex.ui.product.ProductFragment"
@@ -176,5 +180,9 @@
 
     <include app:graph="@navigation/sign_up_graph" />
     <include app:graph="@navigation/sign_in_graph" />
+    <fragment
+            android:id="@+id/filterFragment"
+            android:name="uz.uzmobile.templatex.ui.filter.FilterFragment"
+            android:label="@string/title_filter" />
 
 </navigation>

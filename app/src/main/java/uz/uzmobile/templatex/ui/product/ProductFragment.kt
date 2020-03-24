@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.PagerSnapHelper
 import uz.uzmobile.templatex.databinding.ProductFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -55,24 +56,32 @@ class ProductFragment : Fragment() {
             banners.hasFixedSize()
             banners.adapter = bannerAdapter
             indicator.setRecyclerView(banners)
-            val snapHelper = LinearSnapHelper() // Or PagerSnapHelper
-            snapHelper.attachToRecyclerView(banners)
+            val bannerSnapHelper = PagerSnapHelper()
+            bannerSnapHelper.attachToRecyclerView(banners)
 
             colorAdapter = ProductColorAdapter(arrayListOf("1", "2", "3", "4"))
             colors.hasFixedSize()
             colors.adapter = colorAdapter
+//            val colorSnapHelper = LinearSnapHelper()
+//            colorSnapHelper.attachToRecyclerView(colors)
 
             sizeAdapter = ProductSizeAdapter(arrayListOf("1", "2", "3", "4"))
             sizes.hasFixedSize()
             sizes.adapter = sizeAdapter
 
-            relativeProductAdapter = ProductHorizontalAdapter(arrayListOf("1", "2", "3", "4"))
+            relativeProductAdapter =
+                ProductHorizontalAdapter(arrayListOf("1", "2", "3", "4", "5", "6", "7"))
             relativeProducts.hasFixedSize()
             relativeProducts.adapter = relativeProductAdapter
+//            val relativeSnapHelper = LinearSnapHelper()
+//            relativeSnapHelper.attachToRecyclerView(relativeProducts)
 
-            recentlyProductAdapter = ProductHorizontalAdapter(arrayListOf("1", "2", "3", "4"))
+            recentlyProductAdapter =
+                ProductHorizontalAdapter(arrayListOf("1", "2", "3", "4", "5", "6", "7"))
             recentlyProducts.hasFixedSize()
             recentlyProducts.adapter = recentlyProductAdapter
+//            val recentlySnapHelper = LinearSnapHelper()
+//            recentlySnapHelper.attachToRecyclerView(recentlyProducts)
 
             infoToggle.setOnCheckedChangeListener { compoundButton, b ->
                 info.visibility = if (b) View.VISIBLE else View.GONE

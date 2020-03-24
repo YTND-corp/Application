@@ -65,6 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="14dp"
+                android:singleLine="true"
+                android:maxLines="1"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
@@ -96,12 +98,12 @@
         <LinearLayout
                 android:id="@+id/sort_wrapper"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/filter"
                 app:layout_constraintTop_toTopOf="@id/filter"
-                android:gravity="end"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
+                app:layout_constraintBottom_toBottomOf="@id/filter"
+                android:gravity="center"
                 >
             <TextView
                     android:id="@+id/sort"
@@ -110,8 +112,10 @@
                     android:drawableStart="@drawable/ic_sort"
                     android:drawablePadding="6dp"
                     android:gravity="end"
-                    android:paddingTop="11dp"
-                    android:paddingBottom="15.5dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:scrollHorizontally="false"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
                     android:text="по популярности"
                     android:textSize="14sp"
                     />

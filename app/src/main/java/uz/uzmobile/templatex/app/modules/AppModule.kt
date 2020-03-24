@@ -37,6 +37,7 @@ import uz.uzmobile.templatex.ui.checkOrderStatus.CheckOrderStatusViewModel
 import uz.uzmobile.templatex.ui.checkout.CheckoutViewModel
 import uz.uzmobile.templatex.ui.country.CountryViewModel
 import uz.uzmobile.templatex.ui.favorite.FavoriteViewModel
+import uz.uzmobile.templatex.ui.filter.FilterViewModel
 import uz.uzmobile.templatex.ui.product.ProductViewModel
 import uz.uzmobile.templatex.ui.products.ProductsViewModel
 import uz.uzmobile.templatex.ui.profile.ProfileViewModel
@@ -82,8 +83,7 @@ val viewModelModule = module {
 
     viewModel { ProductsViewModel(get()) }
     viewModel { ProductViewModel(get()) }
-
-
+    viewModel { FilterViewModel(get()) }
 }
 
 val prefsModule = module {

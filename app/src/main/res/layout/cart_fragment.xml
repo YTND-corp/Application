@@ -10,46 +10,149 @@
                 type="uz.uzmobile.templatex.ui.cart.CartViewModel" />
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.cart.CartFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/placeholder_view"
+
+        <Button
+                android:id="@+id/continue_button"
+                style="@style/ContainedButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:text="@string/action_buy"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+                android:id="@+id/price_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text="Включая налоги за исключением доставки"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintBottom_toTopOf="@id/continue_button" />
+
+        <TextView
+                android:id="@+id/total_price"
+                style="@style/SemiBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:gravity="center"
+                android:text="Всего 4 294 000 UZS"
+                app:layout_constraintBottom_toTopOf="@id/price_description" />
+
+        <View
+                android:id="@+id/footer_top_divider"
+                style="@style/Divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line_height"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                app:layout_constraintBottom_toTopOf="@id/total_price" />
+
+        <TextView
+                android:id="@+id/product_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="Товаров: 15"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/edit"
+                style="@style/SemiBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginEnd="20dp"
+                android:text="Изменить"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/ready"
+                style="@style/SemiBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/errorColor"
+                android:textSize="@dimen/text_size_small"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Готово" />
+
+        <com.yanzhenjie.recyclerview.SwipeRecyclerView
+                android:id="@+id/products"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/footer_top_divider"
+                app:layout_constraintTop_toBottomOf="@id/product_count"
+                tools:listitem="@layout/product_item" />
+
+        <View
+                android:id="@+id/placeholder_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/windowBackgroundColor">
+                android:background="@color/windowBackgroundColor"
+                android:clickable="true"
+                android:focusable="true" />
 
-            <TextView
-                    android:id="@+id/placeholder_text"
-                    style="@style/Regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/cart_placeholder_message"
-                    android:textColor="@color/secondaryTextColor"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toTopOf="@id/placeholder_button"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
+        <TextView
+                android:id="@+id/placeholder_text"
+                style="@style/Regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/cart_placeholder_message"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@id/placeholder_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-            <Button
-                    android:id="@+id/placeholder_button"
-                    style="@style/OutlinedButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:text="@string/action_start_shopping"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/placeholder_text" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+                android:id="@+id/placeholder_button"
+                style="@style/OutlinedButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/action_start_shopping"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/placeholder_text" />
 
+        <androidx.constraintlayout.widget.Group
+                android:id="@+id/placeholders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:constraint_referenced_ids="placeholder_button,placeholder_text,placeholder_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

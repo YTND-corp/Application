@@ -1,6 +1,5 @@
 package uz.uzmobile.templatex.ui.products
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,6 +53,10 @@ class ProductsFragment : Fragment() {
         binding.apply {
             viewModel = this@ProductsFragment.viewModel
             executePendingBindings()
+
+            filter.setOnClickListener {
+                findNavController().navigate(R.id.action_productsFragment_to_filterFragment)
+            }
 
             adapter = ProductAdapter(arrayListOf(), object : ProductAdapter.ItemClickListener {
                 override fun onClick(item: Product) {

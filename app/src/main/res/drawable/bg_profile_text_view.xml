@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@color/windowBackgroundColor" />
         </shape>
     </item>
+
     <item android:gravity="bottom">
         <shape android:shape="rectangle">
             <size android:height="@dimen/divider_line_height" />
@@ -26,8 +26,6 @@
     <item
             android:drawable="@drawable/ic_chevron_right"
             android:gravity="end"
-            android:top="18dp"
-            android:bottom="18dp"
             android:right="@dimen/activity_horizontal_margin" />
 
 </layer-list>
