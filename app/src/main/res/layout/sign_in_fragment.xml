@@ -13,6 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
             android:background="@color/windowBackgroundColor"
             tools:context=".ui.signUp.SignUpFragment">
 
@@ -30,40 +32,45 @@
                     android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_email"
+                        android:id="@+id/til_phone"
                         style="@style/TextInputLayoutAppearance"
-                        android:hint="@string/hint_email"
                         android:layout_marginTop="10dp"
+                        android:hint="@string/hint_phone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_email"
+                            android:id="@+id/phone"
+                            style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits=" ,0,1,2,3,4,5,6,7,8,9,+"
                             android:gravity="center_vertical"
-                            style="@style/TextInputEditText"
-                            android:inputType="textEmailAddress" />
+                            android:imeOptions="actionNext"
+                            android:inputType="phone"
+                            android:maxLength="@integer/phone_length"
+                            android:text="@={viewModel.phone}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_password"
                         style="@style/TextInputLayoutAppearance"
-                        android:hint="@string/hint_password"
                         android:layout_marginTop="10dp"
+                        android:hint="@string/hint_password"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_email">
+                        app:layout_constraintTop_toBottomOf="@id/til_phone">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_password"
+                            android:id="@+id/password"
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword"
+                            android:text="@={viewModel.password}"
                             tools:text="Rontgenstrasse 30" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,6 +90,8 @@
                         style="@style/ContainedButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_marginTop="25dp"
+                        android:enabled="@{viewModel.isAllValid}"
+                        android:onClick="@{()->viewModel.signIn()}"
                         android:text="@string/action_continue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

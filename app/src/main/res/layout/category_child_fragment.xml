@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.uzmobile.templatex.ui.category.CategoryChildViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.catalog.CatalogChildFragment">
+
+        <EditText
+                android:id="@+id/search_edit_text"
+                style="@style/SearchFieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refresher"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_edit_text">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/catalogs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/catalog_detail_item" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/placeholder_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/windowBackgroundColor"
+                android:visibility="gone">
+
+            <TextView
+                    android:id="@+id/placeholder_title_text_view"
+                    style="@style/SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="-0.1sp"
+                    android:text="@string/favorite_placeholder_title"
+                    app:layout_constraintBottom_toTopOf="@id/placeholder_message_text_view"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                    android:id="@+id/placeholder_message_text_view"
+                    style="@style/Regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/favorite_placeholder_message"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@id/placeholder_button"
+                    app:layout_constraintTop_toBottomOf="@id/placeholder_title_text_view"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+            <Button
+                    android:id="@+id/placeholder_button"
+                    style="@style/OutlinedButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/action_see_products"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/placeholder_message_text_view" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

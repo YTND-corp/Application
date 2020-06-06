@@ -1,7 +1,7 @@
 package uz.uzmobile.templatex.app.modules
 
 import android.app.Application
-import com.google.gson.FieldNamingPolicy
+import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Cache
@@ -12,8 +12,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import uz.uzmobile.templatex.BuildConfig
-import uz.uzmobile.templatex.model.remote.api.ApiService
-import uz.uzmobile.templatex.model.repository.ApiRepository
 import java.io.File
 import java.security.cert.CertificateException
 import java.util.concurrent.TimeUnit
@@ -22,17 +20,21 @@ import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
 import org.koin.androidx.viewmodel.dsl.viewModel
 import uz.aqlify.yonda.utils.Prefs
+import uz.uzmobile.templatex.model.local.db.AppDatabase
+import uz.uzmobile.templatex.model.remote.api.*
 import uz.uzmobile.templatex.model.remote.network.AuthInterceptor
 import uz.uzmobile.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.uzmobile.templatex.model.remote.network.NetworkInterceptor
+import uz.uzmobile.templatex.model.repository.*
+import uz.uzmobile.templatex.ui.main.MainViewModel
 import uz.uzmobile.templatex.ui.about.AboutViewModel
 import uz.uzmobile.templatex.ui.adres.AdresViewModel
 import uz.uzmobile.templatex.ui.askQuestion.AskQuestionViewModel
 import uz.uzmobile.templatex.ui.callMe.CallMeViewModel
 import uz.uzmobile.templatex.ui.cart.CartViewModel
-import uz.uzmobile.templatex.ui.catalog.CatalogChildViewModel
-import uz.uzmobile.templatex.ui.catalog.CatalogViewModel
-import uz.uzmobile.templatex.ui.catalogDetails.CatalogDetailViewModel
+import uz.uzmobile.templatex.ui.category.CategoryChildViewModel
+import uz.uzmobile.templatex.ui.category.CategoryViewModel
+import uz.uzmobile.templatex.ui.subCategory.SubCategoryViewModel
 import uz.uzmobile.templatex.ui.checkOrderStatus.CheckOrderStatusViewModel
 import uz.uzmobile.templatex.ui.checkout.CheckoutViewModel
 import uz.uzmobile.templatex.ui.country.CountryViewModel
@@ -42,10 +44,12 @@ import uz.uzmobile.templatex.ui.product.ProductViewModel
 import uz.uzmobile.templatex.ui.products.ProductsViewModel
 import uz.uzmobile.templatex.ui.profile.ProfileViewModel
 import uz.uzmobile.templatex.ui.recoveryPassword.RecoveryPasswordViewModel
+import uz.uzmobile.templatex.ui.search.SearchViewModel
 import uz.uzmobile.templatex.ui.selection.SelectionChildViewModel
 import uz.uzmobile.templatex.ui.selection.SelectionViewModel
 import uz.uzmobile.templatex.ui.signIn.SignInViewModel
 import uz.uzmobile.templatex.ui.signUp.SignUpViewModel
+import uz.uzmobile.templatex.ui.splash.SplashViewModel
 import uz.uzmobile.templatex.ui.support.SupportViewModel
 import uz.uzmobile.templatex.utils.Const
 import uz.uzmobile.templatex.viewModel.*
@@ -53,23 +57,24 @@ import uz.uzmobile.templatex.viewModel.*
 
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
-    viewModel { MainViewModel(get()) }
+    viewModel { MainViewModel(get(), get()) }
     viewModel { BrandsViewModel(get(), get()) }
 
-    viewModel { FavoriteViewModel(get()) }
+    viewModel { FavoriteViewModel(get(), get()) }
 
-    viewModel { SignUpViewModel(get()) }
-    viewModel { SignInViewModel(get()) }
+    viewModel { SignUpViewModel(get(), get()) }
+    viewModel { SignInViewModel(get(), get()) }
     viewModel { RecoveryPasswordViewModel(get()) }
 
-    viewModel { SelectionViewModel(get()) }
+    viewModel { SelectionViewModel(get(), get()) }
     viewModel { SelectionChildViewModel(get()) }
+    viewModel { SearchViewModel(get()) }
 
-    viewModel { CatalogViewModel(get()) }
-    viewModel { CatalogChildViewModel(get()) }
-    viewModel { CatalogDetailViewModel(get()) }
+    viewModel { CategoryViewModel(get(), get()) }
+    viewModel { CategoryChildViewModel(get()) }
+    viewModel { SubCategoryViewModel(get()) }
 
-    viewModel { ProfileViewModel(get()) }
+    viewModel { ProfileViewModel(get(), get()) }
     viewModel { CountryViewModel(get()) }
     viewModel { CallMeViewModel(get()) }
     viewModel { CheckOrderStatusViewModel(get()) }
@@ -77,37 +82,44 @@ val viewModelModule = module {
     viewModel { SupportViewModel(get()) }
     viewModel { AboutViewModel(get()) }
 
-    viewModel { CartViewModel(get()) }
-    viewModel { CheckoutViewModel(get()) }
+    viewModel { CartViewModel(get(), get()) }
+    viewModel { CheckoutViewModel(get(), get()) }
     viewModel { AdresViewModel(get()) }
 
-    viewModel { ProductsViewModel(get()) }
-    viewModel { ProductViewModel(get()) }
+    viewModel { ProductsViewModel(get(), get()) }
+    viewModel { ProductViewModel(get(), get()) }
     viewModel { FilterViewModel(get()) }
 }
 
 val prefsModule = module {
-    fun providePrefs(application: Application): Prefs {
-        return Prefs(application)
-    }
+    single { Prefs(get()) }
+}
 
-    single { providePrefs(get()) }
+val dbModule = module {
+    factory {
+        Room.databaseBuilder(get(), AppDatabase::class.java, Const.DB_NAME).allowMainThreadQueries()
+            .build()
+    }
+    factory { get<AppDatabase>().productDao() }
 }
 
 val repositoryModule = module {
-    fun provideApiRepository(service: ApiService): ApiRepository {
-        return ApiRepository(service)
-    }
 
-    single { provideApiRepository(get()) }
+    single { ApiRepository(get()) }
+    single { CategoryRepository(get()) }
+    single { ProductRepository(get(), get()) }
+    single { AuthRepository(get(), get()) }
+    single { CartRepository(get()) }
+    single { CheckoutRepository(get(), get()) }
 }
 
 val apiModule = module {
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
-    }
-
-    single { provideApiService(get()) }
+    factory { get<Retrofit>().create(ApiService::class.java) }
+    factory { get<Retrofit>().create(CategoryService::class.java) }
+    factory { get<Retrofit>().create(ProductService::class.java) }
+    factory { get<Retrofit>().create(AuthService::class.java) }
+    factory { get<Retrofit>().create(CartService::class.java) }
+    factory { get<Retrofit>().create(CheckoutService::class.java) }
 }
 
 val retrofitModule = module {
@@ -118,14 +130,6 @@ val retrofitModule = module {
         return file
     }
 
-    fun provideCache(file: File): Cache {
-        return Cache(file, 10 * 1000 * 1000) // 10 mb cache file
-    }
-
-    fun provideGson(): Gson {
-        return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create()
-    }
-
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val logging =
             HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
@@ -134,14 +138,6 @@ val retrofitModule = module {
         logging.level =
             if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         return logging
-    }
-
-    fun provideNetworkInterceptor(application: Application): NetworkInterceptor {
-        return NetworkInterceptor(application)
-    }
-
-    fun provideAuthInterceptor(): AuthInterceptor {
-        return AuthInterceptor()
     }
 
     fun provideX509TrustManager(): X509TrustManager {
@@ -189,38 +185,36 @@ val retrofitModule = module {
         authInterceptor: AuthInterceptor,
         trustManager: X509TrustManager,
         sslSocketFactory: SSLSocketFactory
-    ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.MINUTES)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
-            .cache(cache)
-            .addInterceptor(httpLoggingInterceptor)
-            .addNetworkInterceptor(networkInterceptor)
-            .addInterceptor(authInterceptor)
-            .sslSocketFactory(sslSocketFactory, trustManager)
-            .build()
-    }
+    ) = OkHttpClient.Builder()
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(true)
+        .cache(cache)
+        .addInterceptor(httpLoggingInterceptor)
+        .addNetworkInterceptor(networkInterceptor)
+        .addInterceptor(authInterceptor)
+        .sslSocketFactory(sslSocketFactory, trustManager)
+        .build()
 
-    fun provideRetrofit(factory: Gson, client: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(Const.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(factory))
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
-            .client(client)
-            .build()
-    }
+
+    fun provideRetrofit(factory: Gson, client: OkHttpClient) = Retrofit.Builder()
+        .baseUrl(Const.BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create(factory))
+        .addCallAdapterFactory(LiveDataCallAdapterFactory())
+        .client(client)
+        .build()
+
 
     single { provideFile(get()) }
-    single { provideCache(get()) }
-    single { provideGson() }
-    single { provideNetworkInterceptor(get()) }
+    single { Cache(get(), 10 * 1000 * 1000) }
+    single { GsonBuilder().create() }
+    single { NetworkInterceptor(get()) }
     single { provideHttpLoggingInterceptor() }
-    single { provideAuthInterceptor() }
+    single { AuthInterceptor(get()) }
     single { provideX509TrustManager() }
     single { providesSSLSocketFactory(get()) }
     single { provideHttpClient(get(), get(), get(), get(), get(), get()) }
     single { provideRetrofit(get(), get()) }
 }
 
-val appModules = listOf(prefsModule, retrofitModule, apiModule, repositoryModule, viewModelModule)
+val appModules =
+    listOf(prefsModule, retrofitModule, apiModule, dbModule, repositoryModule, viewModelModule)

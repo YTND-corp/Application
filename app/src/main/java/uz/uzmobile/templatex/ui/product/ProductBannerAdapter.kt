@@ -5,28 +5,37 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.uzmobile.templatex.R
+import uz.uzmobile.templatex.databinding.ProductBannerItemBinding
 
-class ProductBannerAdapter(private var items: ArrayList<String>) :
+class ProductBannerAdapter() :
     RecyclerView.Adapter<ProductBannerAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.product_banner_item, parent, false)
-        return ViewHolder(view)
-    }
+    private var items: List<String> = listOf()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        ProductBannerItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+    )
 
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 
-    fun setItems(it: ArrayList<String>) {
-        items = it
+    fun setItems(it: List<String>?) {
+        items = it ?: listOf()
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: String) {
-
+    inner class ViewHolder(val binding: ProductBannerItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(url: String) {
+            binding.apply {
+                item = url
+                executePendingBindings()
+            }
         }
     }
 }

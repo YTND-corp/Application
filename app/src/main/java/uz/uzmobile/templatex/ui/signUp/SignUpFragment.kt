@@ -7,11 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import uz.uzmobile.templatex.databinding.SignUpFragmentBinding
+import uz.uzmobile.templatex.model.remote.network.Status
+import uz.uzmobile.templatex.ui.parent.ParentFragment
+import uz.uzmobile.templatex.utils.MaskWatcher
 
 
-class SignUpFragment : Fragment() {
+class SignUpFragment : ParentFragment() {
 
     val viewModel: SignUpViewModel by viewModel()
 
@@ -26,7 +32,7 @@ class SignUpFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@SignUpFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -34,6 +40,21 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+
+        viewModel.responce.observe(viewLifecycleOwner, Observer {result ->
+            when(result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                    findNavController().popBackStack()
+                }
+            }
+        })
+
     }
 
     private fun initViews() {
@@ -41,18 +62,33 @@ class SignUpFragment : Fragment() {
             viewModel = this@SignUpFragment.viewModel
             executePendingBindings()
 
+            phone.addTextChangedListener(MaskWatcher.phoneWatcher())
+
+            phone.setOnFocusChangeListener { view, hasFocus ->
+
+                if (hasFocus) {
+                    if (phone.text?.length ?: 0 < 5 && phone.text?.equals("+998") == false) {
+                        phone.setText("+998")
+                    }
+                } else {
+                    if (phone.text?.length ?: 0 <= 5) {
+                        phone.setText("")
+                    }
+                }
+            }
+
             passwordToggle.setOnCheckedChangeListener { _, b ->
-                val cursorPosition = etPassword.selectionStart
-                etPassword.transformationMethod =
+                val cursorPosition = password.selectionStart
+                password.transformationMethod =
                     if (b) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
-                etPassword.setSelection(cursorPosition)
+                password.setSelection(cursorPosition)
             }
 
             repeatPasswordToggle.setOnCheckedChangeListener { _, b ->
-                val cursorPosition: Int = etRepeatPassword.selectionStart
-                etRepeatPassword.transformationMethod =
+                val cursorPosition: Int = repeatPassword.selectionStart
+                repeatPassword.transformationMethod =
                     if (b) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
-                etRepeatPassword.setSelection(cursorPosition)
+                repeatPassword.setSelection(cursorPosition)
             }
         }
     }

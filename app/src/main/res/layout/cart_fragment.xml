@@ -110,14 +110,12 @@
                 app:layout_constraintTop_toBottomOf="@id/product_count"
                 tools:listitem="@layout/product_item" />
 
-        <View
-                android:id="@+id/placeholder_background"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/place_holder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/windowBackgroundColor"
-                android:clickable="true"
-                android:focusable="true" />
-
+                isVisible="@{viewModel.isCartEmpty()}"
+                android:background="@color/windowBackgroundColor">
         <TextView
                 android:id="@+id/placeholder_text"
                 style="@style/Regular"
@@ -145,13 +143,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/placeholder_text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.Group
-                android:id="@+id/placeholders"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:constraint_referenced_ids="placeholder_button,placeholder_text,placeholder_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

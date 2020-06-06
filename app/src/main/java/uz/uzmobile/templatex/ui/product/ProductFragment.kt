@@ -5,26 +5,58 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
 import uz.uzmobile.templatex.databinding.ProductFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
+import uz.uzmobile.templatex.R
+import uz.uzmobile.templatex.extension.attachSnapHelperWithListener
+import uz.uzmobile.templatex.model.remote.network.Status
+import uz.uzmobile.templatex.ui.parent.ParentFragment
+import uz.uzmobile.templatex.utils.SnapOnScrollListener
 
-class ProductFragment : Fragment() {
+class ProductFragment : ParentFragment() {
 
     val viewModel: ProductViewModel by viewModel()
 
     private val binding by lazy { ProductFragmentBinding.inflate(layoutInflater) }
 
-    private lateinit var bannerAdapter: ProductBannerAdapter
-    private lateinit var colorAdapter: ProductColorAdapter
-    private lateinit var sizeAdapter: ProductSizeAdapter
+    private val args: ProductFragmentArgs by navArgs()
+
+    private var bannerAdapter = ProductBannerAdapter()
+    private var indicatorAdapter = ProductBannerIndicatorAdapter()
+    private var colorAdapter = ProductColorAdapter()
+    private var sizeAdapter =  ProductSizeAdapter()
     private lateinit var relativeProductAdapter: ProductHorizontalAdapter
     private lateinit var recentlyProductAdapter: ProductHorizontalAdapter
 
     companion object {
         fun newInstance() = ProductFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.setArgs(args)
+
+        viewModel.images.observe(this, Observer {
+            bannerAdapter.setItems(it)
+            indicatorAdapter.setItems(it)
+        })
+
+        viewModel.colors.observe(this, Observer {
+            viewModel.selectedColor.value = it?.firstOrNull()
+            colorAdapter.setItems(it)
+        })
+
+        viewModel.sizes.observe(this, Observer {
+            viewModel.selectedSize.value = it?.firstOrNull()
+            sizeAdapter.setItems(it)
+        })
+
     }
 
     override fun onCreateView(
@@ -40,6 +72,21 @@ class ProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+
+
+        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                    Timber.e(result.data.toString())
+                }
+            }
+        })
     }
 
     private fun initViews() {
@@ -51,22 +98,21 @@ class ProductFragment : Fragment() {
                 findNavController().popBackStack()
             }
 
-
-            bannerAdapter = ProductBannerAdapter(arrayListOf("1", "2", "3"))
-            banners.hasFixedSize()
             banners.adapter = bannerAdapter
-            indicator.setRecyclerView(banners)
-            val bannerSnapHelper = PagerSnapHelper()
-            bannerSnapHelper.attachToRecyclerView(banners)
+            indicators.adapter = indicatorAdapter
 
-            colorAdapter = ProductColorAdapter(arrayListOf("1", "2", "3", "4"))
-            colors.hasFixedSize()
+            if (banners.onFlingListener == null) {
+                banners.attachSnapHelperWithListener(
+                    LinearSnapHelper(),
+                    SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
+                    object : SnapOnScrollListener.OnSnapPositionChangeListener {
+                        override fun onSnapPositionChange(snapPosition: Int) {
+                            indicatorAdapter.setSelected(snapPosition)
+                        }
+                    })
+            }
+
             colors.adapter = colorAdapter
-//            val colorSnapHelper = LinearSnapHelper()
-//            colorSnapHelper.attachToRecyclerView(colors)
-
-            sizeAdapter = ProductSizeAdapter(arrayListOf("1", "2", "3", "4"))
-            sizes.hasFixedSize()
             sizes.adapter = sizeAdapter
 
             relativeProductAdapter =
@@ -83,12 +129,53 @@ class ProductFragment : Fragment() {
 //            val recentlySnapHelper = LinearSnapHelper()
 //            recentlySnapHelper.attachToRecyclerView(recentlyProducts)
 
-            infoToggle.setOnCheckedChangeListener { compoundButton, b ->
+            infoToggle.setOnCheckedChangeListener { _, b ->
                 info.visibility = if (b) View.VISIBLE else View.GONE
             }
 
-            compositionToggle.setOnCheckedChangeListener { compoundButton, b ->
+            compositionToggle.setOnCheckedChangeListener { _, b ->
                 composition.visibility = if (b) View.VISIBLE else View.GONE
+            }
+
+            viewModel?.product?.observe(viewLifecycleOwner, Observer {
+                brand.text = getString(R.string.all_the_brand, it?.brand?.name)
+                categoryBrand.text = getString(R.string.all_the_category_of_the_brand,it?.category?.name ,it?.brand?.name)
+                category.text = getString(R.string.all_the_brand, it?.category?.name)
+            })
+
+            categoryBrand.setOnClickListener {
+                findNavController().navigate(
+                    ProductFragmentDirections.actionGlobalProductsFragment(
+                        args.categoryId,
+                        viewModel?.product?.value?.category?.name,
+                        viewModel?.product?.value?.brand?.id?:0
+                    )
+                )
+            }
+
+            category.setOnClickListener {
+                findNavController().navigate(
+                    ProductFragmentDirections.actionGlobalProductsFragment(
+                        args.categoryId,
+                        viewModel?.product?.value?.category?.name
+                    )
+                )
+            }
+
+            addToCart.setOnClickListener {
+                viewModel?.addToCart()?.observe(viewLifecycleOwner, Observer { result ->
+                    when (result.status) {
+                        Status.LOADING -> showLoading()
+                        Status.ERROR -> {
+                            hideLoading()
+                            showError(result.error)
+                        }
+                        Status.SUCCESS -> {
+                            hideLoading()
+                            Timber.e(result.data.toString())
+                        }
+                    }
+                })
             }
         }
     }

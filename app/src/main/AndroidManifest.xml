@@ -16,15 +16,16 @@
             android:theme="@style/AppTheme"
             tools:replace="android:allowBackup">
         <activity
-                android:name=".ui.MainActivity"
-                android:windowSoftInputMode="adjustResize"
+                android:name=".ui.main.MainActivity"
                 android:configChanges="keyboard|keyboardHidden|locale"
-                android:screenOrientation="portrait">
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <nav-graph android:value="@navigation/main_graph" />
         </activity>
     </application>
 

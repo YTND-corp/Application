@@ -5,4 +5,4 @@ import com.google.gson.annotations.SerializedName
 data class ApiError (
     @SerializedName("errorCode") var code: Int,
     @SerializedName("title") var title: String?,
-    @SerializedName("subTitle") var message: String)
+    @SerializedName("description") var message: String)

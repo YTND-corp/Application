@@ -12,8 +12,9 @@ import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.AdresFragmentBinding
 import uz.uzmobile.templatex.model.local.entity.Adres
 import uz.uzmobile.templatex.ui.custom.LineDividerItemDecoration
+import uz.uzmobile.templatex.ui.parent.ParentFragment
 
-class AdresFragment : Fragment() {
+class AdresFragment : ParentFragment() {
 
     val viewModel: AdresViewModel by viewModel()
 
@@ -50,7 +51,6 @@ class AdresFragment : Fragment() {
                     R.drawable.divider
                 )
             )
-
         }
     }
 }

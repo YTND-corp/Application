@@ -29,20 +29,18 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/product_banner_item" />
 
-            <com.kingfisher.easyviewindicator.RecyclerViewIndicator
-                    android:id="@+id/indicator"
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/indicators"
                     android:layout_width="wrap_content"
-                    android:layout_height="5dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                    app:avi_animation_enable="false"
-                    app:avi_drawable="@drawable/circle_indicator_selected"
-                    app:avi_drawable_unselected="@drawable/circle_indicator_unselected"
-                    app:avi_height="5dp"
-                    app:avi_margin="2.5dp"
-                    app:avi_width="5dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="@id/banners"
-                    app:layout_constraintStart_toStartOf="@id/banners" />
+                    app:layout_constraintStart_toStartOf="@id/banners"
+                    tools:listitem="@layout/product_banner_indicator" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/toolbar"
@@ -69,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text="ЧЕРНЫЙ"
+                    android:text="@{viewModel.selectedColor.name}"
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +94,7 @@
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
                     android:gravity="start"
-                    android:text="MANGO"
+                    android:text="@{viewModel.product.brand.name}"
                     app:layout_constraintTop_toBottomOf="@id/colors" />
 
             <TextView
@@ -106,7 +104,7 @@
                     android:layout_marginTop="5dp"
                     android:gravity="start"
                     android:lineSpacingExtra="5sp"
-                    android:text="Пальто Tailored из шерсти с лацканами"
+                    android:text="@{viewModel.product.name}"
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintStart_toStartOf="@id/title"
@@ -119,7 +117,7 @@
                     android:layout_marginTop="5dp"
                     android:gravity="start"
                     android:lineSpacingExtra="5sp"
-                    android:text="Верхняя одежда"
+                    android:text="@{viewModel.product.category.name}"
                     android:textColor="@color/secondaryTextColor"
                     android:textSize="@dimen/text_size_smaller"
                     app:layout_constraintEnd_toEndOf="@id/title"
@@ -132,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="start"
-                    android:text="951,000 UZS"
+                    android:text="@{viewModel.product.priceFormatted()}"
                     android:textSize="@dimen/text_size_smaller"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintStart_toStartOf="@id/title"
@@ -153,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:gravity="start"
-                    android:text="Размер:"
+                    android:text="@string/sizes"
                     android:textSize="@dimen/text_size_smaller"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintStart_toStartOf="@id/title"
@@ -174,7 +172,7 @@
                     tools:listitem="@layout/prooduct_size_item" />
 
             <Button
-                    android:id="@+id/continue_button"
+                    android:id="@+id/add_to_cart"
                     style="@style/ContainedButtonStyle"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:text="@string/action_add_to_cart"
@@ -190,7 +188,7 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/continue_button"
+                    app:layout_constraintTop_toBottomOf="@id/add_to_cart"
                     app:layout_constraintWidth_percent="0.5">
 
                 <ImageView
@@ -212,7 +210,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:lineSpacingExtra="2.9sp"
-                        android:text="В избранное"
+                        android:text="@string/to_favorites"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -222,13 +220,13 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/chare_layout"
+                    android:id="@+id/share_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/continue_button"
+                    app:layout_constraintTop_toBottomOf="@id/add_to_cart"
                     app:layout_constraintWidth_percent="0.5">
 
                 <ImageView
@@ -250,7 +248,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:lineSpacingExtra="2.9sp"
-                        android:text="Поделиться"
+                        android:text="@string/action_share"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -261,6 +259,7 @@
 
             <View
                     android:id="@+id/info_top_divider"
+                    isVisible="@{viewModel.hasDescription}"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_line_height"
                     android:background="@drawable/list_divider"
@@ -268,16 +267,19 @@
 
             <TextView
                     android:id="@+id/info_header"
+                    isVisible="@{viewModel.hasDescription}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="ИНФОРМАЦИЯ О ПРОДУКТЕ"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="14.5dp"
+                    android:text="@string/info_about_product"
                     app:layout_constraintEnd_toStartOf="@id/info_toggle"
                     app:layout_constraintStart_toStartOf="@id/title"
                     app:layout_constraintTop_toBottomOf="@id/info_top_divider" />
 
             <CheckBox
                     android:id="@+id/info_toggle"
+                    isVisible="@{viewModel.hasDescription}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/ic_product_info_toggle"
@@ -291,37 +293,41 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="6.5sp"
-                    android:paddingTop="10dp"
-                    android:text="Состав: 53% шерсть, 44% полиэстер, 3% вискоза.
-Подкладка: 52% полиэстер, 48% вискоза. Подкладка
-рука: 100% полиэстер. Кайма: 52% полиэстер, 48%
-вискоза. Подкладка кармана: 80% полиэстер, 20% хлопок"
+                    android:paddingBottom="10dp"
+                    android:text="@{viewModel.product.description}"
                     android:textSize="@dimen/text_size_smaller"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintStart_toStartOf="@id/title"
-                    app:layout_constraintTop_toBottomOf="@id/info_header" />
+                    app:layout_constraintTop_toBottomOf="@id/info_header"
+                    tools:text="Состав: 53% шерсть, 44% полиэстер, 3% вискоза.
+Подкладка: 52% полиэстер, 48% вискоза. Подкладка
+рука: 100% полиэстер. Кайма: 52% полиэстер, 48%
+вискоза. Подкладка кармана: 80% полиэстер, 20% хлопок" />
 
             <View
                     android:id="@+id/composition_top_divider"
+                    isVisible="@{viewModel.hasComposition}"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_line_height"
-                    android:layout_marginTop="14.5dp"
                     android:background="@drawable/list_divider"
                     app:layout_constraintTop_toBottomOf="@id/info" />
 
             <TextView
                     android:id="@+id/composition_header"
+                    isVisible="@{viewModel.hasComposition}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="СОСТАВ И УХОД"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="14.5dp"
+                    android:text="@string/composition_and_care"
                     app:layout_constraintEnd_toStartOf="@id/composition_toggle"
                     app:layout_constraintStart_toStartOf="@id/title"
                     app:layout_constraintTop_toBottomOf="@id/composition_top_divider" />
 
             <CheckBox
                     android:id="@+id/composition_toggle"
+                    isVisible="@{viewModel.hasComposition}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/ic_product_info_toggle"
@@ -335,22 +341,22 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="6.5sp"
-                    android:paddingTop="10dp"
-                    android:text="Состав: 53% шерсть, 44% полиэстер, 3% вискоза.
-Подкладка: 52% полиэстер, 48% вискоза. Подкладка
-рука: 100% полиэстер. Кайма: 52% полиэстер, 48%
-вискоза. Подкладка кармана: 80% полиэстер, 20% хлопок"
+                    android:paddingBottom="10dp"
+                    android:text="@{viewModel.product.compositionAndCare()}"
                     android:textSize="@dimen/text_size_smaller"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintStart_toStartOf="@id/title"
-                    app:layout_constraintTop_toBottomOf="@id/composition_header" />
+                    app:layout_constraintTop_toBottomOf="@id/composition_header"
+                    tools:text="Состав: 53% шерсть, 44% полиэстер, 3% вискоза.
+Подкладка: 52% полиэстер, 48% вискоза. Подкладка
+рука: 100% полиэстер. Кайма: 52% полиэстер, 48%
+вискоза. Подкладка кармана: 80% полиэстер, 20% хлопок" />
 
             <View
                     android:id="@+id/delivery_top_divider"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_line_height"
-                    android:layout_marginTop="14.5dp"
                     android:background="@drawable/list_divider"
                     app:layout_constraintTop_toBottomOf="@id/composition" />
 
@@ -363,7 +369,7 @@
                     android:paddingTop="15dp"
                     android:paddingEnd="@dimen/activity_horizontal_margin"
                     android:paddingBottom="14.5dp"
-                    android:text="ДОСТАВКА И ПРИМЕРКА"
+                    android:text="@string/deliver_and_check"
                     android:textSize="@dimen/text_size_smaller"
                     app:layout_constraintTop_toBottomOf="@id/delivery_top_divider" />
 
@@ -380,7 +386,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="start"
-                    android:text="Deliver and return"
+                    android:text="@string/deliver_and_return"
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintStart_toStartOf="@id/title"
@@ -392,7 +398,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="start"
-                    android:text="Deliver"
+                    android:text="@string/deliver"
                     android:textColor="@color/secondaryTextColor"
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintStart_toStartOf="@id/title"
@@ -404,7 +410,7 @@
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="start"
                     android:lineSpacingExtra="1.9sp"
-                    android:text="16 March, Monday"
+                    android:text="@{viewModel.delivery.date}"
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintBottom_toBottomOf="@id/delivery_hint"
                     app:layout_constraintEnd_toEndOf="@id/title"
@@ -417,7 +423,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:gravity="start"
-                    android:text="Return"
+                    android:text="@string/Return"
                     android:textColor="@color/secondaryTextColor"
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintStart_toStartOf="@id/title"
@@ -429,12 +435,13 @@
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="start"
                     android:lineSpacingExtra="1.9sp"
-                    android:text="During 14 days after receiving product"
+                    android:text="@{viewModel.delivery.returnDate}"
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintBottom_toBottomOf="@id/return_hint"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintStart_toEndOf="@id/return_hint"
-                    app:layout_constraintTop_toTopOf="@id/return_hint" />
+                    app:layout_constraintTop_toTopOf="@id/return_hint"
+                    tools:text="During 14 days after receiving product" />
 
             <View
                     android:id="@+id/socials_top_divider"
@@ -516,8 +523,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:text="Похожие товары"
+                    android:text="@string/related_products"
                     android:textSize="@dimen/text_size_smaller"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/socials_bottom_divider" />
 
@@ -529,6 +537,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/relative_products_header"
                     tools:itemCount="2"
@@ -539,6 +548,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_line_height"
                     android:background="@drawable/list_divider"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/relative_products" />
 
             <TextView
@@ -599,6 +609,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_line_height"
                     android:background="@drawable/list_divider"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/relative_category" />
 
             <TextView
@@ -610,8 +621,9 @@
                     android:gravity="start"
                     android:paddingTop="10dp"
                     android:paddingBottom="9dp"
-                    android:text="Вы недавно просматривали"
+                    android:text="@string/recent_products"
                     android:textSize="@dimen/text_size_smaller"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/recently_products_top_divider" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -622,10 +634,12 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/recently_products_header"
                     tools:itemCount="2"
                     tools:listitem="@layout/product_item" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

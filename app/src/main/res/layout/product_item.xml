@@ -23,16 +23,19 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:src="@drawable/ic_country"
+                url="@{item.image}"
                 app:layout_constraintDimensionRatio="0.65"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
+                android:id="@+id/favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="18dp"
                 android:button="@drawable/ic_like"
+                android:checked="@{item.isFavorite}"
                 android:text=""
                 app:layout_constraintEnd_toEndOf="@id/image"
                 app:layout_constraintTop_toTopOf="@id/image" />
@@ -44,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
-                android:text="Massimo Dutti"
+                android:text="@{item.brand}"
+                tools:text="Massimo Dutti"
                 android:textSize="@dimen/text_size_tiny"
                 app:layout_constraintTop_toBottomOf="@id/image" />
 
@@ -54,7 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="СВИТЕР - ТУНИКА ИЗ ШЕРСТИ И.."
+                android:text="@{item.name}"
+                tools:text="СВИТЕР - ТУНИКА ИЗ ШЕРСТИ И.."
                 android:textSize="@dimen/text_size_tiny"
                 app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -64,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="769 000,00 so’m"
+                android:text="@{item.price}"
                 android:textSize="@dimen/text_size_tiny"
                 app:layout_constraintTop_toBottomOf="@id/subtitle" />
 

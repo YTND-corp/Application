@@ -2,9 +2,9 @@ package uz.uzmobile.templatex.utils
 
 
 object Const {
-    val DB_NAME = "UzAutoDatabase"
+    val DB_NAME = "ModDatabase"
 
-    val BASE_URL = "https://dealer.uzavtosanoat.uz/"
+    val BASE_URL = "https://api.mod.uz/"
 
     val CODE_TIME_OUT: Long = 2 * 60000
 }

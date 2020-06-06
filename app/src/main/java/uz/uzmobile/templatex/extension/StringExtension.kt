@@ -14,7 +14,6 @@ val String.clear:String
     get() {
         var s = this
         s = s.replace("-".toRegex(), "")
-        s = s.replace("+", "")
         s = s.replace(" ".toRegex(), "")
         s = s.trim { it <= ' ' }
         return s
@@ -37,6 +36,14 @@ fun String.phoneFormat(): String? {
         return "+998"+text.substring(0,2) + " " + text.substring(2,5) + " " +text.substring(5,7) +  " " + text.substring(7,9)
     }
     return this
+}
+
+fun String.backEndPhoneFormat(): String? {
+    val text = this.clear
+
+    return if (text.length == 12) {
+        "+${text}" //+ text.substring(0, 3) + " " + text.substring(3, 5) + " " + text.substring(5, 8) + "-" + text.substring(8, 10) + "-" + text.substring(10)
+    } else this
 }
 
 fun String.plateFormat(): String? {

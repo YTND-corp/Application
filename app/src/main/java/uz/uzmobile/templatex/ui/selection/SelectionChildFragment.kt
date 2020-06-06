@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Observer
 import uz.uzmobile.templatex.databinding.SelectionChildFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import uz.uzmobile.templatex.model.local.entity.Selection
+import uz.uzmobile.templatex.model.local.entity.HomeGender
 
 class SelectionChildFragment : Fragment() {
     val viewModel: SelectionChildViewModel by viewModel()
@@ -18,14 +18,19 @@ class SelectionChildFragment : Fragment() {
     private lateinit var adapter: SelectionAdapter
 
     companion object {
-        const val POSITION = "POSITION"
-        fun newInstance(position: Int): SelectionChildFragment {
+        const val GENDER = "DENDER"
+        fun newInstance(gender: HomeGender): SelectionChildFragment {
             val fragment = SelectionChildFragment()
             val bundle = Bundle()
-            bundle.putInt(POSITION, position)
+            bundle.putParcelable(GENDER, gender)
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.setArgs(arguments?.getParcelable(GENDER))
     }
 
     override fun onCreateView(
@@ -33,7 +38,7 @@ class SelectionChildFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@SelectionChildFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -42,6 +47,10 @@ class SelectionChildFragment : Fragment() {
 
         initViews()
 
+        viewModel.items.observe(viewLifecycleOwner, Observer {
+            adapter.setItems(it)
+        })
+
     }
 
     private fun initViews() {
@@ -49,11 +58,7 @@ class SelectionChildFragment : Fragment() {
             viewModel = this@SelectionChildFragment.viewModel
             executePendingBindings()
 
-            adapter = SelectionAdapter(arrayListOf(Selection(0), Selection(1)), object : SelectionAdapter.SelectionListener {
-                override fun onItemClick(item: Selection) {
-//                    parentFragment?.findNavController()?.navigate(R.id.action_catalogFragment_to_catalogDetailFragment)
-                }
-            })
+            adapter = SelectionAdapter()
             selections.hasFixedSize()
             selections.adapter = adapter
         }

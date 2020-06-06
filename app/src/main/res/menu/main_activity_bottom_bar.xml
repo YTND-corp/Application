@@ -10,7 +10,7 @@
                 android:icon="@drawable/ic_selection"
                 android:title="@string/nav_menu_item_selection" />
         <item
-                android:id="@+id/catalogFragment"
+                android:id="@+id/categoryFragment"
                 android:icon="@drawable/ic_catalog"
                 android:title="@string/nav_menu_item_catalog" />
         <item

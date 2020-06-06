@@ -45,6 +45,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
+                            android:text="@={viewModel.name}"
                             android:inputType="textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +65,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
+                            android:text="@={viewModel.surname}"
                             android:inputType="textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -83,6 +85,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
+                            android:text="@={viewModel.email}"
                             android:inputType="textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -102,16 +105,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
+                            android:text="@={viewModel.phone}"
+                            android:maxLength="@integer/phone_length"
                             android:inputType="textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Space
-                        android:id="@+id/empty_space"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        app:layout_constraintTop_toBottomOf="@id/til_phone"
-                        app:layout_constraintBottom_toTopOf="@id/continue_button"/>
 
                 <Button
                         android:id="@+id/continue_button"
@@ -121,10 +120,14 @@
                         android:layout_marginBottom="40dp"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         app:layout_constraintEnd_toEndOf="parent"
+                        android:enabled="@{viewModel.isAllValid()}"
+                        android:onClick="@{() -> viewModel.user()}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/empty_space"
-                        app:layout_constraintVertical_chainStyle="packed" />
+                        app:layout_constraintTop_toBottomOf="@id/til_phone"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        app:layout_constraintVertical_bias="1"
+                        />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

@@ -17,8 +17,8 @@
     <string name="action_no">Нет</string>
     <string name="action_call">Позвонить</string>
     <string name="action_settings">Settings</string>
-    <string name="action_search">Search</string>
-    <string name="action_share">Share</string>
+    <string name="action_search">Поиск</string>
+    <string name="action_share">Поделиться</string>
     <string name="action_buy">Купить</string>
 
     <string name="action_start_shopping">Начать покупки</string>
@@ -53,6 +53,7 @@
     <string name="title_about">Наши контакты</string>
     <string name="title_checkout">Оформления заказа</string>
     <string name="title_adres">Адрес доставки</string>
+    <string name="title_search">Поиск</string>
 
     <!--Bottom Menu -->
     <string name="nav_menu_item_selection">Подборка</string>
@@ -72,9 +73,6 @@
     <string name="hint_address">Адрес</string>
     <string name="hint_password">Введите пароль</string>
     <string name="hint_repeat_password">Повторите пароль</string>
-
-    <!--Cart-->
-    <string name="cart_placeholder_message">В вашей корзине пока ничего нет</string>
 
     <!--Profile-->
     <string name="auth_view_title">Привилегии</string>
@@ -124,6 +122,35 @@
     <string name="country_header">Выберите страну</string>
 
     <!--  Products  -->
-    <string name="products_subtitle">%1$s всего</string>
+    <string name="products_subtitle">%s всего</string>
     <string name="filters">Фильтры</string>
+
+    <!--  Product  -->
+    <string name="sizes">Размер:</string>
+    <string name="to_favorites">В избранное</string>
+    <string name="deliver_and_check">ДОСТАВКА И ПРИМЕРКА</string>
+    <string name="deliver_and_return">Deliver and return</string>
+    <string name="deliver">Deliver</string>
+    <string name="Return">Return</string>
+    <string name="info_about_product">ИНФОРМАЦИЯ О ПРОДУКТЕ</string>
+    <string name="composition_and_care">СОСТАВ И УХОД</string>
+    <string name="related_products">Похожие товары</string>
+    <string name="all_the_brand">Все %s</string>
+    <string name="all_the_category_of_the_brand">Все %s %s</string>
+    <string name="other_category">Другие %s</string>
+
+    <string name="recent_products">Вы недавно просматривали</string>
+
+    <!--Cart-->
+    <string name="product_count">Товаров: %d</string>
+    <string name="cart_placeholder_message">В вашей корзине пока ничего нет</string>
+
+    <!--  Cart Details  -->
+    <string name="select_all">Выбрать все</string>
+    <string name="total_price">Всего %s</string>
+    <string name="with_taxes">Включая налоги за исключением доставки</string>
+
+    <string name="checkout_final_title">Спасибо, %s!</string>
+    <string name="checkout_final_message">Вы получите свой заказ:\n%s\n\nУведомления отключены. \nНе забудьте,  что если вы не включите их, \nмы не сможем присылать вам информацию \nо состоянии заказа.</string>
+
 </resources>

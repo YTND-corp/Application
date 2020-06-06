@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.model.local.entity.Support
-import uz.uzmobile.templatex.ui.custom.LineViewHolder
 
 class SupportAdapter(private val items: List<Support>) :
     RecyclerView.Adapter<SupportAdapter.ViewHolder>() {

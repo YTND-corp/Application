@@ -7,7 +7,7 @@
 
         <variable
                 name="item"
-                type="uz.uzmobile.templatex.model.local.entity.Product" />
+                type="uz.uzmobile.templatex.model.remote.responce.CartProductWrapper" />
     </data>
 
     <FrameLayout

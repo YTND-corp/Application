@@ -63,7 +63,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/favorites"
+                android:id="@+id/products"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:paddingLeft="9dp"

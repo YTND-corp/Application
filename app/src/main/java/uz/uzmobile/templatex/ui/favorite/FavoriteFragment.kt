@@ -1,18 +1,19 @@
 package uz.uzmobile.templatex.ui.favorite
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.FavoriteFragmentBinding
-import uz.uzmobile.templatex.model.local.entity.Product
+import uz.uzmobile.templatex.model.remote.network.Status
+import uz.uzmobile.templatex.ui.parent.ParentFragment
+import uz.uzmobile.templatex.ui.products.ProductAdapter
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : ParentFragment() {
 
     val viewModel: FavoriteViewModel by viewModel()
 
@@ -22,6 +23,48 @@ class FavoriteFragment : Fragment() {
 
     companion object {
         fun newInstance() = FavoriteFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        adapter = ProductAdapter { id, isFavorite ->
+            viewModel.favoriteToggle(id, isFavorite).observe(this, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        showError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                    }
+                }
+            })
+        }
+
+        viewModel.products().observe(this, Observer {
+            if (it.isNullOrEmpty()) {
+                binding.placeholderView.visibility = View.VISIBLE
+                adapter.setItems(it)
+            } else {
+                binding.placeholderView.visibility = View.GONE
+                adapter.setItems(it)
+            }
+        })
+
+        viewModel.getFavorites().observe(this, Observer { result ->
+            when (result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                }
+            }
+        })
     }
 
     override fun onCreateView(
@@ -38,16 +81,6 @@ class FavoriteFragment : Fragment() {
 
         initViews()
 
-        viewModel.products.observe(requireActivity(), Observer {
-            if (it.isNullOrEmpty()) {
-                binding.placeholderView.visibility = View.VISIBLE
-            } else {
-                binding.placeholderView.visibility = View.GONE
-                adapter.setItems(it)
-                adapter.notifyDataSetChanged()
-            }
-
-        })
     }
 
     private fun initViews() {
@@ -55,14 +88,7 @@ class FavoriteFragment : Fragment() {
             viewModel = this@FavoriteFragment.viewModel
             executePendingBindings()
 
-            adapter = ProductAdapter(arrayListOf(), object : ProductAdapter.ItemClickListener{
-                override fun onClick(item: Product) {
-                    findNavController().navigate(R.id.action_global_productFragment)
-                }
-            })
-
-            favorites.hasFixedSize()
-            favorites.adapter = adapter
+            products.adapter = adapter
         }
     }
 }

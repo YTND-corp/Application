@@ -4,15 +4,22 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.SelectionFragmentBinding
+import uz.uzmobile.templatex.model.remote.network.Status
+import uz.uzmobile.templatex.ui.parent.ParentFragment
 
-class SelectionFragment: Fragment() {
+class SelectionFragment: ParentFragment() {
 
     val viewModel: SelectionViewModel by viewModel()
 
     private val binding  by lazy { SelectionFragmentBinding.inflate(layoutInflater) }
+
+    private lateinit var pageAdapter: SelectionPagerAdapter
 
     companion object {
         fun newInstance() = SelectionFragment()
@@ -21,6 +28,8 @@ class SelectionFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true);
+
+        viewModel.getHome()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -29,14 +38,12 @@ class SelectionFragment: Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.searchFragment -> true;
-            else -> super.onOptionsItemSelected(item)
-        }
+        findNavController().navigate(item.itemId)
+        return true
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding.lifecycleOwner = this@SelectionFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -44,6 +51,22 @@ class SelectionFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+
+        viewModel.response.observe(viewLifecycleOwner, Observer {result ->
+            when(result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    Timber.e(result.error.toString())
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                    Timber.e(result.data.toString())
+                    pageAdapter.setItems(result.data)
+                }
+            }
+        })
     }
 
 
@@ -54,10 +77,16 @@ class SelectionFragment: Fragment() {
             viewModel = this@SelectionFragment.viewModel
             executePendingBindings()
 
-            pager.adapter = SelectionPagerAdapter(
-                childFragmentManager,
-                resources.getStringArray(R.array.catalog_tab_names)
-            )
+            pageAdapter = SelectionPagerAdapter(childFragmentManager)
+
+            pager.offscreenPageLimit = 3
+            pager.adapter = pageAdapter
+
+            pager.setOnTouchListener { view, motionEvent ->
+                return@setOnTouchListener true
+            }
+
+            pager.setSwipePagingEnabled(false)
 
             tabs.setupWithViewPager(pager)
         }

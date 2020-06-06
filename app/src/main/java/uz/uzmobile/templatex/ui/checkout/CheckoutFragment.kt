@@ -5,14 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.cart_fragment.*
 
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.CheckoutFragmentBinding
+import uz.uzmobile.templatex.model.remote.network.Status
+import uz.uzmobile.templatex.ui.parent.ParentFragment
+import uz.uzmobile.templatex.utils.MaskWatcher
 
-class CheckoutFragment : Fragment() {
+class CheckoutFragment : ParentFragment() {
 
     val viewModel: CheckoutViewModel by viewModel()
 
@@ -20,6 +24,25 @@ class CheckoutFragment : Fragment() {
 
     companion object {
         fun newInstance() = CheckoutFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.responce.observe(viewLifecycleOwner, Observer {result ->
+            when(result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                    if (result.data == true) {
+                        findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToAdresFragment())
+                    }
+                }
+            }
+        })
     }
 
     override fun onCreateView(
@@ -34,6 +57,8 @@ class CheckoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+
+
     }
 
     private fun initViews() {
@@ -41,8 +66,19 @@ class CheckoutFragment : Fragment() {
             viewModel = this@CheckoutFragment.viewModel
             executePendingBindings()
 
-            continueButton.setOnClickListener {
-                findNavController().navigate(R.id.action_checkoutFragment_to_adresFragment)
+            phone.addTextChangedListener(MaskWatcher.phoneWatcher())
+
+            phone.setOnFocusChangeListener { view, hasFocus ->
+
+                if (hasFocus) {
+                    if (phone.text?.length ?: 0 < 5 && phone.text?.equals("+998") == false) {
+                        phone.setText("+998")
+                    }
+                } else {
+                    if (phone.text?.length ?: 0 <= 5) {
+                        phone.setText("")
+                    }
+                }
             }
         }
     }

@@ -1,56 +1,59 @@
 package uz.uzmobile.templatex.ui.selection
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.selection_item.view.*
-import uz.uzmobile.templatex.R
-import uz.uzmobile.templatex.model.local.entity.Actual
-import uz.uzmobile.templatex.model.local.entity.Selection
+import com.bumptech.glide.Glide
+import uz.uzmobile.templatex.databinding.SelectionItemBinding
+import uz.uzmobile.templatex.model.local.entity.HomeItem
 
 
 class SelectionAdapter(
-    private var items: ArrayList<Selection> = arrayListOf(),
-    val listener: SelectionListener
+    private var items: List<HomeItem> = arrayListOf()
 ) : RecyclerView.Adapter<SelectionAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.selection_item, parent, false)
-        return ViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder(SelectionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position], listener)
+        holder.bind(items[position])
     }
 
-    fun setItems(items: ArrayList<Selection>) {
+    fun setItems(items: List<HomeItem>) {
         this.items = items
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Selection, listener: SelectionListener?) {
-            itemView.actuals.setHasFixedSize(true)
-            itemView.actuals.adapter = ActualAdapter(
-                arrayListOf(Actual(0), Actual(1), Actual(2)),
-                object : ActualAdapter.ItemClickListener {
-                    override fun onItemClick(item: Actual) {
+    inner class ViewHolder(val binding: SelectionItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(homeItem: HomeItem) {
+            binding.apply {
+                item = homeItem
+                executePendingBindings()
+                if (homeItem.isBanner()) {
+                    bannerHeader.text = homeItem.title
 
+                    Glide.with(binding.root.context)
+                        .load(homeItem.items?.first()?.image)
+                        .into(image)
+                    image.setOnClickListener {
+                            it.findNavController().navigate(
+                                SelectionFragmentDirections.actionGlobalProductsFragment(
+                                    homeItem.id,
+                                    homeItem.title
+                                )
+                            )
                     }
-                })
-//            itemView.text.text = item.name
-//            itemView.setOnClickListener {
-//                listener?.onItemClick(item)
-//            }
-        }
-    }
 
-    interface SelectionListener {
-        fun onItemClick(item: Selection)
+                } else {
+                    actualHeader.text = homeItem.title
+                    actuals.adapter =
+                        SelectionSubAdapter(homeItem.id, homeItem.items ?: arrayListOf())
+                }
+            }
+        }
     }
 }

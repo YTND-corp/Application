@@ -38,12 +38,13 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_phone"
+                            android:id="@+id/phone"
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
                             android:inputType="phone"
+                            android:maxLength="@integer/phone_length"
                             android:text="@={viewModel.phone}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -57,12 +58,12 @@
                         app:layout_constraintTop_toBottomOf="@id/til_phone">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_name"
+                            android:id="@+id/name"
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
                             android:imeOptions="actionNext"
+                            android:text="@={viewModel.name}"
                             android:inputType="textPersonName" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -77,11 +78,12 @@
                         app:layout_constraintTop_toBottomOf="@id/til_name">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_surname"
+                            android:id="@+id/surname"
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
+                            android:text="@={viewModel.surname}"
                             android:inputType="textPersonName" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -95,11 +97,12 @@
                         app:layout_constraintTop_toBottomOf="@id/til_surname">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_email"
+                            android:id="@+id/email"
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
+                            android:text="@={viewModel.email}"
                             android:inputType="textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -113,12 +116,13 @@
                         app:layout_constraintTop_toBottomOf="@id/til_email">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_address"
+                            android:id="@+id/address"
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
                             android:inputType="text"
+                            android:text="@={viewModel.address}"
                             tools:text="Rontgenstrasse 30" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,13 +135,14 @@
                         app:layout_constraintTop_toBottomOf="@id/til_address">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_password"
+                            android:id="@+id/password"
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
                             android:inputType="textPassword"
                             android:maxLength="15"
+                            android:text="@={viewModel.password}"
                             tools:text="Rontgenstrasse 30" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,13 +166,14 @@
                         app:layout_constraintTop_toBottomOf="@id/til_password">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_repeat_password"
+                            android:id="@+id/repeat_password"
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword"
                             android:maxLength="15"
+                            android:text="@={viewModel.repeat}"
                             tools:text="Rontgenstrasse 30" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,6 +193,7 @@
                         android:id="@+id/continue_button"
                         style="@style/ContainedButtonStyle"
                         android:layout_marginTop="40dp"
+                        android:enabled="@{viewModel.isAllValid()}"
                         android:text="@string/action_continue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

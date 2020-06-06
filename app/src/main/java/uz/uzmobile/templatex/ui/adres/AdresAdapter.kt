@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.model.local.entity.Adres
-import uz.uzmobile.templatex.ui.custom.LineViewHolder
 
 class AdresAdapter(private val items: List<Adres>) :
     RecyclerView.Adapter<AdresAdapter.ViewHolder>() {

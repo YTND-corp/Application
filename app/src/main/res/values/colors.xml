@@ -34,4 +34,7 @@
     <string name="orange">#FF9500</string>
     <string name="blue">#007AFF</string>
 
+    <color name="indicator_current">#000000</color>
+    <color name="indicator_default">#52000000</color>
+
 </resources>

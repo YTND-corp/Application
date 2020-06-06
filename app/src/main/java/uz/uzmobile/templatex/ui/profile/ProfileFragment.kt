@@ -8,9 +8,10 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.uzmobile.templatex.R
 import uz.uzmobile.templatex.databinding.ProfileFragmentBinding
+import uz.uzmobile.templatex.ui.parent.ParentFragment
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : ParentFragment() {
 
     val viewModel: ProfileViewModel by viewModel()
 
@@ -50,11 +51,22 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+
+        sharedViewModel.isAuthenticated.observe(viewLifecycleOwner, Observer { isAuthorized ->
+            if (isAuthorized) {
+                binding.unauthorized
+            } else {
+
+            }
+            binding.name.text = viewModel.getUserName()
+            binding.phone.text = viewModel.getUserPhone()
+        })
     }
 
     private fun initViews() {
         binding.apply {
             viewModel = this@ProfileFragment.viewModel
+            sharedViewModel = this@ProfileFragment.sharedViewModel
             executePendingBindings()
 
             signIn.setOnClickListener {
