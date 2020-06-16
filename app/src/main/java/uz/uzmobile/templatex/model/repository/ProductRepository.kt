@@ -55,8 +55,6 @@ class ProductRepository constructor(val service: ProductService, val db: Product
                     }
                     db.insertAll(temps)
                 }
-
-
                 return item?.productWrapper?.total
             }
 

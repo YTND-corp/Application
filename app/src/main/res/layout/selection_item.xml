@@ -37,7 +37,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 isVisible="@{item.isBanner()}"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="1.5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

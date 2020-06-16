@@ -19,7 +19,7 @@ class SelectionFragment: ParentFragment() {
 
     private val binding  by lazy { SelectionFragmentBinding.inflate(layoutInflater) }
 
-    private lateinit var pageAdapter: SelectionPagerAdapter
+    private var pageAdapter  =  SelectionPagerAdapter(childFragmentManager)
 
     companion object {
         fun newInstance() = SelectionFragment()
@@ -77,14 +77,8 @@ class SelectionFragment: ParentFragment() {
             viewModel = this@SelectionFragment.viewModel
             executePendingBindings()
 
-            pageAdapter = SelectionPagerAdapter(childFragmentManager)
-
             pager.offscreenPageLimit = 3
             pager.adapter = pageAdapter
-
-            pager.setOnTouchListener { view, motionEvent ->
-                return@setOnTouchListener true
-            }
 
             pager.setSwipePagingEnabled(false)
 

@@ -16,14 +16,14 @@
             android:layout_height="match_parent"
             tools:context=".ui.cart.CartFragment">
 
-
         <Button
                 android:id="@+id/continue_button"
                 style="@style/ContainedButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:text="@string/action_buy"
+                android:fontFamily="@font/regular"
+                android:text="@{viewModel.buttonText}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,25 +31,32 @@
 
         <TextView
                 android:id="@+id/price_description"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:textAlignment="center"
                 android:gravity="center"
-                android:text="Включая налоги за исключением доставки"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/with_taxes"
+                tools:text="Включая налоги за исключением доставки"
                 android:textSize="@dimen/text_size_small"
                 app:layout_constraintBottom_toTopOf="@id/continue_button" />
 
         <TextView
                 android:id="@+id/total_price"
                 style="@style/SemiBold"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:gravity="center"
-                android:text="Всего 4 294 000 UZS"
+                android:textAlignment="center"
+                android:text="@{viewModel.totalPrice}"
                 app:layout_constraintBottom_toTopOf="@id/price_description" />
 
         <View
@@ -66,7 +73,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="Товаров: 15"
+                android:text="@{viewModel.productCount}"
+                tools:text="Товаров: 15"
                 android:textSize="@dimen/text_size_small"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -78,8 +86,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginEnd="20dp"
-                android:text="Изменить"
+                android:text="@string/action_edit"
                 android:textSize="@dimen/text_size_small"
+                android:clickable="true"
+                android:focusable="true"
+                isVisible="@{!viewModel.isEditing}"
+                android:onClick="@{() -> viewModel.startEditing()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,12 +102,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginEnd="20dp"
+                android:text="@string/action_save"
                 android:textColor="@color/errorColor"
                 android:textSize="@dimen/text_size_small"
-                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Готово" />
+                isVisible="@{viewModel.isEditing}"
+                android:onClick="@{() -> viewModel.stopEditing()}"
+                tools:text="Save" />
 
         <com.yanzhenjie.recyclerview.SwipeRecyclerView
                 android:id="@+id/products"
@@ -125,6 +139,7 @@
                 android:text="@string/cart_placeholder_message"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="15sp"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toTopOf="@id/placeholder_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

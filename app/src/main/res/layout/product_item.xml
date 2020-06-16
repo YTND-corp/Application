@@ -22,7 +22,7 @@
                 android:id="@+id/image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:src="@drawable/ic_country"
+                android:scaleType="centerCrop"
                 url="@{item.image}"
                 app:layout_constraintDimensionRatio="0.65"
                 app:layout_constraintEnd_toEndOf="parent"

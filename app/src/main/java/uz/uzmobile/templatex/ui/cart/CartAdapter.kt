@@ -8,11 +8,16 @@ import uz.uzmobile.templatex.model.local.entity.Product
 import uz.uzmobile.templatex.model.remote.responce.CartProduct
 import uz.uzmobile.templatex.model.remote.responce.CartProductWrapper
 
-class CartAdapter(private var items: List<CartProductWrapper> = arrayListOf()) :
+class CartAdapter(
+    private var select: (item: Int) -> Unit,
+    private var sub: (item: Int) -> Unit,
+    private var add: (item: Int) -> Unit
+) :
     RecyclerView.Adapter<CartAdapter.ViewHolder>() {
-
+    private var isEditing  = false
+    private var items: List<CartProductWrapper> = arrayListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = CartItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        val binding = CartItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -27,10 +32,31 @@ class CartAdapter(private var items: List<CartProductWrapper> = arrayListOf()) :
         notifyDataSetChanged()
     }
 
+    fun setIsEditing(it: Boolean) {
+        isEditing = it
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(val binding: CartItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: CartProductWrapper) {
-            binding.item = item
-            binding.executePendingBindings()
+        fun bind(product: CartProductWrapper) {
+            binding.apply {
+                item = product
+                isEditing = this@CartAdapter.isEditing
+                executePendingBindings()
+
+
+                select.setOnCheckedChangeListener { compoundButton, b ->
+                    if (compoundButton.isPressed) this@CartAdapter.select.invoke(product.id)
+                }
+
+                minus.setOnClickListener {
+                    this@CartAdapter.sub.invoke(product.id)
+                }
+
+                plus.setOnClickListener {
+                    this@CartAdapter.add.invoke(product.id)
+                }
+            }
         }
     }
 }

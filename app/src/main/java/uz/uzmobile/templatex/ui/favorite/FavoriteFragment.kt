@@ -80,7 +80,6 @@ class FavoriteFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-
     }
 
     private fun initViews() {

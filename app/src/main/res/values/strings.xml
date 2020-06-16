@@ -4,6 +4,8 @@
     <!--Buttons-->
     <string name="action_next">Далее</string>
     <string name="action_select">Выбрать</string>
+    <string name="action_edit">Изменить</string>
+    <string name="action_select_all">Выбрать все</string>
     <string name="action_ready">Готово</string>
     <string name="action_ok">OK</string>
     <string name="action_cancel">Отмена</string>
@@ -20,6 +22,9 @@
     <string name="action_search">Поиск</string>
     <string name="action_share">Поделиться</string>
     <string name="action_buy">Купить</string>
+    <string name="action_change">Изменить</string>
+    <string name="action_save">Сохранить</string>
+    <string name="action_delete">Удалить</string>
 
     <string name="action_start_shopping">Начать покупки</string>
     <string name="action_forgot_password">Забыли пароль?</string>

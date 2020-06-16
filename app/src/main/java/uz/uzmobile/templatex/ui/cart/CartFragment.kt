@@ -26,7 +26,7 @@ class CartFragment : ParentFragment() {
 
     private val binding by lazy { CartFragmentBinding.inflate(layoutInflater) }
 
-    private var adapter =  CartAdapter()
+    private lateinit var adapter: CartAdapter
 
     companion object {
         fun newInstance() = CartFragment()
@@ -63,10 +63,45 @@ class CartFragment : ParentFragment() {
             }
         })
 
+        viewModel.isEditing.observe(viewLifecycleOwner, Observer {
+            adapter.setIsEditing(it)
+        })
+
         viewModel.getCart()
     }
 
     private fun initViews() {
+
+        adapter = CartAdapter({ viewModel.select(it) }, {
+            viewModel.sub(it).observe(viewLifecycleOwner, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        showError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        viewModel.substracted(it)
+                    }
+                }
+            })
+        }, {
+            viewModel.add(it).observe(viewLifecycleOwner, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        showError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        viewModel.added(it)
+                    }
+                }
+            })
+        })
+
         binding.apply {
             viewModel = this@CartFragment.viewModel
             executePendingBindings()
@@ -76,36 +111,36 @@ class CartFragment : ParentFragment() {
             }
 
             if (products.adapter==null) {
-                products.isSwipeItemMenuEnabled = true
-                products.setSwipeMenuCreator { leftMenu, rightMenu, position ->
+//                products.isSwipeItemMenuEnabled = true
+//                products.setSwipeMenuCreator { leftMenu, rightMenu, position ->
+//
+//                    val height = ViewGroup.LayoutParams.MATCH_PARENT
+//
+//                    val item = SwipeMenuItem(requireContext())
+//                        .setBackground(requireContext().drawable(R.drawable.bg_cart_menu_item_delete))
+//                        .setText("Delete")
+//                        .setTextColor(requireContext().color(R.color.whiteColor))
+//                        .setHeight(height)
+//                    rightMenu.addMenuItem(item)
+//                }
 
-                    val height = ViewGroup.LayoutParams.MATCH_PARENT
-
-                    val item = SwipeMenuItem(requireContext())
-                        .setBackground(requireContext().drawable(R.drawable.bg_cart_menu_item_delete))
-                        .setText("Delete")
-                        .setTextColor(requireContext().color(R.color.whiteColor))
-                        .setHeight(height)
-                    rightMenu.addMenuItem(item)
-                }
-
-                products.setOnItemMenuClickListener { _, adapterPosition ->
-                    viewModel?.removeProduct(adapter.getItem(adapterPosition))?.observe(viewLifecycleOwner, Observer {result ->
-                        when(result.status) {
-                            Status.LOADING -> showLoading()
-                            Status.ERROR -> {
-                                hideLoading()
-                                showError(result.error)
-                            }
-                            Status.SUCCESS -> {
-                                hideLoading()
-                                Timber.e(result.data?.cart.toString())
-                                viewModel?.setCart(result.data?.cart)
-                                viewModel?.setProducts(result.data?.cart?.products)
-                            }
-                        }
-                    })
-                }
+//                products.setOnItemMenuClickListener { _, adapterPosition ->
+//                    viewModel?.removeProduct(adapter.getItem(adapterPosition))?.observe(viewLifecycleOwner, Observer {result ->
+//                        when(result.status) {
+//                            Status.LOADING -> showLoading()
+//                            Status.ERROR -> {
+//                                hideLoading()
+//                                showError(result.error)
+//                            }
+//                            Status.SUCCESS -> {
+//                                hideLoading()
+//                                Timber.e(result.data?.cart.toString())
+//                                viewModel?.setCart(result.data?.cart)
+//                                viewModel?.setProducts(result.data?.cart?.products)
+//                            }
+//                        }
+//                    })
+//                }
             }
 
             products.adapter = adapter

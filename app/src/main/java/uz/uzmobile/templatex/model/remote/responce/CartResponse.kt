@@ -53,7 +53,9 @@ data class CartProduct(
     val quantity: Int,
     val brand: Brand?,
     val category: Category?
-)
+) {
+    fun priceFormatted() = price.moneyFormat() + " UZS"
+}
 
 data class Carrier(
     val id: Int,
