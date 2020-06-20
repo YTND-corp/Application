@@ -7,7 +7,7 @@
 
         <variable
                 name="viewModel"
-                type="uz.uzmobile.templatex.ui.selection.SelectionChildViewModel" />
+                type="uz.mod.templatex.ui.selection.SelectionChildViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

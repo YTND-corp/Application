@@ -7,7 +7,7 @@
 
         <variable
                 name="viewModel"
-                type="uz.uzmobile.templatex.ui.selection.SelectionViewModel" />
+                type="uz.mod.templatex.ui.selection.SelectionViewModel" />
 
     </data>
 
@@ -34,7 +34,7 @@
                 app:tabTextAppearance="@style/CatalogTabTextStyle"
                 app:tabTextColor="@color/secondaryTextColor" />
 
-        <uz.uzmobile.templatex.ui.custom.LockedViewPager
+        <uz.mod.templatex.ui.custom.LockedViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

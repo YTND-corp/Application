@@ -7,7 +7,7 @@
 
         <variable
                 name="viewModel"
-                type="uz.uzmobile.templatex.ui.callMe.CallMeViewModel" />
+                type="uz.mod.templatex.ui.callMe.CallMeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

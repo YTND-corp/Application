@@ -3,7 +3,7 @@
     <data>
         <variable
                 name="item"
-                type="uz.uzmobile.templatex.model.remote.responce.ProductSize" />
+                type="uz.mod.templatex.model.remote.responce.ProductSize" />
     </data>
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             style="@style/SemiBold"

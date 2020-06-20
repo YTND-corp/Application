@@ -7,12 +7,14 @@
 
         <variable
                 name="viewModel"
-                type="uz.uzmobile.templatex.ui.products.ProductsViewModel" />
+                type="uz.mod.templatex.ui.products.ProductsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             tools:context=".ui.products.ProductsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,10 +25,11 @@
 
             <ImageView
                     android:id="@+id/back"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:src="@drawable/ic_back"
+                    android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -36,10 +39,10 @@
                     style="@style/SemiBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.title}"
-                    android:textAlignment="center"
                     android:gravity="center"
                     android:singleLine="true"
+                    android:text="@{viewModel.title}"
+                    android:textAlignment="center"
                     app:layout_constraintBottom_toTopOf="@id/subtitle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -51,11 +54,11 @@
                     style="@style/SemiBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/secondaryTextColor"
-                    android:textSize="@dimen/text_size_smaller"
                     android:gravity="center"
                     android:singleLine="true"
                     android:textAlignment="center"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="@dimen/text_size_smaller"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -138,9 +141,9 @@
                 android:id="@+id/products"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:paddingLeft="9dp"
+                android:paddingLeft="4dp"
                 android:paddingTop="10dp"
-                android:paddingRight="9dp"
+                android:paddingRight="4dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

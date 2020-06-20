@@ -7,7 +7,7 @@
 
         <variable
                 name="viewModel"
-                type="uz.uzmobile.templatex.ui.signUp.SignUpViewModel" />
+                type="uz.mod.templatex.ui.signUp.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -195,6 +195,7 @@
                         android:layout_marginTop="40dp"
                         android:enabled="@{viewModel.isAllValid()}"
                         android:text="@string/action_continue"
+                        android:onClick="@{() -> viewModel.signUp()}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/til_repeat_password"

@@ -7,7 +7,7 @@
         tools:ignore="UnusedNavigation">
     <fragment
             android:id="@+id/signInFragment"
-            android:name="uz.uzmobile.templatex.ui.signIn.SignInFragment"
+            android:name="uz.mod.templatex.ui.signIn.SignInFragment"
             android:label="@string/title_sign_in">
         <action
                 android:id="@+id/action_signInFragment_to_recoveryPasswordFragment"
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
             android:id="@+id/recoveryPasswordFragment"
-            android:name="uz.uzmobile.templatex.ui.recoveryPassword.RecoveryPasswordFragment"
+            android:name="uz.mod.templatex.ui.recoveryPassword.RecoveryPasswordFragment"
             android:label="@string/title_recovery" />
 
 </navigation>

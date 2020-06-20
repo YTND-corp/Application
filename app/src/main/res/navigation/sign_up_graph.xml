@@ -7,7 +7,7 @@
         tools:ignore="UnusedNavigation">
     <fragment
             android:id="@+id/signUpFragment"
-            android:name="uz.uzmobile.templatex.ui.signUp.SignUpFragment"
+            android:name="uz.mod.templatex.ui.signUp.SignUpFragment"
             android:label="@string/title_sign_up"/>
 
 </navigation>

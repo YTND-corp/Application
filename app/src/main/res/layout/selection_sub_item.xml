@@ -5,7 +5,7 @@
 
         <variable
                 name="item"
-                type="uz.uzmobile.templatex.model.local.entity.HomeSubItem" />
+                type="uz.mod.templatex.model.local.entity.HomeSubItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

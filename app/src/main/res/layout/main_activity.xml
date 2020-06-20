@@ -8,7 +8,7 @@
 
         <variable
                 name="viewModel"
-                type="uz.uzmobile.templatex.ui.main.MainViewModel" />
+                type="uz.mod.templatex.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

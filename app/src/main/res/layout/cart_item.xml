@@ -7,7 +7,7 @@
 
         <variable
                 name="item"
-                type="uz.uzmobile.templatex.model.remote.responce.CartProductWrapper" />
+                type="uz.mod.templatex.model.remote.responce.CartProductWrapper" />
 
         <variable
                 name="isEditing"

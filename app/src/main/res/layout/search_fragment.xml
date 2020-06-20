@@ -7,7 +7,7 @@
 
         <variable
                 name="viewModel"
-                type="uz.uzmobile.templatex.ui.search.SearchViewModel" />
+                type="uz.mod.templatex.ui.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

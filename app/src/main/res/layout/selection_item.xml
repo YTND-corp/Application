@@ -3,7 +3,7 @@
     <data>
         <variable
                 name="item"
-                type="uz.uzmobile.templatex.model.local.entity.HomeItem" />
+                type="uz.mod.templatex.model.local.entity.HomeItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

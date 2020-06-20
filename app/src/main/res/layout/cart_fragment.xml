@@ -7,7 +7,7 @@
 
         <variable
                 name="viewModel"
-                type="uz.uzmobile.templatex.ui.cart.CartViewModel" />
+                type="uz.mod.templatex.ui.cart.CartViewModel" />
     </data>
 
 
@@ -23,6 +23,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:fontFamily="@font/regular"
+                android:enabled="@{viewModel.isButtonValid()}"
                 android:text="@{viewModel.buttonText}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

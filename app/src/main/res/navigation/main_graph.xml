@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/selectionFragment"
-            android:name="uz.uzmobile.templatex.ui.selection.SelectionFragment"
+            android:name="uz.mod.templatex.ui.selection.SelectionFragment"
             android:label=""
             tools:layout="@layout/selection_fragment">
 
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
             android:id="@+id/categoryFragment"
-            android:name="uz.uzmobile.templatex.ui.category.CategoryFragment"
+            android:name="uz.mod.templatex.ui.category.CategoryFragment"
             android:label=""
             tools:layout="@layout/category_fragment">
         <action
@@ -30,12 +30,12 @@
     </fragment>
     <fragment
             android:id="@+id/favoriteFragment"
-            android:name="uz.uzmobile.templatex.ui.favorite.FavoriteFragment"
+            android:name="uz.mod.templatex.ui.favorite.FavoriteFragment"
             android:label=""
             tools:layout="@layout/favorite_fragment" />
     <fragment
             android:id="@+id/profileFragment"
-            android:name="uz.uzmobile.templatex.ui.profile.ProfileFragment"
+            android:name="uz.mod.templatex.ui.profile.ProfileFragment"
             android:label=""
             tools:layout="@layout/profile_fragment">
         <action
@@ -101,7 +101,7 @@
     </fragment>
     <fragment
             android:id="@+id/cartFragment"
-            android:name="uz.uzmobile.templatex.ui.cart.CartFragment"
+            android:name="uz.mod.templatex.ui.cart.CartFragment"
             android:label=""
             tools:layout="@layout/cart_fragment">
         <action
@@ -115,18 +115,18 @@
 
     <fragment
             android:id="@+id/callMeFragment"
-            android:name="uz.uzmobile.templatex.ui.callMe.CallMeFragment"
+            android:name="uz.mod.templatex.ui.callMe.CallMeFragment"
             android:label="@string/title_call_me"
             tools:layout="@layout/call_me_fragment" />
 
     <fragment
             android:id="@+id/checkOrderStatusFragment"
-            android:name="uz.uzmobile.templatex.ui.checkOrderStatus.CheckOrderStatusFragment"
+            android:name="uz.mod.templatex.ui.checkOrderStatus.CheckOrderStatusFragment"
             android:label="@string/title_check_order_status"
             tools:layout="@layout/check_order_status_fragment" />
     <fragment
             android:id="@+id/checkoutFragment"
-            android:name="uz.uzmobile.templatex.ui.checkout.CheckoutFragment"
+            android:name="uz.mod.templatex.ui.checkout.CheckoutFragment"
             android:label="@string/title_checkout"
             tools:layout="@layout/checkout_fragment">
         <action
@@ -139,46 +139,46 @@
     </fragment>
     <fragment
             android:id="@+id/aboutFragment"
-            android:name="uz.uzmobile.templatex.ui.about.AboutFragment"
+            android:name="uz.mod.templatex.ui.about.AboutFragment"
             android:label="@string/title_about"
             tools:layout="@layout/about_fragment" />
     <fragment
             android:id="@+id/askQuestionFragment"
-            android:name="uz.uzmobile.templatex.ui.askQuestion.AskQuestionFragment"
+            android:name="uz.mod.templatex.ui.askQuestion.AskQuestionFragment"
             android:label="@string/title_ask_question"
             tools:layout="@layout/ask_question_fragment" />
 
     <fragment
             android:id="@+id/adresFragment"
-            android:name="uz.uzmobile.templatex.ui.adres.AdresFragment"
+            android:name="uz.mod.templatex.ui.adres.AdresFragment"
             android:label="@string/title_adres"
             tools:layout="@layout/adres_fragment" />
     <fragment
             android:id="@+id/supportFragment"
-            android:name="uz.uzmobile.templatex.ui.support.SupportFragment"
+            android:name="uz.mod.templatex.ui.support.SupportFragment"
             android:label="@string/title_support"
             tools:layout="@layout/support_fragment" />
     <fragment
             android:id="@+id/subCategoryFragment"
-            android:name="uz.uzmobile.templatex.ui.subCategory.SubCategoryFragment"
+            android:name="uz.mod.templatex.ui.subCategory.SubCategoryFragment"
             android:label=""
             tools:layout="@layout/sub_category_fragment">
 
         <argument
                 android:name="category"
-                app:argType="uz.uzmobile.templatex.model.local.entity.Category"
+                app:argType="uz.mod.templatex.model.local.entity.Category"
                 app:nullable="true"
                 android:defaultValue="@null" />
 
     </fragment>
     <fragment
             android:id="@+id/countryFragment"
-            android:name="uz.uzmobile.templatex.ui.country.CountryFragment"
+            android:name="uz.mod.templatex.ui.country.CountryFragment"
             android:label=""
             tools:layout="@layout/country_fragment" />
     <fragment
             android:id="@+id/productsFragment"
-            android:name="uz.uzmobile.templatex.ui.products.ProductsFragment"
+            android:name="uz.mod.templatex.ui.products.ProductsFragment"
             android:label=""
             tools:layout="@layout/products_fragment">
         <action
@@ -200,7 +200,7 @@
     </fragment>
     <fragment
             android:id="@+id/productFragment"
-            android:name="uz.uzmobile.templatex.ui.product.ProductFragment"
+            android:name="uz.mod.templatex.ui.product.ProductFragment"
             android:label=""
             tools:layout="@layout/product_fragment" >
         <argument
@@ -216,12 +216,12 @@
 
     <fragment
             android:id="@+id/filterFragment"
-            android:name="uz.uzmobile.templatex.ui.filter.FilterFragment"
+            android:name="uz.mod.templatex.ui.filter.FilterFragment"
             android:label="@string/title_filter"
             tools:layout="@layout/filter_fragment" />
     <fragment
             android:id="@+id/searchFragment"
-            android:name="uz.uzmobile.templatex.ui.search.SearchFragment"
+            android:name="uz.mod.templatex.ui.search.SearchFragment"
             android:label="@string/title_search"
             tools:layout="@layout/search_fragment" />
 

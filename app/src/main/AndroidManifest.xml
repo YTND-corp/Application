@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        package="uz.uzmobile.templatex">
+        package="uz.mod.templatex">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:name=".app.ModernApplication"
+            android:name="uz.mod.templatex.app.ModernApplication"
             android:allowBackup="false"
             android:fullBackupContent="false"
             android:icon="@mipmap/ic_launcher"
@@ -16,7 +16,7 @@
             android:theme="@style/AppTheme"
             tools:replace="android:allowBackup">
         <activity
-                android:name=".ui.main.MainActivity"
+                android:name="uz.mod.templatex.ui.main.MainActivity"
                 android:configChanges="keyboard|keyboardHidden|locale"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustResize">
