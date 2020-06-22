@@ -5,7 +5,6 @@
         tools:context=".ui.main.MainActivity">
 
     <data>
-
         <variable
                 name="viewModel"
                 type="uz.mod.templatex.ui.main.MainViewModel" />

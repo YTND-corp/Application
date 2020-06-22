@@ -6,7 +6,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.android.synthetic.main.main_activity.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
@@ -14,18 +13,16 @@ import uz.mod.templatex.databinding.MainActivityBinding
 import uz.mod.templatex.extension.inputMethodManager
 import uz.mod.templatex.ui.parent.ParentActivity
 
-
 class MainActivity : ParentActivity() {
 
-    private val binding by lazy { MainActivityBinding.inflate(layoutInflater) }
+    private val viewModel: MainViewModel by viewModel()
 
-    val viewModel: MainViewModel by viewModel()
+    private val binding by lazy { MainActivityBinding.inflate(layoutInflater) }
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
-
-    val TOP_LEVEL_FRAGMENTS = setOf(
+    private val TOP_LEVEL_FRAGMENTS = setOf(
         R.id.selectionFragment,
         R.id.categoryFragment,
         R.id.favoriteFragment,
@@ -43,7 +40,7 @@ class MainActivity : ParentActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
 //            viewModel.destinationChanged(destination)
-            hidekeyboard()
+            hideKeyboard()
         }
 
         KeyboardVisibilityEvent.setEventListener(this) {
@@ -53,11 +50,12 @@ class MainActivity : ParentActivity() {
         viewModel.hasBackButton.observe(this, Observer {
             supportActionBar?.apply {
                 setDisplayHomeAsUpEnabled(it)
-
                 setHomeAsUpIndicator(
-                    if (viewModel.destination.value?.id == R.id.searchFragment) R.drawable.ic_close
-                    else if (it) R.drawable.ic_back
-                    else 0
+                    when {
+                        viewModel.destination.value?.id == R.id.searchFragment -> R.drawable.ic_close
+                        it -> R.drawable.ic_back
+                        else -> 0
+                    }
                 )
             }
         })
@@ -65,9 +63,8 @@ class MainActivity : ParentActivity() {
         viewModel.destinationChanged(navController.currentDestination!!)
 
         viewModel.title.observe(this, Observer {
-            binding.toolbar.setTitle("")
+            binding.toolbar.title = ""
         })
-
     }
 
     fun initViews() {
@@ -84,15 +81,10 @@ class MainActivity : ParentActivity() {
         }
     }
 
-    private fun hidekeyboard() {
-        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0);
+    private fun hideKeyboard() {
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
-
-    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(
-            navController,
-            appBarConfiguration
-        ) || super.onSupportNavigateUp()
-    }
+    override fun onSupportNavigateUp(): Boolean =
+        NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp()
 }
