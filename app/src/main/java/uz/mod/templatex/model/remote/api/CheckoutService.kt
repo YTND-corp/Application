@@ -15,5 +15,10 @@ interface CheckoutService {
 
     @FormUrlEncoded
     @POST("v1/checkout/user")
-    fun user(@Field("first_name") name: String, @Field("last_name") surname: String, @Field("email") email: String, @Field("phone") phone: String): LiveData<ApiResponse<CheckoutUserResponse>>
+    fun user(
+        @Field("first_name") name: String,
+        @Field("last_name") surname: String,
+        @Field("email") email: String,
+        @Field("phone") phone: String
+    ): LiveData<ApiResponse<CheckoutUserResponse>>
 }

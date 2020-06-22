@@ -13,4 +13,6 @@ object Const {
     val TELEGRAM_URL = "https://t.me/mod_uz"
     val TIKTOK_URL = "https://vm.tiktok.com/J169TkT/"
     val FACEBOOK_URL = "https://www.facebook.com/moduzb/"
+
+    const val PHONE_CODE_DEFAULT = "+998"
 }
