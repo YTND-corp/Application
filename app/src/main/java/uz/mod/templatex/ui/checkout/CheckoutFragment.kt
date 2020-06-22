@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.databinding.CheckoutFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const.PHONE_CODE_DEFAULT
 import uz.mod.templatex.utils.MaskWatcher
 
 class CheckoutFragment : ParentFragment() {
 
-    val viewModel: CheckoutViewModel by viewModel()
+    private val viewModel: CheckoutViewModel by viewModel()
 
     private val binding by lazy { CheckoutFragmentBinding.inflate(layoutInflater) }
 
@@ -25,8 +25,8 @@ class CheckoutFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.responce.observe(this, Observer {result ->
-            when(result.status) {
+        viewModel.response.observe(this, Observer { result ->
+            when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
@@ -54,8 +54,6 @@ class CheckoutFragment : ParentFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-
-
     }
 
     private fun initViews() {
@@ -64,18 +62,24 @@ class CheckoutFragment : ParentFragment() {
             executePendingBindings()
 
             phone.addTextChangedListener(MaskWatcher.phoneWatcher())
-
             phone.setOnFocusChangeListener { view, hasFocus ->
-
                 if (hasFocus) {
-                    if (phone.text?.length ?: 0 < 5 && phone.text?.equals("+998") == false) {
-                        phone.setText("+998")
+                    if (phone.text?.length ?: 0 < 5 && phone.text?.equals(PHONE_CODE_DEFAULT) == false) {
+                        phone.setText(PHONE_CODE_DEFAULT)
                     }
                 } else {
                     if (phone.text?.length ?: 0 <= 5) {
                         phone.setText("")
                     }
                 }
+            }
+
+            if (BuildConfig.DEBUG) {
+                // set debug data
+                name.setText("Someone")
+                surname.setText("Someone")
+                email.setText("example@gmail.com")
+                phone.setText("+998971573967")
             }
         }
     }

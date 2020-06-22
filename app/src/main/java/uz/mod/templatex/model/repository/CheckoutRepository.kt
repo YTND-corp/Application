@@ -20,16 +20,14 @@ class CheckoutRepository constructor(val service: CheckoutService, prefs: Prefs)
         surname: String,
         email: String,
         phone: String
-    ): LiveData<Resource<Boolean>> {
-        return object : NetworkOnlyResource<Boolean, CheckoutUserResponse>() {
-            override fun processResult(item: CheckoutUserResponse?): Boolean? {
-                return item?.confirmation
-            }
+    ): LiveData<Resource<Boolean>> = object : NetworkOnlyResource<Boolean, CheckoutUserResponse>() {
+        override fun processResult(item: CheckoutUserResponse?): Boolean? {
+            return item?.confirmation
+        }
 
-            override fun createCall(): LiveData<ApiResponse<CheckoutUserResponse>> {
-                return service.user(name, surname, email, phone)
-            }
+        override fun createCall(): LiveData<ApiResponse<CheckoutUserResponse>> {
+            return service.user(name, surname, email, phone)
+        }
 
-        }.asLiveData()
-    }
+    }.asLiveData()
 }
