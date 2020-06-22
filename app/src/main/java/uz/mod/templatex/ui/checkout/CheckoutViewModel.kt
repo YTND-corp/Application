@@ -8,23 +8,25 @@ import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.repository.CheckoutRepository
 import uz.mod.templatex.utils.SingleLiveEvent
 
-class CheckoutViewModel constructor(application: Application, repository: CheckoutRepository): AndroidViewModel(application) {
+class CheckoutViewModel constructor(
+    application: Application,
+    repository: CheckoutRepository
+) : AndroidViewModel(application) {
 
     val phone = MutableLiveData<String>()
     val name = MutableLiveData<String>()
     val surname = MutableLiveData<String>()
     val email = MutableLiveData<String>()
 
-    val isPhoneValid: LiveData<Boolean> = Transformations.map(phone) {
+    private val isPhoneValid: LiveData<Boolean> = Transformations.map(phone) {
         !it.isNullOrEmpty() && it.clear.length == 13
     }
 
-    val isEmailValid: LiveData<Boolean> = Transformations.map(email) {
+    private val isEmailValid: LiveData<Boolean> = Transformations.map(email) {
         !it.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(it).matches()
     }
 
     val navigateToAddress = SingleLiveEvent<Any>()
-
 
     val isAllValid = MediatorLiveData<Boolean>()
         .apply {
@@ -42,7 +44,7 @@ class CheckoutViewModel constructor(application: Application, repository: Checko
         }
 
     val request = MutableLiveData<Boolean>()
-    val responce: LiveData<Resource<Boolean>> = Transformations.switchMap(request) {
+    val response: LiveData<Resource<Boolean>> = Transformations.switchMap(request) {
         repository.user(
             name.value!!,
             surname.value!!,
