@@ -72,8 +72,8 @@ class SearchFragment : Fragment() {
             searchEt.setOnEditorActionListener { v, actionId, event ->
                 if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || actionId == EditorInfo.IME_ACTION_SEARCH) {
                     val searchQuery = searchEt.text.toString()
-                    searchLabelTv.text = searchQuery
                     this@SearchFragment.viewModel.search(searchQuery)
+                    // TODO searchLabelTv transform to horizontal recyclerView with multiple labels
                     true
                 } else {
                     false
