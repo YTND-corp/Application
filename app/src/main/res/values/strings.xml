@@ -94,7 +94,7 @@
     <string name="favorite_placeholder_message">Вы пока ничего не добавили в избранное</string>
 
     <!--Catalog-->
-    <string name="hint_catalog_search">Поиск вещей и  брендов</string>
+    <string name="hint_catalog_search">Поиск вещей и брендов</string>
 
     <!--  Selection  -->
     <string name="selection_placeholder_title">Раздел наполняется и скоро будет \nдоступен для просмотра</string>

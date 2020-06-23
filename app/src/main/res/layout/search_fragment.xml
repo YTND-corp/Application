@@ -4,7 +4,6 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
                 name="viewModel"
                 type="uz.mod.templatex.ui.search.SearchViewModel" />
@@ -14,6 +13,44 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.search.SearchFragment">
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/searchTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/unfocusedHintTextColor"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchEt"
+                    style="@style/SearchFieldStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_catalog_search"
+                    android:imeOptions="actionSearch"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:id="@+id/searchLabelTv"
+                style="@style/SearchLabelStyle"
+                isVisible="@{viewModel.isQuery()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="10dp"
+                android:text="@{viewModel.query}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchTextInputLayout"
+                tools:text="massimo" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/placeholder_view"
@@ -73,7 +110,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/searchLabelTv"
                 app:spanCount="2"
                 tools:listitem="@layout/product_item" />
 

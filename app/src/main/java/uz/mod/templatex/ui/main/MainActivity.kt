@@ -39,7 +39,7 @@ class MainActivity : ParentActivity() {
         initViews()
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-//            viewModel.destinationChanged(destination)
+            viewModel.destinationChanged(destination)
             hideKeyboard()
         }
 
