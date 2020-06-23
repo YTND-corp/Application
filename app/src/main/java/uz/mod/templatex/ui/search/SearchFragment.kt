@@ -3,14 +3,15 @@ package uz.mod.templatex.ui.search
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.EditorInfo
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.SearchFragmentBinding
-import uz.mod.templatex.ui.cart.CartAdapter
 import uz.mod.templatex.ui.products.ProductAdapter
+import uz.mod.templatex.utils.SimpleTextWatcher
 
 class SearchFragment : Fragment() {
 
@@ -51,28 +52,39 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        observeViews()
     }
 
     private fun initViews() {
-        adapter = ProductAdapter { id, isFavorite ->
-            // TODO
-        }
-
         binding.apply {
             viewModel = this@SearchFragment.viewModel
             executePendingBindings()
 
+            adapter = ProductAdapter { id, isFavorite ->
+                // TODO adapter implementation
+            }
             products.hasFixedSize()
             products.adapter = adapter
 
+            searchEt.addTextChangedListener(SimpleTextWatcher {
+                if (it.isNullOrEmpty()) this@SearchFragment.viewModel.isQuery.postValue(false)
+            })
             searchEt.setOnEditorActionListener { v, actionId, event ->
                 if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    this@SearchFragment.viewModel.search(searchEt.text.toString())
+                    val searchQuery = searchEt.text.toString()
+                    searchLabelTv.text = searchQuery
+                    this@SearchFragment.viewModel.search(searchQuery)
                     true
                 } else {
                     false
                 }
             }
         }
+    }
+
+    private fun observeViews() {
+        viewModel.isQuery.observe(viewLifecycleOwner, Observer {
+            binding.searchLabelTv.isVisible = it
+        })
     }
 }

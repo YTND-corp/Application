@@ -213,6 +213,13 @@
         <item name="android:drawablePadding">8dp</item>
     </style>
 
+    <style name="SearchLabelStyle" parent="Regular">
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:background">@drawable/bg_search_label</item>
+    </style>
+
     <style name="ProfileTextStyle" parent="Regular">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
