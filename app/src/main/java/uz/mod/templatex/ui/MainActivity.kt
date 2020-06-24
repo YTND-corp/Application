@@ -1,4 +1,4 @@
-package uz.mod.templatex.ui.main
+package uz.mod.templatex.ui
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -10,7 +10,7 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.MainActivityBinding
-import uz.mod.templatex.extension.inputMethodManager
+import uz.mod.templatex.utils.extension.inputMethodManager
 import uz.mod.templatex.ui.parent.ParentActivity
 
 class MainActivity : ParentActivity() {

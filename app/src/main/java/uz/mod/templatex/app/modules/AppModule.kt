@@ -26,7 +26,7 @@ import uz.mod.templatex.model.remote.network.AuthInterceptor
 import uz.mod.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.mod.templatex.model.remote.network.NetworkInterceptor
 import uz.mod.templatex.model.repository.*
-import uz.mod.templatex.ui.main.MainViewModel
+import uz.mod.templatex.ui.MainViewModel
 import uz.mod.templatex.ui.about.AboutViewModel
 import uz.mod.templatex.ui.adres.AdresViewModel
 import uz.mod.templatex.ui.askQuestion.AskQuestionViewModel
@@ -52,7 +52,7 @@ import uz.mod.templatex.ui.signUp.SignUpViewModel
 import uz.mod.templatex.ui.splash.SplashViewModel
 import uz.mod.templatex.ui.support.SupportViewModel
 import uz.mod.templatex.utils.Const
-import uz.mod.templatex.viewModel.*
+import uz.mod.templatex.ui.brands.*
 
 
 val viewModelModule = module {

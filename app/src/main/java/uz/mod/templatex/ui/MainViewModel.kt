@@ -1,4 +1,4 @@
-package uz.mod.templatex.ui.main
+package uz.mod.templatex.ui
 
 import android.app.Application
 import androidx.lifecycle.*

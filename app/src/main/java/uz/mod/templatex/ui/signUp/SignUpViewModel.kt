@@ -3,8 +3,8 @@ package uz.mod.templatex.ui.signUp
 import android.app.Application
 import android.util.Patterns
 import androidx.lifecycle.*
-import uz.mod.templatex.extension.backEndPhoneFormat
-import uz.mod.templatex.extension.clear
+import uz.mod.templatex.utils.extension.backEndPhoneFormat
+import uz.mod.templatex.utils.extension.clear
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.repository.AuthRepository

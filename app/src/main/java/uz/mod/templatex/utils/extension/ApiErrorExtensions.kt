@@ -1,4 +1,4 @@
-package uz.mod.templatex.utils
+package uz.mod.templatex.utils.extension
 
 import uz.mod.templatex.model.remote.network.ApiError
 

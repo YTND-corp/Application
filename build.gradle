@@ -4,12 +4,16 @@ buildscript {
     ext.firebase = '17.4.3'
     ext.firebase_crashlytics = '17.1.0'
     ext.firebase_messaging = '20.2.1'
+    ext.glide = '4.9.0'
+    ext.koin = '2.1.5'
+    ext.retrofit = '2.9.0'
+    ext.logging_interceptor = '3.14.9'
+    ext.lifecycle_version = '2.2.0'
+    ext.room = '2.2.5'
 
     repositories {
         google()
         jcenter()
-        maven { url "https://jitpack.io" } // reconsider, do we need it?
-        maven { url "https://maven.google.com" } // reconsider, do we need it?
     }
 
     dependencies {

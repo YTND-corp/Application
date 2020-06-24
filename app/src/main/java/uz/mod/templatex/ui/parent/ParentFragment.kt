@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 import uz.mod.templatex.model.remote.network.ApiError
-import uz.mod.templatex.ui.main.MainViewModel
+import uz.mod.templatex.ui.MainViewModel
 
 open class ParentFragment : Fragment() {
 

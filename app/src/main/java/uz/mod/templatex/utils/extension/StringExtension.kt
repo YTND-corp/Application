@@ -1,4 +1,4 @@
-package uz.mod.templatex.extension
+package uz.mod.templatex.utils.extension
 
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -7,7 +7,6 @@ import java.util.*
 import android.text.Html
 import android.os.Build
 import android.text.Spanned
-import timber.log.Timber
 
 
 val String.clear: String

@@ -3,7 +3,7 @@ package uz.mod.templatex.ui.checkout
 import android.app.Application
 import android.util.Patterns
 import androidx.lifecycle.*
-import uz.mod.templatex.extension.clear
+import uz.mod.templatex.utils.extension.clear
 import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.repository.CheckoutRepository
 import uz.mod.templatex.utils.SingleLiveEvent

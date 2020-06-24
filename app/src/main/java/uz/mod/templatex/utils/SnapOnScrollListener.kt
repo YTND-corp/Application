@@ -2,7 +2,7 @@ package uz.mod.templatex.utils
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
-import uz.mod.templatex.extension.getSnapPosition
+import uz.mod.templatex.utils.extension.getSnapPosition
 
 class SnapOnScrollListener(
     private val snapHelper: SnapHelper,

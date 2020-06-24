@@ -1,4 +1,4 @@
-package uz.mod.templatex.viewModel
+package uz.mod.templatex.ui.brands
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
