@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#212121</color>
-    <color name="windowBackgroundColor">#ffffff</color>
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/white</color>
+    <color name="colorAccent">@color/black</color>
+
+    <color name="windowBackgroundColor">@color/white</color>
+
+    <!--App colors-->
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#EFEFEF</color>
+    <color name="black">#222222</color>
+    <string name="green">#34C759</string>
+    <string name="orange">#FF9500</string>
+    <string name="blue">#007AFF</string>
 
     <!--Text-->
     <color name="primaryTextColor">@color/colorAccent</color>
     <color name="secondaryTextColor">#999999</color>
     <color name="productSizeItemText">#484545</color>
-
     <color name="unfocusedHintTextColor">#993C3C43</color>
     <color name="focusedHintTextColor">@color/colorAccent</color>
-
     <color name="colorEditTextBottomLine">#F2F2F7</color>
+    <color name="blackTextColor">@color/black</color>
+    <color name="whiteTextColor">@color/white</color>
 
     <!--Button-->
     <color name="primaryEnabledBtnBgColor">@color/colorAccent</color>
@@ -24,15 +33,12 @@
 
     <!--Bottom Navigation-->
     <color name="bottomNavBgColor">#F9F9F9</color>
-    <!--App colors-->
+
+    <!--Misc-->
     <color name="errorColor">#FF9500</color>
     <color name="successColor">#34C759</color>
-    <color name="whiteColor">#FFFFFF</color>
+    <color name="whiteColor">@color/white</color>
     <color name="transparentColor">@android:color/transparent</color>
-
-    <string name="green">#34C759</string>
-    <string name="orange">#FF9500</string>
-    <string name="blue">#007AFF</string>
 
     <color name="indicator_current">#000000</color>
     <color name="indicator_default">#52000000</color>

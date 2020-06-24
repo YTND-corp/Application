@@ -50,7 +50,7 @@ import uz.mod.templatex.ui.selection.SelectionViewModel
 import uz.mod.templatex.ui.signIn.SignInViewModel
 import uz.mod.templatex.ui.signUp.SignUpViewModel
 import uz.mod.templatex.ui.splash.SplashViewModel
-import uz.mod.templatex.ui.support.SupportViewModel
+import uz.mod.templatex.ui.supportCenter.SupportViewModel
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.ui.brands.*
 
