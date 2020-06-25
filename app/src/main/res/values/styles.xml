@@ -201,7 +201,7 @@
     </style>
 
     <style name="SearchFieldStyle" parent="Regular">
-        <item name="android:textSize">@dimen/text_size_smaller</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:gravity">start</item>
         <item name="android:hint">@string/hint_catalog_search</item>
         <item name="android:textColor">@color/primaryTextColor</item>
@@ -210,7 +210,14 @@
         <item name="android:background">@drawable/bg_search_field</item>
         <item name="android:drawableStart">@drawable/ic_search</item>
         <item name="android:drawableTint">@color/unfocusedHintTextColor</item>
-        <item name="android:drawablePadding">4dp</item>
+        <item name="android:drawablePadding">8dp</item>
+    </style>
+
+    <style name="SearchLabelStyle" parent="Regular">
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:background">@drawable/bg_search_label</item>
     </style>
 
     <style name="ProfileTextStyle" parent="Regular">
@@ -239,4 +246,52 @@
         <item name="chipEndPadding">8dp</item>
         <item name="chipMinTouchTargetSize">0dp</item>
     </style>
+
+    <style name="SupportCenterTopItemTextStyle" parent="Regular">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:minLines">2</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/blackTextColor</item>
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+    </style>
+
+    <style name="SupportCenterItemTextStyle" parent="Bold">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/blackTextColor</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+    </style>
+
+    <style name="SupportCenterWhiteButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/blackTextColor</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:background">@drawable/outlined_button_shape</item>
+    </style>
+
+    <style name="SupportCenterBlackButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:background">@drawable/contained_button_shape</item>
+    </style>
+
 </resources>

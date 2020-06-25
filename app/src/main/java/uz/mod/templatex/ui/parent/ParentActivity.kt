@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import timber.log.Timber
 import uz.mod.templatex.R
-import uz.mod.templatex.extension.color
+import uz.mod.templatex.utils.extension.color
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.utils.LanguageHelper
 

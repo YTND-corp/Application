@@ -1,4 +1,4 @@
-package uz.mod.templatex.ui.support
+package uz.mod.templatex.ui.supportCenter
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

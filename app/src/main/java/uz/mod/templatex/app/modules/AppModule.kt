@@ -27,7 +27,7 @@ import uz.mod.templatex.model.remote.network.AuthInterceptor
 import uz.mod.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.mod.templatex.model.remote.network.NetworkInterceptor
 import uz.mod.templatex.model.repository.*
-import uz.mod.templatex.ui.main.MainViewModel
+import uz.mod.templatex.ui.MainViewModel
 import uz.mod.templatex.ui.about.AboutViewModel
 import uz.mod.templatex.ui.adres.AdresViewModel
 import uz.mod.templatex.ui.askQuestion.AskQuestionViewModel
@@ -51,12 +51,15 @@ import uz.mod.templatex.ui.selection.SelectionViewModel
 import uz.mod.templatex.ui.signIn.SignInViewModel
 import uz.mod.templatex.ui.signUp.SignUpViewModel
 import uz.mod.templatex.ui.splash.SplashViewModel
-import uz.mod.templatex.ui.support.SupportViewModel
+import uz.mod.templatex.ui.supportCenter.SupportViewModel
 import uz.mod.templatex.utils.Const
+import uz.mod.templatex.ui.brands.*
+
 
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { MainViewModel(get(), get()) }
+    viewModel { BrandsViewModel(get(), get()) }
 
     viewModel { FavoriteViewModel(get(), get()) }
 
@@ -91,7 +94,6 @@ val viewModelModule = module {
 
 val prefsModule = module {
     single { Prefs(get()) }
-    single { AppExecutors() }
 }
 
 val dbModule = module {
@@ -104,14 +106,16 @@ val dbModule = module {
 
 val repositoryModule = module {
 
+    single { ApiRepository(get()) }
     single { CategoryRepository(get()) }
-    single { ProductRepository(get(), get(), get()) }
+    single { ProductRepository(get(), get()) }
     single { AuthRepository(get(), get()) }
     single { CartRepository(get()) }
     single { CheckoutRepository(get(), get()) }
 }
 
 val apiModule = module {
+    factory { get<Retrofit>().create(ApiService::class.java) }
     factory { get<Retrofit>().create(CategoryService::class.java) }
     factory { get<Retrofit>().create(ProductService::class.java) }
     factory { get<Retrofit>().create(AuthService::class.java) }

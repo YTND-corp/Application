@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.SelectionSubItemBinding
-import uz.mod.templatex.extension.toDp
+import uz.mod.templatex.utils.extension.toDp
 import uz.mod.templatex.model.local.entity.HomeSubItem
 
 

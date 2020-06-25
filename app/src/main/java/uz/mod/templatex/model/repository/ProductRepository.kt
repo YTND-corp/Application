@@ -2,7 +2,7 @@ package uz.mod.templatex.model.repository
 
 import androidx.lifecycle.LiveData
 import timber.log.Timber
-import uz.mod.templatex.extension.moneyFormat
+import uz.mod.templatex.utils.extension.moneyFormat
 import uz.mod.templatex.model.local.db.dao.ProductDao
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.api.ProductService

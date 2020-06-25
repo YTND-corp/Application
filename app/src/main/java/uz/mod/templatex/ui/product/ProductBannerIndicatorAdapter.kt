@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProductBannerIndicatorBinding
-import uz.mod.templatex.databinding.ProductBannerItemBinding
-import uz.mod.templatex.extension.color
+import uz.mod.templatex.utils.extension.color
 
 class ProductBannerIndicatorAdapter(private var items: List<String> = arrayListOf()) :
     RecyclerView.Adapter<ProductBannerIndicatorAdapter.ViewHolder>() {

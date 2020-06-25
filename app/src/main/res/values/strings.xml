@@ -54,11 +54,30 @@
     <string name="title_check_order_status">Проверить статус заказа</string>
     <string name="title_call_me">Заказать звонок</string>
     <string name="title_ask_question">Задать нам вопрос</string>
-    <string name="title_support">Служба поддержки</string>
+    <string name="title_support">Центр поддержки</string>
     <string name="title_about">Наши контакты</string>
     <string name="title_checkout">Оформления заказа</string>
     <string name="title_adres">Адрес доставки</string>
     <string name="title_search">Поиск</string>
+
+    <!-- Support Center  -->
+    <string name="support_center_location_text">Узнать, где мой заказ</string>
+    <string name="support_center_history_text">Узнать сроки и условия</string>
+    <string name="support_center_meter_text">Выбрать размер</string>
+
+    <string name="support_center_item_new_users">Для новых пользователей</string>
+    <string name="support_center_item_delivery">Доставка</string>
+    <string name="support_center_item_return">Возврат</string>
+    <string name="support_center_item_sales">Скидки и акции</string>
+    <string name="support_center_item_order">Заказ</string>
+    <string name="support_center_item_goods">Товары</string>
+    <string name="support_center_item_payment">Оплата</string>
+    <string name="support_center_item_partners_goods">Товары партнеров</string>
+    <string name="support_center_item_profile_and_subscriptions">Личный кабинет и подписки</string>
+    <string name="support_center_item_work_and_collaborations">Работа и сотрудничество</string>
+    <string name="support_center_item_reviews">Отзывы</string>
+    <string name="support_center_email_us">Напишите нам</string>
+    <string name="support_center_call_us">Позвоните нам</string>
 
     <!--Bottom Menu -->
     <string name="nav_menu_item_selection">Подборка</string>
@@ -94,7 +113,7 @@
     <string name="favorite_placeholder_message">Вы пока ничего не добавили в избранное</string>
 
     <!--Catalog-->
-    <string name="hint_catalog_search">Поиск вещей и  брендов</string>
+    <string name="hint_catalog_search">Поиск вещей и брендов</string>
 
     <!--  Selection  -->
     <string name="selection_placeholder_title">Раздел наполняется и скоро будет \nдоступен для просмотра</string>

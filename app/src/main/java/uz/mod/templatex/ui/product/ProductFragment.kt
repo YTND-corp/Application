@@ -12,7 +12,7 @@ import uz.mod.templatex.databinding.ProductFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
-import uz.mod.templatex.extension.attachSnapHelperWithListener
+import uz.mod.templatex.utils.extension.attachSnapHelperWithListener
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.SnapOnScrollListener

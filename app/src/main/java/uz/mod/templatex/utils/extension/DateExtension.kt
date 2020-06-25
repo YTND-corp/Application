@@ -1,4 +1,4 @@
-package uz.mod.templatex.extension
+package uz.mod.templatex.utils.extension
 
 import uz.mod.templatex.utils.LanguageHelper
 import java.text.SimpleDateFormat

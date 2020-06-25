@@ -1,6 +1,6 @@
 package uz.mod.templatex.model.remote.network
 
-import uz.mod.templatex.utils.is500
+import uz.mod.templatex.utils.extension.is500
 
 class Resource<T> constructor(
     val status: Status,

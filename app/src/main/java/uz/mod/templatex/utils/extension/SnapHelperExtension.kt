@@ -1,4 +1,4 @@
-package uz.mod.templatex.extension
+package uz.mod.templatex.utils.extension
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper

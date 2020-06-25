@@ -3,7 +3,7 @@ package uz.mod.templatex.ui.cart
 import android.app.Application
 import androidx.lifecycle.*
 import uz.mod.templatex.R
-import uz.mod.templatex.extension.moneyFormat
+import uz.mod.templatex.utils.extension.moneyFormat
 import uz.mod.templatex.model.remote.responce.Cart
 import uz.mod.templatex.model.remote.responce.CartProductWrapper
 import uz.mod.templatex.model.repository.CartRepository

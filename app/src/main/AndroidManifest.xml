@@ -16,7 +16,7 @@
             android:theme="@style/AppTheme"
             tools:replace="android:allowBackup">
         <activity
-                android:name="uz.mod.templatex.ui.main.MainActivity"
+                android:name="uz.mod.templatex.ui.MainActivity"
                 android:configChanges="keyboard|keyboardHidden|locale"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustResize">

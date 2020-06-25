@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.R
-import uz.mod.templatex.extension.toPx
+import uz.mod.templatex.utils.extension.toPx
 
 class ProductHorizontalAdapter(private var items: ArrayList<String>) :
     RecyclerView.Adapter<ProductHorizontalAdapter.ViewHolder>() {

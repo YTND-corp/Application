@@ -1,7 +1,7 @@
 package uz.mod.templatex.model.remote.responce
 
 import com.google.gson.annotations.SerializedName
-import uz.mod.templatex.extension.moneyFormat
+import uz.mod.templatex.utils.extension.moneyFormat
 import uz.mod.templatex.model.local.entity.Brand
 import uz.mod.templatex.model.local.entity.Category
 import uz.mod.templatex.model.local.entity.Currency

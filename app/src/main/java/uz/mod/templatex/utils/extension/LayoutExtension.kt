@@ -1,4 +1,4 @@
-package uz.mod.templatex.extension
+package uz.mod.templatex.utils.extension
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -84,7 +84,7 @@
                 app:popExitAnim="@anim/slide_out_right" />
         <action
                 android:id="@+id/action_profileFragment_to_supportFragment"
-                app:destination="@id/supportFragment"
+                app:destination="@id/supportCenterFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
@@ -154,10 +154,10 @@
             android:label="@string/title_adres"
             tools:layout="@layout/adres_fragment" />
     <fragment
-            android:id="@+id/supportFragment"
-            android:name="uz.mod.templatex.ui.support.SupportFragment"
+            android:id="@+id/supportCenterFragment"
+            android:name="uz.mod.templatex.ui.supportCenter.SupportCenterFragment"
             android:label="@string/title_support"
-            tools:layout="@layout/support_fragment" />
+            tools:layout="@layout/support_center_fragment" />
     <fragment
             android:id="@+id/subCategoryFragment"
             android:name="uz.mod.templatex.ui.subCategory.SubCategoryFragment"

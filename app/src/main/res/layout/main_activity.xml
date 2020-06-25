@@ -2,12 +2,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:fitsSystemWindows="true"
-        tools:context=".ui.main.MainActivity">
+        tools:context=".ui.MainActivity">
 
     <data>
         <variable
                 name="viewModel"
-                type="uz.mod.templatex.ui.main.MainViewModel" />
+                type="uz.mod.templatex.ui.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
