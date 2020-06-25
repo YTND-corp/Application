@@ -6,12 +6,14 @@ import uz.mod.templatex.extension.moneyFormat
 import uz.mod.templatex.model.local.db.dao.ProductDao
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.api.ProductService
-import uz.mod.templatex.model.remote.network.ApiResponse
-import uz.mod.templatex.model.remote.network.NetworkOnlyResource
-import uz.mod.templatex.model.remote.network.Resource
+import uz.mod.templatex.model.remote.network.*
 import uz.mod.templatex.model.remote.responce.*
 
-class ProductRepository constructor(val service: ProductService, val db: ProductDao) {
+class ProductRepository constructor(
+    val service: ProductService,
+    val db: ProductDao,
+    val executors: AppExecutors
+) {
 
     init {
         Timber.d("Injection CatalogRepository")
@@ -33,7 +35,12 @@ class ProductRepository constructor(val service: ProductService, val db: Product
         }.asLiveData()
     }
 
-    fun getProducts(id: Int, sort: String, brands: Array<String>?, page: Int): LiveData<Resource<Int>> {
+    fun getProducts(
+        id: Int,
+        sort: String,
+        brands: Array<String>?,
+        page: Int
+    ): LiveData<Resource<Int>> {
         return object : NetworkOnlyResource<Int, ProductsResponse>() {
             override fun processResult(item: ProductsResponse?): Int? {
                 if (page == 1) db.deleteAll()
@@ -96,6 +103,43 @@ class ProductRepository constructor(val service: ProductService, val db: Product
         }.asLiveData()
     }
 
+    fun favorites(): LiveData<Resource<List<Product>>> {
+        return object : NetworkBoundResource<List<Product>, List<Favorite>>(executors) {
+
+            override fun saveCallResult(item: List<Favorite>) {
+                db.deleteAll()
+                val temps = ArrayList<Product>()
+                item.forEach {
+                    temps.add(
+                        Product(
+                            it.id,
+                            it.name,
+                            it.price.moneyFormat() + " " + it.currencies?.first()?.currency,
+                            it.isFavorite,
+                            it.image,
+                            it.brand?.name,
+                            it.category?.id ?: 0
+                        )
+                    )
+
+                    db.insertAll(temps)
+                }
+            }
+
+            override fun shouldFetch(data: List<Product>?): Boolean {
+                return false
+            }
+
+            override fun loadFromDb(): LiveData<List<Product>> {
+                return db.getAll()
+            }
+
+            override fun createCall(): LiveData<ApiResponse<List<Favorite>>> {
+                return service.getFavorites()
+            }
+        }.asLiveData()
+    }
+
     fun favoriteToggle(id: Int, isFavorite: Boolean): LiveData<Resource<String>> {
         return object : NetworkOnlyResource<String, FavoriteToggleResponse>() {
             override fun processResult(item: FavoriteToggleResponse?): String? {
@@ -109,14 +153,18 @@ class ProductRepository constructor(val service: ProductService, val db: Product
         }.asLiveData()
     }
 
-    fun addToCart(id: Int, quantity: Int, attributes: ArrayList<String>?): LiveData<Resource<Any>> {
+    fun addToCart(
+        id: Int,
+        quantity: Int,
+        attributes: ArrayList<String>?
+    ): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {
             override fun processResult(item: Any?): Any? {
                 return item
             }
 
             override fun createCall(): LiveData<ApiResponse<Any>> {
-                return service.addToCart(id,quantity, attributes)
+                return service.addToCart(id, quantity, attributes)
             }
 
         }.asLiveData()

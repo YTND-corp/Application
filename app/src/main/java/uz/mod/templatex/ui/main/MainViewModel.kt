@@ -23,8 +23,6 @@ class MainViewModel constructor(application: Application, val authRepository: Au
 
     var hasBottomBar = MutableLiveData<Boolean>()
 
-    var isBottomBarVisible = MediatorLiveData<Boolean>()
-
     var isKeyboardVisible = MutableLiveData<Boolean>()
 
     fun destinationChanged(destination: NavDestination) {
@@ -45,21 +43,17 @@ class MainViewModel constructor(application: Application, val authRepository: Au
 
     init {
         isAuthenticated.value = authRepository.isLoggedIn()
-
-        isBottomBarVisible.addSource(hasBottomBar) {
-            checkBottombar()
-        }
-
-        isBottomBarVisible.addSource(isKeyboardVisible) {
-            checkBottombar()
-        }
-
     }
 
-    fun checkBottombar() {
-        isBottomBarVisible.value = if (isKeyboardVisible.value == true) false
-        else hasBottomBar.value == true
-    }
+    val isBottomBarVisible = MediatorLiveData<Boolean>()
+        .apply {
+            fun validateFrom() {
+                value = if(isKeyboardVisible.value == true) false else hasBottomBar.value == true
+            }
+
+            addSource(isKeyboardVisible) { validateFrom() }
+            addSource(hasBottomBar) { validateFrom() }
+        }
 
     fun loggedIn() {
         isAuthenticated.value = true

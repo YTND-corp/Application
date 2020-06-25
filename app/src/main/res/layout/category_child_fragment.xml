@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusedByDefault="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
             tools:context=".ui.catalog.CatalogChildFragment">
@@ -40,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/catalog_detail_item" />
+                    tools:listitem="@layout/category_item" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.databinding.CategoryFragmentBinding
+import uz.mod.templatex.extension.inputMethodManager
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 
@@ -71,17 +72,20 @@ class CategoryFragment : ParentFragment() {
             tabs.setupWithViewPager(pager)
 
             pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-                override fun onPageScrollStateChanged(state: Int) {
-                    sharedViewModel.keyboardVisibilityChanged(false)
-                }
+                override fun onPageScrollStateChanged(state: Int) = Unit
 
                 override fun onPageScrolled(
                     position: Int,
                     positionOffset: Float,
                     positionOffsetPixels: Int
-                )  = Unit
+                ) = Unit
 
-                override fun onPageSelected(position: Int) = Unit
+                override fun onPageSelected(position: Int) {
+                    requireActivity().inputMethodManager.hideSoftInputFromWindow(
+                        view?.windowToken,
+                        0
+                    )
+                }
             })
         }
     }

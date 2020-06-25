@@ -8,6 +8,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.MainActivityBinding
 import uz.mod.templatex.extension.inputMethodManager
@@ -44,6 +45,7 @@ class MainActivity : ParentActivity() {
         }
 
         KeyboardVisibilityEvent.setEventListener(this) {
+            Timber.e("Keyboard = $it")
             viewModel.keyboardVisibilityChanged(it)
         }
 
