@@ -17,6 +17,8 @@ class MainViewModel constructor(application: Application, val authRepository: Au
 
     var isToolbarVisible = MutableLiveData<Boolean>()
 
+    var toolbarGrayBackground = MutableLiveData<Boolean>()
+
     var isLogoVisible = MutableLiveData<Boolean>()
 
     var hasBackButton = MutableLiveData<Boolean>()
@@ -28,14 +30,15 @@ class MainViewModel constructor(application: Application, val authRepository: Au
     var isKeyboardVisible = MutableLiveData<Boolean>()
 
     fun destinationChanged(destination: NavDestination) {
-        val c = DestinationHelper.getConfig(destination)
-        if (!c.isDialog) {
+        val config = DestinationHelper.getConfig(destination)
+        if (!config.isDialog) {
             this.destination.value = destination
-            this.isToolbarVisible.value = c.toolbar
-            this.hasBackButton.value = c.back
+            this.isToolbarVisible.value = config.toolbar
+            this.hasBackButton.value = config.back
             this.title.value = destination.label?.toString()
-            this.hasBottomBar.value = c.bottomBar
-            this.isLogoVisible.value = c.logo
+            this.hasBottomBar.value = config.bottomBar
+            this.isLogoVisible.value = config.logo
+            this.toolbarGrayBackground.value = config.toolbarGrayBackground
         }
     }
 
