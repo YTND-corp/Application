@@ -28,7 +28,7 @@ class ProfileGuestFragment : ParentFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.profile_fragment, menu)
+        inflater.inflate(R.menu.profile_guest_fragment, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

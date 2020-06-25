@@ -110,6 +110,18 @@
 
     <!-- Profile Authorized  -->
     <string name="profile_authorized_title">АККАУНТ</string>
+    <string name="profile_authorized_name_title_first_part">ЗДРАВСТВУЙТЕ," "</string>
+    <string name="profile_authorized_name_subtitle">Этот раздел создан специально для вас</string>
+    <string name="profile_authorized_item_my_orders">Мои заказы</string>
+    <string name="profile_authorized_item_my_data">Мои данные</string>
+    <string name="profile_authorized_item_my_addresses">Мои адреса</string>
+    <string name="profile_authorized_item_favorites">Избранные</string>
+    <string name="profile_authorized_item_call_us">Позвоните нам</string>
+    <string name="profile_authorized_item_call_you">Позвонит вам</string>
+    <string name="profile_authorized_item_support_center">Центр поддержки MOD</string>
+    <string name="profile_authorized_item_about_mod">О MOD</string>
+    <string name="profile_authorized_item_logout">Выйти</string>
+    <string name="profile_authorized_btn_questions">Остались вопросы?</string>
 
     <!--Favorite-->
     <string name="favorite_placeholder_title">Здесь пока пусто</string>

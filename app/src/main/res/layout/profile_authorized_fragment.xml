@@ -11,12 +11,220 @@
 
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/windowBackgroundWhiteColor">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/profileHeaderContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/windowBackgroundGrayColor"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                        android:id="@+id/profileAvatarImg"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_profile_avatar_placeholder" />
+
+                <TextView
+                        android:id="@+id/profileNameTitleTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/profile_authorized_name_title_first_part"
+                        android:textColor="@color/blackTextColor"
+                        android:textSize="20sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profileAvatarImg" />
+
+                <TextView
+                        android:id="@+id/profileNameSubtitleTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/profile_authorized_name_subtitle"
+                        android:textColor="@color/black50TextColor"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profileNameTitleTv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                    android:id="@+id/profileMyOrdersTv"
+                    style="@style/ProfileAuthorizedItemTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_profile_authorized_my_orders"
+                    android:text="@string/profile_authorized_item_my_orders"
+                    app:layout_constraintTop_toBottomOf="@+id/profileHeaderContainer" />
+
+            <View
+                    android:id="@+id/profileMyOrdersDivider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/profileMyOrdersTv" />
+
+            <TextView
+                    android:id="@+id/profileMyDataTv"
+                    style="@style/ProfileAuthorizedItemTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile_authorized_my_data"
+                    android:text="@string/profile_authorized_item_my_data"
+                    app:layout_constraintTop_toBottomOf="@+id/profileMyOrdersDivider" />
+
+            <View
+                    android:id="@+id/profileMyDataDivider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/profileMyDataTv" />
+
+            <TextView
+                    android:id="@+id/profileMyAddressesTv"
+                    style="@style/ProfileAuthorizedItemTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile_authorized_my_addresses"
+                    android:text="@string/profile_authorized_item_my_addresses"
+                    app:layout_constraintTop_toBottomOf="@+id/profileMyDataDivider" />
+
+            <View
+                    android:id="@+id/profileMyAddressesDivider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/profileMyAddressesTv" />
+
+            <TextView
+                    android:id="@+id/profileFavoritesTv"
+                    style="@style/ProfileAuthorizedItemTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile_authorized_favorites"
+                    android:text="@string/profile_authorized_item_favorites"
+                    app:layout_constraintTop_toBottomOf="@+id/profileMyAddressesDivider" />
+
+            <View
+                    android:id="@+id/profileFavoritesDivider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/profileFavoritesTv" />
+
+            <TextView
+                    android:id="@+id/profileCallUsTv"
+                    style="@style/ProfileAuthorizedItemTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile_authorized_call_us"
+                    android:text="@string/profile_authorized_item_call_us"
+                    app:layout_constraintTop_toBottomOf="@+id/profileFavoritesDivider" />
+
+            <View
+                    android:id="@+id/profileCallUsDivider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/profileCallUsTv" />
+
+            <TextView
+                    android:id="@+id/profileCallYouTv"
+                    style="@style/ProfileAuthorizedItemTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile_authorized_call_you"
+                    android:text="@string/profile_authorized_item_call_you"
+                    app:layout_constraintTop_toBottomOf="@+id/profileCallUsDivider" />
+
+            <View
+                    android:id="@+id/profileCallYouDivider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/profileCallYouTv" />
+
+            <TextView
+                    android:id="@+id/profileSupportCenterTv"
+                    style="@style/ProfileAuthorizedItemTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile_authorized_support_center"
+                    android:text="@string/profile_authorized_item_support_center"
+                    app:layout_constraintTop_toBottomOf="@+id/profileCallYouDivider" />
+
+            <View
+                    android:id="@+id/profileSupportCenterDivider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/profileSupportCenterTv" />
+
+            <TextView
+                    android:id="@+id/profileAboutModTv"
+                    style="@style/ProfileAuthorizedItemTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile_authorized_about_mod"
+                    android:text="@string/profile_authorized_item_about_mod"
+                    app:layout_constraintTop_toBottomOf="@+id/profileSupportCenterDivider" />
+
+            <View
+                    android:id="@+id/profileAboutModDivider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/profileAboutModTv" />
+
+            <TextView
+                    android:id="@+id/profileLogoutTv"
+                    style="@style/ProfileAuthorizedItemTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile_authorized_logout"
+                    android:text="@string/profile_authorized_item_logout"
+                    android:textAllCaps="false"
+                    app:layout_constraintTop_toBottomOf="@+id/profileAboutModDivider" />
+
+            <View
+                    android:id="@+id/profileLogoutDivider"
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/profileLogoutTv" />
+
+            <Button
+                    android:id="@+id/profileQuestionsBtn"
+                    style="@style/SupportCenterWhiteButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:drawableStart="@drawable/ic_support_center_email"
+                    android:drawableEnd="@drawable/ic_chevron_right"
+                    android:drawableTint="@color/black"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/profile_authorized_btn_questions"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profileLogoutDivider" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

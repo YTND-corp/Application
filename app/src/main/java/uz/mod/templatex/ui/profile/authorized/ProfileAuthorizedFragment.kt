@@ -1,7 +1,9 @@
 package uz.mod.templatex.ui.profile.authorized
 
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.view.*
+import androidx.core.text.bold
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileAuthorizedFragmentBinding
@@ -24,12 +26,12 @@ class ProfileAuthorizedFragment : ParentFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.profile_fragment, menu)
+        inflater.inflate(R.menu.profile_authorized_fragment, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.settingsFragment -> true
+            R.id.settingsAuthorizedFragment -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -53,7 +55,46 @@ class ProfileAuthorizedFragment : ParentFragment() {
             viewModel = this@ProfileAuthorizedFragment.viewModel
             executePendingBindings()
 
+            val profileName = this@ProfileAuthorizedFragment.viewModel.getUser().name + "!"
+            val profileNameTitleText = SpannableStringBuilder()
+                .append(getString(R.string.profile_authorized_name_title_first_part))
+                .bold { append(profileName) }
 
+            profileNameTitleTv.text = profileNameTitleText
+
+            profileHeaderContainer.setOnClickListener {
+                // TODO
+            }
+            profileMyOrdersTv.setOnClickListener {
+                // TODO
+            }
+            profileMyDataTv.setOnClickListener {
+                // TODO
+            }
+            profileMyAddressesTv.setOnClickListener {
+                // TODO
+            }
+            profileFavoritesTv.setOnClickListener {
+                // TODO
+            }
+            profileCallUsTv.setOnClickListener {
+                // TODO
+            }
+            profileCallYouTv.setOnClickListener {
+                // TODO
+            }
+            profileSupportCenterTv.setOnClickListener {
+                // TODO
+            }
+            profileAboutModTv.setOnClickListener {
+                // TODO
+            }
+            profileLogoutTv.setOnClickListener {
+                // TODO
+            }
+            profileQuestionsBtn.setOnClickListener {
+                // TODO
+            }
         }
     }
 }
