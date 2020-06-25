@@ -22,7 +22,7 @@ class CartViewModel constructor(application: Application, val repository: CartRe
     }
 
     val isCartEmpty = Transformations.map(products) {
-        it.isNullOrEmpty()
+        it?.isNullOrEmpty()?: true
     }
 
     fun getCart() =  repository.getCart()
