@@ -108,6 +108,9 @@
     <string name="profile_call_support_center">Центр поддержки MOD</string>
     <string name="profile_about_app">О MOD</string>
 
+    <!-- Profile Authorized  -->
+    <string name="profile_authorized_title">АККАУНТ</string>
+
     <!--Favorite-->
     <string name="favorite_placeholder_title">Здесь пока пусто</string>
     <string name="favorite_placeholder_message">Вы пока ничего не добавили в избранное</string>
