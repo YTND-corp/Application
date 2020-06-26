@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersViewModel" />
+    </data>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ScrollView
+                android:id="@+id/myOrdersOrdersContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/rootContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/windowBackgroundWhiteColor">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <LinearLayout
+                android:id="@+id/myOrdersNoOrdersContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
+
+            <ImageView
+                    android:id="@+id/myOrdersPlaceholderImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/myOrdersNoOrdersTitleTv"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread_inside"
+                    app:srcCompat="@drawable/ic_profile_my_orders_placeholder" />
+
+            <TextView
+                    android:id="@+id/myOrdersNoOrdersTitleTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:gravity="center_horizontal"
+                    android:paddingStart="64dp"
+                    android:paddingEnd="64dp"
+                    android:text="@string/profile_my_orders_no_orders_title"
+                    android:textAllCaps="true"
+                    android:textColor="@color/blackTextColor"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toTopOf="@+id/myOrdersNoOrdersSubtitleTv"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/myOrdersPlaceholderImg" />
+
+            <TextView
+                    android:id="@+id/myOrdersNoOrdersSubtitleTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_horizontal"
+                    android:paddingStart="64dp"
+                    android:paddingEnd="64dp"
+                    android:text="@string/profile_my_orders_no_orders_subtitle"
+                    android:textColor="@color/dartGrayTextColor"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/myOrdersNoOrdersTitleTv" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

@@ -22,6 +22,7 @@ object DestinationHelper {
             false,
             toolbarGrayBackground = true
         ),
+        DestinationConfig(R.id.profileMyOrdersFragment, true, true),
         DestinationConfig(R.id.cartFragment, false, false),
         DestinationConfig(R.id.productsFragment, false, false),
         DestinationConfig(R.id.productFragment, false, false),

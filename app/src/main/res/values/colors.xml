@@ -10,6 +10,7 @@
     <!--App colors-->
     <color name="white">#FFFFFF</color>
     <color name="gray">#EFEFEF</color>
+    <color name="darkGray">#666666</color>
     <color name="black">#222222</color>
     <color name="black_50">#80222222</color>
     <string name="green">#34C759</string>
@@ -25,6 +26,7 @@
     <color name="colorEditTextBottomLine">#F2F2F7</color>
     <color name="blackTextColor">@color/black</color>
     <color name="black50TextColor">@color/black_50</color>
+    <color name="dartGrayTextColor">@color/darkGray</color>
     <color name="whiteTextColor">@color/white</color>
 
     <!--Button-->

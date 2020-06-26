@@ -54,6 +54,7 @@ import uz.mod.templatex.ui.supportCenter.SupportViewModel
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.ui.brands.*
 import uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedViewModel
+import uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersViewModel
 
 
 val viewModelModule = module {
@@ -82,6 +83,7 @@ val viewModelModule = module {
         )
     }
     viewModel { ProfileAuthorizedViewModel(get()) }
+    viewModel { ProfileMyOrdersViewModel(get()) }
     viewModel { CountryViewModel(get()) }
     viewModel { CallMeViewModel(get()) }
     viewModel { CheckOrderStatusViewModel(get()) }

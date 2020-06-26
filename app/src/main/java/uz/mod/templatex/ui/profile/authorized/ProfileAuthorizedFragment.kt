@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.*
 import androidx.core.text.bold
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileAuthorizedFragmentBinding
@@ -66,7 +67,7 @@ class ProfileAuthorizedFragment : ParentFragment() {
                 // TODO
             }
             profileMyOrdersTv.setOnClickListener {
-                // TODO
+                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileMyOrdersFragment)
             }
             profileMyDataTv.setOnClickListener {
                 // TODO
