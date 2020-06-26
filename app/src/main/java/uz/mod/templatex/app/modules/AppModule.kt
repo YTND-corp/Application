@@ -22,6 +22,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import uz.aqlify.yonda.utils.Prefs
 import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
+import uz.mod.templatex.model.remote.network.AppExecutors
 import uz.mod.templatex.model.remote.network.AuthInterceptor
 import uz.mod.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.mod.templatex.model.remote.network.NetworkInterceptor
@@ -52,15 +53,12 @@ import uz.mod.templatex.ui.signUp.SignUpViewModel
 import uz.mod.templatex.ui.splash.SplashViewModel
 import uz.mod.templatex.ui.supportCenter.SupportViewModel
 import uz.mod.templatex.utils.Const
-import uz.mod.templatex.ui.brands.*
 import uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedViewModel
 import uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersViewModel
-
 
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { MainViewModel(get(), get()) }
-    viewModel { BrandsViewModel(get(), get()) }
 
     viewModel { FavoriteViewModel(get(), get()) }
 
@@ -114,16 +112,14 @@ val dbModule = module {
 
 val repositoryModule = module {
 
-    single { ApiRepository(get()) }
     single { CategoryRepository(get()) }
-    single { ProductRepository(get(), get()) }
+    single { ProductRepository(get(), get(),get()) }
     single { AuthRepository(get(), get()) }
     single { CartRepository(get()) }
     single { CheckoutRepository(get(), get()) }
 }
 
 val apiModule = module {
-    factory { get<Retrofit>().create(ApiService::class.java) }
     factory { get<Retrofit>().create(CategoryService::class.java) }
     factory { get<Retrofit>().create(ProductService::class.java) }
     factory { get<Retrofit>().create(AuthService::class.java) }

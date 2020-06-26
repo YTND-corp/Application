@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.databinding.CategoryFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.extension.inputMethodManager
 
 class CategoryFragment : ParentFragment() {
 
@@ -41,8 +43,8 @@ class CategoryFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        viewModel.response.observe(viewLifecycleOwner, Observer {result ->
-            when(result.status) {
+        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
@@ -68,6 +70,23 @@ class CategoryFragment : ParentFragment() {
             pager.adapter = pageAdapter
 
             tabs.setupWithViewPager(pager)
+
+            pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) = Unit
+
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) = Unit
+
+                override fun onPageSelected(position: Int) {
+                    requireActivity().inputMethodManager.hideSoftInputFromWindow(
+                        view?.windowToken,
+                        0
+                    )
+                }
+            })
         }
     }
 }

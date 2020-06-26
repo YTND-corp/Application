@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import uz.mod.templatex.databinding.FavoriteFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
@@ -40,29 +41,6 @@ class FavoriteFragment : ParentFragment() {
                 }
             })
         }
-
-        viewModel.products().observe(this, Observer {
-            if (it.isNullOrEmpty()) {
-                binding.placeholderView.visibility = View.VISIBLE
-                adapter.setItems(it)
-            } else {
-                binding.placeholderView.visibility = View.GONE
-                adapter.setItems(it)
-            }
-        })
-
-        viewModel.getFavorites().observe(this, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                }
-            }
-        })
     }
 
     override fun onCreateView(
@@ -78,6 +56,26 @@ class FavoriteFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+
+        viewModel.getFavorites()
+
+        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                    adapter.setItems(result.data)
+                }
+            }
+        })
+
+        viewModel.isEmpty.observe(viewLifecycleOwner, Observer { result ->
+           Timber.e("IsEmpty = $result")
+        })
     }
 
     private fun initViews() {
