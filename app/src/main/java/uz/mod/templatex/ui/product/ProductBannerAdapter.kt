@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.ProductBannerItemBinding
 
-class ProductBannerAdapter() :
-    RecyclerView.Adapter<ProductBannerAdapter.ViewHolder>() {
+class ProductBannerAdapter : RecyclerView.Adapter<ProductBannerAdapter.ViewHolder>() {
 
     private var items: List<String> = listOf()
 

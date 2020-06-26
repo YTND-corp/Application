@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="item"
+                type="uz.mod.templatex.model.local.entity.Product" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/windowBackgroundWhiteColor"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp">
+
+        <ImageView
+                android:id="@+id/myOrderImageImg"
+                android:layout_width="76dp"
+                android:layout_height="100dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/profile_my_orders_placeholder" />
+
+        <TextView
+                android:id="@+id/myOrderBrandTv"
+                style="@style/Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:singleLine="true"
+                android:text="ZARA"
+                android:textColor="@color/blackTextColor"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/myOrderCategoryTv"
+                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/myOrderCategoryTv"
+                style="@style/Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+                android:includeFontPadding="false"
+                android:text="СНИКЕРСЫ"
+                android:textColor="@color/black50TextColor"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/myOrderPriceTv"
+                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
+                app:layout_constraintTop_toBottomOf="@+id/myOrderBrandTv" />
+
+        <TextView
+                android:id="@+id/myOrderPriceTv"
+                style="@style/Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
+                android:includeFontPadding="false"
+                android:text="98 313 545 UZS"
+                android:textColor="@color/blackTextColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
+                app:layout_constraintTop_toBottomOf="@+id/myOrderCategoryTv" />
+
+        <View
+                android:id="@+id/myOrderStatusView"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/my_orders_indicator_green"
+                app:layout_constraintBottom_toBottomOf="@+id/myOrderStatusTv"
+                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
+                app:layout_constraintTop_toTopOf="@+id/myOrderStatusTv" />
+
+        <TextView
+                android:id="@+id/myOrderStatusTv"
+                style="@style/Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:includeFontPadding="false"
+                android:text="Доставлен"
+                android:textColor="@color/blackTextColor"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/myOrderStatusView"
+                app:layout_constraintTop_toBottomOf="@+id/myOrderPriceTv" />
+
+        <TextView
+                android:id="@+id/myOrderDateTv"
+                style="@style/Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="12.04.2020"
+                android:textColor="@color/blackTextColor"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/myOrderTimeTv"
+                style="@style/Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:includeFontPadding="false"
+                android:text="09:19"
+                android:textColor="@color/blackTextColor"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myOrderDateTv" />
+
+        <FrameLayout
+                android:id="@+id/myOrderMoreContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/myOrderStatusTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/myOrderStatusTv">
+
+            <TextView
+                    style="@style/Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/profile_my_orders_order_status_more"
+                    android:textColor="@color/blackTextColor"
+                    android:textSize="14sp" />
+
+            <ImageView
+                    android:layout_width="8dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginTop="1dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:tint="@color/black" />
+
+
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

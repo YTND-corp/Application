@@ -202,7 +202,7 @@
 
     <style name="SearchFieldStyle" parent="Regular">
         <item name="android:textSize">@dimen/text_size_small</item>
-        <item name="android:gravity">start</item>
+        <item name="android:gravity">start|center_vertical</item>
         <item name="android:hint">@string/hint_catalog_search</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textColorHint">@color/unfocusedHintTextColor</item>
