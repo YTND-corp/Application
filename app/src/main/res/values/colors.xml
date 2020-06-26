@@ -26,6 +26,7 @@
     <color name="colorEditTextBottomLine">#F2F2F7</color>
     <color name="blackTextColor">@color/black</color>
     <color name="black50TextColor">@color/black_50</color>
+    <color name="grayTextColor">@color/gray</color>
     <color name="dartGrayTextColor">@color/darkGray</color>
     <color name="whiteTextColor">@color/white</color>
 

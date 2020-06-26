@@ -7,6 +7,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.view_search.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.SearchFragmentBinding
@@ -66,12 +68,13 @@ class SearchFragment : Fragment() {
             products.hasFixedSize()
             products.adapter = adapter
 
-            searchEt.addTextChangedListener(SimpleTextWatcher {
+            searchContainer.searchEt.hint = getString(R.string.hint_catalog_search)
+            searchContainer.searchEt.addTextChangedListener(SimpleTextWatcher {
                 if (it.isNullOrEmpty()) this@SearchFragment.viewModel.isQuery.postValue(false)
             })
-            searchEt.setOnEditorActionListener { v, actionId, event ->
+            searchContainer.searchEt.setOnEditorActionListener { v, actionId, event ->
                 if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    val searchQuery = searchEt.text.toString()
+                    val searchQuery = searchContainer.searchEt.text.toString()
                     this@SearchFragment.viewModel.search(searchQuery)
                     // TODO searchLabelTv transform to horizontal recyclerView with multiple labels
                     true

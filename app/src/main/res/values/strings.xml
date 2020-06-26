@@ -128,6 +128,11 @@
     <string name="profile_my_orders_title">МОИ ЗАКАЗЫ</string>
     <string name="profile_my_orders_no_orders_title">У ВАС пока нет ЗАКАЗОВ</string>
     <string name="profile_my_orders_no_orders_subtitle">Здесь появится информация о ваших заказах</string>
+    <string name="profile_my_orders_search_hint">Название товара или номер заказа</string>
+    <string name="profile_my_orders_order_status_delivered">Доставлен</string>
+    <string name="profile_my_orders_order_status_canceled">Отменен</string>
+    <string name="profile_my_orders_order_status_in_transit">В пути</string>
+    <string name="profile_my_orders_order_status_more">Подробнее</string>
 
     <!--Favorite-->
     <string name="favorite_placeholder_title">Здесь пока пусто</string>
