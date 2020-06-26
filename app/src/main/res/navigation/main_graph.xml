@@ -34,10 +34,23 @@
             android:label=""
             tools:layout="@layout/favorite_fragment" />
     <fragment
+            android:id="@+id/profileAuthorizedFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedFragment"
+            android:label="@string/title_profile_authorized"
+            tools:layout="@layout/profile_authorized_fragment">
+        <action
+                android:id="@+id/action_profileAuthorizedFragment_to_profileMyOrdersFragment"
+                app:destination="@id/profileMyOrdersFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
             android:id="@+id/profileFragment"
-            android:name="uz.mod.templatex.ui.profile.ProfileFragment"
+            android:name="uz.mod.templatex.ui.profile.guest.ProfileGuestFragment"
             android:label=""
-            tools:layout="@layout/profile_fragment">
+            tools:layout="@layout/profile_guest_fragment">
         <action
                 android:id="@+id/action_profileFragment_to_sign_up_graph"
                 app:destination="@id/sign_up_graph"
@@ -96,8 +109,13 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right" />
-
-
+        <action
+                android:id="@+id/action_profileFragment_to_profileAuthorizedFragment"
+                app:destination="@id/profileAuthorizedFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
             android:id="@+id/cartFragment"
@@ -227,7 +245,7 @@
 
     <action
             android:id="@+id/action_global_productFragment"
-            app:destination="@id/productFragment"/>
+            app:destination="@id/productFragment" />
 
     <action
             android:id="@+id/action_global_productsFragment"
@@ -236,4 +254,8 @@
 
     <include app:graph="@navigation/sign_up_graph" />
     <include app:graph="@navigation/sign_in_graph" />
+    <fragment
+            android:id="@+id/profileMyOrdersFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersFragment"
+            android:label="@string/title_profile_my_orders" />
 </navigation>

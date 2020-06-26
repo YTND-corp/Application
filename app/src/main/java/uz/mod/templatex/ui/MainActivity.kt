@@ -1,6 +1,8 @@
 package uz.mod.templatex.ui
 
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,8 +13,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.MainActivityBinding
-import uz.mod.templatex.utils.extension.inputMethodManager
 import uz.mod.templatex.ui.parent.ParentActivity
+import uz.mod.templatex.utils.extension.color
+import uz.mod.templatex.utils.extension.drawable
+import uz.mod.templatex.utils.extension.inputMethodManager
+
 
 class MainActivity : ParentActivity() {
 
@@ -66,6 +71,22 @@ class MainActivity : ParentActivity() {
 
         viewModel.title.observe(this, Observer {
             binding.toolbar.title = ""
+        })
+        viewModel.toolbarGrayBackground.observe(this, Observer { titleGrayBackground ->
+            val drawable =
+                if (titleGrayBackground) drawable(R.color.windowBackgroundGrayColor)
+                else drawable(R.color.windowBackgroundWhiteColor)
+            val color =
+                if (titleGrayBackground) color(R.color.windowBackgroundGrayColor)
+                else color(R.color.windowBackgroundWhiteColor)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                val window = window
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                window.statusBarColor = color
+            }
+
+            binding.toolbar.background = drawable
         })
     }
 

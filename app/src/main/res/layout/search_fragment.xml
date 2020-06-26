@@ -14,30 +14,14 @@
             android:layout_height="match_parent"
             tools:context=".ui.search.SearchFragment">
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/searchTextInputLayout"
+        <include
+                android:id="@+id/searchContainer"
+                layout="@layout/view_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/unfocusedHintTextColor"
-                app:hintEnabled="false"
-                app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/searchEt"
-                    style="@style/SearchFieldStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:drawablePadding="8dp"
-                    android:gravity="center_vertical"
-                    android:hint="@string/hint_catalog_search"
-                    android:imeOptions="actionSearch"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
                 android:id="@+id/searchLabelTv"
@@ -49,14 +33,14 @@
                 android:layout_marginTop="10dp"
                 android:text="@{viewModel.query}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/searchTextInputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/searchContainer"
                 tools:text="massimo" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/placeholder_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/windowBackgroundColor"
+                android:background="@color/windowBackgroundWhiteColor"
                 android:visibility="gone">
 
             <TextView

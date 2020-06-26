@@ -22,6 +22,7 @@
                 isVisible="@{viewModel.isEmpty}"
                 android:background="@color/windowBackgroundColor">
 
+
             <TextView
                     android:id="@+id/placeholder_title_text_view"
                     style="@style/SemiBold"

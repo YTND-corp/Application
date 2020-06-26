@@ -1,38 +1,39 @@
-package uz.mod.templatex.ui.profile
+package uz.mod.templatex.ui.profile.guest
 
 import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.R
-import uz.mod.templatex.databinding.ProfileFragmentBinding
+import uz.mod.templatex.databinding.ProfileGuestFragmentBinding
 import uz.mod.templatex.ui.parent.ParentFragment
 
 
-class ProfileFragment : ParentFragment() {
+class ProfileGuestFragment : ParentFragment() {
 
-    val viewModel: ProfileViewModel by viewModel()
+    val viewModel: ProfileGuestViewModel by viewModel()
 
-    private val binding by lazy { ProfileFragmentBinding.inflate(layoutInflater) }
+    private val binding by lazy { ProfileGuestFragmentBinding.inflate(layoutInflater) }
 
     companion object {
-        fun newInstance() = ProfileFragment()
+        fun newInstance() = ProfileGuestFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.profile_fragment, menu)
+        inflater.inflate(R.menu.profile_guest_fragment, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.settingsFragment -> true;
+            R.id.settingsFragment -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -42,7 +43,7 @@ class ProfileFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@ProfileFragment
+        binding.lifecycleOwner = this@ProfileGuestFragment
         return binding.root
     }
 
@@ -64,12 +65,16 @@ class ProfileFragment : ParentFragment() {
 
     private fun initViews() {
         binding.apply {
-            viewModel = this@ProfileFragment.viewModel
-            sharedViewModel = this@ProfileFragment.sharedViewModel
+            viewModel = this@ProfileGuestFragment.viewModel
+            sharedViewModel = this@ProfileGuestFragment.sharedViewModel
             executePendingBindings()
 
             signIn.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_sign_in_graph)
+                if (BuildConfig.DEBUG) {
+                    findNavController().navigate(R.id.action_profileFragment_to_profileAuthorizedFragment)
+                } else {
+                    findNavController().navigate(R.id.action_profileFragment_to_sign_in_graph)
+                }
             }
 
             signUp.setOnClickListener {

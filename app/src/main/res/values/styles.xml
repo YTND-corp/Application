@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/windowBackgroundColor</item>
+        <item name="android:windowBackground">@color/windowBackgroundWhiteColor</item>
         <item name="buttonStyle">@style/ContainedButtonStyle</item>
         <item name="android:textColorPrimary">@color/primaryTextColor</item>
         <item name="android:textColorHint">@color/unfocusedHintTextColor</item>
@@ -202,7 +202,7 @@
 
     <style name="SearchFieldStyle" parent="Regular">
         <item name="android:textSize">@dimen/text_size_small</item>
-        <item name="android:gravity">start</item>
+        <item name="android:gravity">start|center_vertical</item>
         <item name="android:hint">@string/hint_catalog_search</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textColorHint">@color/unfocusedHintTextColor</item>
@@ -270,6 +270,7 @@
         <item name="android:paddingEnd">20dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">@font/open_sans_regular</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
     <style name="SupportCenterWhiteButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
@@ -292,6 +293,22 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">@font/open_sans_bold</item>
         <item name="android:background">@drawable/contained_button_shape</item>
+    </style>
+
+    <style name="ProfileAuthorizedItemTextStyle" parent="Regular">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:height">50dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/blackTextColor</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:drawablePadding">20dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/open_sans_regular</item>
     </style>
 
 </resources>

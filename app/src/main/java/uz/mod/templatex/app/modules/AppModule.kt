@@ -43,7 +43,7 @@ import uz.mod.templatex.ui.favorite.FavoriteViewModel
 import uz.mod.templatex.ui.filter.FilterViewModel
 import uz.mod.templatex.ui.product.ProductViewModel
 import uz.mod.templatex.ui.products.ProductsViewModel
-import uz.mod.templatex.ui.profile.ProfileViewModel
+import uz.mod.templatex.ui.profile.guest.ProfileGuestViewModel
 import uz.mod.templatex.ui.recoveryPassword.RecoveryPasswordViewModel
 import uz.mod.templatex.ui.search.SearchViewModel
 import uz.mod.templatex.ui.selection.SelectionChildViewModel
@@ -53,6 +53,8 @@ import uz.mod.templatex.ui.signUp.SignUpViewModel
 import uz.mod.templatex.ui.splash.SplashViewModel
 import uz.mod.templatex.ui.supportCenter.SupportViewModel
 import uz.mod.templatex.utils.Const
+import uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedViewModel
+import uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersViewModel
 
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
@@ -72,7 +74,14 @@ val viewModelModule = module {
     viewModel { CategoryChildViewModel(get()) }
     viewModel { SubCategoryViewModel(get()) }
 
-    viewModel { ProfileViewModel(get(), get()) }
+    viewModel {
+        ProfileGuestViewModel(
+            get(),
+            get()
+        )
+    }
+    viewModel { ProfileAuthorizedViewModel(get()) }
+    viewModel { ProfileMyOrdersViewModel(get()) }
     viewModel { CountryViewModel(get()) }
     viewModel { CallMeViewModel(get()) }
     viewModel { CheckOrderStatusViewModel(get()) }

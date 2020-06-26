@@ -4,12 +4,15 @@
     <color name="colorPrimaryDark">@color/white</color>
     <color name="colorAccent">@color/black</color>
 
-    <color name="windowBackgroundColor">@color/white</color>
+    <color name="windowBackgroundWhiteColor">@color/white</color>
+    <color name="windowBackgroundGrayColor">@color/gray</color>
 
     <!--App colors-->
     <color name="white">#FFFFFF</color>
     <color name="gray">#EFEFEF</color>
+    <color name="darkGray">#666666</color>
     <color name="black">#222222</color>
+    <color name="black_50">#80222222</color>
     <string name="green">#34C759</string>
     <string name="orange">#FF9500</string>
     <string name="blue">#007AFF</string>
@@ -22,6 +25,9 @@
     <color name="focusedHintTextColor">@color/colorAccent</color>
     <color name="colorEditTextBottomLine">#F2F2F7</color>
     <color name="blackTextColor">@color/black</color>
+    <color name="black50TextColor">@color/black_50</color>
+    <color name="grayTextColor">@color/gray</color>
+    <color name="dartGrayTextColor">@color/darkGray</color>
     <color name="whiteTextColor">@color/white</color>
 
     <!--Button-->

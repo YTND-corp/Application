@@ -130,7 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 isVisible="@{viewModel.isCartEmpty()}"
-                android:background="@color/windowBackgroundColor">
+                android:background="@color/windowBackgroundWhiteColor">
         <TextView
                 android:id="@+id/placeholder_text"
                 style="@style/Regular"
