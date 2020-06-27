@@ -16,7 +16,6 @@ import uz.aqlify.yonda.utils.Prefs
 import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
-import uz.mod.templatex.model.remote.network.AppExecutors
 import uz.mod.templatex.model.remote.network.AuthInterceptor
 import uz.mod.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.mod.templatex.model.remote.network.NetworkInterceptor
