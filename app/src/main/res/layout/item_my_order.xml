@@ -20,8 +20,8 @@
             android:paddingBottom="20dp">
 
         <ImageView
-                android:id="@+id/myOrderImageImg"
-                android:layout_width="76dp"
+                android:id="@+id/itemOrderImageImg"
+                android:layout_width="75dp"
                 android:layout_height="100dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
                 app:srcCompat="@drawable/profile_my_orders_placeholder" />
 
         <TextView
-                android:id="@+id/myOrderBrandTv"
+                android:id="@+id/itemOrderBrandTv"
                 style="@style/Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,12 +40,12 @@
                 android:text="ZARA"
                 android:textColor="@color/blackTextColor"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/myOrderCategoryTv"
-                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
+                app:layout_constraintBottom_toTopOf="@+id/itemOrderCategoryTv"
+                app:layout_constraintStart_toEndOf="@+id/itemOrderImageImg"
                 app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-                android:id="@+id/myOrderCategoryTv"
+                android:id="@+id/itemOrderCategoryTv"
                 style="@style/Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,12 +55,12 @@
                 android:text="СНИКЕРСЫ"
                 android:textColor="@color/black50TextColor"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/myOrderPriceTv"
-                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderBrandTv" />
+                app:layout_constraintBottom_toTopOf="@+id/itemOrderPriceTv"
+                app:layout_constraintStart_toEndOf="@+id/itemOrderImageImg"
+                app:layout_constraintTop_toBottomOf="@+id/itemOrderBrandTv" />
 
         <TextView
-                android:id="@+id/myOrderPriceTv"
+                android:id="@+id/itemOrderPriceTv"
                 style="@style/Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,22 +70,22 @@
                 android:text="98 313 545 UZS"
                 android:textColor="@color/blackTextColor"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderCategoryTv" />
+                app:layout_constraintStart_toEndOf="@+id/itemOrderImageImg"
+                app:layout_constraintTop_toBottomOf="@+id/itemOrderCategoryTv" />
 
         <View
-                android:id="@+id/myOrderStatusView"
+                android:id="@+id/itemOrderStatusView"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/my_orders_indicator_green"
-                app:layout_constraintBottom_toBottomOf="@+id/myOrderStatusTv"
-                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
-                app:layout_constraintTop_toTopOf="@+id/myOrderStatusTv" />
+                app:layout_constraintBottom_toBottomOf="@+id/itemOrderStatusTv"
+                app:layout_constraintStart_toEndOf="@+id/itemOrderImageImg"
+                app:layout_constraintTop_toTopOf="@+id/itemOrderStatusTv" />
 
         <TextView
-                android:id="@+id/myOrderStatusTv"
+                android:id="@+id/itemOrderStatusTv"
                 style="@style/Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,41 +96,28 @@
                 android:textColor="@color/blackTextColor"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/myOrderStatusView"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderPriceTv" />
+                app:layout_constraintStart_toEndOf="@+id/itemOrderStatusView"
+                app:layout_constraintTop_toBottomOf="@+id/itemOrderPriceTv" />
 
         <TextView
-                android:id="@+id/myOrderDateTv"
+                android:id="@+id/itemOrderDatetimeTv"
                 style="@style/Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:text="12.04.2020"
+                android:text="12.04.2020\n09:19"
                 android:textColor="@color/blackTextColor"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-                android:id="@+id/myOrderTimeTv"
-                style="@style/Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:includeFontPadding="false"
-                android:text="09:19"
-                android:textColor="@color/blackTextColor"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderDateTv" />
-
         <FrameLayout
-                android:id="@+id/myOrderMoreContainer"
+                android:id="@+id/itemOrderMoreContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/myOrderStatusTv"
+                app:layout_constraintBottom_toBottomOf="@+id/itemOrderStatusTv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/myOrderStatusTv">
+                app:layout_constraintTop_toTopOf="@+id/itemOrderStatusTv">
 
             <TextView
                     style="@style/Regular"
@@ -149,10 +136,6 @@
                     android:layout_marginTop="1dp"
                     android:src="@drawable/ic_chevron_right"
                     android:tint="@color/black" />
-
-
         </FrameLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

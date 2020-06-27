@@ -134,6 +134,13 @@
     <string name="profile_my_orders_order_status_in_transit">В пути</string>
     <string name="profile_my_orders_order_status_more">Подробнее</string>
 
+    <!-- Profile My Order  -->
+    <string name="profile_my_order_size">Размер:</string>
+    <string name="profile_my_order_quantity">Количество</string>
+    <string name="profile_my_order_price">Стоимость</string>
+    <string name="profile_my_order_delivery">Доставка</string>
+    <string name="profile_my_order_total">К оплате</string>
+
     <!--Favorite-->
     <string name="favorite_placeholder_title">Здесь пока пусто</string>
     <string name="favorite_placeholder_message">Вы пока ничего не добавили в избранное</string>
