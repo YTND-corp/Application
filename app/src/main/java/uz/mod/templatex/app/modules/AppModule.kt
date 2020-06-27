@@ -7,19 +7,13 @@ import com.google.gson.GsonBuilder
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
-import uz.mod.templatex.BuildConfig
-import java.io.File
-import java.security.cert.CertificateException
-import java.util.concurrent.TimeUnit
-import javax.net.ssl.SSLContext
-import javax.net.ssl.SSLSocketFactory
-import javax.net.ssl.X509TrustManager
-import org.koin.androidx.viewmodel.dsl.viewModel
 import uz.aqlify.yonda.utils.Prefs
+import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
 import uz.mod.templatex.model.remote.network.AuthInterceptor
@@ -30,11 +24,11 @@ import uz.mod.templatex.ui.MainViewModel
 import uz.mod.templatex.ui.about.AboutViewModel
 import uz.mod.templatex.ui.adres.AdresViewModel
 import uz.mod.templatex.ui.askQuestion.AskQuestionViewModel
+import uz.mod.templatex.ui.brands.BrandsViewModel
 import uz.mod.templatex.ui.callMe.CallMeViewModel
 import uz.mod.templatex.ui.cart.CartViewModel
 import uz.mod.templatex.ui.category.CategoryChildViewModel
 import uz.mod.templatex.ui.category.CategoryViewModel
-import uz.mod.templatex.ui.subCategory.SubCategoryViewModel
 import uz.mod.templatex.ui.checkOrderStatus.CheckOrderStatusViewModel
 import uz.mod.templatex.ui.checkout.CheckoutViewModel
 import uz.mod.templatex.ui.country.CountryViewModel
@@ -42,6 +36,9 @@ import uz.mod.templatex.ui.favorite.FavoriteViewModel
 import uz.mod.templatex.ui.filter.FilterViewModel
 import uz.mod.templatex.ui.product.ProductViewModel
 import uz.mod.templatex.ui.products.ProductsViewModel
+import uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedViewModel
+import uz.mod.templatex.ui.profile.authorized.myOrder.ProfileMyOrderViewModel
+import uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersViewModel
 import uz.mod.templatex.ui.profile.guest.ProfileGuestViewModel
 import uz.mod.templatex.ui.recoveryPassword.RecoveryPasswordViewModel
 import uz.mod.templatex.ui.search.SearchViewModel
@@ -50,11 +47,15 @@ import uz.mod.templatex.ui.selection.SelectionViewModel
 import uz.mod.templatex.ui.signIn.SignInViewModel
 import uz.mod.templatex.ui.signUp.SignUpViewModel
 import uz.mod.templatex.ui.splash.SplashViewModel
+import uz.mod.templatex.ui.subCategory.SubCategoryViewModel
 import uz.mod.templatex.ui.supportCenter.SupportViewModel
 import uz.mod.templatex.utils.Const
-import uz.mod.templatex.ui.brands.*
-import uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedViewModel
-import uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersViewModel
+import java.io.File
+import java.security.cert.CertificateException
+import java.util.concurrent.TimeUnit
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.X509TrustManager
 
 
 val viewModelModule = module {
@@ -84,6 +85,7 @@ val viewModelModule = module {
     }
     viewModel { ProfileAuthorizedViewModel(get()) }
     viewModel { ProfileMyOrdersViewModel(get()) }
+    viewModel { ProfileMyOrderViewModel(get()) }
     viewModel { CountryViewModel(get()) }
     viewModel { CallMeViewModel(get()) }
     viewModel { CheckOrderStatusViewModel(get()) }

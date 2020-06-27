@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.view_search.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
@@ -18,7 +19,13 @@ class ProfileMyOrdersFragment : ParentFragment() {
 
     private val binding by lazy { ProfileMyOrdersFragmentBinding.inflate(layoutInflater) }
 
-    private var adapter = ProfileMyOrdersAdapter()
+    private val myOrdersAdapterListener = object : MyOrdersAdapterListener {
+        override fun toMyOrder() {
+            findNavController().navigate(R.id.action_profileMyOrdersFragment_to_profileMyOrderFragment)
+        }
+    }
+
+    private var adapter = ProfileMyOrdersAdapter(myOrdersAdapterListener)
 
     companion object {
         fun newInstance() = ProfileMyOrdersFragment()

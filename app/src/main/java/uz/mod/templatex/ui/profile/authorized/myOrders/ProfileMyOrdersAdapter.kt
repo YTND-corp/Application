@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.ItemMyOrderBinding
 import uz.mod.templatex.model.local.entity.Product
 
-class ProfileMyOrdersAdapter() :
-    RecyclerView.Adapter<ProfileMyOrdersAdapter.ViewHolder>() {
+class ProfileMyOrdersAdapter(
+    private val listener: MyOrdersAdapterListener
+) : RecyclerView.Adapter<ProfileMyOrdersAdapter.ViewHolder>() {
 
     private var items: List<Product> = listOf()
 
@@ -31,7 +32,15 @@ class ProfileMyOrdersAdapter() :
         fun bind(product: Product) {
             binding.apply {
                 executePendingBindings()
+
+                root.setOnClickListener {
+                    listener.toMyOrder()
+                }
             }
         }
     }
+}
+
+interface MyOrdersAdapterListener {
+    fun toMyOrder()
 }

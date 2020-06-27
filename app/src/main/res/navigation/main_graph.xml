@@ -257,5 +257,14 @@
     <fragment
             android:id="@+id/profileMyOrdersFragment"
             android:name="uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersFragment"
-            android:label="@string/title_profile_my_orders" />
+            android:label="@string/title_profile_my_orders"
+            tools:layout="@layout/profile_my_orders_fragment">
+        <action
+                android:id="@+id/action_profileMyOrdersFragment_to_profileMyOrderFragment"
+                app:destination="@id/profileMyOrderFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/profileMyOrderFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.myOrder.ProfileMyOrderFragment"
+            tools:layout="@layout/profile_my_order_fragment" />
 </navigation>
