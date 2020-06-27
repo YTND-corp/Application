@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 isVisible="@{viewModel.isEmpty}"
-                android:background="@color/windowBackgroundColor">
+                android:background="@color/windowBackgroundWhiteColor">
 
 
             <TextView

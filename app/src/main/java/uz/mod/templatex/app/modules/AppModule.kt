@@ -47,7 +47,7 @@ import uz.mod.templatex.ui.signIn.SignInViewModel
 import uz.mod.templatex.ui.signUp.SignUpViewModel
 import uz.mod.templatex.ui.splash.SplashViewModel
 import uz.mod.templatex.ui.subCategory.SubCategoryViewModel
-import uz.mod.templatex.ui.supportCenter.SupportViewModel
+import uz.mod.templatex.ui.supportCenter.SupportCenterViewModel
 import uz.mod.templatex.utils.Const
 import java.io.File
 import java.security.cert.CertificateException
@@ -87,7 +87,7 @@ val viewModelModule = module {
     viewModel { CallMeViewModel(get()) }
     viewModel { CheckOrderStatusViewModel(get()) }
     viewModel { AskQuestionViewModel(get()) }
-    viewModel { SupportViewModel(get()) }
+    viewModel { SupportCenterViewModel(get()) }
     viewModel { AboutViewModel(get()) }
 
     viewModel { CartViewModel(get(), get()) }

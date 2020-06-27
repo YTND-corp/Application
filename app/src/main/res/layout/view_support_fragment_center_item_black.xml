@@ -7,7 +7,7 @@
         android:background="@color/black">
 
     <TextView
-            android:id="@+id/titleTv"
+            android:id="@+id/blackTitleTv"
             style="@style/SupportCenterItemTextStyle"
             android:layout_width="match_parent"
             android:paddingTop="16dp"

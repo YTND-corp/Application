@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.view_support_fragment_center_item.view.*
+import kotlinx.android.synthetic.main.view_support_fragment_center_item_black.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.SupportCenterFragmentBinding
 
 class SupportCenterFragment : Fragment() {
 
-    val viewModel: SupportViewModel by viewModel()
+    val viewModel: SupportCenterViewModel by viewModel()
 
     private val binding by lazy { SupportCenterFragmentBinding.inflate(layoutInflater) }
 
@@ -52,60 +53,51 @@ class SupportCenterFragment : Fragment() {
             }
 
             // Init text resources
-            newUsersItem.findViewById<TextView>(R.id.titleTv).text =
-                getString(R.string.support_center_item_new_users)
-            deliveryItem.findViewById<TextView>(R.id.titleTv).text =
-                getString(R.string.support_center_item_delivery)
-            returnItem.findViewById<TextView>(R.id.titleTv).text =
-                getString(R.string.support_center_item_return)
-            salesItem.findViewById<TextView>(R.id.titleTv).text =
-                getString(R.string.support_center_item_sales)
-            orderItem.findViewById<TextView>(R.id.titleTv).text =
-                getString(R.string.support_center_item_order)
-            goodsItem.findViewById<TextView>(R.id.titleTv).text =
-                getString(R.string.support_center_item_goods)
-            paymentItem.findViewById<TextView>(R.id.titleTv).text =
-                getString(R.string.support_center_item_payment)
-            partnersGoodsItem.findViewById<TextView>(R.id.titleTv).text =
-                getString(R.string.support_center_item_partners_goods)
-            profileAndSubscriptionsItem.findViewById<TextView>(R.id.titleTv).text =
+            newUsersItem.titleTv.text = getString(R.string.support_center_item_new_users)
+            deliveryItem.titleTv.text = getString(R.string.support_center_item_delivery)
+            returnItem.titleTv.text = getString(R.string.support_center_item_return)
+            salesItem.blackTitleTv.text = getString(R.string.support_center_item_sales)
+            orderItem.titleTv.text = getString(R.string.support_center_item_order)
+            goodsItem.titleTv.text = getString(R.string.support_center_item_goods)
+            paymentItem.titleTv.text = getString(R.string.support_center_item_payment)
+            partnersGoodsItem.titleTv.text = getString(R.string.support_center_item_partners_goods)
+            profileAndSubscriptionsItem.titleTv.text =
                 getString(R.string.support_center_item_profile_and_subscriptions)
-            workAndCollaborationItem.findViewById<TextView>(R.id.titleTv).text =
+            workAndCollaborationItem.titleTv.text =
                 getString(R.string.support_center_item_work_and_collaborations)
-            reviewsItem.findViewById<TextView>(R.id.titleTv).text =
-                getString(R.string.support_center_item_reviews)
+            reviewsItem.titleTv.text = getString(R.string.support_center_item_reviews)
 
-            newUsersItem.setOnClickListener {
+            newUsersItem.titleTv.setOnClickListener {
                 // TODO
             }
-            deliveryItem.setOnClickListener {
+            deliveryItem.titleTv.setOnClickListener {
                 // TODO
             }
-            returnItem.setOnClickListener {
+            returnItem.titleTv.setOnClickListener {
                 // TODO
             }
-            salesItem.setOnClickListener {
+            salesItem.titleTv.setOnClickListener {
                 // TODO
             }
-            orderItem.setOnClickListener {
+            orderItem.titleTv.setOnClickListener {
                 // TODO
             }
-            goodsItem.setOnClickListener {
+            goodsItem.titleTv.setOnClickListener {
                 // TODO
             }
-            paymentItem.setOnClickListener {
+            paymentItem.titleTv.setOnClickListener {
                 // TODO
             }
-            partnersGoodsItem.setOnClickListener {
+            partnersGoodsItem.titleTv.setOnClickListener {
                 // TODO
             }
-            profileAndSubscriptionsItem.setOnClickListener {
+            profileAndSubscriptionsItem.titleTv.setOnClickListener {
                 // TODO
             }
-            workAndCollaborationItem.setOnClickListener {
+            workAndCollaborationItem.titleTv.setOnClickListener {
                 // TODO
             }
-            reviewsItem.setOnClickListener {
+            reviewsItem.titleTv.setOnClickListener {
                 // TODO
             }
 
@@ -113,7 +105,6 @@ class SupportCenterFragment : Fragment() {
             emailUsBtn.setOnClickListener {
                 // TODO
             }
-
             callUsBtn.setOnClickListener {
                 // TODO
             }
