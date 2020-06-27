@@ -61,6 +61,10 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             adapter.setIsEditing(it)
         })
 
+        viewModel.isCartEmpty.observe(viewLifecycleOwner, Observer {
+            Timber.e("isCartEmpty = $it")
+        })
+
         viewModel.getCart()
     }
 

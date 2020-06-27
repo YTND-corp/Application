@@ -54,7 +54,6 @@ class SelectionFragment: ParentFragment() {
             when(result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
-                    Timber.e(result.error.toString())
                     hideLoading()
                     showError(result.error)
                 }

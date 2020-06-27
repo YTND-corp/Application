@@ -2,6 +2,7 @@ package uz.mod.templatex.model.remote.api
 
 import androidx.lifecycle.LiveData
 import retrofit2.http.*
+import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.network.ApiResponse
 import uz.mod.templatex.model.remote.responce.*
 
@@ -20,7 +21,6 @@ interface ProductService {
         @Path("categoryId") categoryId: Int,
         @Path("id") id: Int
     ): LiveData<ApiResponse<ProductDetailResponse>>
-
 
     @GET("v1/favorites")
     fun getFavorites(): LiveData<ApiResponse<List<Favorite>>>

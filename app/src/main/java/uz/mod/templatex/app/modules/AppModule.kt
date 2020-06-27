@@ -16,6 +16,7 @@ import uz.aqlify.yonda.utils.Prefs
 import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
+import uz.mod.templatex.model.remote.network.AppExecutors
 import uz.mod.templatex.model.remote.network.AuthInterceptor
 import uz.mod.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.mod.templatex.model.remote.network.NetworkInterceptor
@@ -24,7 +25,6 @@ import uz.mod.templatex.ui.MainViewModel
 import uz.mod.templatex.ui.about.AboutViewModel
 import uz.mod.templatex.ui.adres.AdresViewModel
 import uz.mod.templatex.ui.askQuestion.AskQuestionViewModel
-import uz.mod.templatex.ui.brands.BrandsViewModel
 import uz.mod.templatex.ui.callMe.CallMeViewModel
 import uz.mod.templatex.ui.cart.CartViewModel
 import uz.mod.templatex.ui.category.CategoryChildViewModel
@@ -57,11 +57,9 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
 
-
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { MainViewModel(get(), get()) }
-    viewModel { BrandsViewModel(get(), get()) }
 
     viewModel { FavoriteViewModel(get(), get()) }
 
@@ -116,16 +114,14 @@ val dbModule = module {
 
 val repositoryModule = module {
 
-    single { ApiRepository(get()) }
     single { CategoryRepository(get()) }
-    single { ProductRepository(get(), get()) }
+    single { ProductRepository(get(), get(), get()) }
     single { AuthRepository(get(), get()) }
     single { CartRepository(get()) }
     single { CheckoutRepository(get(), get()) }
 }
 
 val apiModule = module {
-    factory { get<Retrofit>().create(ApiService::class.java) }
     factory { get<Retrofit>().create(CategoryService::class.java) }
     factory { get<Retrofit>().create(ProductService::class.java) }
     factory { get<Retrofit>().create(AuthService::class.java) }
