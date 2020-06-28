@@ -97,7 +97,7 @@ dependencies {
     //Firebase
     implementation "com.google.firebase:firebase-core:$firebase"
     implementation "com.google.firebase:firebase-analytics-ktx:$firebase"
-    implementation "com.google.firebase:firebase-crashlytics:$firebase_crashlytics"
+    implementation "com.google.firebase:firebase-crashlytics-ktx:$firebase_crashlytics"
     implementation "com.google.firebase:firebase-messaging:$firebase_messaging"
 
     //Koin
