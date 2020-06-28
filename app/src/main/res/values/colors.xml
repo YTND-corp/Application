@@ -49,4 +49,6 @@
     <color name="indicator_current">#000000</color>
     <color name="indicator_default">#52000000</color>
 
+    <!--Spinner-->
+    <color name="spinner_border_color">#F2F2F7</color>
 </resources>
