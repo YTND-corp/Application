@@ -132,7 +132,7 @@ class ProductRepository constructor(
     fun addToCart(
         id: Int,
         quantity: Int,
-        attributes: ArrayList<Int>?
+        attributes: ArrayList<Int>
     ): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {
             override fun processResult(item: Any?): Any? {
