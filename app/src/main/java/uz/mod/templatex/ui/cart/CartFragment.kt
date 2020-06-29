@@ -10,6 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CartFragmentBinding
+import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 
@@ -41,7 +42,7 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
         initViews()
 
 
-        viewModel.getCart().observe(viewLifecycleOwner, Observer {result ->
+        viewModel.response.observe(viewLifecycleOwner, Observer {result ->
             when(result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -50,19 +51,29 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    Timber.e(result.data?.cart.toString())
-                    viewModel.setCart(result.data?.cart)
-                    viewModel.setProducts(result.data?.cart?.products)
                 }
             }
         })
 
-        viewModel.isEditing.observe(viewLifecycleOwner, Observer {
-            adapter.setIsEditing(it)
+        viewModel.updateResponse.observe(viewLifecycleOwner, Observer {result ->
+            when(result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                }
+            }
         })
 
-        viewModel.isCartEmpty.observe(viewLifecycleOwner, Observer {
-            Timber.e("isCartEmpty = $it")
+        viewModel.products.observe(viewLifecycleOwner, Observer {result ->
+           adapter.setItems(result)
+        })
+
+        viewModel.isEditing.observe(viewLifecycleOwner, Observer {
+            adapter.setIsEditing(it)
         })
 
         viewModel.getCart()
@@ -97,39 +108,15 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
         }
     }
 
-    override fun select(id: Int) {
-        viewModel.select(id)
+    override fun select(product: Product) {
+        viewModel.select(product)
     }
 
-    override fun minus(id: Int) {
-        viewModel.sub(id).observe(viewLifecycleOwner, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    viewModel.substracted(id)
-                }
-            }
-        })
+    override fun minus(product: Product) {
+        viewModel.sub(product)
     }
 
-    override fun plus(id: Int) {
-        viewModel.add(id).observe(viewLifecycleOwner, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    viewModel.added(id)
-                }
-            }
-        })
+    override fun plus(product: Product) {
+        viewModel.add(product)
     }
 }

@@ -28,7 +28,7 @@ interface ProductService {
     fun favoriteToggle(@Field("product") id: Int): LiveData<ApiResponse<FavoriteToggleResponse>>
 
     @FormUrlEncoded
-    @POST("v1/carts/products/add")
+    @POST("v1/carts")
     fun addToCart(@Field("product") id: Int, @Field("quantity") quantity: Int, @Field("attributes[]") attributes: ArrayList<Int>): LiveData<ApiResponse<Any>>
 
 }

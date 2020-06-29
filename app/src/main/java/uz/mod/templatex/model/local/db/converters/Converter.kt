@@ -3,12 +3,13 @@ package uz.mod.templatex.model.local.db.converters
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import uz.mod.templatex.model.local.entity.AttributeCombination
 import uz.mod.templatex.model.local.entity.Brand
 import uz.mod.templatex.model.local.entity.Currency
 import uz.mod.templatex.model.local.entity.Value
 import java.util.*
 
-class ProductTypeConverter {
+class Converter {
 
     var gson = Gson()
 
@@ -27,6 +28,20 @@ class ProductTypeConverter {
     }
 
     @TypeConverter
+    fun stringToBrandList(data: String?): List<Brand>? {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+        val listType = object : TypeToken<List<Brand>?>() {}.type
+        return gson.fromJson<List<Brand>>(data, listType)
+    }
+
+    @TypeConverter
+    fun brandListToString(someObjects: List<Brand>?): String? {
+        return gson.toJson(someObjects)
+    }
+
+    @TypeConverter
     fun stringToValueList(data: String?): List<Value>? {
         if (data == null) {
             return Collections.emptyList()
@@ -41,16 +56,16 @@ class ProductTypeConverter {
     }
 
     @TypeConverter
-    fun stringToBrandList(data: String?): List<Brand>? {
+    fun stringToAttributeCombinationList(data: String?): List<AttributeCombination>? {
         if (data == null) {
             return Collections.emptyList()
         }
-        val listType = object : TypeToken<List<Brand>?>() {}.type
-        return gson.fromJson<List<Brand>>(data, listType)
+        val listType = object : TypeToken<List<AttributeCombination>?>() {}.type
+        return gson.fromJson<List<AttributeCombination>>(data, listType)
     }
 
     @TypeConverter
-    fun brandListToString(someObjects: List<Brand>?): String? {
+    fun attributeCombinationListToString(someObjects: List<AttributeCombination>?): String? {
         return gson.toJson(someObjects)
     }
 }
