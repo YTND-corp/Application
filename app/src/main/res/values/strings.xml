@@ -159,6 +159,10 @@
     <string name="profile_my_addresses_there_is_no_postal_code_in_my_address">В моём адресе нет почтового кода</string>
     <string name="profile_my_addresses_set_as_default">Установить по умолчанию</string>
 
+    <!--Profile Settings-->
+    <string name="profile_settings_notification">Уведомления</string>
+    <string name="profile_settings_subscription_to_news">Подписка на рассылку</string>
+
     <!--Favorite-->
     <string name="favorite_placeholder_title">Здесь пока пусто</string>
     <string name="favorite_placeholder_message">Вы пока ничего не добавили в избранное</string>
