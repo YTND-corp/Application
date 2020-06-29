@@ -210,4 +210,8 @@
     <string name="checkout_final_title">Спасибо, %s!</string>
     <string name="checkout_final_message">Вы получите свой заказ:\n%s\n\nУведомления отключены. \nНе забудьте,  что если вы не включите их, \nмы не сможем присылать вам информацию \nо состоянии заказа.</string>
 
+    <!--My Addresses-->
+    <string name="you_have_no_addresses">У вас нет адресов</string>
+    <string name="edit">Pедактировать</string>
+    <string name="default_address">По умолчанию</string>
 </resources>
