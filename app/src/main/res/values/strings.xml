@@ -151,6 +151,13 @@
     <string name="profile_my_addresses_you_have_no_addresses">У вас нет адресов</string>
     <string name="profile_my_addresses_edit">Pедактировать</string>
     <string name="profile_my_addresses_default_address">По умолчанию</string>
+    <string name="profile_my_addresses_receiver_name">Имя получателя</string>
+    <string name="profile_my_addresses_address">Улица, дом, квартира</string>
+    <string name="profile_my_addresses_city">Город</string>
+    <string name="profile_my_addresses_zip_code">Почтовый индекс</string>
+    <string name="profile_my_addresses_phone">Мобильный телефон</string>
+    <string name="profile_my_addresses_there_is_no_postal_code_in_my_address">В моём адресе нет почтового кода</string>
+    <string name="profile_my_addresses_set_as_default">Установить по умолчанию</string>
 
     <!--Favorite-->
     <string name="favorite_placeholder_title">Здесь пока пусто</string>
