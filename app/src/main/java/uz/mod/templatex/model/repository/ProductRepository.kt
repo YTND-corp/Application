@@ -2,16 +2,17 @@ package uz.mod.templatex.model.repository
 
 import androidx.lifecycle.LiveData
 import timber.log.Timber
-import uz.mod.templatex.utils.extension.moneyFormat
+import uz.mod.templatex.model.local.db.dao.FilterDao
 import uz.mod.templatex.model.local.db.dao.ProductDao
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.api.ProductService
 import uz.mod.templatex.model.remote.network.*
-import uz.mod.templatex.model.remote.responce.*
+import uz.mod.templatex.model.remote.response.*
 
 class ProductRepository constructor(
     val service: ProductService,
-    val db: ProductDao,
+    val productDao: ProductDao,
+    val filterDao: FilterDao,
     val executors: AppExecutors
 ) {
 
@@ -19,131 +20,106 @@ class ProductRepository constructor(
         Timber.d("Injection CatalogRepository")
     }
 
-    fun getProducts() = db.getAll()
+    fun getFilters() = filterDao.getAll()
 
-
-    fun getProduct(categoryId: Int, id: Int): LiveData<Resource<ProductDetailResponse>> {
+    fun getProduct(id: Int): LiveData<Resource<ProductDetailResponse>> {
         return object : NetworkOnlyResource<ProductDetailResponse, ProductDetailResponse>() {
             override fun processResult(item: ProductDetailResponse?): ProductDetailResponse? {
                 return item
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductDetailResponse>> {
-                return service.getProduct(categoryId, id)
+                return service.getProduct(id)
             }
 
         }.asLiveData()
     }
 
-    fun getProducts(
-        id: Int,
-        sort: String,
-        brands: Array<String>?,
-        page: Int
-    ): LiveData<Resource<Int>> {
-        return object : NetworkOnlyResource<Int, ProductsResponse>() {
-            override fun processResult(item: ProductsResponse?): Int? {
-                if (page == 1) db.deleteAll()
+//    fun getProducts(
+//        id: Int,
+//        sort: String,
+//        brands: Array<String>?,
+//        page: Int
+//    ): LiveData<Resource<Int>> {
+//        return object : NetworkOnlyResource<Int, ProductsResponse>() {
+//            override fun processResult(item: ProductsResponse?): Int? {
+//                if (page == 1)
+//                    db.deleteAll()
+//                var temps = ArrayList<Product>()
+//                item?.productWrapper?.data?.forEach {
+//                    temps.add(Product(it.id, it.name, it.currency[0].getMoneyFormat(), it.isFavorite, it.image, it.brand, it.categoryId))
+//                }
+//
+//                db.insertAll(temps)
+//                return item?.productWrapper?.total
+//            }
+//
+//            override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
+//                return service.getProducts(id, null, brands, page)
+//            }
+//        }.asLiveData()
+//    }
 
-                item?.productWrapper?.data?.let { items ->
-                    val temps = ArrayList<Product>()
-                    items.forEach {
-                        temps.add(
-                            Product(
-                                it.id,
-                                it.name,
-                                it.price.moneyFormat() + " " + it.currencies?.first()?.currency,
-                                it.isFavorite,
-                                it.image,
-                                it.brand?.name,
-                                it.category?.id ?: 0
-                            )
-                        )
-                    }
-                    db.insertAll(temps)
+    fun getProducts(id: Int, sort: String, brands: Array<String>?, page: Int): LiveData<Resource<List<Product>>> {
+        return object : NetworkBoundResource<List<Product>, ProductsResponse>(executors) {
+            override fun saveCallResult(item: ProductsResponse) {
+                if (page == 1) {
+                    productDao.deleteAll()
+                    filterDao.deleteAll()
                 }
-                return item?.productWrapper?.total
+
+                item.productWrapper?.data?.let {
+                    productDao.insertAll(it)
+                }
+
+                item.filter?.let {
+                    it.pagination = item.productWrapper?.pagination
+                    filterDao.insert(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<Product>?): Boolean {
+                return true
+            }
+
+            override fun loadFromDb(): LiveData<List<Product>> {
+                return productDao.getAll()
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
                 return service.getProducts(id, null, brands, page)
             }
-
-        }.asLiveData()
-    }
-
-    fun getFavorites(): LiveData<Resource<Any>> {
-        return object : NetworkOnlyResource<Any, List<Favorite>>() {
-            override fun processResult(item: List<Favorite>?): Any? {
-                db.deleteAll()
-                item?.let { items ->
-                    val temps = ArrayList<Product>()
-                    items.forEach {
-                        temps.add(
-                            Product(
-                                it.id,
-                                it.name,
-                                it.price.moneyFormat() + " " + it.currencies?.first()?.currency,
-                                it.isFavorite,
-                                it.image,
-                                it.brand?.name,
-                                it.category?.id ?: 0
-                            )
-                        )
-                    }
-                    db.insertAll(temps)
-                }
-
-                return item
-            }
-
-            override fun createCall(): LiveData<ApiResponse<List<Favorite>>> {
-                return service.getFavorites()
-            }
         }.asLiveData()
     }
 
     fun favorites(): LiveData<Resource<List<Product>>> {
-        return object : NetworkBoundResource<List<Product>, List<Favorite>>(executors) {
+        return object : NetworkBoundResource<List<Product>, FavoritesResponse>(executors) {
 
-            override fun saveCallResult(item: List<Favorite>) {
-                db.deleteAll()
-                val temps = ArrayList<Product>()
-                item.forEach {
-                    temps.add(
-                        Product(
-                            it.id,
-                            it.name,
-                            it.price.moneyFormat() + " " + it.currencies?.first()?.currency,
-                            it.isFavorite,
-                            it.image,
-                            it.brand?.name,
-                            it.category?.id ?: 0
-                        )
-                    )
-
-                    db.insertAll(temps)
+            override fun saveCallResult(item: FavoritesResponse) {
+                productDao.deleteAll()
+                item.data?.let {
+                    productDao.insertAll(it)
                 }
             }
 
             override fun shouldFetch(data: List<Product>?): Boolean {
-                return false
+                return true
             }
 
             override fun loadFromDb(): LiveData<List<Product>> {
-                return db.getAll()
+                return productDao.getFavorites()
             }
 
-            override fun createCall(): LiveData<ApiResponse<List<Favorite>>> {
+            override fun createCall(): LiveData<ApiResponse<FavoritesResponse>> {
                 return service.getFavorites()
             }
         }.asLiveData()
     }
 
-    fun favoriteToggle(id: Int, isFavorite: Boolean): LiveData<Resource<String>> {
+    fun favoriteToggle(id: Int): LiveData<Resource<String>> {
         return object : NetworkOnlyResource<String, FavoriteToggleResponse>() {
             override fun processResult(item: FavoriteToggleResponse?): String? {
-                db.setFavorite(id, isFavorite)
+                productDao.setFavorite(id, !productDao.get(id).isFavorite)
                 return item?.result
             }
 
@@ -156,7 +132,7 @@ class ProductRepository constructor(
     fun addToCart(
         id: Int,
         quantity: Int,
-        attributes: ArrayList<String>?
+        attributes: ArrayList<Int>?
     ): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {
             override fun processResult(item: Any?): Any? {
@@ -170,16 +146,5 @@ class ProductRepository constructor(
         }.asLiveData()
     }
 
-//    fun loadMore(id: Int): LiveData<Resource<List<Product>>> {
-//        return object : NetworkOnlyResource<List<Product>, List<Product>>() {
-//            override fun processResult(item: List<Product>?): List<Product>? {
-//                return  item
-//            }
-//
-//            override fun createCall(): LiveData<ApiResponse<List<Product>>> {
-//                return service.getProducts(id,"popular")
-//            }
-//
-//        }.asLiveData()
-//    }
+    fun isFavorite(id: Int) = productDao.getLiveProduct(id)
 }

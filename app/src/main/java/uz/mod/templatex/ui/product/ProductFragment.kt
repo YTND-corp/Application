@@ -27,8 +27,8 @@ class ProductFragment : ParentFragment() {
 
     private var bannerAdapter = ProductBannerAdapter()
     private var indicatorAdapter = ProductBannerIndicatorAdapter()
-    private var colorAdapter = ProductColorAdapter()
-    private var sizeAdapter =  ProductSizeAdapter()
+    private lateinit var colorAdapter: ProductColorAdapter
+    private lateinit var sizeAdapter: ProductSizeAdapter
     private lateinit var relativeProductAdapter: ProductHorizontalAdapter
     private lateinit var recentlyProductAdapter: ProductHorizontalAdapter
 
@@ -40,20 +40,6 @@ class ProductFragment : ParentFragment() {
         super.onCreate(savedInstanceState)
         viewModel.setArgs(args)
 
-        viewModel.images.observe(this, Observer {
-            bannerAdapter.setItems(it)
-            indicatorAdapter.setItems(it)
-        })
-
-        viewModel.colors.observe(this, Observer {
-            viewModel.selectedColor.value = it?.firstOrNull()
-            colorAdapter.setItems(it)
-        })
-
-        viewModel.sizes.observe(this, Observer {
-            viewModel.selectedSize.value = it?.firstOrNull()
-            sizeAdapter.setItems(it)
-        })
 
     }
 
@@ -81,9 +67,38 @@ class ProductFragment : ParentFragment() {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    Timber.e(result.data.toString())
                 }
             }
+        })
+
+
+        viewModel.colors.observe(viewLifecycleOwner, Observer {
+            viewModel.setSelectedColor(it?.firstOrNull())
+            colorAdapter.setItems(it)
+        })
+
+        viewModel.sizes.observe(viewLifecycleOwner, Observer {
+            viewModel.setSelectedSize(it?.firstOrNull())
+            sizeAdapter.setItems(it)
+        })
+
+        viewModel.selectedColor.observe(viewLifecycleOwner, Observer {
+            colorAdapter.setSelectedColor(it)
+        })
+
+        viewModel.selectedSize.observe(viewLifecycleOwner, Observer {
+            sizeAdapter.setSelectedSize(it)
+        })
+
+        viewModel.images.observe(viewLifecycleOwner, Observer {
+            Timber.e("Images = ${it?.size}")
+
+            bannerAdapter.setItems(it)
+            indicatorAdapter.setItems(it)
+        })
+
+        viewModel.isFavorite().observe(viewLifecycleOwner, Observer {
+            binding.favorite.isChecked = it
         })
     }
 
@@ -110,7 +125,14 @@ class ProductFragment : ParentFragment() {
                     })
             }
 
+            colorAdapter = ProductColorAdapter {
+                viewModel?.setSelectedColor(it)
+            }
             colors.adapter = colorAdapter
+
+            sizeAdapter = ProductSizeAdapter {
+                viewModel?.setSelectedSize(it)
+            }
             sizes.adapter = sizeAdapter
 
             relativeProductAdapter = ProductHorizontalAdapter(arrayListOf("1", "2", "3", "4", "5", "6", "7"))
@@ -135,32 +157,33 @@ class ProductFragment : ParentFragment() {
             }
 
             viewModel?.product?.observe(viewLifecycleOwner, Observer {
-                brand.text = getString(R.string.all_the_brand, it?.brand?.name)
-                categoryBrand.text = getString(R.string.all_the_category_of_the_brand,it?.category?.name ,it?.brand?.name)
-                category.text = getString(R.string.all_the_brand, it?.category?.name)
+                brand.text = getString(R.string.all_the_brand, it?.brand)
+                categoryBrand.text = getString(R.string.all_the_category_of_the_brand,it?.category ,it?.brand)
+                category.text = getString(R.string.all_the_brand, it?.category)
             })
 
-            categoryBrand.setOnClickListener {
-                findNavController().navigate(
-                    ProductFragmentDirections.actionGlobalProductsFragment(
-                        args.categoryId,
-                        viewModel?.product?.value?.category?.name,
-                        viewModel?.product?.value?.brand?.id?:0
-                    )
-                )
-            }
+//            categoryBrand.setOnClickListener {
+//                findNavController().navigate(
+//                    ProductFragmentDirections.actionGlobalProductsFragment(
+//                        0,
+//                        viewModel?.product?.value?.category,
+//                        viewModel?.product?.value?.brand??:0
+//                    )
+//                )
+//            }
+//
+//            category.setOnClickListener {
+//                findNavController().navigate(
+//                    ProductFragmentDirections.actionGlobalProductsFragment(
+//                        0,
+//                        viewModel?.product?.value?.category?.name
+//                    )
+//                )
+//            }
 
-            category.setOnClickListener {
-                findNavController().navigate(
-                    ProductFragmentDirections.actionGlobalProductsFragment(
-                        args.categoryId,
-                        viewModel?.product?.value?.category?.name
-                    )
-                )
-            }
-
-            addToCart.setOnClickListener {
-                viewModel?.addToCart()?.observe(viewLifecycleOwner, Observer { result ->
+            likeLayout.setOnClickListener {
+                Timber.d("like clicked!")
+                viewModel?.favoriteToggle()?.observe(viewLifecycleOwner, Observer { result ->
                     when (result.status) {
                         Status.LOADING -> showLoading()
                         Status.ERROR -> {
@@ -174,6 +197,40 @@ class ProductFragment : ParentFragment() {
                     }
                 })
             }
+
+            favorite.setOnCheckedChangeListener { compoundButton, b ->
+                if (compoundButton.isPressed) {
+                    viewModel?.favoriteToggle()?.observe(viewLifecycleOwner, Observer { result ->
+                        when (result.status) {
+                            Status.LOADING -> showLoading()
+                            Status.ERROR -> {
+                                hideLoading()
+                                showError(result.error)
+                            }
+                            Status.SUCCESS -> {
+                                hideLoading()
+                                Timber.e(result.data.toString())
+                            }
+                        }
+                    })
+                }
+            }
+
+            addToCart.setOnClickListener {
+                viewModel?.addToCart()?.observe(viewLifecycleOwner, Observer { result ->
+                    when (result.status) {
+                        Status.LOADING -> showLoading()
+                        Status.ERROR -> {
+                            hideLoading()
+                            showError(result.error)
+                        }
+                        Status.SUCCESS -> {
+                            hideLoading()
+                        }
+                    }
+                })
+            }
+
         }
     }
 }

@@ -2,9 +2,8 @@ package uz.mod.templatex.model.remote.api
 
 import androidx.lifecycle.LiveData
 import retrofit2.http.*
-import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.network.ApiResponse
-import uz.mod.templatex.model.remote.responce.*
+import uz.mod.templatex.model.remote.response.*
 
 interface ProductService {
 
@@ -16,14 +15,13 @@ interface ProductService {
         @Query("page") page: Int = 1
     ): LiveData<ApiResponse<ProductsResponse>>
 
-    @GET("v1/categories/{categoryId}/products/{id}")
+    @GET("v1/products/{id}/details")
     fun getProduct(
-        @Path("categoryId") categoryId: Int,
         @Path("id") id: Int
     ): LiveData<ApiResponse<ProductDetailResponse>>
 
     @GET("v1/favorites")
-    fun getFavorites(): LiveData<ApiResponse<List<Favorite>>>
+    fun getFavorites(): LiveData<ApiResponse<FavoritesResponse>>
 
     @FormUrlEncoded
     @POST("v1/favorites")
@@ -31,6 +29,6 @@ interface ProductService {
 
     @FormUrlEncoded
     @POST("v1/carts/products/add")
-    fun addToCart(@Field("product") id: Int, @Field("quantity") quantity: Int, @Field("attributes[]") attributes: ArrayList<String>?): LiveData<ApiResponse<Any>>
+    fun addToCart(@Field("product") id: Int, @Field("quantity") quantity: Int, @Field("attributes[]") attributes: ArrayList<Int>): LiveData<ApiResponse<Any>>
 
 }

@@ -1,18 +1,18 @@
 package uz.mod.templatex.model.local.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import uz.mod.templatex.model.local.entity.Product
 
 @Dao
 interface ProductDao {
-    @Query("SELECT * from product")
+    @Query("SELECT * from products")
     fun getAll(): LiveData<List<Product>>
 
-    @Query("SELECT * from product WHERE id=:id")
+    @Query("SELECT * from products WHERE id=:id")
+    fun getLiveProduct(id: Int): LiveData<Product>
+
+    @Query("SELECT * from products WHERE id=:id")
     fun get(id: Int): Product
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,12 +21,15 @@ interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(products: Product)
 
-    @Query("UPDATE product SET isFavorite=:isFavorite  WHERE id=:id")
+    @Query("UPDATE products SET isFavorite=:isFavorite  WHERE id=:id")
     fun setFavorite(id: Int, isFavorite: Boolean)
 
-    @Query("DELETE FROM product")
+    @Query("SELECT * from products WHERE isFavorite=:isFavorite")
+    fun getFavorites(isFavorite: Boolean = true):  LiveData<List<Product>>
+
+    @Query("DELETE FROM products")
     fun deleteAll()
 
-    @Query("DELETE FROM product WHERE id=:id")
+    @Query("DELETE FROM products WHERE id=:id")
     fun delete(id: Int)
 }

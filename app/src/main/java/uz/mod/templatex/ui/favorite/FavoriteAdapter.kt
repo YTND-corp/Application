@@ -30,7 +30,6 @@ class FavoriteAdapter(private var items: List<Product> = listOf()) :
                 executePendingBindings()
                 root.setOnClickListener {
                     ProductsFragmentDirections.actionGlobalProductFragment(
-                        product.categoryId,
                         product.id
                     )
                 }

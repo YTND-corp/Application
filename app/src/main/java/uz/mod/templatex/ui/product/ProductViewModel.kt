@@ -2,46 +2,52 @@ package uz.mod.templatex.ui.product
 
 import android.app.Application
 import androidx.lifecycle.*
-import timber.log.Timber
 import uz.mod.templatex.model.remote.network.Resource
-import uz.mod.templatex.model.remote.responce.ProductColor
-import uz.mod.templatex.model.remote.responce.ProductDetailResponse
-import uz.mod.templatex.model.remote.responce.ProductSize
+import uz.mod.templatex.model.remote.response.ProductColor
+import uz.mod.templatex.model.remote.response.ProductDetailResponse
+import uz.mod.templatex.model.remote.response.ProductSize
 import uz.mod.templatex.model.repository.ProductRepository
 import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.extension.clear
 
-class ProductViewModel constructor(application: Application, val repository: ProductRepository): AndroidViewModel(application) {
+class ProductViewModel constructor(application: Application, val repository: ProductRepository) :
+    AndroidViewModel(application) {
 
     private val request = MutableLiveData<Boolean>()
-    private var productId: Int = 0
-    private var categoryId: Int = 0
+    private var id: Int = 0
 
     var selectedColor = MutableLiveData<ProductColor>()
     var selectedSize = MutableLiveData<ProductSize>()
 
 
     val response: LiveData<Resource<ProductDetailResponse>> = Transformations.switchMap(request) {
-        repository.getProduct(categoryId,productId)
+        repository.getProduct(id)
     }
 
     fun setArgs(args: ProductFragmentArgs) {
-        categoryId = args.categoryId
-        productId = args.productId
+        id = args.productId
         request.value = true
-        Timber.e("Category = ${args.categoryId}  product = ${args.productId}")
     }
 
     val product = Transformations.map(response) {
         it.data?.product
     }
 
+    val images = MediatorLiveData<List<String>?>()
+        .apply {
+            fun validateFrom() {
+                value =
+                    if (!selectedColor.value?.images.isNullOrEmpty()) selectedColor.value?.images else product.value?.images
+            }
+
+            addSource(selectedColor) { validateFrom() }
+            addSource(product) { validateFrom() }
+        }
+
     val delivery = Transformations.map(response) {
         it.data?.delivery
     }
 
-    val images = Transformations.map(product) {
-        it?.image
-    }
 
     val hasDescription = Transformations.map(product) {
         !it?.description.isNullOrEmpty()
@@ -51,30 +57,45 @@ class ProductViewModel constructor(application: Application, val repository: Pro
         !it?.compositionAndCare().isNullOrEmpty()
     }
 
-    val  colors = Transformations.map(product) {
-        it?.attributeCombination?.colors
+    val colors = Transformations.map(product) {
+        it?.attributeCombination?.colorWrapper?.colors
     }
 
-    val  sizes = Transformations.map(product) {
-        it?.attributeCombination?.sizes
+    val sizes = Transformations.map(product) {
+        it?.attributeCombination?.sizeWrapper?.sizes
     }
 
-    private fun  attributeIds(): ArrayList<String>  {
-        val temps: ArrayList<String> = arrayListOf()
+    private fun attributeIds(): ArrayList<Int> {
+        val temps: ArrayList<Int> = arrayListOf()
         selectedColor.value?.let {
-            temps.add(it.id.toString())
+            temps.add(it.id)
         }
         selectedSize.value?.let {
-            temps.add(it.id.toString())
+            temps.add(it.id)
         }
-        return  temps
+        return temps
     }
 
-    fun addToCart() = repository.addToCart(productId,1, attributeIds())
+    fun addToCart() = repository.addToCart(id, 1, attributeIds())
+
+    fun isFavorite() = Transformations.map(repository.isFavorite(id)) {
+        it.isFavorite
+    }
+
+    fun favoriteToggle() = repository.favoriteToggle(id)
 
     val VK_URL = Const.VK_URL
     val INSTAGRAM_URL = Const.INSTAGRAM_URL
     val TELEGRAM_URL = Const.TELEGRAM_URL
     val TIKTOK_URL = Const.TIKTOK_URL
     val FACEBOOK_URL = Const.FACEBOOK_URL
+
+    fun setSelectedColor(item: ProductColor?) {
+        selectedColor.value = item
+    }
+
+
+    fun setSelectedSize(item: ProductSize?) {
+        selectedSize.value = item
+    }
 }

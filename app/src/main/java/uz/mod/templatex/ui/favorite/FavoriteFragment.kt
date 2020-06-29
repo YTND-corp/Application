@@ -28,7 +28,7 @@ class FavoriteFragment : ParentFragment() {
         super.onCreate(savedInstanceState)
 
         adapter = ProductAdapter { id, isFavorite ->
-            viewModel.favoriteToggle(id, isFavorite).observe(this, Observer { result ->
+            viewModel.favoriteToggle(id).observe(this, Observer { result ->
                 when (result.status) {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
@@ -57,8 +57,6 @@ class FavoriteFragment : ParentFragment() {
 
         initViews()
 
-        viewModel.getFavorites()
-
         viewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
@@ -76,6 +74,8 @@ class FavoriteFragment : ParentFragment() {
         viewModel.isEmpty.observe(viewLifecycleOwner, Observer { result ->
            Timber.e("IsEmpty = $result")
         })
+
+        viewModel.getFavorites()
     }
 
     private fun initViews() {

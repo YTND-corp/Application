@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.*
 import uz.mod.templatex.R
 import uz.mod.templatex.utils.extension.moneyFormat
-import uz.mod.templatex.model.remote.responce.Cart
-import uz.mod.templatex.model.remote.responce.CartProductWrapper
+import uz.mod.templatex.model.remote.response.Cart
+import uz.mod.templatex.model.remote.response.CartProductWrapper
 import uz.mod.templatex.model.repository.CartRepository
 
 class CartViewModel constructor(application: Application, val repository: CartRepository): AndroidViewModel(application) {

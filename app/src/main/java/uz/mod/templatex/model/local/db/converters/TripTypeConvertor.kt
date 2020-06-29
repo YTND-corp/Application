@@ -1,7 +1,7 @@
 package uz.mod.templatex.model.local.db.converters
-
-class ItemTypeConvertor {
-
+//
+//class ItemTypeConvertor {
+//
 //    @TypeConverter
 //    @Throws(IllegalArgumentException::class)
 //    fun fromString(data: String): TripType {
@@ -12,4 +12,4 @@ class ItemTypeConvertor {
 //    fun fromNotificationType(type: TripType): String {
 //        return type.name
 //    }
-}
+//}

@@ -7,7 +7,7 @@ import uz.mod.templatex.model.remote.api.CheckoutService
 import uz.mod.templatex.model.remote.network.ApiResponse
 import uz.mod.templatex.model.remote.network.NetworkOnlyResource
 import uz.mod.templatex.model.remote.network.Resource
-import uz.mod.templatex.model.remote.responce.CheckoutUserResponse
+import uz.mod.templatex.model.remote.response.CheckoutUserResponse
 
 class CheckoutRepository constructor(val service: CheckoutService, prefs: Prefs) {
 

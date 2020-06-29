@@ -37,7 +37,7 @@ class ProductAdapter(private var listener: (id: Int, isFavorite: Boolean)-> Unit
             binding.apply {
                 item = product
                 executePendingBindings()
-                Timber.e("ProductId = ${product.image}")
+
                 favorite.setOnCheckedChangeListener { compoundButton, b ->
                     if (compoundButton.isPressed) {
                         listener.invoke(product.id, !product.isFavorite)
@@ -47,7 +47,6 @@ class ProductAdapter(private var listener: (id: Int, isFavorite: Boolean)-> Unit
                 root.setOnClickListener {
                     it.findNavController().navigate(
                         ProductsFragmentDirections.actionGlobalProductFragment(
-                            product.categoryId,
                             product.id
                         )
                     )

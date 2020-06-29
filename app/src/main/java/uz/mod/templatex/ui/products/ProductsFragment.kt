@@ -38,7 +38,7 @@ class ProductsFragment : ParentFragment() {
         super.onCreate(savedInstanceState)
 
         adapter = ProductAdapter { id, isFavorite ->
-            viewModel.favoriteToggle(id, isFavorite).observe(viewLifecycleOwner, Observer { result ->
+            viewModel.favoriteToggle(id).observe(viewLifecycleOwner, Observer { result ->
                     when (result.status) {
                         Status.LOADING -> showLoading()
                         Status.ERROR -> {
@@ -53,9 +53,18 @@ class ProductsFragment : ParentFragment() {
                 })
         }
 
-        viewModel.getProducts().observe(this, Observer {
-            Timber.e(it.toString())
-            adapter.setItems(it)
+        viewModel.response.observe(this, Observer { result ->
+            when (result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                    adapter.setItems(result.data)
+                }
+            }
         })
 
         viewModel.setArgs(args)
@@ -94,8 +103,6 @@ class ProductsFragment : ParentFragment() {
                 }
             }
         })
-
-
     }
 
     private fun initViews() {

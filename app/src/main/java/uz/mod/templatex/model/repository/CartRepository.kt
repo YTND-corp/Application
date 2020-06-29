@@ -6,7 +6,7 @@ import uz.mod.templatex.model.remote.api.CartService
 import uz.mod.templatex.model.remote.network.ApiResponse
 import uz.mod.templatex.model.remote.network.NetworkOnlyResource
 import uz.mod.templatex.model.remote.network.Resource
-import uz.mod.templatex.model.remote.responce.CartResponse
+import uz.mod.templatex.model.remote.response.CartResponse
 
 class CartRepository constructor(val service: CartService) {
 

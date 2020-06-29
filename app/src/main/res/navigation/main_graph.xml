@@ -221,10 +221,7 @@
             android:name="uz.mod.templatex.ui.product.ProductFragment"
             android:label=""
             tools:layout="@layout/product_fragment" >
-        <argument
-                android:name="category_id"
-                app:argType="integer"
-                android:defaultValue="0" />
+
         <argument
                 android:name="product_id"
                 app:argType="integer"
