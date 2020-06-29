@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/windowBackgroundWhiteColor"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="16dp">
+
+            <TextView
+                    style="@style/Bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/profile_settings_notification"
+                    android:textAllCaps="true" />
+
+            <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumb="@drawable/bg_switch_thumb"
+                    android:track="@drawable/bg_switch_track" />
+        </LinearLayout>
+
+        <View
+                style="@style/Divider"
+                android:layout_width="match_parent" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="16dp">
+
+            <TextView
+                    style="@style/Bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/profile_settings_subscription_to_news"
+                    android:textAllCaps="true" />
+
+            <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumb="@drawable/bg_switch_thumb"
+                    android:track="@drawable/bg_switch_track" />
+        </LinearLayout>
+
+        <View
+                style="@style/Divider"
+                android:layout_width="match_parent" />
+    </LinearLayout>
+</layout>
