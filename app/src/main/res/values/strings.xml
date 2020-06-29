@@ -141,6 +141,12 @@
     <string name="profile_my_order_delivery">Доставка</string>
     <string name="profile_my_order_total">К оплате</string>
 
+    <!--Profile My Data-->
+    <string name="profile_my_data_full_name">Имя и фамилия</string>
+    <string name="profile_my_data_phone">Номер телефона</string>
+    <string name="profile_my_data_email">Эл. почта</string>
+    <string name="profile_my_birth_date">Дата Рождения</string>
+
     <!--Profile My Addresses-->
     <string name="profile_my_addresses_you_have_no_addresses">У вас нет адресов</string>
     <string name="profile_my_addresses_edit">Pедактировать</string>
@@ -214,4 +220,5 @@
 
     <string name="checkout_final_title">Спасибо, %s!</string>
     <string name="checkout_final_message">Вы получите свой заказ:\n%s\n\nУведомления отключены. \nНе забудьте,  что если вы не включите их, \nмы не сможем присылать вам информацию \nо состоянии заказа.</string>
+
 </resources>
