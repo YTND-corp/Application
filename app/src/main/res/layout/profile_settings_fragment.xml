@@ -20,7 +20,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/profile_settings_notification"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:textSize="14sp" />
 
             <Switch
                     android:layout_width="wrap_content"
@@ -45,7 +46,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/profile_settings_subscription_to_news"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:textSize="14sp" />
 
             <Switch
                     android:layout_width="wrap_content"
