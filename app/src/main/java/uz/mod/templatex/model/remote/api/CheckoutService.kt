@@ -6,7 +6,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import uz.mod.templatex.model.remote.network.ApiResponse
-import uz.mod.templatex.model.remote.responce.CheckoutUserResponse
+import uz.mod.templatex.model.remote.response.CheckoutUserResponse
 
 interface CheckoutService {
 

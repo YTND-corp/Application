@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import retrofit2.http.GET
 import retrofit2.http.Path
 import uz.mod.templatex.model.remote.network.ApiResponse
-import uz.mod.templatex.model.remote.responce.CartResponse
+import uz.mod.templatex.model.remote.response.CartResponse
 
 interface CartService {
 

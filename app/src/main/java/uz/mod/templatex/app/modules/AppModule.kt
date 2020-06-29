@@ -1,6 +1,7 @@
 package uz.mod.templatex.app.modules
 
 import android.app.Application
+import android.text.Spannable
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -16,6 +17,7 @@ import uz.aqlify.yonda.utils.Prefs
 import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
+import uz.mod.templatex.model.remote.network.AppExecutors
 import uz.mod.templatex.model.remote.network.AuthInterceptor
 import uz.mod.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.mod.templatex.model.remote.network.NetworkInterceptor
@@ -101,6 +103,7 @@ val viewModelModule = module {
 
 val prefsModule = module {
     single { Prefs(get()) }
+    factory { AppExecutors()}
 }
 
 val dbModule = module {
@@ -109,12 +112,12 @@ val dbModule = module {
             .build()
     }
     factory { get<AppDatabase>().productDao() }
+    factory { get<AppDatabase>().filterDao() }
 }
 
 val repositoryModule = module {
-
     single { CategoryRepository(get()) }
-    single { ProductRepository(get(), get(), get()) }
+    single { ProductRepository(get(), get(), get(), get()) }
     single { AuthRepository(get(), get()) }
     single { CartRepository(get()) }
     single { CheckoutRepository(get(), get()) }

@@ -51,7 +51,7 @@ open class ParentActivity : AppCompatActivity() {
         positiveClickListener: DialogInterface.OnClickListener? = null,
         negativeText: String? = null
     ) {
-        val builder = AlertDialog.Builder(this).setMessage(msg)
+        val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme).setMessage(msg)
         title?.let {
             builder.setTitle(title)
         }
@@ -61,16 +61,7 @@ open class ParentActivity : AppCompatActivity() {
             builder.setNegativeButton(negativeText, null)
         }
         val dialog = builder.create()
-        dialog.window?.setBackgroundDrawable(ColorDrawable(color(R.color.whiteColor)))
-//        dialog.window?.setDimAmount(0f)
         dialog.show()
-
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            .setTextColor(ContextCompat.getColor(this, R.color.colorAccent))
-        negativeText?.let {
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                .setTextColor(ContextCompat.getColor(this, R.color.colorAccent))
-        }
     }
 
     fun isProgressing(): Boolean {

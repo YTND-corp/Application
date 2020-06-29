@@ -3,13 +3,15 @@ package uz.mod.templatex.ui.product
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import uz.mod.templatex.databinding.ProoductSizeItemBinding
-import uz.mod.templatex.model.remote.responce.ProductSize
+import uz.mod.templatex.databinding.ProductSizeItemBinding
+import uz.mod.templatex.model.remote.response.ProductColor
+import uz.mod.templatex.model.remote.response.ProductSize
 
-class ProductSizeAdapter() :
+class ProductSizeAdapter(private var listener: (item: ProductSize)-> Unit) :
     RecyclerView.Adapter<ProductSizeAdapter.ViewHolder>() {
     private var items: List<ProductSize> = listOf()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= ViewHolder(ProoductSizeItemBinding.inflate( LayoutInflater.from(parent.context), parent, false))
+    private var selected: ProductSize? = null
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= ViewHolder(ProductSizeItemBinding.inflate( LayoutInflater.from(parent.context), parent, false))
 
     override fun getItemCount(): Int = items.size
 
@@ -17,14 +19,24 @@ class ProductSizeAdapter() :
 
     fun setItems(it: List<ProductSize>?) {
         items = it?: listOf()
+    }
+
+    fun setSelectedSize(it: ProductSize?) {
+        this.selected = it
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(val binding: ProoductSizeItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ProductSizeItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(size: ProductSize) {
             binding.apply {
                 item = size
                 executePendingBindings()
+
+                text.isSelected =  size.id == selected?.id
+
+                root.setOnClickListener {
+                    listener.invoke(size)
+                }
             }
         }
     }

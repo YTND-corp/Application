@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.ProductColorItemBinding
-import uz.mod.templatex.model.remote.responce.ProductColor
+import uz.mod.templatex.model.remote.response.ProductColor
 
-class ProductColorAdapter() :
+class ProductColorAdapter(private var listener: (item: ProductColor)-> Unit) :
     RecyclerView.Adapter<ProductColorAdapter.ViewHolder>() {
     private var items: List<ProductColor> = listOf()
+    private var selected: ProductColor? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ProductColorItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -32,12 +33,25 @@ class ProductColorAdapter() :
 
     fun setItems(it: List<ProductColor>?) {
         items = it?: listOf()
+    }
+
+    fun setSelectedColor(selectedColor: ProductColor?) {
+        this.selected = selectedColor
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(val binding: ProductColorItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ProductColor) {
+        fun bind(color: ProductColor) {
+            binding.apply {
+                url = if(color.images?.isNullOrEmpty() == false) color.images.first() else ""
+                executePendingBindings()
 
+                image.isSelected =  color.id == selected?.id
+
+                root.setOnClickListener {
+                    listener.invoke(color)
+                }
+            }
         }
     }
 }

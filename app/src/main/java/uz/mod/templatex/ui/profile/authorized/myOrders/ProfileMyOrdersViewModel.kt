@@ -19,9 +19,9 @@ class ProfileMyOrdersViewModel constructor(
     // TODO dummy data
     fun getOrders(): List<Product> {
         return listOf(
-            Product(id = 0, price = "", isFavorite = false, categoryId = 0, name = "", brand = "", image = ""),
-            Product(id = 0, price = "", isFavorite = false, categoryId = 0, name = "", brand = "", image = ""),
-            Product(id = 0, price = "", isFavorite = false, categoryId = 0, name = "", brand = "", image = "")
+//            Product(id = 0, price = "", isFavorite = false, categoryId = 0, name = "", brand = "", image = ""),
+//            Product(id = 0, price = "", isFavorite = false, categoryId = 0, name = "", brand = "", image = ""),
+//            Product(id = 0, price = "", isFavorite = false, categoryId = 0, name = "", brand = "", image = "")
         )
     }
 

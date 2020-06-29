@@ -6,24 +6,10 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 open class AppExecutors  constructor(
-    diskIO: Executor = Executors.newSingleThreadExecutor(),
-    networkIO: Executor = Executors.newFixedThreadPool(3),
-    mainThread: Executor = MainThreadExecutor()
+    val diskIO: Executor = Executors.newSingleThreadExecutor(),
+    val networkIO: Executor = Executors.newFixedThreadPool(3),
+    val mainThread: Executor = MainThreadExecutor()
 ) {
-    private val mDiskIO: Executor
-    private val mNetworkIO: Executor
-    private val mMainThread: Executor
-    fun diskIO(): Executor {
-        return mDiskIO
-    }
-
-    fun networkIO(): Executor {
-        return mNetworkIO
-    }
-
-    fun mainThread(): Executor {
-        return mMainThread
-    }
 
     private class MainThreadExecutor : Executor {
         private val mainThreadHandler: Handler = Handler(Looper.getMainLooper())
@@ -46,21 +32,15 @@ open class AppExecutors  constructor(
             }
 
         fun disk(command: Runnable) {
-            instance!!.diskIO().execute(command)
+            instance!!.diskIO.execute(command)
         }
 
         fun net(command: Runnable) {
-            instance!!.networkIO().execute(command)
+            instance!!.networkIO.execute(command)
         }
 
         fun main(command: Runnable) {
-            instance!!.mainThread().execute(command)
+            instance!!.mainThread.execute(command)
         }
-    }
-
-    init {
-        mDiskIO = diskIO
-        mNetworkIO = networkIO
-        mMainThread = mainThread
     }
 }

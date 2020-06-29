@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.CartItemBinding
-import uz.mod.templatex.model.remote.responce.CartProductWrapper
+import uz.mod.templatex.model.remote.response.CartProductWrapper
 
 class CartAdapter(val listener: ItemListener) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
     private var isEditing = false
@@ -41,7 +41,7 @@ class CartAdapter(val listener: ItemListener) : RecyclerView.Adapter<CartAdapter
                 root.setOnClickListener {
                     it.findNavController().navigate(
                         CartFragmentDirections.actionGlobalProductFragment(
-                            product.product?.categoryId ?: 0, product.id
+                            product.id
                         )
                     )
                 }
