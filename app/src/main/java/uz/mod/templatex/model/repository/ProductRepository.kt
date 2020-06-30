@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import timber.log.Timber
 import uz.mod.templatex.model.local.db.dao.FilterDao
 import uz.mod.templatex.model.local.db.dao.ProductDao
+import uz.mod.templatex.model.local.entity.Filter
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.api.ProductService
 import uz.mod.templatex.model.remote.network.*
@@ -21,6 +22,10 @@ class ProductRepository constructor(
     }
 
     fun getFilters() = filterDao.getAll()
+
+    fun getFiltersForCategory(catId : Int) : Filter? {
+        return filterDao.get(catId)
+    }
 
     fun getProduct(id: Int): LiveData<Resource<ProductDetailResponse>> {
         return object : NetworkOnlyResource<ProductDetailResponse, ProductDetailResponse>() {
@@ -73,6 +78,7 @@ class ProductRepository constructor(
                 }
 
                 item.filter?.let {
+                    it.id = id
                     it.pagination = item.productWrapper?.pagination
                     filterDao.insert(it)
                 }

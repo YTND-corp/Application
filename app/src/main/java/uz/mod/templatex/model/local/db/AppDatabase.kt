@@ -9,7 +9,7 @@ import uz.mod.templatex.model.local.db.dao.ProductDao
 import uz.mod.templatex.model.local.entity.Filter
 import uz.mod.templatex.model.local.entity.Product
 
-@Database(entities = [Product::class, Filter::class], version = 1, exportSchema = false)
+@Database(entities = [Product::class, Filter::class], version = 3, exportSchema = false)
 @TypeConverters(ProductTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao

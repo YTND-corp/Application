@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,11 +16,12 @@ import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProductsFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
+import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.ui.parent.ParentFragment
 
 
 class ProductsFragment : ParentFragment() {
-
+    val sharedFilterViewModel : SharedFilterViewModel by activityViewModels<SharedFilterViewModel>()
     val viewModel: ProductsViewModel by viewModel()
 
     private val binding by lazy { ProductsFragmentBinding.inflate(layoutInflater) }
@@ -111,7 +113,7 @@ class ProductsFragment : ParentFragment() {
             executePendingBindings()
 
             filter.setOnClickListener {
-               // findNavController().navigate(R.id.action_productsFragment_to_filterFragment)
+                findNavController().navigate(R.id.action_productsFragment_to_filterFragment)
             }
 
             val layoutManager = GridLayoutManager(requireContext(),2)

@@ -13,7 +13,7 @@ interface FilterDao {
     fun getAll(): LiveData<List<Filter>>
 
     @Query("SELECT * from filters WHERE id=:id")
-    fun get(id: Int): Filter
+    fun get(id: Int): Filter?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(filter: Filter)

@@ -214,6 +214,9 @@
                 android:name="brand_id"
                 app:argType="integer"
                 android:defaultValue="0" />
+        <action
+                android:id="@+id/action_productsFragment_to_mainFilterFragment"
+                app:destination="@id/mainFilterFragment" />
 
     </fragment>
     <fragment
@@ -264,4 +267,12 @@
             android:id="@+id/profileMyOrderFragment"
             android:name="uz.mod.templatex.ui.profile.authorized.myOrder.ProfileMyOrderFragment"
             tools:layout="@layout/profile_my_order_fragment" />
+    <fragment
+            android:id="@+id/mainFilterFragment"
+            android:name="uz.mod.templatex.ui.new_filter.MainFilterFragment"
+            android:label="MainFilterFragment" >
+        <argument
+                android:name="categoryId"
+                app:argType="integer" />
+    </fragment>
 </navigation>
