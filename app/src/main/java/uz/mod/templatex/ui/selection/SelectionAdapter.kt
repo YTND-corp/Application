@@ -37,7 +37,7 @@ class SelectionAdapter(
                     bannerHeader.text = homeItem.title
 
                     Glide.with(binding.root.context)
-                        .load(homeItem.items?.first()?.image)
+                        .load(homeItem.items?.firstOrNull()?.image)
                         .into(image)
                     image.setOnClickListener {
                             it.findNavController().navigate(

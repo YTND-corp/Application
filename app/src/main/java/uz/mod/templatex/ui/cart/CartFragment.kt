@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.cart_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
@@ -35,12 +36,24 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
         return binding.root
     }
 
+    override fun showLoading() {
+        super.showLoading()
+        //hiding all content while loading. to avoid switching states on loaded.
+        rootContainer.visibility = View.GONE
+    }
+
+    override fun hideLoading() {
+        super.hideLoading()
+        //We got our empty state. Show content
+        rootContainer.visibility = View.VISIBLE
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-
-
+        //As we loading data on start screen, displaying loader to prevent state changing and blinking.
+        showLoading()
         viewModel.getCart().observe(viewLifecycleOwner, Observer {result ->
             when(result.status) {
                 Status.LOADING -> showLoading()
@@ -64,8 +77,6 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
         viewModel.isCartEmpty.observe(viewLifecycleOwner, Observer {
             Timber.e("isCartEmpty = $it")
         })
-
-        viewModel.getCart()
     }
 
     private fun initViews() {
@@ -85,7 +96,7 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             }
 
             placeholderButton.setOnClickListener {
-                findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
+                findNavController().navigate(R.id.selectionFragment)
             }
 
             products.adapter = adapter
