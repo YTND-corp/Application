@@ -16,6 +16,13 @@ class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutable
         abstract fun bind(item : MainFilterDataItem<*>)
     }
 
+    init {
+        setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return items[position].hashCode().toLong()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainFilterHolder {
         when(viewType){

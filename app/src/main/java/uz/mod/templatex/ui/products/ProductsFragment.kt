@@ -113,7 +113,7 @@ class ProductsFragment : ParentFragment() {
             executePendingBindings()
 
             filter.setOnClickListener {
-                findNavController().navigate(R.id.action_productsFragment_to_filterFragment)
+                findNavController().navigate(R.id.action_productsFragment_to_mainFilterFragment)
             }
 
             val layoutManager = GridLayoutManager(requireContext(),2)

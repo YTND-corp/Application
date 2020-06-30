@@ -16,8 +16,7 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin">
+            >
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title"
