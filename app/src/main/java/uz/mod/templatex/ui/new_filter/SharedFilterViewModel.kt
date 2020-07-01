@@ -2,6 +2,7 @@ package uz.mod.templatex.ui.new_filter
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.google.gson.Gson
 import uz.mod.templatex.R
 import uz.mod.templatex.model.local.entity.Filter
 import uz.mod.templatex.model.repository.ProductRepository
@@ -10,15 +11,23 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
     init {
         Companion.application = application
     }
-    fun onCategorySelected(catId : Int){
-        activeFilter = SelectedFitlerDto()
-    }
-
     var activeFilter  : SelectedFitlerDto = SelectedFitlerDto()
     var currentFilter  : Filter? = null
+    var cachedFilter : Filter? = null
+    var needToReloadFeed = false
 
     companion object{
         private lateinit var application : Application
+    }
+
+    fun buildTemporaryData(){
+        val gson = Gson()
+        cachedFilter = gson.fromJson(gson.toJson(currentFilter),Filter::class.java)
+    }
+    fun saveTemporaryData(){
+        val gson = Gson()
+        currentFilter = gson.fromJson(gson.toJson(cachedFilter),Filter::class.java)
+        needToReloadFeed = true
     }
 
     data class SelectedFitlerDto(

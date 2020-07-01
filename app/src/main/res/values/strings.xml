@@ -240,4 +240,5 @@
     <string name="sort_discounts">Скидки?</string>
     <string name="sort_discounts_new">Новые скидки?</string>
     <string name="filter_item_brands">Бренд</string>
+    <string name="bt_apply">Применить</string>
 </resources>

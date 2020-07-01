@@ -13,12 +13,13 @@ import kotlinx.android.synthetic.main.item_main_filter_title.view.*
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ItemFilterAttributeValueBinding
 import uz.mod.templatex.model.local.entity.AttributeValue
+import uz.mod.templatex.model.local.entity.Filter
 import uz.mod.templatex.model.local.entity.FilterAttribute
 import uz.mod.templatex.model.local.entity.IValue
 import uz.mod.templatex.ui.new_filter.MainFilterFragmentDirections
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 
-class SingleAttributeFilterAdapter(val items : MutableList<AttributeValueItem> = mutableListOf(), val sharedFilterViewModel: SharedFilterViewModel, val attrId: Int)
+class SingleAttributeFilterAdapter(val items : MutableList<AttributeValueItem> = mutableListOf(), var filter: Filter?, val attrId: Int)
     : RecyclerView.Adapter<SingleAttributeFilterAdapter.ViewHolder>() {
 
     init {
@@ -47,10 +48,10 @@ class SingleAttributeFilterAdapter(val items : MutableList<AttributeValueItem> =
             binding.attribute = attributeItem.attribute
             itemView.clickableCl.setOnClickListener {
                 if (attrId==-2){
-                    val find = sharedFilterViewModel.currentFilter?.brands?.find { it.id == attributeItem.attribute.id }
+                    val find = filter?.brands?.find { it.id == attributeItem.attribute.id }
                     find?.apply { selected = !selected }
                 } else {
-                    val find = sharedFilterViewModel.currentFilter?.attributes?.find { it.id == attrId }?.values?.find { it.id == attributeItem.attribute.id }
+                    val find = filter?.attributes?.find { it.id == attrId }?.values?.find { it.id == attributeItem.attribute.id }
                     find?.apply { selected = !selected }
                 }
                 notifyDataSetChanged()

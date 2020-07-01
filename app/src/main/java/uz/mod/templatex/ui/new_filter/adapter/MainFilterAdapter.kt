@@ -94,6 +94,7 @@ class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutable
             val sortItem = title as SortItem
             itemView.clickableRoot.setOnClickListener {
                 sharedFilterViewModel.activeFilter.sort = sortItem.sort
+                sharedFilterViewModel.needToReloadFeed = true
                 notifyDataSetChanged()
             }
             binding.sort = itemView.resources.getString(sortItem.sort.stringResId)

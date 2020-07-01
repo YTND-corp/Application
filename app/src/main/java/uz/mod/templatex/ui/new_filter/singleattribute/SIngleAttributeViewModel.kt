@@ -10,6 +10,7 @@ import uz.mod.templatex.ui.new_filter.adapter.SingleAttributeFilterAdapter
 
 class SingleAttributeViewModel(application: Application) : AndroidViewModel(application){
     lateinit var sharedModel : SharedFilterViewModel
+
     var attributeId : Int = -1
         set(value) {
             field = value
@@ -24,9 +25,9 @@ class SingleAttributeViewModel(application: Application) : AndroidViewModel(appl
     private fun buildValues(value: Int = attributeId): List<IValue>? {
         val values: List<IValue>?
         if (attributeId == -2) {
-            values = sharedModel.currentFilter?.brands
+            values = sharedModel.cachedFilter?.brands
         } else {
-            values = sharedModel.currentFilter?.attributes?.find { it.id == value }?.values
+            values = sharedModel.cachedFilter?.attributes?.find { it.id == value }?.values
         }
         return values
     }
@@ -39,6 +40,10 @@ class SingleAttributeViewModel(application: Application) : AndroidViewModel(appl
         } else {
             itemsData.postValue(buildValues()?.filter { it.name?.toLowerCase()?.contains(query?.toLowerCase())?:false }?.let { mapValuesToItems(it) })
         }
+    }
+
+    fun applyChanges(){
+        sharedModel.saveTemporaryData()
     }
 
 }

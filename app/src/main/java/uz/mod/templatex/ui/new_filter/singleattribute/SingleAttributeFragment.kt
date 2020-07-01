@@ -8,6 +8,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_main_filter.*
@@ -34,7 +35,8 @@ class SingleAttributeFragment : ParentFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         singleAttributeViewModel.sharedModel = sharedFilterViewModel
-        val adapter = SingleAttributeFilterAdapter(sharedFilterViewModel = sharedFilterViewModel,attrId = attrs.attrId)
+        sharedFilterViewModel.buildTemporaryData()
+        val adapter = SingleAttributeFilterAdapter(filter = sharedFilterViewModel.cachedFilter,attrId = attrs.attrId)
         rvList.adapter = adapter
         rvList.layoutManager = LinearLayoutManager(context)
         rvList.addItemDecoration(
@@ -50,5 +52,9 @@ class SingleAttributeFragment : ParentFragment() {
         })
         singleAttributeViewModel.attributeId = attrs.attrId
         filterEt.addTextChangedListener { text -> singleAttributeViewModel.onQueryChanged(text.toString()) }
+        applyBt.setOnClickListener {
+            sharedFilterViewModel.saveTemporaryData()
+            findNavController().popBackStack()
+        }
     }
 }

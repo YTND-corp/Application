@@ -29,9 +29,16 @@
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvList"
             android:padding="16dp"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+            android:id="@+id/applyBt"
+            android:text="@string/bt_apply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 </LinearLayout>
