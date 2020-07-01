@@ -82,8 +82,11 @@ class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutable
 
     inner class MainFilterBrandViewHolder(val binding : ItemMainFilterAttributeBinding) : MainFilterHolder(binding.root) {
         override fun bind(title : MainFilterDataItem<*>) {
-            val brandItem = title as BrandItem
-            itemView.title.text = itemView.context.resources.getString(R.string.filter_item_brands)
+            binding.attribute = FilterAttribute(-2,itemView.context.resources.getString(R.string.filter_item_brands), listOf())
+            itemView.clickableCl.setOnClickListener {
+                val action = MainFilterFragmentDirections.actionMainFilterFragmentToSingleAttributeFragment(-2)
+                itemView.findNavController().navigate(action)
+            }
         }
     }
     inner class MainFilterSortViewHolder(val binding : ItemMainFilterSortBinding) : MainFilterHolder(binding.root) {

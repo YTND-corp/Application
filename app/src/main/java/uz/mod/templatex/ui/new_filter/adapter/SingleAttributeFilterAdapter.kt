@@ -14,6 +14,7 @@ import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ItemFilterAttributeValueBinding
 import uz.mod.templatex.model.local.entity.AttributeValue
 import uz.mod.templatex.model.local.entity.FilterAttribute
+import uz.mod.templatex.model.local.entity.IValue
 import uz.mod.templatex.ui.new_filter.MainFilterFragmentDirections
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 
@@ -39,14 +40,19 @@ class SingleAttributeFilterAdapter(val items : MutableList<AttributeValueItem> =
         holder.bind(items[position])
     }
 
-    data class AttributeValueItem(val attribute : AttributeValue)
+    data class AttributeValueItem(val attribute : IValue)
 
     inner class ViewHolder(val binding : ItemFilterAttributeValueBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(attributeItem : AttributeValueItem) {
-            binding.attribute =attributeItem.attribute
+            binding.attribute = attributeItem.attribute
             itemView.clickableCl.setOnClickListener {
-                val find = sharedFilterViewModel.currentFilter?.attributes?.find { it.id == attrId }?.values?.find { it.id == attributeItem.attribute.id }
-                find?.apply { selected = !selected }
+                if (attrId==-2){
+                    val find = sharedFilterViewModel.currentFilter?.brands?.find { it.id == attributeItem.attribute.id }
+                    find?.apply { selected = !selected }
+                } else {
+                    val find = sharedFilterViewModel.currentFilter?.attributes?.find { it.id == attrId }?.values?.find { it.id == attributeItem.attribute.id }
+                    find?.apply { selected = !selected }
+                }
                 notifyDataSetChanged()
             }
         }

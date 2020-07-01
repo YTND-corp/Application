@@ -7,13 +7,14 @@
 
         <variable
                 name="attribute"
-                type="uz.mod.templatex.model.local.entity.AttributeValue" />
+                type="uz.mod.templatex.model.local.entity.IValue" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clickableCl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="56dp"
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"

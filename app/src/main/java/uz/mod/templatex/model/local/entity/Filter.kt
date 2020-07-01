@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.Expose
 import uz.mod.templatex.model.remote.response.Pagination
 
 @Entity(tableName = "filters")
@@ -23,10 +24,16 @@ data class FilterAttribute (
     val values: List<AttributeValue>?
 )
 
+interface IValue {
+    val id: Int
+    val name: String?
+    var selected : Boolean
+}
+
 data class AttributeValue(
-    val id: Int,
-    val name: String
-){
-    @Ignore
-    var selected : Boolean = false
+    override val id: Int,
+    override val name: String
+) : IValue {
+    @Expose(serialize = false, deserialize = false)
+    override var selected : Boolean = false
 }

@@ -27,7 +27,8 @@ object DestinationHelper {
         DestinationConfig(R.id.productsFragment, false, false),
         DestinationConfig(R.id.productFragment, false, false),
         DestinationConfig(R.id.subCategoryFragment, true, true),
-        DestinationConfig(R.id.mainFilterFragment, false, true)
+        DestinationConfig(R.id.mainFilterFragment, false, true),
+        DestinationConfig(R.id.singleAttributeFragment, false, true)
     )
 
     data class DestinationConfig(
