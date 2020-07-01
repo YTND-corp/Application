@@ -15,6 +15,7 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
     }
 
     var activeFilter  : SelectedFitlerDto = SelectedFitlerDto()
+    var currentFilter  : Filter? = null
 
     companion object{
         private lateinit var application : Application
@@ -23,7 +24,7 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
     data class SelectedFitlerDto(
         var sort : Sort= Sort.PopularSort(),
         val brands : List<Int> = emptyList(),
-        val attributes : Map<Int,List<Int>> = emptyMap()
+        val attributes : Map<Int,MutableList<Int>> = emptyMap()
     ) {
         companion object{
             const val SORT_POPULAR = "popular"

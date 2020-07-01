@@ -17,11 +17,8 @@ import uz.mod.templatex.model.local.entity.FilterAttribute
 import uz.mod.templatex.ui.new_filter.MainFilterFragmentDirections
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 
-class SingleAttributeFilterAdapter(val items : MutableList<AttributeValueItem> = mutableListOf(), val sharedFilterViewModel: SharedFilterViewModel)
+class SingleAttributeFilterAdapter(val items : MutableList<AttributeValueItem> = mutableListOf(), val sharedFilterViewModel: SharedFilterViewModel, val attrId: Int)
     : RecyclerView.Adapter<SingleAttributeFilterAdapter.ViewHolder>() {
-    abstract class MainFilterHolder(v : View) : RecyclerView.ViewHolder(v){
-        abstract fun bind(item : MainFilterAdapter.MainFilterDataItem<*>)
-    }
 
     init {
         setHasStableIds(true)
@@ -44,14 +41,13 @@ class SingleAttributeFilterAdapter(val items : MutableList<AttributeValueItem> =
 
     data class AttributeValueItem(val attribute : AttributeValue)
 
-
     inner class ViewHolder(val binding : ItemFilterAttributeValueBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(title : AttributeValueItem) {
-            val attributeItem = title as MainFilterAdapter.AttributeItem
+        fun bind(attributeItem : AttributeValueItem) {
             binding.attribute =attributeItem.attribute
             itemView.clickableCl.setOnClickListener {
-                val action = MainFilterFragmentDirections.actionMainFilterFragmentToSingleAttributeFragment(attributeItem.attribute.id)
-                itemView.findNavController().navigate(action)
+                val find = sharedFilterViewModel.currentFilter?.attributes?.find { it.id == attrId }?.values?.find { it.id == attributeItem.attribute.id }
+                find?.apply { selected = !selected }
+                notifyDataSetChanged()
             }
         }
     }

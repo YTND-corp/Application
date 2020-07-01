@@ -31,6 +31,7 @@ class MainFilterFragment : ParentFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainFilterViewModel.sharedModel = sharedFilterViewModel
         val mainFilterAdapter = MainFilterAdapter(sharedFilterViewModel = sharedFilterViewModel)
         rvList.adapter = mainFilterAdapter
         rvList.layoutManager = LinearLayoutManager(context)
@@ -40,7 +41,6 @@ class MainFilterFragment : ParentFragment() {
                 R.drawable.list_divider
             )
         )
-        //TODO: Add separators via decorator
         mainFilterViewModel.itemsData.observe(viewLifecycleOwner, Observer {
             mainFilterAdapter.items.clear()
             mainFilterAdapter.items.addAll(it)

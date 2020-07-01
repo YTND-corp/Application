@@ -9,7 +9,7 @@ import uz.mod.templatex.model.repository.ProductRepository
 import uz.mod.templatex.ui.new_filter.adapter.MainFilterAdapter
 
 class MainFilterViewModel(application: Application, val repository: ProductRepository) : AndroidViewModel(application){
-
+    lateinit var sharedModel : SharedFilterViewModel
     val saveButtonVisible = MutableLiveData<Boolean>(false)
     var categoryId : Int? = null
         set(value) {
@@ -19,6 +19,9 @@ class MainFilterViewModel(application: Application, val repository: ProductRepos
 
     private fun recreateMainFilterList() {
         filterForCategory = categoryId?.let { repository.getFiltersForCategory(it) }
+        if (sharedModel.currentFilter?.id != filterForCategory?.id) {
+            sharedModel.currentFilter = filterForCategory
+        }
         val items = mutableListOf<MainFilterAdapter.MainFilterDataItem<*>>()
         items.add(MainFilterAdapter.TitleItem("Фильтровать"))
         if (filterForCategory?.brands?.size?:0>0) {
