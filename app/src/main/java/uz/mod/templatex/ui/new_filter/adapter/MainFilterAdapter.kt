@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_main_filter_attribute.view.*
+import kotlinx.android.synthetic.main.item_main_filter_attribute.view.title
+import kotlinx.android.synthetic.main.item_main_filter_sort.view.*
 import kotlinx.android.synthetic.main.item_main_filter_title.view.*
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ItemMainFilterAttributeBinding
@@ -80,6 +82,10 @@ class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutable
     inner class MainFilterSortViewHolder(val binding : ItemMainFilterSortBinding) : MainFilterHolder(binding.root) {
         override fun bind(title : MainFilterDataItem<*>) {
             val sortItem = title as SortItem
+            itemView.clickableRoot.setOnClickListener {
+                sharedFilterViewModel.activeFilter.sort = sortItem.sort
+                notifyDataSetChanged()
+            }
             binding.sort = itemView.resources.getString(sortItem.sort.stringResId)
             binding.dto = sharedFilterViewModel.activeFilter
         }

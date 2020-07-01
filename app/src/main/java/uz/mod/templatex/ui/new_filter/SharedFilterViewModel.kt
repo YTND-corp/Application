@@ -21,7 +21,7 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
     }
 
     data class SelectedFitlerDto(
-        val sort : Sort= Sort.PopularSort(),
+        var sort : Sort= Sort.PopularSort(),
         val brands : List<Int> = emptyList(),
         val attributes : Map<Int,List<Int>> = emptyMap()
     ) {
