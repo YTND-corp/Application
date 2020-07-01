@@ -1,4 +1,10 @@
 package uz.mod.templatex.ui.new_filter.singleattribute
 
-class SIngleAttributeViewModel {
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+
+class SingleAttributeViewModel(application: Application) : AndroidViewModel(application){
+    var attributeId : Int = -1
+
+
 }

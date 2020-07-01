@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_main_filter.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
+import uz.mod.templatex.ui.custom.LineDividerItemDecoration
 import uz.mod.templatex.ui.new_filter.adapter.MainFilterAdapter
 import uz.mod.templatex.ui.parent.ParentFragment
 
@@ -33,6 +34,12 @@ class MainFilterFragment : ParentFragment() {
         val mainFilterAdapter = MainFilterAdapter(sharedFilterViewModel = sharedFilterViewModel)
         rvList.adapter = mainFilterAdapter
         rvList.layoutManager = LinearLayoutManager(context)
+        rvList.addItemDecoration(
+            LineDividerItemDecoration(
+                requireContext(),
+                R.drawable.list_divider
+            )
+        )
         //TODO: Add separators via decorator
         mainFilterViewModel.itemsData.observe(viewLifecycleOwner, Observer {
             mainFilterAdapter.items.clear()

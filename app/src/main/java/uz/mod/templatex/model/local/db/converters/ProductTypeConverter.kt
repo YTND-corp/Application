@@ -26,16 +26,16 @@ class ProductTypeConverter {
     }
 
     @TypeConverter
-    fun stringToValueList(data: String?): List<Value>? {
+    fun stringToValueList(data: String?): List<AttributeValue>? {
         if (data == null) {
             return Collections.emptyList()
         }
-        val listType = object : TypeToken<List<Value>?>() {}.type
-        return gson.fromJson<List<Value>>(data, listType)
+        val listType = object : TypeToken<List<AttributeValue>?>() {}.type
+        return gson.fromJson<List<AttributeValue>>(data, listType)
     }
 
     @TypeConverter
-    fun valueListToString(someObjects: List<Value>?): String? {
+    fun valueListToString(someObjects: List<AttributeValue>?): String? {
         return gson.toJson(someObjects)
     }
 

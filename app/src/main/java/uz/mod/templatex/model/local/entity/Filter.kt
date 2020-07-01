@@ -20,10 +20,10 @@ data class Filter (
 data class FilterAttribute (
     val id: Int,
     val name: String,
-    val values: List<Value>?
+    val values: List<AttributeValue>?
 )
 
-data class Value(
+data class AttributeValue(
     val id: Int,
     val name: String
 ){

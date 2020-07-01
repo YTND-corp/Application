@@ -3,6 +3,8 @@ package uz.mod.templatex.ui.new_filter.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_main_filter_attribute.view.*
 import kotlinx.android.synthetic.main.item_main_filter_attribute.view.title
@@ -12,6 +14,7 @@ import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ItemMainFilterAttributeBinding
 import uz.mod.templatex.databinding.ItemMainFilterSortBinding
 import uz.mod.templatex.model.local.entity.FilterAttribute
+import uz.mod.templatex.ui.new_filter.MainFilterFragmentDirections
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 
 class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutableListOf(),val sharedFilterViewModel: SharedFilterViewModel) : RecyclerView.Adapter<MainFilterAdapter.MainFilterHolder>() {
@@ -70,6 +73,10 @@ class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutable
         override fun bind(title : MainFilterDataItem<*>) {
             val attributeItem = title as AttributeItem
             binding.attribute =attributeItem.attribute
+            itemView.clickableCl.setOnClickListener {
+                val action = MainFilterFragmentDirections.actionMainFilterFragmentToSingleAttributeFragment(attributeItem.attribute.id)
+                itemView.findNavController().navigate(action)
+            }
         }
     }
 

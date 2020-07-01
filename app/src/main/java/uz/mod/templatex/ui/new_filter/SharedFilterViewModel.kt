@@ -11,7 +11,7 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
         Companion.application = application
     }
     fun onCategorySelected(catId : Int){
-        //TODO: Reset filter
+        activeFilter = SelectedFitlerDto()
     }
 
     var activeFilter  : SelectedFitlerDto = SelectedFitlerDto()

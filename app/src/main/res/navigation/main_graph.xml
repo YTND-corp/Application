@@ -216,7 +216,11 @@
                 android:defaultValue="0" />
         <action
                 android:id="@+id/action_productsFragment_to_mainFilterFragment"
-                app:destination="@id/mainFilterFragment" />
+                app:destination="@id/mainFilterFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
     <fragment
@@ -269,10 +273,24 @@
             tools:layout="@layout/profile_my_order_fragment" />
     <fragment
             android:id="@+id/mainFilterFragment"
-            android:name="uz.mod.templatex.ui.new_filter.MainFilterFragment"
-            android:label="MainFilterFragment" >
+            android:name="uz.mod.templatex.ui.new_filter.MainFilterFragment">
         <argument
                 android:name="categoryId"
+                app:argType="integer" />
+        <action
+                android:id="@+id/action_mainFilterFragment_to_singleAttributeFragment"
+                app:destination="@id/singleAttributeFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/singleAttributeFragment"
+            android:name="uz.mod.templatex.ui.new_filter.singleattribute.SingleAttributeFragment"
+            android:label="SingleAttributeFragment" >
+        <argument
+                android:name="attrId"
                 app:argType="integer" />
     </fragment>
 </navigation>

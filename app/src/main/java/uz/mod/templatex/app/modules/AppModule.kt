@@ -37,6 +37,7 @@ import uz.mod.templatex.ui.favorite.FavoriteViewModel
 import uz.mod.templatex.ui.filter.FilterViewModel
 import uz.mod.templatex.ui.new_filter.MainFilterViewModel
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
+import uz.mod.templatex.ui.new_filter.singleattribute.SingleAttributeViewModel
 import uz.mod.templatex.ui.product.ProductViewModel
 import uz.mod.templatex.ui.products.ProductsViewModel
 import uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedViewModel
@@ -100,9 +101,11 @@ val viewModelModule = module {
 
     viewModel { ProductsViewModel(get(), get()) }
     viewModel { ProductViewModel(get(), get()) }
+
     viewModel { FilterViewModel(get()) }
     viewModel { MainFilterViewModel(get(),get()) }
     viewModel { SharedFilterViewModel(get()) }
+    viewModel { SingleAttributeViewModel(get()) }
 }
 
 val prefsModule = module {
