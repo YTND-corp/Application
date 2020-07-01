@@ -93,7 +93,9 @@ class ProductRepository constructor(
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
-                return service.getProducts(id, null, brands, page)
+                return service.getProducts(id, sort, brands,
+//                    "" ,
+                    page)
             }
         }.asLiveData()
     }

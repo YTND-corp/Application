@@ -109,6 +109,16 @@ class ProductsFragment : ParentFragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (sharedFilterViewModel.needToReloadFeed){
+            sharedFilterViewModel.needToReloadFeed = false
+            sharedFilterViewModel.fillActiveFilter()
+            viewModel.filterParams = sharedFilterViewModel.activeFilter
+            viewModel.refresh()
+        }
+    }
+
     private fun initViews() {
         binding.apply {
             viewModel = this@ProductsFragment.viewModel

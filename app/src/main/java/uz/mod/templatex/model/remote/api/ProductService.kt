@@ -12,6 +12,7 @@ interface ProductService {
         @Path("id") id: Int,
         @Query("sort") sort: String? = null,
         @Query("brands[]") brands: Array<String>? = null,
+//        @Query("attributes[]") attr: String,
         @Query("page") page: Int = 1
     ): LiveData<ApiResponse<ProductsResponse>>
 

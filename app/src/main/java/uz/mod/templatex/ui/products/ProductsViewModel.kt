@@ -8,6 +8,7 @@ import uz.mod.templatex.model.local.entity.Filter
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.repository.ProductRepository
+import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.utils.AbsentLiveData
 
 class ProductsViewModel constructor(application: Application, val repository: ProductRepository) :
@@ -16,19 +17,18 @@ class ProductsViewModel constructor(application: Application, val repository: Pr
     var categoryId: Int = 0
     var page: Int = 1
     var totalCount = ""
-    var sort = "popular"
-    var brandId: Int = 0
+
+    var filterParams : SharedFilterViewModel.SelectedFitlerDto = SharedFilterViewModel.SelectedFitlerDto()
 
     var title = MutableLiveData<String>()
 
     private val request = MutableLiveData<Boolean>()
     val response = Transformations.switchMap(request) {
-        repository.getProducts(categoryId, sort, if (brandId==0) null else arrayOf(brandId.toString()), page)
+        repository.getProducts(categoryId, filterParams.sort.key, filterParams.brands.map { it.toString() }.toTypedArray(), page)
     }
 
     val filter = Transformations.map(repository.getFilters()) {
         if (!it.isNullOrEmpty()) it.first() else null
-
     }
 
     val total = Transformations.map(filter) {
@@ -38,7 +38,6 @@ class ProductsViewModel constructor(application: Application, val repository: Pr
     fun setArgs(args: ProductsFragmentArgs) {
         categoryId = args.id
         title.value = args.title
-        brandId = args.brandId
         refresh()
     }
 

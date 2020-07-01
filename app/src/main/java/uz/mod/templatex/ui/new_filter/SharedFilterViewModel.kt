@@ -12,12 +12,24 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
         Companion.application = application
     }
     var activeFilter  : SelectedFitlerDto = SelectedFitlerDto()
+
     var currentFilter  : Filter? = null
     var cachedFilter : Filter? = null
     var needToReloadFeed = false
 
     companion object{
-        private lateinit var application : Application
+        private  var application : Application? = null
+    }
+
+    fun fillActiveFilter(){
+        val selectedBrands = currentFilter?.brands?.filter { it.selected }?.map { it.id }?: emptyList()
+        val selectedAttrs = mutableMapOf<Int,List<Int>>()
+        currentFilter?.attributes?.filter { it.values?.find { it.selected }!=null }?.forEach {
+            selectedAttrs.put(it.id,it.values?.filter { it.selected }?.map { it.id }?: emptyList())
+        }
+
+        activeFilter.brands = selectedBrands
+        activeFilter.attributes = selectedAttrs
     }
 
     fun buildTemporaryData(){
@@ -32,8 +44,8 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
 
     data class SelectedFitlerDto(
         var sort : Sort= Sort.PopularSort(),
-        val brands : List<Int> = emptyList(),
-        val attributes : Map<Int,MutableList<Int>> = emptyMap()
+        var brands : List<Int> = emptyList(),
+        var attributes : Map<Int,List<Int>> = emptyMap()
     ) {
         companion object{
             const val SORT_POPULAR = "popular"
@@ -44,7 +56,7 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
             const val SORT_DISCOUNTs_NEW = "discounts_new"
 
             sealed class Sort(val key:String,val stringResId : Int){
-                val name = application.resources.getString(stringResId)
+                val name = application?.resources?.getString(stringResId)
 
                 class PopularSort : Sort(SORT_POPULAR, R.string.sort_popular)
                 class NewSort : Sort(SORT_NEW, R.string.sort_new)
