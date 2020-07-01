@@ -11,16 +11,11 @@ data class Filter (
     @PrimaryKey
     var id: Int,
     val brands: List<Brand>?,
-    //TODO: Change to attr list
-    @Embedded
-    val attributes: Attribute?,
+    val attributes: List<FilterAttribute>?,
     @Embedded
     var pagination: Pagination?
 )
 
-data class Attribute(
-    @Embedded(prefix = "color_") val color: FilterAttribute?
-)
 
 data class FilterAttribute (
     val id: Int,

@@ -3,9 +3,8 @@ package uz.mod.templatex.model.local.db.converters
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import uz.mod.templatex.model.local.entity.Brand
+import uz.mod.templatex.model.local.entity.*
 import uz.mod.templatex.model.local.entity.Currency
-import uz.mod.templatex.model.local.entity.Value
 import java.util.*
 
 class ProductTypeConverter {
@@ -51,6 +50,20 @@ class ProductTypeConverter {
 
     @TypeConverter
     fun brandListToString(someObjects: List<Brand>?): String? {
+        return gson.toJson(someObjects)
+    }
+
+    @TypeConverter
+    fun stringToAttrList(data: String?): List<FilterAttribute>? {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+        val listType = object : TypeToken<List<FilterAttribute>?>() {}.type
+        return gson.fromJson<List<FilterAttribute>>(data, listType)
+    }
+
+    @TypeConverter
+    fun attrListToString(someObjects: List<FilterAttribute>?): String? {
         return gson.toJson(someObjects)
     }
 }

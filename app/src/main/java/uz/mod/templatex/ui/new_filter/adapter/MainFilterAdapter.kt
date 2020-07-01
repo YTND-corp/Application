@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.item_main_filter_attribute.view.*
 import kotlinx.android.synthetic.main.item_main_filter_title.view.*
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ItemMainFilterAttributeBinding
@@ -52,7 +53,7 @@ class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutable
 
     abstract class MainFilterDataItem<T>(val data : T)
     data class TitleItem(val title : String) : MainFilterDataItem<String>(title)
-    data class SortItem(val title : String) : MainFilterDataItem<String>(title)
+    data class SortItem(val sort : SharedFilterViewModel.SelectedFitlerDto.Companion.Sort) : MainFilterDataItem<SharedFilterViewModel.SelectedFitlerDto.Companion.Sort>(sort)
     data class AttributeItem(val attribute : FilterAttribute) : MainFilterDataItem<FilterAttribute>(attribute)
     class BrandItem : MainFilterDataItem<Int>(0)
 
@@ -73,13 +74,13 @@ class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutable
     inner class MainFilterBrandViewHolder(val binding : ItemMainFilterAttributeBinding) : MainFilterHolder(binding.root) {
         override fun bind(title : MainFilterDataItem<*>) {
             val brandItem = title as BrandItem
-            binding.title.text = "Бренд"
+            itemView.title.text = itemView.context.resources.getString(R.string.filter_item_brands)
         }
     }
     inner class MainFilterSortViewHolder(val binding : ItemMainFilterSortBinding) : MainFilterHolder(binding.root) {
         override fun bind(title : MainFilterDataItem<*>) {
             val sortItem = title as SortItem
-            binding.sort = sortItem.title
+            binding.sort = itemView.resources.getString(sortItem.sort.stringResId)
             binding.dto = sharedFilterViewModel.activeFilter
         }
     }

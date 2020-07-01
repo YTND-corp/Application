@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_main_filter.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,6 +18,7 @@ import uz.mod.templatex.ui.parent.ParentFragment
 class MainFilterFragment : ParentFragment() {
     val sharedFilterViewModel : SharedFilterViewModel by activityViewModels<SharedFilterViewModel>()
     val mainFilterViewModel : MainFilterViewModel by viewModel()
+    val args : MainFilterFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +37,8 @@ class MainFilterFragment : ParentFragment() {
         mainFilterViewModel.itemsData.observe(viewLifecycleOwner, Observer {
             mainFilterAdapter.items.clear()
             mainFilterAdapter.items.addAll(it)
+            mainFilterAdapter.notifyDataSetChanged()
         })
+        mainFilterViewModel.categoryId = args.categoryId
     }
 }

@@ -34,7 +34,7 @@
 
         <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/selected"
-                android:checked="@{sort.equals(dto.sort)}"
+                android:checked="@{sort.equals(dto.sort.name)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"

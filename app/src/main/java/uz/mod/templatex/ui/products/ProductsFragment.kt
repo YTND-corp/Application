@@ -16,6 +16,8 @@ import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProductsFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
+import uz.mod.templatex.ui.new_filter.MainFilterFragmentArgs
+import uz.mod.templatex.ui.new_filter.MainFilterFragmentDirections
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.ui.parent.ParentFragment
 
@@ -113,7 +115,7 @@ class ProductsFragment : ParentFragment() {
             executePendingBindings()
 
             filter.setOnClickListener {
-                findNavController().navigate(R.id.action_productsFragment_to_mainFilterFragment)
+                findNavController().navigate(ProductsFragmentDirections.actionProductsFragmentToMainFilterFragment(viewModel!!.categoryId))
             }
 
             val layoutManager = GridLayoutManager(requireContext(),2)
