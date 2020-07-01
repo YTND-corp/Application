@@ -31,6 +31,7 @@ class MainFilterFragment : ParentFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        filterLl.visibility = View.GONE
         mainFilterViewModel.sharedModel = sharedFilterViewModel
         val mainFilterAdapter = MainFilterAdapter(sharedFilterViewModel = sharedFilterViewModel)
         rvList.adapter = mainFilterAdapter

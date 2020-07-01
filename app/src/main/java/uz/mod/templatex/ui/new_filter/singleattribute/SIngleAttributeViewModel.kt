@@ -13,16 +13,32 @@ class SingleAttributeViewModel(application: Application) : AndroidViewModel(appl
     var attributeId : Int = -1
         set(value) {
             field = value
-            val values: List<IValue>?
-            if (attributeId==-2){
-                values = sharedModel.currentFilter?.brands
-            } else {
-                values = sharedModel.currentFilter?.attributes?.find { it.id == value }?.values
-            }
+            val values: List<IValue>? = buildValues(value)
             values?:return
-            itemsData.postValue(values.map { SingleAttributeFilterAdapter.AttributeValueItem(it) })
+            itemsData.postValue(mapValuesToItems(values))
         }
 
+    private fun mapValuesToItems(values: List<IValue>) =
+        values.map { SingleAttributeFilterAdapter.AttributeValueItem(it) }
+
+    private fun buildValues(value: Int = attributeId): List<IValue>? {
+        val values: List<IValue>?
+        if (attributeId == -2) {
+            values = sharedModel.currentFilter?.brands
+        } else {
+            values = sharedModel.currentFilter?.attributes?.find { it.id == value }?.values
+        }
+        return values
+    }
+
     val itemsData = MutableLiveData<List<SingleAttributeFilterAdapter.AttributeValueItem>>()
+
+    fun onQueryChanged(query : String){
+        if (query == null || query.isEmpty()){
+            itemsData.postValue(buildValues()?.let { mapValuesToItems(it) })
+        } else {
+            itemsData.postValue(buildValues()?.filter { it.name?.toLowerCase()?.contains(query?.toLowerCase())?:false }?.let { mapValuesToItems(it) })
+        }
+    }
 
 }

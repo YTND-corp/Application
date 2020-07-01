@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -48,5 +49,6 @@ class SingleAttributeFragment : ParentFragment() {
             adapter.notifyDataSetChanged()
         })
         singleAttributeViewModel.attributeId = attrs.attrId
+        filterEt.addTextChangedListener { text -> singleAttributeViewModel.onQueryChanged(text.toString()) }
     }
 }
