@@ -3,7 +3,9 @@ package uz.mod.templatex.model.remote.api
 import androidx.lifecycle.LiveData
 import retrofit2.http.*
 import uz.mod.templatex.model.remote.network.ApiResponse
+import uz.mod.templatex.model.remote.network.ProxyRetrofitQueryMap
 import uz.mod.templatex.model.remote.response.*
+import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 interface ProductService {
 
@@ -12,7 +14,7 @@ interface ProductService {
         @Path("id") id: Int,
         @Query("sort") sort: String? = null,
         @Query("brands[]") brands: Array<String>? = null,
-        @QueryMap attrMap: Map<String,String>,
+        @QueryMap attrMap: @JvmSuppressWildcards ProxyRetrofitQueryMap,
         @Query("page") page: Int = 1
     ): LiveData<ApiResponse<ProductsResponse>>
 

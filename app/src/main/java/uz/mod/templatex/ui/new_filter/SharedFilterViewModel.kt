@@ -23,9 +23,12 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
 
     fun fillActiveFilter(){
         val selectedBrands = currentFilter?.brands?.filter { it.selected }?.map { it.id }?: emptyList()
-        val selectedAttrs = mutableMapOf<String,List<Int>>()
+        val selectedAttrs = mutableMapOf<String,List<String>>()
         currentFilter?.attributes?.filter { it.values?.find { it.selected }!=null }?.forEach {
-            selectedAttrs.put(it.slug,it.values?.filter { it.selected }?.map { it.id }?: emptyList())
+
+            val elements = it.values?.filter { it.selected }?.map { it.id.toString() }?: emptyList()
+
+            selectedAttrs.put(it.slug, elements)
         }
 
         activeFilter.brands = selectedBrands
@@ -45,7 +48,7 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
     data class SelectedFitlerDto(
         var sort : Sort= Sort.PopularSort(),
         var brands : List<Int> = emptyList(),
-        var attributes : Map<String,List<Int>> = emptyMap()
+        var attributes : Map<String,List<String>> = emptyMap()
     ) {
         companion object{
             const val SORT_POPULAR = "popular"
