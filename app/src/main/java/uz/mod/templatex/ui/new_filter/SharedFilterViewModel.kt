@@ -23,9 +23,9 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
 
     fun fillActiveFilter(){
         val selectedBrands = currentFilter?.brands?.filter { it.selected }?.map { it.id }?: emptyList()
-        val selectedAttrs = mutableMapOf<Int,List<Int>>()
+        val selectedAttrs = mutableMapOf<String,List<Int>>()
         currentFilter?.attributes?.filter { it.values?.find { it.selected }!=null }?.forEach {
-            selectedAttrs.put(it.id,it.values?.filter { it.selected }?.map { it.id }?: emptyList())
+            selectedAttrs.put(it.slug,it.values?.filter { it.selected }?.map { it.id }?: emptyList())
         }
 
         activeFilter.brands = selectedBrands
@@ -45,7 +45,7 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
     data class SelectedFitlerDto(
         var sort : Sort= Sort.PopularSort(),
         var brands : List<Int> = emptyList(),
-        var attributes : Map<Int,List<Int>> = emptyMap()
+        var attributes : Map<String,List<Int>> = emptyMap()
     ) {
         companion object{
             const val SORT_POPULAR = "popular"
@@ -57,11 +57,26 @@ class SharedFilterViewModel (application: Application) : AndroidViewModel(applic
 
             sealed class Sort(val key:String,val stringResId : Int){
                 val name = application?.resources?.getString(stringResId)
+                override fun hashCode(): Int = key.hashCode()
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) return true
+                    if (javaClass != other?.javaClass) return false
+                    if (key != (other as Sort).key) return false
+                    return true
+                }
 
-                class PopularSort : Sort(SORT_POPULAR, R.string.sort_popular)
-                class NewSort : Sort(SORT_NEW, R.string.sort_new)
-                class PriceAscSort : Sort(SORT_PRICE_ASC, R.string.sort_price_asc)
-                class PriceDescSort : Sort(SORT_PRICE_DESC, R.string.sort_price_desc)
+                class PopularSort : Sort(SORT_POPULAR, R.string.sort_popular){
+//                    override fun hashCode(): Int = 1
+                }
+                class NewSort : Sort(SORT_NEW, R.string.sort_new){
+//                    override fun hashCode(): Int = 2
+                }
+                class PriceAscSort : Sort(SORT_PRICE_ASC, R.string.sort_price_asc){
+//                    override fun hashCode(): Int = 3
+                }
+                class PriceDescSort : Sort(SORT_PRICE_DESC, R.string.sort_price_desc){
+//                    override fun hashCode(): Int = 4
+                }
             }
 
         }

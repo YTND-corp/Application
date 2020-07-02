@@ -58,7 +58,9 @@ class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutable
 
     abstract class MainFilterDataItem<T>(val data : T)
     data class TitleItem(val title : String) : MainFilterDataItem<String>(title)
-    data class SortItem(val sort : SharedFilterViewModel.SelectedFitlerDto.Companion.Sort) : MainFilterDataItem<SharedFilterViewModel.SelectedFitlerDto.Companion.Sort>(sort)
+    data class SortItem(val sort : SharedFilterViewModel.SelectedFitlerDto.Companion.Sort) : MainFilterDataItem<SharedFilterViewModel.SelectedFitlerDto.Companion.Sort>(sort){
+
+    }
     data class AttributeItem(val attribute : FilterAttribute) : MainFilterDataItem<FilterAttribute>(attribute)
     class BrandItem : MainFilterDataItem<Int>(0)
 
@@ -82,7 +84,7 @@ class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutable
 
     inner class MainFilterBrandViewHolder(val binding : ItemMainFilterAttributeBinding) : MainFilterHolder(binding.root) {
         override fun bind(title : MainFilterDataItem<*>) {
-            binding.attribute = FilterAttribute(-2,itemView.context.resources.getString(R.string.filter_item_brands), listOf())
+            binding.attribute = FilterAttribute(-2,itemView.context.resources.getString(R.string.filter_item_brands),"brands", listOf())
             itemView.clickableCl.setOnClickListener {
                 val action = MainFilterFragmentDirections.actionMainFilterFragmentToSingleAttributeFragment(-2)
                 itemView.findNavController().navigate(action)

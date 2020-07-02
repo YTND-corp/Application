@@ -9,6 +9,7 @@ import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.api.ProductService
 import uz.mod.templatex.model.remote.network.*
 import uz.mod.templatex.model.remote.response.*
+import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 
 class ProductRepository constructor(
     val service: ProductService,
@@ -65,7 +66,7 @@ class ProductRepository constructor(
 //        }.asLiveData()
 //    }
 
-    fun getProducts(id: Int, sort: String, brands: Array<String>?, page: Int): LiveData<Resource<List<Product>>> {
+    fun getProducts(id: Int, filter:SharedFilterViewModel.SelectedFitlerDto, page: Int): LiveData<Resource<List<Product>>> {
         return object : NetworkBoundResource<List<Product>, ProductsResponse>(executors) {
             override fun saveCallResult(item: ProductsResponse) {
                 if (page == 1) {
@@ -93,8 +94,8 @@ class ProductRepository constructor(
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
-                return service.getProducts(id, sort, brands,
-//                    "" ,
+                return service.getProducts(id, filter.sort.key, filter.brands.map { it.toString() }.toTypedArray(),
+                    filter.attributes.mapValues { it.value.joinToString(prefix = "[",postfix = "]").replace(" ","") } ,
                     page)
             }
         }.asLiveData()

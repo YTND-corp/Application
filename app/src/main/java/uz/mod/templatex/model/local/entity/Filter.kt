@@ -21,6 +21,7 @@ data class Filter (
 data class FilterAttribute (
     val id: Int,
     val name: String,
+    val slug: String,
     val values: List<AttributeValue>?
 )
 

@@ -24,7 +24,7 @@ class ProductsViewModel constructor(application: Application, val repository: Pr
 
     private val request = MutableLiveData<Boolean>()
     val response = Transformations.switchMap(request) {
-        repository.getProducts(categoryId, filterParams.sort.key, filterParams.brands.map { it.toString() }.toTypedArray(), page)
+        repository.getProducts(categoryId, filterParams, page)
     }
 
     val filter = Transformations.map(repository.getFilters()) {
