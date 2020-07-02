@@ -94,7 +94,7 @@ class ProductRepository constructor(
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
-                val attrMap = filter.attributes.mapValues { it.value as Any }.mapKeys { it.key+"s[]" }.toMutableMap()
+                val attrMap = filter.attributes.mapValues { it.value as Any }.mapKeys { it.key+"[]" }.toMutableMap()
                 val proxyRetrofitQueryMap = ProxyRetrofitQueryMap(attrMap)
                 return service.getProducts(id, filter.sort.key, filter.brands.map { it.toString() }.toTypedArray(),
                     proxyRetrofitQueryMap,
