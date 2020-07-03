@@ -1,6 +1,7 @@
 package uz.mod.templatex.ui.products
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,7 +103,10 @@ class ProductsFragment : ParentFragment() {
                     isLoadingMore = false
                     hideLoading()
                     if (viewModel.page==1) {
-                        binding.subtitle.text = getString(R.string.products_subtitle, result.data.toString() )
+                        val string =
+                            resources.getString(R.string.products_subtitle, result.data?.size.toString())
+                        Timber.d("binding.subtitle.text $string")
+//                        binding.subtitle.text = string
                     }
                 }
             }
