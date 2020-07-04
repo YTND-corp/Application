@@ -32,4 +32,10 @@ interface ProductDao {
 
     @Query("DELETE FROM products WHERE id=:id")
     fun delete(id: Int)
+
+    @Query("UPDATE products SET quantity=:quantity  WHERE cartProductId=:id")
+    fun updateCount(id: Int, quantity: Int)
+
+    @Query("UPDATE products SET selected=:selected  WHERE id=:id")
+    fun setSelect(id: Int, selected: Boolean)
 }

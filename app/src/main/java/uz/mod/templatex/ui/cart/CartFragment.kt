@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.cart_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CartFragmentBinding
+import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 
@@ -36,25 +36,13 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
         return binding.root
     }
 
-    override fun showLoading() {
-        super.showLoading()
-        //hiding all content while loading. to avoid switching states on loaded.
-        rootContainer.visibility = View.GONE
-    }
-
-    override fun hideLoading() {
-        super.hideLoading()
-        //We got our empty state. Show content
-        rootContainer.visibility = View.VISIBLE
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-        //As we loading data on start screen, displaying loader to prevent state changing and blinking.
-        showLoading()
-        viewModel.getCart().observe(viewLifecycleOwner, Observer {result ->
+
+
+        viewModel.response.observe(viewLifecycleOwner, Observer {result ->
             when(result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -63,20 +51,32 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    Timber.e(result.data?.cart.toString())
-                    viewModel.setCart(result.data?.cart)
-                    viewModel.setProducts(result.data?.cart?.products)
                 }
             }
+        })
+
+        viewModel.updateResponse.observe(viewLifecycleOwner, Observer {result ->
+            when(result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                }
+            }
+        })
+
+        viewModel.products.observe(viewLifecycleOwner, Observer {result ->
+           adapter.setItems(result)
         })
 
         viewModel.isEditing.observe(viewLifecycleOwner, Observer {
             adapter.setIsEditing(it)
         })
 
-        viewModel.isCartEmpty.observe(viewLifecycleOwner, Observer {
-            Timber.e("isCartEmpty = $it")
-        })
+        viewModel.getCart()
     }
 
     private fun initViews() {
@@ -96,7 +96,7 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             }
 
             placeholderButton.setOnClickListener {
-                findNavController().navigate(R.id.selectionFragment)
+                findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
             }
 
             products.adapter = adapter
@@ -108,39 +108,15 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
         }
     }
 
-    override fun select(id: Int) {
-        viewModel.select(id)
+    override fun select(product: Product) {
+        viewModel.select(product)
     }
 
-    override fun minus(id: Int) {
-        viewModel.sub(id).observe(viewLifecycleOwner, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    viewModel.substracted(id)
-                }
-            }
-        })
+    override fun minus(product: Product) {
+        viewModel.sub(product)
     }
 
-    override fun plus(id: Int) {
-        viewModel.add(id).observe(viewLifecycleOwner, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    viewModel.added(id)
-                }
-            }
-        })
+    override fun plus(product: Product) {
+        viewModel.add(product)
     }
 }

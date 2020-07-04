@@ -26,7 +26,7 @@ class CheckoutViewModel constructor(
         !it.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(it).matches()
     }
 
-    val navigateToAddress = SingleLiveEvent<Any>()
+    val navigator = SingleLiveEvent<Int>()
 
     val isAllValid = MediatorLiveData<Boolean>()
         .apply {
@@ -55,5 +55,9 @@ class CheckoutViewModel constructor(
 
     fun user() {
         request.value = true
+    }
+
+    fun next() {
+        navigator.value = 1
     }
 }

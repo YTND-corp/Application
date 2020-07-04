@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.databinding.CheckoutFragmentBinding
@@ -25,6 +26,7 @@ class CheckoutFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         viewModel.response.observe(this, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
@@ -35,7 +37,7 @@ class CheckoutFragment : ParentFragment() {
                 Status.SUCCESS -> {
                     hideLoading()
                     if (result.data == true) {
-                        viewModel.navigateToAddress.call()
+                        findNavController().navigate(CheckoutFragmentDirections.actionCheckoutFragmentToAdresFragment())
                     }
                 }
             }
@@ -54,6 +56,7 @@ class CheckoutFragment : ParentFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+
     }
 
     private fun initViews() {

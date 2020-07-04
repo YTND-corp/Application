@@ -7,7 +7,7 @@
 
         <variable
                 name="item"
-                type="uz.mod.templatex.model.remote.response.CartProductWrapper" />
+                type="uz.mod.templatex.model.local.entity.Product" />
 
         <variable
                 name="isEditing"
@@ -25,7 +25,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                url="@{item.product.image}"
+                url="@{item.image}"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="0.65"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="17dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:text="@{item.product.name}"
+                android:text="@{item.name}"
                 android:textSize="@dimen/text_size_tiny"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image"
@@ -123,7 +123,7 @@
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{item.product.priceFormatted()}"
+                android:text="@{item.priceFormatted()}"
                 android:textSize="@dimen/text_size_tiny"
                 app:layout_constraintStart_toEndOf="@id/price_hint"
                 app:layout_constraintTop_toTopOf="@id/price_hint"
@@ -155,6 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/ic_substract"
+                android:background="?selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
                 isVisible="@{isEditing}"
@@ -183,6 +184,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 isVisible="@{isEditing}"
+                android:background="?selectableItemBackground"
                 app:layout_constraintStart_toEndOf="@id/count"
                 app:layout_constraintBottom_toBottomOf="@id/minus"
                 />

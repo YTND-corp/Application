@@ -110,7 +110,7 @@ val viewModelModule = module {
 
 val prefsModule = module {
     single { Prefs(get()) }
-    factory { AppExecutors()}
+    factory { AppExecutors() }
 }
 
 val dbModule = module {
@@ -128,7 +128,7 @@ val repositoryModule = module {
     single { CategoryRepository(get()) }
     single { ProductRepository(get(), get(), get(), get()) }
     single { AuthRepository(get(), get()) }
-    single { CartRepository(get()) }
+    single { CartRepository(get(), get(), get()) }
     single { CheckoutRepository(get(), get()) }
 }
 

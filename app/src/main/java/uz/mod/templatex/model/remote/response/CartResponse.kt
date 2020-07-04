@@ -1,65 +1,35 @@
 package uz.mod.templatex.model.remote.response
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import uz.mod.templatex.utils.extension.moneyFormat
 import uz.mod.templatex.model.local.entity.*
 
-data class CartResponse(val cart: Cart)
+data class CartResponse(val cart: Cart, val recommended: List<Product>)
 
 data class Cart(
     val id: Int,
     val uid: String?,
-    @SerializedName("is_finished") val isFinished: Boolean,
-    @SerializedName("user") val user: User?,
-    val carrier: Carrier?,
-    val productsPrice: Int,
-    val productsPriceFormatted: String?,
-    val deliveryPrice: Int,
-    val deliveryPriceFormatted: String?,
-    val discountPrice: Int,
-    val discountPriceFormatted: String?,
-    val totalPrice: Int,
-    val totalPriceFormatted: String?,
+    val carrier: String?,
+    @SerializedName("products_price") val productsPrice: Int,
+    @SerializedName("delivery_price") val deliveryPrice: Int,
+    @SerializedName("discount_price") val discountPrice: Int,
+    @SerializedName("total_price") val totalPrice: Int,
     val quantity: Int,
-    @SerializedName("cart_products") val products: List<CartProductWrapper>?
+    val products: List<Product>?
 )
-
-data class CartProductWrapper(
-    val id: Int,
-    var selected: Boolean,
-    var quantity: Int,
-    @SerializedName("product_id") val productId: Int,
-    @SerializedName("product") val product: CartProduct?
-) {
-
-    fun quantityText() = "$quantity"
-    fun subtitle() = "${product?.brand?.name} - ${product?.category?.name}"
-    fun totalPrice() = quantity * (product?.price ?: 0)
-    fun totalPriceFormatted() = totalPrice().moneyFormat() + " UZS"
-}
 
 data class CartProduct(
     val id: Int,
-    val name: String?,
+    @SerializedName("cart_product_id") val cartProductId: Int,
+    val name: String,
+    val reference: String,
+    val brand: String,
+    val category: String,
+    @SerializedName("is_favorites_added") val isFavoritesAdded: Boolean,
+    @SerializedName("currency") val currencies: List<Currency>,
     val image: String?,
-    val price: Int,
-    @SerializedName("old_price") @Expose val oldPrice: Int,
-    @SerializedName("category_id") @Expose val categoryId: Int,
-    val discount: Int,
-    val quantity: Int,
-    val brand: Brand?,
-    val category: Category?
+    var selected: Boolean,
+    var quantity: Int
 ) {
-    fun priceFormatted() = price.moneyFormat() + " UZS"
-}
 
-data class Carrier(
-    val id: Int,
-    val name: String?,
-    val description: String?,
-    @SerializedName("transit_time") val transitTime: String?,
-    val price: Int,
-    @SerializedName("carrier_id") val carrierId: Int,
-    @SerializedName("sort_order") val sortOrder: Int
-)
+
+}
