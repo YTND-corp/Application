@@ -3,9 +3,16 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+                name="item"
+                type="uz.mod.templatex.model.local.entity.profile.ProfileAddress" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:padding="20dp">
 
         <TextView
@@ -13,13 +20,12 @@
                 style="@style/Regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@{item.getContact()}"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
                 tools:text="Дильноза — +998 90 123 31 13" />
 
         <TextView
@@ -29,12 +35,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:maxLines="2"
+                android:minLines="2"
+                android:text="@{item.getAddress()}"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@id/textView3"
                 tools:text="м-в Хумоюн, дом 40, Мирзо-Улугбекский р-н. \nТашкент" />
 
         <TextView
@@ -47,24 +53,18 @@
                 android:padding="5dp"
                 android:text="@string/profile_my_addresses_default_address"
                 android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:isVisible="@{item.isDefault}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@id/textView2" />
 
         <Button
-                android:id="@+id/button"
+                android:id="@+id/btnEdit"
                 style="@style/TextButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_my_addresses_edit"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toTopOf="@id/textView4" />
+                app:layout_constraintTop_toBottomOf="@id/textView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

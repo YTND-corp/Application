@@ -104,10 +104,6 @@ class MainActivity : ParentActivity() {
         }
     }
 
-    private fun hideKeyboard() {
-        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-    }
-
     override fun onSupportNavigateUp(): Boolean =
         NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp()
 }

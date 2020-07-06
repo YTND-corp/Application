@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.view_search.view.*
+import kotlinx.android.synthetic.main.view_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileMyOrdersFragmentBinding
+import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
-import uz.mod.templatex.utils.SimpleTextWatcher
 
 class ProfileMyOrdersFragment : ParentFragment() {
 
@@ -20,8 +21,12 @@ class ProfileMyOrdersFragment : ParentFragment() {
     private val binding by lazy { ProfileMyOrdersFragmentBinding.inflate(layoutInflater) }
 
     private val myOrdersAdapterListener = object : MyOrdersAdapterListener {
-        override fun toMyOrder() {
-            findNavController().navigate(R.id.action_profileMyOrdersFragment_to_profileMyOrderFragment)
+        override fun toMyOrder(orderId: Int) {
+            val action =
+                ProfileMyOrdersFragmentDirections.actionProfileMyOrdersFragmentToProfileMyOrderFragment(
+                    orderId
+                )
+            findNavController().navigate(action)
         }
     }
 
@@ -29,6 +34,13 @@ class ProfileMyOrdersFragment : ParentFragment() {
 
     companion object {
         fun newInstance() = ProfileMyOrdersFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.window?.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
+        )
     }
 
     override fun onCreateView(
@@ -43,6 +55,29 @@ class ProfileMyOrdersFragment : ParentFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+
+        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                    adapter.setItems(result.data)
+                }
+            }
+        })
+
+        viewModel.getOrders()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.window?.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+        )
     }
 
     private fun initViews() {
@@ -50,20 +85,15 @@ class ProfileMyOrdersFragment : ParentFragment() {
             viewModel = this@ProfileMyOrdersFragment.viewModel
             executePendingBindings()
 
-            if (!this@ProfileMyOrdersFragment.viewModel.isOrdersAvailable()) {
-                myOrdersNoOrdersContainer.isVisible = true
-                myOrdersOrdersContainer.isVisible = false
+            searchEt.setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    viewModel?.getOrders(v.text.toString())
+                    true
+                }
+                false
             }
 
-            myOrdersSearchContainer.searchEt.hint =
-                getString(R.string.profile_my_orders_search_hint)
-            myOrdersSearchContainer.searchEt.addTextChangedListener(SimpleTextWatcher {
-                val searchQuery = myOrdersSearchContainer.searchEt.text.toString()
-                this@ProfileMyOrdersFragment.viewModel.search(searchQuery)
-            })
-
             myOrdersRv.adapter = adapter
-            adapter.setItems(this@ProfileMyOrdersFragment.viewModel.getOrders())
         }
     }
 }

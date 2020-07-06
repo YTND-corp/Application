@@ -25,6 +25,7 @@
     <string name="action_change">Изменить</string>
     <string name="action_save">Сохранить</string>
     <string name="action_delete">Удалить</string>
+    <string name="action_add">Добавить</string>
 
     <string name="action_start_shopping">Начать покупки</string>
     <string name="action_forgot_password">Забыли пароль?</string>
@@ -140,14 +141,19 @@
     <string name="profile_my_order_price">Стоимость</string>
     <string name="profile_my_order_delivery">Доставка</string>
     <string name="profile_my_order_total">К оплате</string>
+    <string name="profile_my_order_quantity_short">Кол-во:</string>
 
     <!--Profile My Data-->
+    <string name="profile_my_data_title">МОИ ДАННЫЕ</string>
     <string name="profile_my_data_full_name">Имя и фамилия</string>
     <string name="profile_my_data_phone">Номер телефона</string>
     <string name="profile_my_data_email">Эл. почта</string>
     <string name="profile_my_birth_date">Дата Рождения</string>
 
     <!--Profile My Addresses-->
+    <string name="profile_my_addresses_title">МОИ АДРЕСА</string>
+    <string name="profile_my_addresses_edit_title">РЕДАКТИРОВАТЬ</string>
+    <string name="profile_my_addresses_create_title">НОВЫЙ АДРЕС</string>
     <string name="profile_my_addresses_you_have_no_addresses">У вас нет адресов</string>
     <string name="profile_my_addresses_edit">Pедактировать</string>
     <string name="profile_my_addresses_default_address">По умолчанию</string>
@@ -231,5 +237,7 @@
 
     <string name="checkout_final_title">Спасибо, %s!</string>
     <string name="checkout_final_message">Вы получите свой заказ:\n%s\n\nУведомления отключены. \nНе забудьте,  что если вы не включите их, \nмы не сможем присылать вам информацию \nо состоянии заказа.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -17,6 +17,7 @@ import uz.mod.templatex.R
 import uz.mod.templatex.utils.extension.color
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.utils.LanguageHelper
+import uz.mod.templatex.utils.extension.inputMethodManager
 
 open class ParentActivity : AppCompatActivity() {
 
@@ -97,5 +98,9 @@ open class ParentActivity : AppCompatActivity() {
 
     fun hideLoading() {
         progressView?.visibility = View.GONE
+    }
+
+    fun hideKeyboard() {
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 }

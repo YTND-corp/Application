@@ -1,247 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
                 name="item"
-                type="uz.mod.templatex.model.local.entity.Product" />
+                type="uz.mod.templatex.model.remote.response.profile.MyOrdersOrderDetailsResponse" />
 
         <variable
                 name="viewModel"
                 type="uz.mod.templatex.ui.profile.authorized.myOrder.ProfileMyOrderViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/windowBackgroundWhiteColor"
-            android:paddingStart="20dp"
-            android:paddingTop="20dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="20dp">
+            android:layout_height="match_parent"
+            app:isVisible="@{viewModel.isFirstTimeVisible}">
 
-        <TextView
-                android:id="@+id/myOrderAddressTv"
-                style="@style/Regular"
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="м-в Хумоюн, дом 40, Мирзо-Улугбекский р-н. Ташкент"
-                android:textColor="@color/blackTextColor"
-                android:textSize="14sp"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:background="@color/windowBackgroundWhiteColor"
+                android:paddingStart="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp">
 
-        <TextView
-                android:id="@+id/myOrderStatusTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:includeFontPadding="false"
-                android:text="Доставлен — 12.04.2020 09:19"
-                android:textColor="@color/blackTextColor"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/myOrderStatusView"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderAddressTv" />
+            <TextView
+                    android:id="@+id/myOrderAddressTv"
+                    style="@style/Regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@{item.address.getAddress()}"
+                    android:textColor="@color/blackTextColor"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="м-в Хумоюн, дом 40, Мирзо-Улугбекский р-н. Ташкент" />
 
-        <View
-                android:id="@+id/myOrderStatusView"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/my_orders_indicator_green"
-                app:layout_constraintBottom_toBottomOf="@+id/myOrderStatusTv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/myOrderStatusTv" />
+            <TextView
+                    android:id="@+id/myOrderStatusTv"
+                    style="@style/Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="@{item.order.state.printStateWithDate()}"
+                    android:textColor="@color/blackTextColor"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/myOrderStatusView"
+                    app:layout_constraintTop_toBottomOf="@+id/myOrderAddressTv"
+                    tools:text="Доставлен — 12.04.2020 09:19" />
 
-        <ImageView
-                android:id="@+id/myOrderImageImg"
-                android:layout_width="90dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="20dp"
-                android:scaleType="fitCenter"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderStatusTv"
-                app:srcCompat="@drawable/profile_my_orders_placeholder" />
+            <View
+                    android:id="@+id/myOrderStatusView"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/my_orders_indicator_green"
+                    app:layout_constraintBottom_toBottomOf="@+id/myOrderStatusTv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/myOrderStatusTv" />
 
-        <TextView
-                android:id="@+id/myOrderBrandTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:ellipsize="end"
-                android:includeFontPadding="false"
-                android:singleLine="true"
-                android:text="Jaded London"
-                android:textAllCaps="true"
-                android:textColor="@color/blackTextColor"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
-                app:layout_constraintTop_toTopOf="@+id/myOrderImageImg" />
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/myOrderStatusTv"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_order_product" />
 
-        <TextView
-                android:id="@+id/myOrderDescriptionTv"
-                style="@style/Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
-                android:includeFontPadding="false"
-                android:lineSpacingExtra="-4dp"
-                android:maxLines="2"
-                android:text="EXCLUSIVEPANELLED WIDE LEG — JDJKDghoseasdfs"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/myOrderSizeTv"
-                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderBrandTv" />
+            <TextView
+                    android:id="@+id/myOrderQuantityTv"
+                    style="@style/Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/profile_my_order_quantity"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black50TextColor"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvProducts" />
 
-        <TextView
-                android:id="@+id/myOrderSizeTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
-                android:includeFontPadding="false"
-                android:text="@string/profile_my_order_size"
-                android:textAllCaps="true"
-                android:textColor="@color/black50TextColor"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/myOrderPriceTv"
-                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderDescriptionTv" />
+            <TextView
+                    android:id="@+id/myOrderQuantityValueTv"
+                    style="@style/Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="@{String.valueOf(item.order.quantity)}"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/myOrderQuantityTv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="1" />
 
-        <TextView
-                android:id="@+id/myOrderPriceTv"
-                style="@style/Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
-                android:includeFontPadding="false"
-                android:text="98 313 545 UZS"
-                android:textColor="@color/blackTextColor"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="@+id/myOrderImageImg"
-                app:layout_constraintStart_toEndOf="@id/myOrderImageImg"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderSizeTv" />
+            <TextView
+                    android:id="@+id/myOrderCostTv"
+                    style="@style/Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/profile_my_order_price"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black50TextColor"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/myOrderQuantityTv" />
 
-        <TextView
-                android:id="@+id/myOrderQuantityTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:includeFontPadding="false"
-                android:text="@string/profile_my_order_quantity"
-                android:textAllCaps="true"
-                android:textColor="@color/black50TextColor"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderImageImg" />
+            <TextView
+                    android:id="@+id/myOrderCostValueTv"
+                    style="@style/Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="@{item.cart.printTotalPrice()}"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/myOrderCostTv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="231 423 сум" />
 
-        <TextView
-                android:id="@+id/myOrderQuantityValueTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:includeFontPadding="false"
-                android:text="1"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/myOrderQuantityTv"
-                app:layout_constraintEnd_toEndOf="parent" />
+            <TextView
+                    android:id="@+id/myOrderDeliveryTv"
+                    style="@style/Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/profile_my_order_delivery"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black50TextColor"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/myOrderCostTv" />
 
-        <TextView
-                android:id="@+id/myOrderCostTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:includeFontPadding="false"
-                android:text="@string/profile_my_order_price"
-                android:textAllCaps="true"
-                android:textColor="@color/black50TextColor"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderQuantityTv" />
+            <TextView
+                    android:id="@+id/myOrderDeliveryValueTv"
+                    style="@style/Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="@{item.cart.printDeliveryPrice()}"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/myOrderDeliveryTv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="1 333 сум" />
 
-        <TextView
-                android:id="@+id/myOrderCostValueTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:includeFontPadding="false"
-                android:text="231 423 сум"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/myOrderCostTv"
-                app:layout_constraintEnd_toEndOf="parent" />
+            <TextView
+                    android:id="@+id/myOrderTotalTv"
+                    style="@style/Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/profile_my_order_total"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black50TextColor"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/myOrderDeliveryTv" />
 
-        <TextView
-                android:id="@+id/myOrderDeliveryTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:includeFontPadding="false"
-                android:text="@string/profile_my_order_delivery"
-                android:textAllCaps="true"
-                android:textColor="@color/black50TextColor"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderCostTv" />
+            <TextView
+                    android:id="@+id/myOrderTotalValueTv"
+                    style="@style/Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="@{item.cart.printTotalPrice()}"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/myOrderTotalTv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="342 342 сум" />
 
-        <TextView
-                android:id="@+id/myOrderDeliveryValueTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:includeFontPadding="false"
-                android:text="1 333 сум"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/myOrderDeliveryTv"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-                android:id="@+id/myOrderTotalTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:includeFontPadding="false"
-                android:text="@string/profile_my_order_total"
-                android:textAllCaps="true"
-                android:textColor="@color/black50TextColor"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myOrderDeliveryTv" />
-
-        <TextView
-                android:id="@+id/myOrderTotalValueTv"
-                style="@style/Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:includeFontPadding="false"
-                android:text="342 342 сум"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/myOrderTotalTv"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

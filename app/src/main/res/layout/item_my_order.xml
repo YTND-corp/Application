@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
                 name="item"
-                type="uz.mod.templatex.model.local.entity.Product" />
+                type="uz.mod.templatex.model.local.entity.profile.ProfileOrder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="120dp"
             android:layout_marginBottom="4dp"
             android:background="@color/windowBackgroundWhiteColor"
             android:paddingStart="20dp"
@@ -19,105 +20,102 @@
             android:paddingEnd="20dp"
             android:paddingBottom="20dp">
 
-        <ImageView
-                android:id="@+id/itemOrderImageImg"
-                android:layout_width="75dp"
-                android:layout_height="100dp"
-                android:scaleType="fitCenter"
+        <TextView
+                android:id="@+id/tvId"
+                style="@style/Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.orderId}"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/ivState"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/profile_my_orders_placeholder" />
-
-        <TextView
-                android:id="@+id/itemOrderBrandTv"
-                style="@style/Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:ellipsize="end"
-                android:includeFontPadding="false"
-                android:singleLine="true"
-                android:text="ZARA"
-                android:textColor="@color/blackTextColor"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/itemOrderCategoryTv"
-                app:layout_constraintStart_toEndOf="@+id/itemOrderImageImg"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-                android:id="@+id/itemOrderCategoryTv"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="2dp"
-                android:includeFontPadding="false"
-                android:text="СНИКЕРСЫ"
-                android:textColor="@color/black50TextColor"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/itemOrderPriceTv"
-                app:layout_constraintStart_toEndOf="@+id/itemOrderImageImg"
-                app:layout_constraintTop_toBottomOf="@+id/itemOrderBrandTv" />
-
-        <TextView
-                android:id="@+id/itemOrderPriceTv"
-                style="@style/Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
-                android:includeFontPadding="false"
-                android:text="98 313 545 UZS"
-                android:textColor="@color/blackTextColor"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/itemOrderImageImg"
-                app:layout_constraintTop_toBottomOf="@+id/itemOrderCategoryTv" />
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="№4324235" />
 
         <View
-                android:id="@+id/itemOrderStatusView"
+                android:id="@+id/ivState"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginVertical="12dp"
                 android:background="@drawable/my_orders_indicator_green"
-                app:layout_constraintBottom_toBottomOf="@+id/itemOrderStatusTv"
-                app:layout_constraintStart_toEndOf="@+id/itemOrderImageImg"
-                app:layout_constraintTop_toTopOf="@+id/itemOrderStatusTv" />
+                app:layout_constraintBottom_toTopOf="@+id/tvDate"
+                app:layout_constraintStart_toStartOf="@id/tvId"
+                app:layout_constraintTop_toBottomOf="@+id/tvId" />
 
         <TextView
-                android:id="@+id/itemOrderStatusTv"
+                android:id="@+id/tvState"
                 style="@style/Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
                 android:includeFontPadding="false"
-                android:text="Доставлен"
+                android:text="@{item.state.name}"
                 android:textColor="@color/blackTextColor"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/itemOrderStatusView"
-                app:layout_constraintTop_toBottomOf="@+id/itemOrderPriceTv" />
+                app:layout_constraintBottom_toBottomOf="@id/ivState"
+                app:layout_constraintStart_toEndOf="@id/ivState"
+                app:layout_constraintTop_toTopOf="@id/ivState"
+                tools:text="Доставлен" />
 
         <TextView
-                android:id="@+id/itemOrderDatetimeTv"
+                android:id="@+id/tvDate"
                 style="@style/Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="12.04.2020\n09:19"
-                android:textColor="@color/blackTextColor"
+                android:text="@{item.state.time}"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvId"
+                app:layout_constraintTop_toBottomOf="@+id/ivState"
+                tools:text="12.04.2020 - 09:19" />
 
-        <FrameLayout
-                android:id="@+id/itemOrderMoreContainer"
+        <TextView
+                android:id="@+id/tvQuantity"
+                style="@style/Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/itemOrderStatusTv"
+                android:text="@{String.valueOf(item.quantity)}"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvPrice"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/itemOrderStatusTv">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="2" />
+
+        <TextView
+                android:id="@+id/textView1"
+                style="@style/Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="@string/profile_my_order_quantity_short"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvQuantity"
+                app:layout_constraintEnd_toStartOf="@id/tvQuantity"
+                app:layout_constraintTop_toTopOf="@id/tvQuantity" />
+
+        <TextView
+                android:id="@+id/tvPrice"
+                style="@style/Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp"
+                android:text="@{item.price}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/flMore"
+                app:layout_constraintEnd_toEndOf="@id/tvQuantity"
+                app:layout_constraintTop_toBottomOf="@+id/tvQuantity"
+                tools:text="313 545 UZS" />
+
+        <FrameLayout
+                android:id="@+id/flMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/tvQuantity"
+                app:layout_constraintTop_toBottomOf="@+id/tvPrice">
 
             <TextView
                     style="@style/Regular"
