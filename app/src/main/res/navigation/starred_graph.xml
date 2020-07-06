@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/starred_graph"
+        app:startDestination="@id/favoriteFragment">
+
+    <fragment
+            android:id="@+id/selectionFragment"
+            android:name="uz.mod.templatex.ui.selection.SelectionFragment"
+            android:label=""
+            tools:layout="@layout/selection_fragment">
+
+        <action
+                android:id="@+id/action_selectionFragment_to_searchFragment"
+                app:destination="@id/searchFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/categoryFragment"
+            android:name="uz.mod.templatex.ui.category.CategoryFragment"
+            android:label=""
+            tools:layout="@layout/category_fragment">
+        <action
+                android:id="@+id/action_categoryFragment_to_subCategoryFragment"
+                app:destination="@id/subCategoryFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/favoriteFragment"
+            android:name="uz.mod.templatex.ui.favorite.FavoriteFragment"
+            android:label=""
+            tools:layout="@layout/favorite_fragment" />
+    <fragment
+            android:id="@+id/profileAuthorizedFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedFragment"
+            android:label="@string/title_profile_authorized"
+            tools:layout="@layout/profile_authorized_fragment">
+        <action
+                android:id="@+id/action_profileAuthorizedFragment_to_profileMyOrdersFragment"
+                app:destination="@id/profileMyOrdersFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/profileFragment"
+            android:name="uz.mod.templatex.ui.profile.guest.ProfileGuestFragment"
+            android:label=""
+            tools:layout="@layout/profile_guest_fragment">
+        <action
+                android:id="@+id/action_profileFragment_to_sign_up_graph"
+                app:destination="@id/sign_up_graph"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+                android:id="@+id/action_profileFragment_to_sign_in_graph"
+                app:destination="@id/sign_in_graph"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+                android:id="@+id/action_profileFragment_to_callMeFragment"
+                app:destination="@id/callMeFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileFragment_to_checkOrderStatusFragment"
+                app:destination="@id/checkOrderStatusFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileFragment_to_aboutFragment"
+                app:destination="@id/aboutFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileFragment_to_askQuestionFragment"
+                app:destination="@id/askQuestionFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileFragment_to_supportFragment"
+                app:destination="@id/supportCenterFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileFragment_to_countryFragment"
+                app:destination="@id/countryFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileFragment_to_profileAuthorizedFragment"
+                app:destination="@id/profileAuthorizedFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/cartFragment"
+            android:name="uz.mod.templatex.ui.cart.CartFragment"
+            android:label=""
+            tools:layout="@layout/cart_fragment">
+        <action
+                android:id="@+id/action_cartFragment_to_checkoutFragment"
+                app:destination="@id/checkoutFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/callMeFragment"
+            android:name="uz.mod.templatex.ui.callMe.CallMeFragment"
+            android:label="@string/title_call_me"
+            tools:layout="@layout/call_me_fragment" />
+
+    <fragment
+            android:id="@+id/checkOrderStatusFragment"
+            android:name="uz.mod.templatex.ui.checkOrderStatus.CheckOrderStatusFragment"
+            android:label="@string/title_check_order_status"
+            tools:layout="@layout/check_order_status_fragment" />
+    <fragment
+            android:id="@+id/checkoutFragment"
+            android:name="uz.mod.templatex.ui.checkout.CheckoutFragment"
+            android:label="@string/title_checkout"
+            tools:layout="@layout/checkout_fragment">
+        <action
+                android:id="@+id/action_checkoutFragment_to_adresFragment"
+                app:destination="@id/adresFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/aboutFragment"
+            android:name="uz.mod.templatex.ui.about.AboutFragment"
+            android:label="@string/title_about"
+            tools:layout="@layout/about_fragment" />
+    <fragment
+            android:id="@+id/askQuestionFragment"
+            android:name="uz.mod.templatex.ui.askQuestion.AskQuestionFragment"
+            android:label="@string/title_ask_question"
+            tools:layout="@layout/ask_question_fragment" />
+
+    <fragment
+            android:id="@+id/adresFragment"
+            android:name="uz.mod.templatex.ui.adres.AdresFragment"
+            android:label="@string/title_adres"
+            tools:layout="@layout/adres_fragment" />
+    <fragment
+            android:id="@+id/supportCenterFragment"
+            android:name="uz.mod.templatex.ui.supportCenter.SupportCenterFragment"
+            android:label="@string/title_support"
+            tools:layout="@layout/support_center_fragment" />
+    <fragment
+            android:id="@+id/subCategoryFragment"
+            android:name="uz.mod.templatex.ui.subCategory.SubCategoryFragment"
+            android:label=""
+            tools:layout="@layout/sub_category_fragment">
+
+        <argument
+                android:name="category"
+                app:argType="uz.mod.templatex.model.local.entity.Category"
+                app:nullable="true"
+                android:defaultValue="@null" />
+
+    </fragment>
+    <fragment
+            android:id="@+id/countryFragment"
+            android:name="uz.mod.templatex.ui.country.CountryFragment"
+            android:label=""
+            tools:layout="@layout/country_fragment" />
+    <fragment
+            android:id="@+id/productsFragment"
+            android:name="uz.mod.templatex.ui.products.ProductsFragment"
+            android:label=""
+            tools:layout="@layout/products_fragment">
+        <action
+                android:id="@+id/action_productsFragment_to_filterFragment"
+                app:destination="@id/filterFragment" />
+        <argument
+                android:name="id"
+                android:defaultValue="0"
+                app:argType="integer" />
+        <argument
+                android:name="title"
+                app:argType="string"
+                app:nullable="true" />
+        <argument
+                android:name="brand_id"
+                app:argType="integer"
+                android:defaultValue="0" />
+        <action
+                android:id="@+id/action_productsFragment_to_mainFilterFragment"
+                app:destination="@id/mainFilterFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+    <fragment
+            android:id="@+id/productFragment"
+            android:name="uz.mod.templatex.ui.product.ProductFragment"
+            android:label=""
+            tools:layout="@layout/product_fragment" >
+
+        <argument
+                android:name="product_id"
+                app:argType="integer"
+                android:defaultValue="0" />
+    </fragment>
+
+
+    <fragment
+            android:id="@+id/filterFragment"
+            android:name="uz.mod.templatex.ui.filter.FilterFragment"
+            android:label="@string/title_filter"
+            tools:layout="@layout/filter_fragment" />
+    <fragment
+            android:id="@+id/searchFragment"
+            android:name="uz.mod.templatex.ui.search.SearchFragment"
+            android:label="@string/title_search"
+            tools:layout="@layout/search_fragment" />
+
+    <action
+            android:id="@+id/action_global_productFragment"
+            app:destination="@id/productFragment" />
+
+    <action
+            android:id="@+id/action_global_productsFragment"
+            app:destination="@id/productsFragment"
+            app:launchSingleTop="true" />
+
+    <include app:graph="@navigation/sign_up_graph" />
+    <include app:graph="@navigation/sign_in_graph" />
+    <fragment
+            android:id="@+id/profileMyOrdersFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersFragment"
+            android:label="@string/title_profile_my_orders"
+            tools:layout="@layout/profile_my_orders_fragment">
+        <action
+                android:id="@+id/action_profileMyOrdersFragment_to_profileMyOrderFragment"
+                app:destination="@id/profileMyOrderFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/profileMyOrderFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.myOrder.ProfileMyOrderFragment"
+            tools:layout="@layout/profile_my_order_fragment" />
+    <fragment
+            android:id="@+id/mainFilterFragment"
+            android:name="uz.mod.templatex.ui.new_filter.MainFilterFragment">
+        <argument
+                android:name="categoryId"
+                app:argType="integer" />
+        <action
+                android:id="@+id/action_mainFilterFragment_to_singleAttributeFragment"
+                app:destination="@id/singleAttributeFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/singleAttributeFragment"
+            android:name="uz.mod.templatex.ui.new_filter.singleattribute.SingleAttributeFragment"
+            android:label="SingleAttributeFragment" >
+        <argument
+                android:name="attrId"
+                app:argType="integer" />
+    </fragment>
+</navigation>
