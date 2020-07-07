@@ -7,14 +7,16 @@
 
         <variable
                 name="viewModel"
-                type="uz.mod.templatex.ui.adres.AdresViewModel" />
+                type="uz.mod.templatex.ui.address.AddressViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:background="@color/windowBackgroundWhiteColor"
-            tools:context=".ui.adres.AdresFragment">
+            tools:context=".ui.address.AddressFragment">
 
 
         <ScrollView
@@ -45,7 +47,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:text="@{viewModel.city.name}"
+                            />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,7 +68,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:text="@={viewModel.street}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,7 +88,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:text="@={viewModel.home}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,12 +108,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:text="@={viewModel.flat}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                        android:id="@+id/adreses_header"
+                        android:id="@+id/addresses_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_size_small"
@@ -127,12 +134,12 @@
                         />
 
                 <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/adreses"
+                        android:id="@+id/addresses"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/adreses_header"
+                        app:layout_constraintTop_toBottomOf="@id/addresses_header"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/adres_item"
+                        tools:listitem="@layout/address_item"
                         tools:itemCount="2"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -142,6 +149,7 @@
                 style="@style/ContainedButtonStyle"
                 android:layout_width="match_parent"
                 android:text="@string/action_continue"
+                android:enabled="@{viewModel.isAllValid()}"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

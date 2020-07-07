@@ -36,7 +36,7 @@ class SubCategoryAdapter(private var items: List<SubCategory> = listOf()) :
                     it.findNavController()
                         .navigate(
                             SubCategoryFragmentDirections.actionGlobalProductsFragment(
-                                subCategory.id,
+                                subCategory.parentId,
                                 subCategory.name
                             )
                         )

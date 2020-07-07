@@ -19,15 +19,13 @@ class SelectionFragment: ParentFragment() {
 
     private lateinit var pageAdapter: SelectionPagerAdapter
 
-    companion object {
-        fun newInstance() = SelectionFragment()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true);
 
         viewModel.getHome()
+
+        pageAdapter = SelectionPagerAdapter(childFragmentManager)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -59,22 +57,18 @@ class SelectionFragment: ParentFragment() {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    Timber.e(result.data.toString())
                     pageAdapter.setItems(result.data)
                 }
             }
         })
     }
 
-
-
-
     private fun initViews() {
         binding.apply {
             viewModel = this@SelectionFragment.viewModel
             executePendingBindings()
 
-            pageAdapter = SelectionPagerAdapter(childFragmentManager)
+
             pager.offscreenPageLimit = 3
             pager.adapter = pageAdapter
 

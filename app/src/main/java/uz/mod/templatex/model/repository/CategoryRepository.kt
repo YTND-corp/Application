@@ -40,4 +40,17 @@ class CategoryRepository constructor(val service: CategoryService) {
 
         }.asLiveData()
     }
+
+    fun getSubCategories(): LiveData<Resource<List<CategoryGender>>> {
+        return object : NetworkOnlyResource<List<CategoryGender>, List<CategoryGender>>() {
+            override fun processResult(item: List<CategoryGender>?): List<CategoryGender>? {
+                return  item
+            }
+
+            override fun createCall(): LiveData<ApiResponse<List<CategoryGender>>> {
+                return service.getCategories()
+            }
+
+        }.asLiveData()
+    }
 }

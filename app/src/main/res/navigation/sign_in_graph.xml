@@ -8,7 +8,8 @@
     <fragment
             android:id="@+id/signInFragment"
             android:name="uz.mod.templatex.ui.signIn.SignInFragment"
-            android:label="@string/title_sign_in">
+            android:label="@string/title_sign_in"
+            tools:layout="@layout/sign_in_fragment">
         <action
                 android:id="@+id/action_signInFragment_to_recoveryPasswordFragment"
                 app:destination="@id/recoveryPasswordFragment"
@@ -20,6 +21,7 @@
     <fragment
             android:id="@+id/recoveryPasswordFragment"
             android:name="uz.mod.templatex.ui.recoveryPassword.RecoveryPasswordFragment"
-            android:label="@string/title_recovery" />
+            android:label="@string/title_recovery"
+            tools:layout="@layout/recovery_password_fragment"/>
 
 </navigation>

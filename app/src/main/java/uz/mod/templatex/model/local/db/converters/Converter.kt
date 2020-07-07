@@ -6,6 +6,8 @@ import com.google.gson.reflect.TypeToken
 import uz.mod.templatex.model.local.entity.AttributeCombination
 import uz.mod.templatex.model.local.entity.Brand
 import uz.mod.templatex.model.local.entity.*
+import org.w3c.dom.Attr
+import uz.mod.templatex.model.local.entity.*
 import uz.mod.templatex.model.local.entity.Currency
 import java.util.*
 
@@ -39,6 +41,20 @@ class Converter {
     @TypeConverter
     fun brandListToString(someObjects: List<Brand>?): String? {
         return gson.toJson(someObjects)
+    }
+
+    @TypeConverter
+    fun attributeListToString(someObjects: List<Attribute>?): String? {
+        return gson.toJson(someObjects)
+    }
+
+    @TypeConverter
+    fun stringToAttributeList(data: String?): List<Attribute>? {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+        val listType = object : TypeToken<List<Attribute>?>() {}.type
+        return gson.fromJson<List<Attribute>>(data, listType)
     }
 
     @TypeConverter

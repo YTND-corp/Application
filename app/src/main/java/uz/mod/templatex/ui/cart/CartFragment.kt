@@ -68,6 +68,19 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             }
         })
 
+        viewModel.deleteResponse.observe(viewLifecycleOwner, Observer {result ->
+            when(result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    showError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                }
+            }
+        })
+
         viewModel.products.observe(viewLifecycleOwner, Observer {result ->
            adapter.setItems(result)
         })
@@ -89,14 +102,14 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
 
             continueButton.setOnClickListener {
                 if (viewModel?.isEditing?.value==true) {
-                    //viewModel.removeProduct()
+                    viewModel?.delete()
                 } else {
-                    findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
+                    findNavController().navigate(R.id.action_cartFragment_to_checkout_graph)
                 }
             }
 
             placeholderButton.setOnClickListener {
-                findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
+                findNavController().navigate(R.id.action_cartFragment_to_checkout_graph)
             }
 
             products.adapter = adapter

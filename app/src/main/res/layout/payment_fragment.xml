@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.mod.templatex.ui.payment.PaymentViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/windowBackgroundWhiteColor"
+                tools:context=".ui.checkout.CheckoutFragment">
+
+
+            <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:fillViewport="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/option_header"
+                            style="@style/Bold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/activity_horizontal_margin"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                            android:text="@string/choose_payment_option"
+                            android:textColor="@color/black"
+                            android:textSize="21.8sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/options"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/option_header"
+                            tools:itemCount="2"
+                            tools:listitem="@layout/payment_method_item" />
+
+                    <View
+                            android:id="@+id/divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/divider_big_height"
+                            android:layout_marginTop="12dp"
+                            android:background="@color/dividerBiggerColor"
+                            app:layout_constraintTop_toBottomOf="@id/options" />
+
+                    <TextView
+                            android:id="@+id/payment_header"
+                            style="@style/Bold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/activity_horizontal_margin"
+                            android:layout_marginTop="33dp"
+                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                            android:text="@string/payment_header"
+                            android:textColor="@color/black"
+                            android:textSize="21.8sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/divider" />
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/divider_line_height"
+                            android:layout_marginStart="@dimen/activity_horizontal_margin"
+                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                            app:layout_constraintTop_toBottomOf="@id/payment_header"
+                            android:layout_marginTop="12dp"/>
+
+                    <TextView
+                            android:id="@+id/count_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/black"
+                            android:text="@string/payment_product_count"
+                            android:layout_marginTop="29dp"
+                            app:layout_constraintTop_toBottomOf="@id/payment_header"
+                            app:layout_constraintStart_toStartOf="@id/payment_header"
+                            />
+
+                    <TextView
+                            android:id="@+id/count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/black"
+                            tools:text="2"
+                            android:text="@{viewModel.count}"
+                            android:gravity="end"
+                            app:layout_constraintTop_toTopOf="@id/count_hint"
+                            app:layout_constraintEnd_toEndOf="@id/payment_header"
+                            />
+
+                    <TextView
+                            android:id="@+id/price_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/black"
+                            android:text="@string/payment_product_price"
+                            android:layout_marginTop="13dp"
+                            app:layout_constraintTop_toBottomOf="@id/count_hint"
+                            app:layout_constraintStart_toStartOf="@id/payment_header"
+                            />
+
+                    <TextView
+                            android:id="@+id/price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/black"
+                            tools:text="23 499 ₽"
+                            android:text="@{viewModel.price}"
+                            android:gravity="end"
+                            app:layout_constraintTop_toTopOf="@id/price_hint"
+                            app:layout_constraintEnd_toEndOf="@id/payment_header"
+                            />
+
+                    <TextView
+                            android:id="@+id/delivery_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/black"
+                            android:text="@string/delivery"
+                            android:layout_marginTop="13dp"
+                            app:layout_constraintTop_toBottomOf="@id/price_hint"
+                            app:layout_constraintStart_toStartOf="@id/payment_header"
+                            />
+
+                    <TextView
+                            android:id="@+id/delivery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/black"
+                            tools:text="299 ₽"
+                            android:text="@{viewModel.delivery}"
+                            android:gravity="end"
+                            app:layout_constraintTop_toTopOf="@id/delivery_hint"
+                            app:layout_constraintEnd_toEndOf="@id/payment_header"
+                            />
+
+                    <TextView
+                            android:id="@+id/discount_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="#b43434"
+                            android:text="@string/discount"
+                            android:layout_marginTop="13dp"
+                            app:layout_constraintTop_toBottomOf="@id/delivery_hint"
+                            app:layout_constraintStart_toStartOf="@id/payment_header"
+                            />
+
+                    <TextView
+                            android:id="@+id/discount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="#b43434"
+                            tools:text="299 ₽"
+                            android:text="@{viewModel.discount}"
+                            android:gravity="end"
+                            app:layout_constraintTop_toTopOf="@id/discount_hint"
+                            app:layout_constraintEnd_toEndOf="@id/payment_header"
+                            />
+
+                    <TextView
+                            android:id="@+id/total_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/black"
+                            android:text="@string/total"
+                            android:layout_marginTop="13dp"
+                            app:layout_constraintTop_toBottomOf="@id/discount_hint"
+                            app:layout_constraintStart_toStartOf="@id/payment_header"
+                            />
+
+                    <TextView
+                            android:id="@+id/total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/black"
+                            tools:text="299 ₽"
+                            android:gravity="end"
+                            android:text="@{viewModel.total}"
+                            app:layout_constraintTop_toTopOf="@id/total_hint"
+                            app:layout_constraintEnd_toEndOf="@id/payment_header"
+                            />
+
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:background="#f7f7f7"
+                            android:paddingTop="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintVertical_bias="1">
+
+                        <Button
+                                android:id="@+id/continue_button"
+                                style="@style/ContainedButtonStyle"
+                                android:layout_width="match_parent"
+                                android:layout_marginBottom="16dp"
+                                android:text="@string/action_checkout"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="6dp"
+                                android:textColor="#80000000"
+                                android:textSize="@dimen/text_size_tiny"
+                                android:text="@string/public_terms_agree_to_terms" />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="13dp"
+                                android:text="@string/public_terms"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_size_tiny" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
