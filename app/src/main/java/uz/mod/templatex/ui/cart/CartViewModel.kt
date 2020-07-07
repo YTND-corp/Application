@@ -25,6 +25,16 @@ class CartViewModel constructor(application: Application, val repository: CartRe
         repository.updateProductCount(37, it)
     }
 
+    private val deleteRequest = MutableLiveData<Boolean>()
+    val deleteResponse = Transformations.switchMap(deleteRequest) {
+        val temps = arrayListOf<Int>()
+        selectedProducts?.value?.forEach {
+            temps.add(it.id)
+        }
+
+        repository.delete(temps)
+    }
+
     fun getCart() {
         request.value = true
     }
@@ -34,8 +44,6 @@ class CartViewModel constructor(application: Application, val repository: CartRe
     }
 
     var isEditing = MutableLiveData(false)
-
-    fun removeProduct(product: Product) = repository.remove(product.id)
 
     val productCount: LiveData<String> = Transformations.map(products) {
         application.getString(R.string.product_count, it?.size ?: 0)
@@ -48,6 +56,10 @@ class CartViewModel constructor(application: Application, val repository: CartRe
     val selectedProducts: LiveData<List<Product>> = Transformations.map(products) {
         it?.filter { it.selected }
     }
+
+   fun delete() {
+        deleteRequest.value = true
+   }
 
     val buttonText = Transformations.map(isEditing) {
         application.getString(if (it) R.string.action_delete else R.string.action_buy)

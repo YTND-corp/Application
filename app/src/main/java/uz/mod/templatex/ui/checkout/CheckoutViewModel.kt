@@ -44,7 +44,7 @@ class CheckoutViewModel constructor(
         }
 
     val request = MutableLiveData<Boolean>()
-    val response: LiveData<Resource<Boolean>> = Transformations.switchMap(request) {
+    val response= Transformations.switchMap(request) {
         repository.user(
             name.value!!,
             surname.value!!,
@@ -56,6 +56,8 @@ class CheckoutViewModel constructor(
     fun user() {
         request.value = true
     }
+
+    fun getPhone() = phone.value!!
 
     fun next() {
         navigator.value = 1

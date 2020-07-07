@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.mod.templatex.ui.code.CodeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.code.CodeFragment">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:text="@string/code_header"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_large"
+                        app:layout_constraintBottom_toTopOf="@id/phone"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                        android:id="@+id/phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:lineSpacingExtra="9.3sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_small"
+                        android:gravity="center"
+                        app:layout_constraintEnd_toEndOf="@id/title"
+                        app:layout_constraintStart_toStartOf="@id/title"
+                        app:layout_constraintTop_toBottomOf="@id/title"
+                        android:text="@{viewModel.getSubTitle}"
+                        tools:text="Чтобы подтвердить +998 90 184 49 91" />
+
+                <TextView
+                        android:id="@+id/change"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:lineSpacingExtra="9.3sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_small"
+                        android:gravity="center"
+                        app:layout_constraintEnd_toEndOf="@id/title"
+                        app:layout_constraintStart_toStartOf="@id/title"
+                        app:layout_constraintTop_toBottomOf="@id/phone"
+                        android:text="@string/code_change_phone" />
+
+                <LinearLayout
+                        android:id="@+id/code_wrapper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="60dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/change">
+
+                    <EditText
+                            android:id="@+id/first"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_code"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:gravity="center"
+                            android:text="@{viewModel.first}"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/change" />
+
+                    <View
+                            android:layout_width="15dp"
+                            android:layout_height="15dp" />
+
+                    <EditText
+                            android:id="@+id/second"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_code"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:gravity="center"
+                            android:text="@{viewModel.second}"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/change" />
+
+                    <View
+                            android:layout_width="15dp"
+                            android:layout_height="15dp" />
+
+                    <EditText
+                            android:id="@+id/third"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_code"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:gravity="center"
+                            android:text="@{viewModel.third}"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/change" />
+
+                    <View
+                            android:layout_width="15dp"
+                            android:layout_height="15dp" />
+
+                    <EditText
+                            android:id="@+id/fourth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_code"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:gravity="center"
+                            android:text="@{viewModel.fourth}"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/change" />
+                </LinearLayout>
+                <EditText
+                        android:id="@+id/code"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@id/code_wrapper"
+                        app:layout_constraintEnd_toEndOf="@id/code_wrapper"
+                        app:layout_constraintTop_toTopOf="@id/code_wrapper"
+                        app:layout_constraintBottom_toBottomOf="@id/code_wrapper"
+                        android:textColor="@color/transparentColor"
+                        android:text="@={viewModel.code}"
+                        android:inputType="number"
+                        android:cursorVisible="false"
+                        android:maxLength="4"
+                        android:background="@null"/>
+
+                <Button
+                        android:id="@+id/resend_button"
+                        style="@style/ContainedButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/action_send_code_again"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/text_size_smaller"
+                        app:layout_constraintVertical_bias="1"
+                        app:layout_constraintTop_toBottomOf="@id/code"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

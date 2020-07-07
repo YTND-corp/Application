@@ -51,7 +51,7 @@ class SignInFragment : ParentFragment() {
                     hideLoading()
                     Timber.e(result.data.toString())
                     result.data?.let {
-                        sharedViewModel.loggedIn()
+                        sharedViewModel.loggedIn(it)
                         findNavController().popBackStack()
                     }
                 }

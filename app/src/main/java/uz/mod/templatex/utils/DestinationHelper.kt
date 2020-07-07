@@ -26,7 +26,14 @@ object DestinationHelper {
         DestinationConfig(R.id.cartFragment, false, false),
         DestinationConfig(R.id.productsFragment, false, false),
         DestinationConfig(R.id.productFragment, false, false),
-        DestinationConfig(R.id.subCategoryFragment, true, true)
+        DestinationConfig(R.id.subCategoryFragment, true, true),
+
+        DestinationConfig(R.id.checkoutFragment, bottomBar = false),
+        DestinationConfig(R.id.addressFragment, bottomBar = false),
+        DestinationConfig(R.id.codeFragment, bottomBar = false),
+        DestinationConfig(R.id.deliveryFragment, bottomBar = false),
+        DestinationConfig(R.id.paymentFragment, bottomBar = false),
+        DestinationConfig(R.id.checkoutFinalFragment, false,false, bottomBar = false)
     )
 
     data class DestinationConfig(

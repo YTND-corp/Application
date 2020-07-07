@@ -1,7 +1,6 @@
 package uz.mod.templatex.app.modules
 
 import android.app.Application
-import android.text.Spannable
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -24,7 +23,7 @@ import uz.mod.templatex.model.remote.network.NetworkInterceptor
 import uz.mod.templatex.model.repository.*
 import uz.mod.templatex.ui.MainViewModel
 import uz.mod.templatex.ui.about.AboutViewModel
-import uz.mod.templatex.ui.adres.AdresViewModel
+import uz.mod.templatex.ui.address.AddressViewModel
 import uz.mod.templatex.ui.askQuestion.AskQuestionViewModel
 import uz.mod.templatex.ui.callMe.CallMeViewModel
 import uz.mod.templatex.ui.cart.CartViewModel
@@ -32,9 +31,13 @@ import uz.mod.templatex.ui.category.CategoryChildViewModel
 import uz.mod.templatex.ui.category.CategoryViewModel
 import uz.mod.templatex.ui.checkOrderStatus.CheckOrderStatusViewModel
 import uz.mod.templatex.ui.checkout.CheckoutViewModel
+import uz.mod.templatex.ui.checkoutFinal.CheckoutFinalViewModel
+import uz.mod.templatex.ui.code.CodeViewModel
 import uz.mod.templatex.ui.country.CountryViewModel
+import uz.mod.templatex.ui.delivery.DeliveryViewModel
 import uz.mod.templatex.ui.favorite.FavoriteViewModel
 import uz.mod.templatex.ui.filter.FilterViewModel
+import uz.mod.templatex.ui.payment.PaymentViewModel
 import uz.mod.templatex.ui.product.ProductViewModel
 import uz.mod.templatex.ui.products.ProductsViewModel
 import uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedViewModel
@@ -60,7 +63,7 @@ import javax.net.ssl.X509TrustManager
 
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
-    viewModel { MainViewModel(get(), get()) }
+    viewModel { MainViewModel(get(), get(), get()) }
 
     viewModel { FavoriteViewModel(get(), get()) }
 
@@ -74,7 +77,7 @@ val viewModelModule = module {
 
     viewModel { CategoryViewModel(get(), get()) }
     viewModel { CategoryChildViewModel(get()) }
-    viewModel { SubCategoryViewModel(get()) }
+    viewModel { SubCategoryViewModel(get(), get()) }
 
     viewModel {
         ProfileGuestViewModel(
@@ -94,7 +97,11 @@ val viewModelModule = module {
 
     viewModel { CartViewModel(get(), get()) }
     viewModel { CheckoutViewModel(get(), get()) }
-    viewModel { AdresViewModel(get()) }
+    viewModel { AddressViewModel(get(), get()) }
+    viewModel { CodeViewModel(get(), get()) }
+    viewModel { DeliveryViewModel(get()) }
+    viewModel { PaymentViewModel(get(), get()) }
+    viewModel { CheckoutFinalViewModel(get(), get()) }
 
     viewModel { ProductsViewModel(get(), get()) }
     viewModel { ProductViewModel(get(), get()) }
@@ -218,7 +225,7 @@ val retrofitModule = module {
     single { GsonBuilder().create() }
     single { NetworkInterceptor(get()) }
     single { provideHttpLoggingInterceptor() }
-    single { AuthInterceptor(get()) }
+    single { AuthInterceptor(get(), get()) }
     single { provideX509TrustManager() }
     single { providesSSLSocketFactory(get()) }
     single { provideHttpClient(get(), get(), get(), get(), get(), get()) }

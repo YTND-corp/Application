@@ -10,17 +10,12 @@ data class Filter (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val brands: List<Brand>?,
-    @Embedded
-    val attributes: Attribute?,
+    val attributes: List<Attribute>?,
     @Embedded
     var pagination: Pagination?
 )
 
-data class Attribute(
-    @Embedded(prefix = "color_") val color: ValueWrapper?
-)
-
-data class ValueWrapper (
+data class Attribute (
     val id: Int,
     val name: String,
     val values: List<Value>?

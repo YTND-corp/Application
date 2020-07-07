@@ -42,52 +42,19 @@ class CartRepository constructor(val service: CartService, val productDao: Produ
         }.asLiveData()
     }
 
-    fun remove(id: Int): LiveData<Resource<List<Product>>> {
-        return object : NetworkBoundResource<List<Product>, CartResponse>(executors) {
-
-            override fun saveCallResult(item: CartResponse) {
-                productDao.deleteAll()
-                item.cart.products?.let {
-                    productDao.insertAll(it)
-                }
+    fun delete(ids: List<Int>): LiveData<Resource<Any>> {
+        return object : NetworkOnlyResource<Any, Any>() {
+            override fun processResult(item: Any?): Any? {
+                productDao.delete(ids)
+                return item
             }
 
-            override fun shouldFetch(data: List<Product>?): Boolean {
-                return true
+            override fun createCall(): LiveData<ApiResponse<Any>> {
+                return service.delete(ids)
             }
 
-            override fun loadFromDb(): LiveData<List<Product>> {
-                return productDao.getAll()
-            }
-
-            override fun createCall(): LiveData<ApiResponse<CartResponse>> {
-                return service.remove(id)
-            }
         }.asLiveData()
     }
-
-//    fun updateProductCount(id: Int, count: Int): LiveData<Resource<Void>> {
-//        return object : NetworkBoundResource<Void, Void>(executors) {
-//
-//            override fun saveCallResult(item: Void) {
-//                Timber.e("Saving to database")
-//                productDao.updateCount(id, count)
-//            }
-//
-//            override fun shouldFetch(data: Void?): Boolean {
-//                return true
-//            }
-//
-//            override fun loadFromDb(): LiveData<Void> {
-//                return AbsentLiveData.create()
-//            }
-//
-//            override fun createCall(): LiveData<ApiResponse<Void>> {
-//                Timber.e("update...${id} + ${count}")
-//                return service.updateCount(id,count)
-//            }
-//        }.asLiveData()
-//    }
 
     fun updateProductCount(id: Int, count: Int): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {

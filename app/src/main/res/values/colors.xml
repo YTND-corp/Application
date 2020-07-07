@@ -36,6 +36,7 @@
 
     <color name="searchFieldBg">#1f767680</color>
     <color name="dividerLineColor">#c8c7cc</color>
+    <color name="dividerBiggerColor">#eeeef0</color>
 
     <!--Bottom Navigation-->
     <color name="bottomNavBgColor">#F9F9F9</color>

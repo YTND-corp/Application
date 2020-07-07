@@ -1,5 +1,7 @@
 package uz.mod.templatex.model.local.entity
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
 import uz.mod.templatex.utils.extension.moneyFormat
@@ -19,13 +21,83 @@ data class Product(
     val quantity: Int = 0,
     @SerializedName("cart_product_id") val cartProductId: Int = 0,
     @SerializedName("attribute_combination") val combinations: List<AttributeCombination>?
-) {
+): Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.createTypedArrayList(Currency),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.createTypedArrayList(AttributeCombination)
+    ) {
+    }
+
     fun getPrice() = currencies?.first()?.price
     fun quantityText() = "$quantity"
     fun subtitle() = "${brand} - ${category}"
     fun priceFormatted() = "${currencies?.first()?.price?.moneyFormat()} ${currencies?.first()?.currency}"
     fun totalPrice() = quantity * (currencies?.first()?.price ?: 0)
     fun totalPriceFormatted() = totalPrice().moneyFormat() + " ${currencies?.first()?.currency}"
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(name)
+        parcel.writeTypedList(currencies)
+        parcel.writeByte(if (isFavorite) 1 else 0)
+        parcel.writeByte(if (selected) 1 else 0)
+        parcel.writeString(image)
+        parcel.writeString(brand)
+        parcel.writeString(category)
+        parcel.writeValue(categoryId)
+        parcel.writeInt(quantity)
+        parcel.writeInt(cartProductId)
+        parcel.writeTypedList(combinations)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Product> {
+        override fun createFromParcel(parcel: Parcel): Product {
+            return Product(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Product?> {
+            return arrayOfNulls(size)
+        }
+    }
 }
 
-data class AttributeCombination(val key: String?, val value: String?)
+data class AttributeCombination(val key: String?, val value: String?): Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(key)
+        parcel.writeString(value)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<AttributeCombination> {
+        override fun createFromParcel(parcel: Parcel): AttributeCombination {
+            return AttributeCombination(parcel)
+        }
+
+        override fun newArray(size: Int): Array<AttributeCombination?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+}

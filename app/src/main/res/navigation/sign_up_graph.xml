@@ -8,6 +8,7 @@
     <fragment
             android:id="@+id/signUpFragment"
             android:name="uz.mod.templatex.ui.signUp.SignUpFragment"
-            android:label="@string/title_sign_up"/>
+            android:label="@string/title_sign_up"
+            tools:layout="@layout/sign_up_fragment"/>
 
 </navigation>

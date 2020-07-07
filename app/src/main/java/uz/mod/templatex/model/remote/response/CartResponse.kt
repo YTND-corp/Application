@@ -16,20 +16,3 @@ data class Cart(
     val quantity: Int,
     val products: List<Product>?
 )
-
-data class CartProduct(
-    val id: Int,
-    @SerializedName("cart_product_id") val cartProductId: Int,
-    val name: String,
-    val reference: String,
-    val brand: String,
-    val category: String,
-    @SerializedName("is_favorites_added") val isFavoritesAdded: Boolean,
-    @SerializedName("currency") val currencies: List<Currency>,
-    val image: String?,
-    var selected: Boolean,
-    var quantity: Int
-) {
-
-
-}

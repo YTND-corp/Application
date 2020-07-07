@@ -25,6 +25,7 @@
     <string name="action_change">Изменить</string>
     <string name="action_save">Сохранить</string>
     <string name="action_delete">Удалить</string>
+    <string name="action_close">ЗАКРЫТЬ</string>
 
     <string name="action_start_shopping">Начать покупки</string>
     <string name="action_forgot_password">Забыли пароль?</string>
@@ -61,6 +62,9 @@
     <string name="title_search">Поиск</string>
     <string name="title_profile_authorized">АККАУНТ</string>
     <string name="title_profile_my_orders">МОИ ЗАКАЗЫ</string>
+    <string name="title_code">Подтверждение телефона</string>
+    <string name="action_checkout">ОФОРМИТЬ</string>
+
 
     <!-- Support Center  -->
     <string name="support_center_location_text">Узнать, где мой заказ</string>
@@ -207,7 +211,35 @@
     <string name="total_price">Всего %s</string>
     <string name="with_taxes">Включая налоги за исключением доставки</string>
 
+    <!--  Code  -->
+    <string name="code_header">Введите код из СМС</string>
+    <string name="code_subheader">Чтобы подтвердить %s</string>
+    <string name="code_change_phone">Изменить номер</string>
+    <string name="action_send_code_again">Отправить код еще раз %s</string>
+
+    <!--  Delivery      -->
+    <string name="choose_delivery_option">Выберите условия доставки</string>
+    <string name="express_delivery">Express  (в течении часа)</string>
+    <string name="regular_delivery">Обычная  (в течении дня)</string>
+    <string name="choose_delivery_date">Выберите дату доставки</string>
+    <string name="hint_delivery_date">Дата доставки</string>
+    <string name="hint_delivery_time">Время доставки</string>
+    <string name="hint_delivery_service">Служба доставки</string>
+
+    <!--  Payment  -->
+    <string name="choose_payment_option">Выберите способ оплаты</string>
+    <string name="payment_header">К оплате</string>
+    <string name="payment_product_count">Товаров в заказе</string>
+    <string name="payment_product_price">Товары на сумму</string>
+    <string name="delivery">Доставка</string>
+    <string name="discount">Скидка</string>
+    <string name="total">Итого</string>
+    <string name="public_terms_agree_to_terms">Нажимая на кнопку ”Оформить заказ”, вы принимаете условия</string>
+    <string name="public_terms">Публичной оферты</string>
+
+    <!--  CheckoutFinal  -->
     <string name="checkout_final_title">Спасибо, %s!</string>
     <string name="checkout_final_message">Вы получите свой заказ:\n%s\n\nУведомления отключены. \nНе забудьте,  что если вы не включите их, \nмы не сможем присылать вам информацию \nо состоянии заказа.</string>
+
 
 </resources>
