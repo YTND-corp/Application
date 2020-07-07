@@ -19,6 +19,8 @@ import org.jetbrains.annotations.NotNull
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
+import uz.mod.templatex.analytics.AnalyticsManager
+import uz.mod.templatex.analytics.EventBuilder
 import uz.mod.templatex.databinding.MainActivityBinding
 import uz.mod.templatex.ui.parent.ParentActivity
 import uz.mod.templatex.utils.extension.color
@@ -46,6 +48,10 @@ class MainActivity : ParentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val analyticsManager = AnalyticsManager(this)
+        val event = EventBuilder().withEventName("TEST").withEventField("field", "value").build(this)
+        analyticsManager.sendEvent(event)
 
         binding.lifecycleOwner = this
         setContentView(binding.root)
