@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.CategoryItemBinding
 import uz.mod.templatex.model.local.entity.Category
+import uz.mod.templatex.ui.subCategory.SubCategoryFragmentDirections
 
 class CategoryAdapter(
     private var items: List<Category> = arrayListOf()

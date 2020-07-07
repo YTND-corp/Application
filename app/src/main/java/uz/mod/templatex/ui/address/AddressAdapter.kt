@@ -1,4 +1,4 @@
-package uz.mod.templatex.ui.adres
+package uz.mod.templatex.ui.address
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.R
 import uz.mod.templatex.model.local.entity.Adres
 
-class AdresAdapter(private val items: List<Adres>) :
-    RecyclerView.Adapter<AdresAdapter.ViewHolder>() {
+class AddressAdapter(private val items: List<Adres>) :
+    RecyclerView.Adapter<AddressAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.adres_item, parent, false)
+        val view = inflater.inflate(R.layout.address_item, parent, false)
         return ViewHolder(view)
     }
 

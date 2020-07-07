@@ -3,11 +3,14 @@ package uz.mod.templatex.ui
 import android.app.Application
 import androidx.lifecycle.*
 import androidx.navigation.NavDestination
+import com.google.firebase.crashlytics.internal.model.CrashlyticsReport
+import uz.aqlify.yonda.utils.Prefs
+import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.repository.AuthRepository
 import uz.mod.templatex.utils.DestinationHelper
 
 
-class MainViewModel constructor(application: Application, val authRepository: AuthRepository) : AndroidViewModel(application) {
+class MainViewModel constructor(application: Application, val authRepository: AuthRepository, val prefs: Prefs) : AndroidViewModel(application) {
 
     val isAuthenticated = MutableLiveData<Boolean>(false)
 
@@ -58,8 +61,11 @@ class MainViewModel constructor(application: Application, val authRepository: Au
             addSource(hasBottomBar) { validateFrom() }
         }
 
-    fun loggedIn() {
-        isAuthenticated.value = true
+    fun loggedIn(user: User?) {
+        user?.let {
+            prefs.token = user.token
+            isAuthenticated.value = true
+        }
     }
 
     fun loggedOut() {

@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.databinding.CheckoutFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
+import uz.mod.templatex.ui.delivery.DeliveryFragment
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const.PHONE_CODE_DEFAULT
 import uz.mod.templatex.utils.MaskWatcher
@@ -25,6 +27,7 @@ class CheckoutFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         viewModel.response.observe(this, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
@@ -34,8 +37,13 @@ class CheckoutFragment : ParentFragment() {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    if (result.data == true) {
-                        viewModel.navigateToAddress.call()
+                    result.data?.let {
+                        findNavController().navigate(
+                            CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment(
+                                viewModel.getPhone(),
+                                it
+                            )
+                        )
                     }
                 }
             }
@@ -54,6 +62,7 @@ class CheckoutFragment : ParentFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+
     }
 
     private fun initViews() {
@@ -75,11 +84,10 @@ class CheckoutFragment : ParentFragment() {
             }
 
             if (BuildConfig.DEBUG) {
-                // set debug data
                 name.setText("Someone")
                 surname.setText("Someone")
                 email.setText("example@gmail.com")
-                phone.setText("+998971573967")
+                phone.setText("+998765432100")
             }
         }
     }

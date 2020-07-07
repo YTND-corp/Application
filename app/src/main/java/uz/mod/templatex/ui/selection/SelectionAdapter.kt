@@ -36,9 +36,11 @@ class SelectionAdapter(
                 if (homeItem.isBanner()) {
                     bannerHeader.text = homeItem.title
 
-                    Glide.with(binding.root.context)
-                        .load(homeItem.items?.first()?.image)
-                        .into(image)
+                    if (homeItem.items?.isNotEmpty() == true) {
+                        Glide.with(binding.root.context)
+                            .load(homeItem.items?.first()?.image)
+                            .into(image)
+                    }
                     image.setOnClickListener {
                             it.findNavController().navigate(
                                 SelectionFragmentDirections.actionGlobalProductsFragment(

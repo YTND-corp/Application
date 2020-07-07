@@ -2,20 +2,48 @@ package uz.mod.templatex.ui.cart
 
 import android.app.Application
 import androidx.lifecycle.*
+import timber.log.Timber
 import uz.mod.templatex.R
+import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.utils.extension.moneyFormat
 import uz.mod.templatex.model.remote.response.Cart
-import uz.mod.templatex.model.remote.response.CartProductWrapper
 import uz.mod.templatex.model.repository.CartRepository
 
 class CartViewModel constructor(application: Application, val repository: CartRepository): AndroidViewModel(application) {
 
     var cart = MutableLiveData<Cart>()
-    var products = MutableLiveData<List<CartProductWrapper>>()
+
+
+
+    val request = MutableLiveData<Boolean>()
+    val response = Transformations.switchMap(request) {
+        repository.products()
+    }
+
+    private val updateRequest = MutableLiveData<Int>()
+    val updateResponse = Transformations.switchMap(updateRequest) {
+        repository.updateProductCount(37, it)
+    }
+
+    private val deleteRequest = MutableLiveData<Boolean>()
+    val deleteResponse = Transformations.switchMap(deleteRequest) {
+        val temps = arrayListOf<Int>()
+        selectedProducts?.value?.forEach {
+            temps.add(it.id)
+        }
+
+        repository.delete(temps)
+    }
+
+    fun getCart() {
+        request.value = true
+    }
+
+    var products = Transformations.map(response) {
+        it?.data
+    }
 
     var isEditing = MutableLiveData(false)
-
-    fun removeProduct(product: CartProductWrapper) = repository.remove(product.id)
 
     val productCount: LiveData<String> = Transformations.map(products) {
         application.getString(R.string.product_count, it?.size ?: 0)
@@ -25,19 +53,13 @@ class CartViewModel constructor(application: Application, val repository: CartRe
         it?.isNullOrEmpty()?: true
     }
 
-    fun getCart() =  repository.getCart()
-
-    fun setCart(cart: Cart?) {
-        this.cart.value = cart
-    }
-
-    fun setProducts(products: List<CartProductWrapper>?) {
-        this.products.value = products
-    }
-
-    val selectedProducts: LiveData<List<CartProductWrapper>> = Transformations.map(products) {
+    val selectedProducts: LiveData<List<Product>> = Transformations.map(products) {
         it?.filter { it.selected }
     }
+
+   fun delete() {
+        deleteRequest.value = true
+   }
 
     val buttonText = Transformations.map(isEditing) {
         application.getString(if (it) R.string.action_delete else R.string.action_buy)
@@ -62,52 +84,22 @@ class CartViewModel constructor(application: Application, val repository: CartRe
         application.getString(R.string.total_price,(sum.moneyFormat()+ " UZS"))
     }
 
-    fun select(id: Int) {
-        val temp = products.value!!
-
-        for (i in temp.indices) {
-            if (temp[i].id == id) {
-                temp[i].selected = !temp[i].selected
-            }
-        }
-        products.value = temp
+    fun select(product: Product) {
+        repository.select(product.id, !product.selected)
     }
 
-    fun selectAll() {
-        val temp = products.value!!
-
-        for (i in temp.indices) {
-            temp[i].selected = true
-        }
-
-        products.value = temp
+    fun add(product: Product)  {
+        Timber.e("Add...")
+        updateRequest.value =  product.quantity + 1
     }
 
-    fun substracted(id: Int) {
-        val temp = products.value!!
-
-        for (i in temp.indices) {
-            if (temp[i].id == id && temp[i].quantity!=1) {
-                temp[i].quantity--
-            }
+    fun sub(product: Product)  {
+        Timber.e("Sub...")
+        if (product.quantity>1) {
+            updateRequest.value = product.quantity - 1
         }
-        products.value = temp
     }
 
-    fun add(id: Int) = repository.updateProductCount(id,1)
-
-    fun sub(id: Int) = repository.updateProductCount(id,-1)
-
-    fun added(id: Int) {
-        val temp = products.value!!
-
-        for (i in temp.indices) {
-            if (temp[i].id == id) {
-                temp[i].quantity++
-            }
-        }
-        products.value = temp
-    }
 
     fun startEditing() {
         isEditing.value = true

@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="@{item.price}"
+                android:text="@{item.priceFormatted}"
                 android:textSize="@dimen/text_size_tiny"
                 app:layout_constraintTop_toBottomOf="@id/subtitle" />
 

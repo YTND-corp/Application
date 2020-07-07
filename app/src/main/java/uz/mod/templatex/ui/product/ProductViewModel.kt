@@ -79,7 +79,7 @@ class ProductViewModel constructor(application: Application, val repository: Pro
     fun addToCart() = repository.addToCart(id, 1, attributeIds())
 
     fun isFavorite() = Transformations.map(repository.isFavorite(id)) {
-        it.isFavorite
+        it?.isFavorite == true
     }
 
     fun favoriteToggle() = repository.favoriteToggle(id)

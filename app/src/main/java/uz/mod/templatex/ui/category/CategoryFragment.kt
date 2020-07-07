@@ -28,6 +28,8 @@ class CategoryFragment : ParentFragment() {
         super.onCreate(savedInstanceState)
 
         viewModel.getCatalogs()
+
+        pageAdapter = CategoryPagerAdapter(childFragmentManager)
     }
 
     override fun onCreateView(
@@ -64,7 +66,7 @@ class CategoryFragment : ParentFragment() {
             executePendingBindings()
 
 
-            pageAdapter = CategoryPagerAdapter(childFragmentManager)
+
 
             pager.offscreenPageLimit = 3
             pager.adapter = pageAdapter

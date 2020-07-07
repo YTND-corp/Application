@@ -8,7 +8,7 @@ data class SubCategory(
     val id: Int,
     val name: String?,
     val slug: String?,
-    val parent_id: Int,
+    @SerializedName("parent_id") val parentId: Int,
     @SerializedName("is_multicurrency") val isMulticurrency: Boolean,
     @SerializedName("is_menu_shown") val isMenuShown: Int,
     val image: String?
@@ -28,7 +28,7 @@ data class SubCategory(
         parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeString(slug)
-        parcel.writeInt(parent_id)
+        parcel.writeInt(parentId)
         parcel.writeByte(if (isMulticurrency) 1 else 0)
         parcel.writeInt(isMenuShown)
         parcel.writeString(image)

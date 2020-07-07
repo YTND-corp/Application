@@ -8,12 +8,14 @@ data class CategoryGender(
     val id: Int,
     val name: String?,
     val image: String?,
+    @SerializedName("parent_id") val parentId: Int,
     @SerializedName("children") val categories: List<Category>?
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readInt(),
         parcel.createTypedArrayList(Category)
     ) {
     }
@@ -22,6 +24,7 @@ data class CategoryGender(
         parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeString(image)
+        parcel.writeInt(parentId)
         parcel.writeTypedList(categories)
     }
 

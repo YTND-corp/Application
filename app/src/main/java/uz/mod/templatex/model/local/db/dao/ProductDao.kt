@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import uz.mod.templatex.model.local.entity.Product
 
+
 @Dao
 interface ProductDao {
     @Query("SELECT * from products")
@@ -30,6 +31,15 @@ interface ProductDao {
     @Query("DELETE FROM products")
     fun deleteAll()
 
+    @Query("DELETE FROM products where id in (:ids)")
+    fun delete(ids: List<Int>)
+
     @Query("DELETE FROM products WHERE id=:id")
     fun delete(id: Int)
+
+    @Query("UPDATE products SET quantity=:quantity  WHERE cartProductId=:id")
+    fun updateCount(id: Int, quantity: Int)
+
+    @Query("UPDATE products SET selected=:selected  WHERE id=:id")
+    fun setSelect(id: Int, selected: Boolean)
 }
