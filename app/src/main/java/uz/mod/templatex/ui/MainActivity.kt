@@ -113,8 +113,6 @@ class MainActivity : ParentActivity() {
                 onNavControllerChanged(navController)
             })
             bottomNavigationView.selectedItemId = R.id.home_graph
-//            onNavControllerChanged(controller.value!!)
-//            bottomNavigationView.setupWithNavController(navController)
             binding.toolbar.title = ""
         }
     }
