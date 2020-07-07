@@ -6,7 +6,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.CategoryItemBinding
 import uz.mod.templatex.model.local.entity.Category
-import uz.mod.templatex.ui.subCategory.SubCategoryFragmentDirections
 
 class CategoryAdapter(
     private var items: List<Category> = arrayListOf()
@@ -33,11 +32,9 @@ class CategoryAdapter(
                 item = category
                 executePendingBindings()
                 root.setOnClickListener {
-                    it.findNavController().navigate(
-                        CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(
-                            category
-                        )
-                    )
+                    val action =
+                        CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(category)
+                    it.findNavController().navigate(action)
                 }
             }
         }

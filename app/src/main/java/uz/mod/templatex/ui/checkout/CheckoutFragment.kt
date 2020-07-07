@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.BuildConfig
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CheckoutFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.delivery.DeliveryFragment
@@ -38,12 +39,14 @@ class CheckoutFragment : ParentFragment() {
                 Status.SUCCESS -> {
                     hideLoading()
                     result.data?.let {
-                        findNavController().navigate(
-                            CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment(
-                                viewModel.getPhone(),
-                                it
-                            )
-                        )
+                        val actionCheckoutfragmentToAddressfragment = R.id.action_checkoutFragment_to_addressFragment
+                        findNavController().navigate(actionCheckoutfragmentToAddressfragment)
+//                        findNavController().navigate(
+//                            CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment(
+//                                viewModel.getPhone(),
+//                                it
+//                            )
+//                        )
                     }
                 }
             }

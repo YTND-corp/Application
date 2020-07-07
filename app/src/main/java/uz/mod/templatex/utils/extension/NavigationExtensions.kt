@@ -21,6 +21,7 @@ import android.util.SparseArray
 import androidx.core.util.forEach
 import androidx.core.util.set
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -47,6 +48,7 @@ fun BottomNavigationView.setupWithNavControllerMultipleStack(
 
     var firstFragmentGraphId = 0
 
+    val tagsList = mutableListOf<String>()
     // First create a NavHostFragment for each NavGraph ID
     navGraphIds.forEachIndexed { index, navGraphId ->
         val fragmentTag = getFragmentTag(index)
@@ -71,6 +73,7 @@ fun BottomNavigationView.setupWithNavControllerMultipleStack(
 
         // Save to the map
         graphIdToTagMap[graphId] = fragmentTag
+        tagsList.add(fragmentTag)
 
         // Attach or detach nav host fragment depending on whether it's the selected item.
         if (this.selectedItemId == graphId) {
@@ -105,12 +108,14 @@ fun BottomNavigationView.setupWithNavControllerMultipleStack(
                 if (firstFragmentTag != newlySelectedItemTag) {
                     // Commit a transaction that cleans the back stack and adds the first fragment
                     // to it, creating the fixed started destination.
-                    fragmentManager.beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.slide_in_right,
-                            R.anim.slide_out_left,
-                            R.anim.slide_in_left,
-                            R.anim.slide_out_right)
+                    val newSelection = tagsList.indexOf(newlySelectedItemTag)
+                    val lastSelection = tagsList.indexOf(selectedItemTag)
+                    val customAnimations = if (newSelection>lastSelection){
+                        buildSlideRight(fragmentManager)
+                    } else {
+                        buildSlideLeft(fragmentManager)
+                    }
+                    customAnimations
                         .attach(selectedFragment)
                         .setPrimaryNavigationFragment(selectedFragment)
                         .apply {
@@ -156,6 +161,27 @@ fun BottomNavigationView.setupWithNavControllerMultipleStack(
         }
     }
     return selectedNavController
+}
+
+private fun buildSlideRight(fragmentManager: FragmentManager): FragmentTransaction {
+    return fragmentManager.beginTransaction()
+        .setCustomAnimations(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left,
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
+}
+
+
+private fun buildSlideLeft(fragmentManager: FragmentManager): FragmentTransaction {
+    return fragmentManager.beginTransaction()
+        .setCustomAnimations(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right,
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
 }
 
 private fun BottomNavigationView.setupDeepLinks(
