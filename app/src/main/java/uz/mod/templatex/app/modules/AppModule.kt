@@ -45,6 +45,9 @@ import uz.mod.templatex.ui.country.CountryViewModel
 import uz.mod.templatex.ui.delivery.DeliveryViewModel
 import uz.mod.templatex.ui.favorite.FavoriteViewModel
 import uz.mod.templatex.ui.filter.FilterViewModel
+import uz.mod.templatex.ui.new_filter.MainFilterViewModel
+import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
+import uz.mod.templatex.ui.new_filter.singleattribute.SingleAttributeViewModel
 import uz.mod.templatex.ui.payment.PaymentViewModel
 import uz.mod.templatex.ui.product.ProductViewModel
 import uz.mod.templatex.ui.products.ProductsViewModel
@@ -121,7 +124,11 @@ val viewModelModule = module {
 
     viewModel { ProductsViewModel(get(), get()) }
     viewModel { ProductViewModel(get(), get()) }
+
     viewModel { FilterViewModel(get()) }
+    viewModel { MainFilterViewModel(get(),get()) }
+    viewModel { SharedFilterViewModel(get()) }
+    viewModel { SingleAttributeViewModel(get()) }
 }
 
 val prefsModule = module {
@@ -131,7 +138,9 @@ val prefsModule = module {
 
 val dbModule = module {
     factory {
-        Room.databaseBuilder(get(), AppDatabase::class.java, Const.DB_NAME).allowMainThreadQueries()
+        Room.databaseBuilder(get(), AppDatabase::class.java, Const.DB_NAME)
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
             .build()
     }
     factory { get<AppDatabase>().productDao() }

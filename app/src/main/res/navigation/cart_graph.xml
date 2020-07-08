@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/cart_graph"
+        app:startDestination="@id/cartFragment">
+
+    <fragment
+            android:id="@+id/cartFragment"
+            android:name="uz.mod.templatex.ui.cart.CartFragment"
+            android:label=""
+            tools:layout="@layout/cart_fragment">
+        <action
+                android:id="@+id/action_cartFragment_to_checkout_graph"
+                app:destination="@id/checkout_graph" />
+        <action
+                android:id="@+id/action_cartFragment_to_productFragment"
+                app:destination="@id/productFragment" />
+    </fragment>
+
+
+    <include app:graph="@navigation/checkout_graph" />
+
+    <fragment
+            android:id="@+id/productFragment"
+            android:name="uz.mod.templatex.ui.product.ProductFragment"
+            android:label="ProductFragment" >
+        <argument
+                android:name="product_id"
+                app:argType="integer"
+                android:defaultValue="0" />
+
+    </fragment>
+
+</navigation>

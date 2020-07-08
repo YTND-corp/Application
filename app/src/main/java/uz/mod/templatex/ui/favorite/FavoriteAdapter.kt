@@ -2,9 +2,11 @@ package uz.mod.templatex.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.FavoriteItemBinding
 import uz.mod.templatex.model.local.entity.Product
+import uz.mod.templatex.ui.product.ProductFragmentDirections
 import uz.mod.templatex.ui.products.ProductsFragmentDirections
 
 class FavoriteAdapter(private var items: List<Product> = listOf()) :
@@ -29,9 +31,7 @@ class FavoriteAdapter(private var items: List<Product> = listOf()) :
                 item = product
                 executePendingBindings()
                 root.setOnClickListener {
-                    ProductsFragmentDirections.actionGlobalProductFragment(
-                        product.id
-                    )
+                    it.findNavController().navigate(ProductFragmentDirections.actionGlobalProductFragment(product.id))
                 }
             }
         }

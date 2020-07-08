@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/starred_graph"
+        app:startDestination="@id/favoriteFragment">
+
+    <fragment
+            android:id="@+id/favoriteFragment"
+            android:name="uz.mod.templatex.ui.favorite.FavoriteFragment"
+            android:label=""
+            tools:layout="@layout/favorite_fragment" />
+
+    <fragment
+            android:id="@+id/productFragment"
+            android:name="uz.mod.templatex.ui.product.ProductFragment"
+            android:label=""
+            tools:layout="@layout/product_fragment" >
+
+        <argument
+                android:name="product_id"
+                app:argType="integer"
+                android:defaultValue="0" />
+    </fragment>
+
+
+    <action
+            android:id="@+id/action_global_productFragment"
+            app:destination="@id/productFragment" />
+
+</navigation>

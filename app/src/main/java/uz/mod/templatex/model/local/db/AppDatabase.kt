@@ -14,7 +14,7 @@ import uz.mod.templatex.model.local.entity.profile.ProfileOrder
 import uz.mod.templatex.model.local.entity.profile.ProfileRegion
 
 @Database(entities = [Product::class, Filter::class, ProfileAddress::class, ProfileRegion::class, ProfileOrder::class, ProfileFavorite::class], version = 1, exportSchema = false)
-@TypeConverters(Converter::class, OrderTypeConverter::class)
+@TypeConverters(Converter::class, Converter::class, OrderTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
     abstract fun filterDao(): FilterDao

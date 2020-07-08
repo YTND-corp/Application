@@ -1,9 +1,11 @@
 package uz.mod.templatex.ui.products
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,11 +17,14 @@ import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProductsFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
+import uz.mod.templatex.ui.new_filter.MainFilterFragmentArgs
+import uz.mod.templatex.ui.new_filter.MainFilterFragmentDirections
+import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.ui.parent.ParentFragment
 
 
 class ProductsFragment : ParentFragment() {
-
+    val sharedFilterViewModel : SharedFilterViewModel by activityViewModels<SharedFilterViewModel>()
     val viewModel: ProductsViewModel by viewModel()
 
     private val binding by lazy { ProductsFragmentBinding.inflate(layoutInflater) }
@@ -53,20 +58,6 @@ class ProductsFragment : ParentFragment() {
                 })
         }
 
-        viewModel.response.observe(this, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    adapter.setItems(result.data)
-                }
-            }
-        })
-
         viewModel.setArgs(args)
     }
 
@@ -97,12 +88,25 @@ class ProductsFragment : ParentFragment() {
                 Status.SUCCESS -> {
                     isLoadingMore = false
                     hideLoading()
+                    adapter.setItems(result.data)
                     if (viewModel.page==1) {
-                        binding.subtitle.text = getString(R.string.products_subtitle, result.data.toString() )
+                        val string =
+                            resources.getString(R.string.products_subtitle, result.data?.size.toString())
+                        Timber.d("binding.subtitle.text $string")
                     }
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (sharedFilterViewModel.needToReloadFeed){
+            sharedFilterViewModel.needToReloadFeed = false
+            sharedFilterViewModel.fillActiveFilter()
+            viewModel.filterParams = sharedFilterViewModel.activeFilter
+            viewModel.refresh()
+        }
     }
 
     private fun initViews() {
@@ -111,7 +115,7 @@ class ProductsFragment : ParentFragment() {
             executePendingBindings()
 
             filter.setOnClickListener {
-               // findNavController().navigate(R.id.action_productsFragment_to_filterFragment)
+                findNavController().navigate(ProductsFragmentDirections.actionProductsFragmentToMainFilterFragment(viewModel!!.categoryId))
             }
 
             val layoutManager = GridLayoutManager(requireContext(),2)

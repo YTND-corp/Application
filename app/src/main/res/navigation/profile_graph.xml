@@ -2,32 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/main_graph"
-        app:startDestination="@id/selectionFragment">
+        android:id="@+id/profile_graph"
+        app:startDestination="@id/profileFragment">
 
-    <fragment
-            android:id="@+id/selectionFragment"
-            android:name="uz.mod.templatex.ui.selection.SelectionFragment"
-            android:label=""
-            tools:layout="@layout/selection_fragment">
 
-        <action
-                android:id="@+id/action_selectionFragment_to_searchFragment"
-                app:destination="@id/searchFragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-            android:id="@+id/categoryFragment"
-            android:name="uz.mod.templatex.ui.category.CategoryFragment"
-            android:label=""
-            tools:layout="@layout/category_fragment">
-        <action
-                android:id="@+id/action_categoryFragment_to_subCategoryFragment"
-                app:destination="@id/subCategoryFragment" />
-    </fragment>
     <fragment
             android:id="@+id/favoriteFragment"
             android:name="uz.mod.templatex.ui.favorite.FavoriteFragment"
@@ -210,6 +188,13 @@
                 android:name="brand_id"
                 app:argType="integer"
                 android:defaultValue="0" />
+        <action
+                android:id="@+id/action_productsFragment_to_mainFilterFragment"
+                app:destination="@id/mainFilterFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
     <fragment
@@ -299,6 +284,6 @@
             android:id="@+id/profileMyFavoriteFragment"
             android:name="uz.mod.templatex.ui.profile.authorized.myFavorite.ProfileMyFavoriteFragment"
             android:label="@string/profile_favorites_title" />
-    <include app:graph="@navigation/checkout_graph" />
+
 
 </navigation>

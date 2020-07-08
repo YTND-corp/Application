@@ -20,6 +20,7 @@ android {
     }
     buildTypes {
         release {
+            //TODO: Add @SerializedName to all REST dto's. Enable minify.
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

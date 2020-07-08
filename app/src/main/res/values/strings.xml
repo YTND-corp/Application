@@ -272,4 +272,14 @@
     <string name="checkout_final_title">Спасибо, %s!</string>
     <string name="checkout_final_message">Вы получите свой заказ:\n%s\n\nУведомления отключены. \nНе забудьте,  что если вы не включите их, \nмы не сможем присылать вам информацию \nо состоянии заказа.</string>
 
+    <!-- Sorting in filters   -->
+    <string name="sort_popular">По популярности</string>
+    <string name="sort_new">По новизне</string>
+    <string name="sort_price_asc">По возрастанию цены</string>
+    <string name="sort_price_desc">По убыванию цены</string>
+    <string name="sort_discounts">Скидки?</string>
+    <string name="sort_discounts_new">Новые скидки?</string>
+    <string name="filter_item_brands">Бренд</string>
+    <string name="bt_apply">Применить</string>
+
 </resources>

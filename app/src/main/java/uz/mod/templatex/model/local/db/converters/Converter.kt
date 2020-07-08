@@ -3,6 +3,9 @@ package uz.mod.templatex.model.local.db.converters
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import uz.mod.templatex.model.local.entity.AttributeCombination
+import uz.mod.templatex.model.local.entity.Brand
+import uz.mod.templatex.model.local.entity.*
 import org.w3c.dom.Attr
 import uz.mod.templatex.model.local.entity.*
 import uz.mod.templatex.model.local.entity.Currency
@@ -40,31 +43,19 @@ class Converter {
         return gson.toJson(someObjects)
     }
 
-    @TypeConverter
-    fun attributeListToString(someObjects: List<Attribute>?): String? {
-        return gson.toJson(someObjects)
-    }
+
 
     @TypeConverter
-    fun stringToAttributeList(data: String?): List<Attribute>? {
+    fun stringToValueList(data: String?): List<AttributeValue>? {
         if (data == null) {
             return Collections.emptyList()
         }
-        val listType = object : TypeToken<List<Attribute>?>() {}.type
-        return gson.fromJson<List<Attribute>>(data, listType)
+        val listType = object : TypeToken<List<AttributeValue>?>() {}.type
+        return gson.fromJson<List<AttributeValue>>(data, listType)
     }
 
     @TypeConverter
-    fun stringToValueList(data: String?): List<Value>? {
-        if (data == null) {
-            return Collections.emptyList()
-        }
-        val listType = object : TypeToken<List<Value>?>() {}.type
-        return gson.fromJson<List<Value>>(data, listType)
-    }
-
-    @TypeConverter
-    fun valueListToString(someObjects: List<Value>?): String? {
+    fun valueListToString(someObjects: List<AttributeValue>?): String? {
         return gson.toJson(someObjects)
     }
 
@@ -79,6 +70,20 @@ class Converter {
 
     @TypeConverter
     fun attributeCombinationListToString(someObjects: List<AttributeCombination>?): String? {
+        return gson.toJson(someObjects)
+    }
+
+    @TypeConverter
+    fun stringToAttrList(data: String?): List<FilterAttribute>? {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+        val listType = object : TypeToken<List<FilterAttribute>?>() {}.type
+        return gson.fromJson<List<FilterAttribute>>(data, listType)
+    }
+
+    @TypeConverter
+    fun attrListToString(someObjects: List<FilterAttribute>?): String? {
         return gson.toJson(someObjects)
     }
 }

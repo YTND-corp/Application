@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:id="@+id/filterLl"
+            android:orientation="horizontal"
+            android:background="@color/gray"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_marginLeft="16dp"
+                app:srcCompat="@drawable/ic_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/filterEt"
+                android:layout_marginLeft="16dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:padding="16dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+            android:id="@+id/applyBt"
+            android:text="@string/bt_apply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

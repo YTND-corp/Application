@@ -40,7 +40,7 @@ class CartAdapter(val listener: ItemListener) : RecyclerView.Adapter<CartAdapter
 
                 root.setOnClickListener {
                     it.findNavController().navigate(
-                        CartFragmentDirections.actionGlobalProductFragment(
+                        CartFragmentDirections.actionCartFragmentToProductFragment(
                             product.id
                         )
                     )

@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import timber.log.Timber
 import uz.mod.templatex.model.local.db.dao.FilterDao
 import uz.mod.templatex.model.local.db.dao.ProductDao
+import uz.mod.templatex.model.local.entity.Filter
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.api.ProductService
 import uz.mod.templatex.model.remote.network.*
 import uz.mod.templatex.model.remote.response.*
+import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 
 class ProductRepository constructor(
     val service: ProductService,
@@ -22,6 +24,10 @@ class ProductRepository constructor(
 
     fun getFilters() = filterDao.getAll()
 
+    fun getFiltersForCategory(catId : Int) : Filter? {
+        return filterDao.get(catId)
+    }
+
     fun getProduct(id: Int): LiveData<Resource<ProductDetailResponse>> {
         return object : NetworkOnlyResource<ProductDetailResponse, ProductDetailResponse>() {
             override fun processResult(item: ProductDetailResponse?): ProductDetailResponse? {
@@ -35,44 +41,23 @@ class ProductRepository constructor(
         }.asLiveData()
     }
 
-//    fun getProducts(
-//        id: Int,
-//        sort: String,
-//        brands: Array<String>?,
-//        page: Int
-//    ): LiveData<Resource<Int>> {
-//        return object : NetworkOnlyResource<Int, ProductsResponse>() {
-//            override fun processResult(item: ProductsResponse?): Int? {
-//                if (page == 1)
-//                    db.deleteAll()
-//                var temps = ArrayList<Product>()
-//                item?.productWrapper?.data?.forEach {
-//                    temps.add(Product(it.id, it.name, it.currency[0].getMoneyFormat(), it.isFavorite, it.image, it.brand, it.categoryId))
-//                }
-//
-//                db.insertAll(temps)
-//                return item?.productWrapper?.total
-//            }
-//
-//            override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
-//                return service.getProducts(id, null, brands, page)
-//            }
-//        }.asLiveData()
-//    }
 
-    fun getProducts(id: Int, sort: String, brands: Array<String>?, page: Int): LiveData<Resource<List<Product>>> {
+    fun getProducts(id: Int, filter:SharedFilterViewModel.SelectedFitlerDto, page: Int): LiveData<Resource<List<Product>>> {
         return object : NetworkBoundResource<List<Product>, ProductsResponse>(executors) {
             override fun saveCallResult(item: ProductsResponse) {
                 if (page == 1) {
                     productDao.deleteAll()
                     filterDao.deleteAll()
+                    Timber.d("Deleted products")
                 }
 
                 item.productWrapper?.data?.let {
                     productDao.insertAll(it)
+                    Timber.d("Inserted ${it.size} products")
                 }
 
                 item.filter?.let {
+                    it.id = id
                     it.pagination = item.productWrapper?.pagination
                     filterDao.insert(it)
                 }
@@ -83,19 +68,26 @@ class ProductRepository constructor(
             }
 
             override fun loadFromDb(): LiveData<List<Product>> {
-                return productDao.getAll()
+                val all = productDao.getAll()
+                return all
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
-                return service.getProducts(id, null, brands, page)
+                val attrMap = filter.attributes.mapValues { it.value as Any }.mapKeys { it.key+"[]" }.toMutableMap()
+                val proxyRetrofitQueryMap = ProxyRetrofitQueryMap(attrMap)
+                return service.getProducts(id, filter.sort.key, filter.brands.map { it.toString() }.toTypedArray(),
+                    proxyRetrofitQueryMap,
+                    page)
             }
         }.asLiveData()
     }
 
     fun favorites(): LiveData<Resource<List<Product>>> {
         return object : NetworkBoundResource<List<Product>, FavoritesResponse>(executors) {
+            //TODO: Store favorites in separate table!!!!!!!!
 
             override fun saveCallResult(item: FavoritesResponse) {
+                //This causes deleting list on catalog tab!!!!
                 productDao.deleteAll()
                 item.data?.let {
                     productDao.insertAll(it)
