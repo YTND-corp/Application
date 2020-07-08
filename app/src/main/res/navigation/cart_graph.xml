@@ -13,9 +13,23 @@
         <action
                 android:id="@+id/action_cartFragment_to_checkout_graph"
                 app:destination="@id/checkout_graph" />
+        <action
+                android:id="@+id/action_cartFragment_to_productFragment2"
+                app:destination="@id/productFragment2" />
     </fragment>
 
 
     <include app:graph="@navigation/checkout_graph" />
+
+    <fragment
+            android:id="@+id/productFragment2"
+            android:name="uz.mod.templatex.ui.product.ProductFragment"
+            android:label="ProductFragment" >
+        <argument
+                android:name="product_id"
+                app:argType="integer"
+                android:defaultValue="0" />
+
+    </fragment>
 
 </navigation>
