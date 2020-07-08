@@ -18,6 +18,7 @@ package uz.mod.templatex.utils.extension
 
 import android.content.Intent
 import android.util.SparseArray
+import android.widget.Toast
 import androidx.core.util.forEach
 import androidx.core.util.set
 import androidx.fragment.app.FragmentManager
@@ -104,32 +105,29 @@ fun BottomNavigationView.setupWithNavControllerMultipleStack(
                 val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
                     as NavHostFragment
 
-                // Exclude the first fragment tag because it's always in the back stack.
-                if (firstFragmentTag != newlySelectedItemTag) {
-                    // Commit a transaction that cleans the back stack and adds the first fragment
-                    // to it, creating the fixed started destination.
-                    val newSelection = tagsList.indexOf(newlySelectedItemTag)
-                    val lastSelection = tagsList.indexOf(selectedItemTag)
-                    val customAnimations = if (newSelection>lastSelection){
-                        buildSlideRight(fragmentManager)
-                    } else {
-                        buildSlideLeft(fragmentManager)
-                    }
-                    customAnimations
-                        .attach(selectedFragment)
-                        .setPrimaryNavigationFragment(selectedFragment)
-                        .apply {
-                            // Detach all other Fragments
-                            graphIdToTagMap.forEach { _, fragmentTagIter ->
-                                if (fragmentTagIter != newlySelectedItemTag) {
-                                    detach(fragmentManager.findFragmentByTag(firstFragmentTag)!!)
-                                }
+                // Commit a transaction that cleans the back stack and adds the first fragment
+                // to it, creating the fixed started destination.
+                val newSelection = tagsList.indexOf(newlySelectedItemTag)
+                val lastSelection = tagsList.indexOf(selectedItemTag)
+                val customAnimations = if (newSelection>lastSelection){
+                    buildSlideRight(fragmentManager)
+                } else {
+                    buildSlideLeft(fragmentManager)
+                }
+                customAnimations
+                    .attach(selectedFragment)
+                    .setPrimaryNavigationFragment(selectedFragment)
+                    .apply {
+                        // Detach all other Fragments
+                        graphIdToTagMap.forEach { _, fragmentTagIter ->
+                            if (fragmentTagIter != newlySelectedItemTag) {
+                                detach(fragmentManager.findFragmentByTag(firstFragmentTag)!!)
                             }
                         }
-                        .addToBackStack(firstFragmentTag)
-                        .setReorderingAllowed(true)
-                        .commit()
-                }
+                    }
+                    .addToBackStack(firstFragmentTag)
+                    .setReorderingAllowed(true)
+                    .commit()
                 selectedItemTag = newlySelectedItemTag
                 isOnFirstFragment = selectedItemTag == firstFragmentTag
                 selectedNavController.value = selectedFragment.navController
