@@ -41,30 +41,6 @@ class ProductRepository constructor(
         }.asLiveData()
     }
 
-//    fun getProducts(
-//        id: Int,
-//        sort: String,
-//        brands: Array<String>?,
-//        page: Int
-//    ): LiveData<Resource<Int>> {
-//        return object : NetworkOnlyResource<Int, ProductsResponse>() {
-//            override fun processResult(item: ProductsResponse?): Int? {
-//                if (page == 1)
-//                    db.deleteAll()
-//                var temps = ArrayList<Product>()
-//                item?.productWrapper?.data?.forEach {
-//                    temps.add(Product(it.id, it.name, it.currency[0].getMoneyFormat(), it.isFavorite, it.image, it.brand, it.categoryId))
-//                }
-//
-//                db.insertAll(temps)
-//                return item?.productWrapper?.total
-//            }
-//
-//            override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
-//                return service.getProducts(id, null, brands, page)
-//            }
-//        }.asLiveData()
-//    }
 
     fun getProducts(id: Int, filter:SharedFilterViewModel.SelectedFitlerDto, page: Int): LiveData<Resource<List<Product>>> {
         return object : NetworkBoundResource<List<Product>, ProductsResponse>(executors) {
@@ -72,10 +48,12 @@ class ProductRepository constructor(
                 if (page == 1) {
                     productDao.deleteAll()
                     filterDao.deleteAll()
+                    Timber.d("Deleted products")
                 }
 
                 item.productWrapper?.data?.let {
                     productDao.insertAll(it)
+                    Timber.d("Inserted ${it.size} products")
                 }
 
                 item.filter?.let {
@@ -90,7 +68,8 @@ class ProductRepository constructor(
             }
 
             override fun loadFromDb(): LiveData<List<Product>> {
-                return productDao.getAll()
+                val all = productDao.getAll()
+                return all
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
@@ -105,8 +84,10 @@ class ProductRepository constructor(
 
     fun favorites(): LiveData<Resource<List<Product>>> {
         return object : NetworkBoundResource<List<Product>, FavoritesResponse>(executors) {
+            //TODO: Store favorites in separate table!!!!!!!!
 
             override fun saveCallResult(item: FavoritesResponse) {
+                //This causes deleting list on catalog tab!!!!
                 productDao.deleteAll()
                 item.data?.let {
                     productDao.insertAll(it)

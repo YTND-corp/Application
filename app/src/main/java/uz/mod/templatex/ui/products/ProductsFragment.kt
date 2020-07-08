@@ -58,20 +58,6 @@ class ProductsFragment : ParentFragment() {
                 })
         }
 
-        viewModel.response.observe(this, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    adapter.setItems(result.data)
-                }
-            }
-        })
-
         viewModel.setArgs(args)
     }
 
@@ -102,11 +88,11 @@ class ProductsFragment : ParentFragment() {
                 Status.SUCCESS -> {
                     isLoadingMore = false
                     hideLoading()
+                    adapter.setItems(result.data)
                     if (viewModel.page==1) {
                         val string =
                             resources.getString(R.string.products_subtitle, result.data?.size.toString())
                         Timber.d("binding.subtitle.text $string")
-//                        binding.subtitle.text = string
                     }
                 }
             }
