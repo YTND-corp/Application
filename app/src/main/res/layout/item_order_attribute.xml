@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="item"
+                type="uz.mod.templatex.model.remote.response.profile.AttributeCombination" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+                android:id="@+id/tvName"
+                style="@style/Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:includeFontPadding="false"
+                android:text='@{item.key + ":"}'
+                android:textAllCaps="true"
+                android:textColor="@color/black50TextColor"
+                android:textSize="14sp"
+                tools:text="@string/profile_my_order_size" />
+
+        <TextView
+                android:id="@+id/tvValue"
+                style="@style/Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:includeFontPadding="false"
+                android:text="@{item.value}"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                tools:text="45" />
+    </LinearLayout>
+</layout>

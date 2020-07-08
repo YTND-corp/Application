@@ -3,30 +3,25 @@ package uz.mod.templatex.ui.profile.authorized.myOrders
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import uz.mod.templatex.model.local.entity.Product
+import androidx.lifecycle.Transformations
+import uz.mod.templatex.model.repository.profile.MyOrdersRepository
 
 class ProfileMyOrdersViewModel constructor(
-    application: Application
+    application: Application,
+    val repository: MyOrdersRepository
 ) : AndroidViewModel(application) {
 
-    var query = MutableLiveData<String>()
+    private val searchText = MutableLiveData<String>()
 
-    // TODO values for debug, set false - no orders, true - orders exist until API will work
-    fun isOrdersAvailable(): Boolean {
-        return true
+    val response = Transformations.switchMap(searchText) {
+        repository.getOrders(searchText.value ?: "")
     }
 
-    // TODO dummy data
-    fun getOrders(): List<Product> {
-        return listOf(
-//            Product(id = 0, price = "", isFavorite = false, categoryId = 0, name = "", brand = "", image = ""),
-//            Product(id = 0, price = "", isFavorite = false, categoryId = 0, name = "", brand = "", image = ""),
-//            Product(id = 0, price = "", isFavorite = false, categoryId = 0, name = "", brand = "", image = "")
-        )
+    val isEmpty = Transformations.map(response) {
+        it?.data?.isNullOrEmpty()
     }
 
-    fun search(query: String) {
-        this.query.postValue(query)
-        // TODO search in recycler view implementation
+    fun getOrders(searchText: String = "") {
+        this.searchText.value = searchText
     }
 }

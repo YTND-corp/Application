@@ -45,4 +45,8 @@ open class ParentFragment : Fragment() {
     open fun showError(resId: Int) {
         (activity as? ParentActivity)?.showError(resId)
     }
+
+    open fun hideKeyboard() {
+        (activity as? ParentActivity)?.hideKeyboard()
+    }
 }

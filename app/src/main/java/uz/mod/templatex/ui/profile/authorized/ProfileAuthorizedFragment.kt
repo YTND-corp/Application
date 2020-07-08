@@ -70,13 +70,13 @@ class ProfileAuthorizedFragment : ParentFragment() {
                 findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileMyOrdersFragment)
             }
             profileMyDataTv.setOnClickListener {
-                // TODO
+                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileMyDataFragment)
             }
             profileMyAddressesTv.setOnClickListener {
-                // TODO
+                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileMyAddressesFragment)
             }
             profileFavoritesTv.setOnClickListener {
-                // TODO
+                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileMyFavoriteFragment)
             }
             profileCallUsTv.setOnClickListener {
                 // TODO

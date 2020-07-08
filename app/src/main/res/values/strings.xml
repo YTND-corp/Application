@@ -26,6 +26,7 @@
     <string name="action_save">Сохранить</string>
     <string name="action_delete">Удалить</string>
     <string name="action_close">ЗАКРЫТЬ</string>
+    <string name="action_add">Добавить</string>
 
     <string name="action_start_shopping">Начать покупки</string>
     <string name="action_forgot_password">Забыли пароль?</string>
@@ -144,14 +145,19 @@
     <string name="profile_my_order_price">Стоимость</string>
     <string name="profile_my_order_delivery">Доставка</string>
     <string name="profile_my_order_total">К оплате</string>
+    <string name="profile_my_order_quantity_short">Кол-во:</string>
 
     <!--Profile My Data-->
+    <string name="profile_my_data_title">МОИ ДАННЫЕ</string>
     <string name="profile_my_data_full_name">Имя и фамилия</string>
     <string name="profile_my_data_phone">Номер телефона</string>
     <string name="profile_my_data_email">Эл. почта</string>
     <string name="profile_my_birth_date">Дата Рождения</string>
 
     <!--Profile My Addresses-->
+    <string name="profile_my_addresses_title">МОИ АДРЕСА</string>
+    <string name="profile_my_addresses_edit_title">РЕДАКТИРОВАТЬ</string>
+    <string name="profile_my_addresses_create_title">НОВЫЙ АДРЕС</string>
     <string name="profile_my_addresses_you_have_no_addresses">У вас нет адресов</string>
     <string name="profile_my_addresses_edit">Pедактировать</string>
     <string name="profile_my_addresses_default_address">По умолчанию</string>
@@ -166,6 +172,9 @@
     <!--Profile Settings-->
     <string name="profile_settings_notification">Уведомления</string>
     <string name="profile_settings_subscription_to_news">Подписка на рассылку</string>
+
+    <!--Profile Favorites-->
+    <string name="profile_favorites_title">ИЗБРАННОЕ</string>
 
     <!--Favorite-->
     <string name="favorite_placeholder_title">Здесь пока пусто</string>
