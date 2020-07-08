@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.mod.templatex.ui.profile.authorized.myAddresses.createEdit.ProfileMyAddressCreateEditViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,20 +42,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:text="@={viewModel.receiverName}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <Spinner
-                        android:id="@+id/country"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bg_spinner_dropdown"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_receiver_name" />
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_address"
@@ -55,7 +53,8 @@
                         android:hint="@string/profile_my_addresses_address"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/country">
+                        app:layout_constraintTop_toBottomOf="@id/til_receiver_name"
+                        tools:layout_editor_absoluteY="153dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/address"
@@ -64,7 +63,8 @@
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
                             android:inputType="text"
-                            android:maxLength="@integer/phone_length" />
+                            android:maxLength="@integer/phone_length"
+                            android:text="@={viewModel.address}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,6 +92,7 @@
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/bg_spinner_dropdown"
+                        android:popupBackground="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/til_secondary_address" />
@@ -110,7 +111,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:text="@={viewModel.city}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,8 +129,10 @@
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:enabled="@{!viewModel.isPostalCodeExist}"
                             android:imeOptions="actionNext"
-                            android:inputType="textPostalAddress" />
+                            android:inputType="number"
+                            android:text="@={viewModel.postcode}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,6 +142,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/activity_horizontal_margin"
                         android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.isPostalCodeExist}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/til_zip_code" />
 
@@ -171,7 +176,8 @@
                             android:gravity="center_vertical"
                             android:imeOptions="actionDone"
                             android:inputType="phone"
-                            android:maxLength="@integer/phone_length" />
+                            android:maxLength="@integer/phone_length"
+                            android:text="@={viewModel.phone}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -181,6 +187,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/activity_horizontal_margin"
                         android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.isDefault}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/til_phone" />
 

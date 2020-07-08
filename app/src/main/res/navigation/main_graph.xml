@@ -45,6 +45,23 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileAuthorizedFragment_to_profileMyAddressesFragment"
+                app:destination="@id/profileMyAddressesFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileAuthorizedFragment_to_profileMyDataFragment"
+                app:destination="@id/profileMyDataFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileAuthorizedFragment_to_profileMyFavoriteFragment"
+                app:destination="@id/profileMyFavoriteFragment" />
     </fragment>
     <fragment
             android:id="@+id/profileFragment"
@@ -237,12 +254,51 @@
             tools:layout="@layout/profile_my_orders_fragment">
         <action
                 android:id="@+id/action_profileMyOrdersFragment_to_profileMyOrderFragment"
-                app:destination="@id/profileMyOrderFragment" />
+                app:destination="@id/profileMyOrderFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
             android:id="@+id/profileMyOrderFragment"
             android:name="uz.mod.templatex.ui.profile.authorized.myOrder.ProfileMyOrderFragment"
-            tools:layout="@layout/profile_my_order_fragment" />
+            tools:layout="@layout/profile_my_order_fragment" >
+        <argument
+                android:name="orderId"
+                app:argType="integer" />
+    </fragment>
+    <fragment
+            android:id="@+id/profileMyAddressesFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.myAddresses.ProfileMyAddressesFragment"
+            android:label="@string/profile_my_addresses_title" >
+        <action
+                android:id="@+id/action_profileMyAddressesFragment_to_profileMyAddressCreateEditFragment"
+                app:destination="@id/profileMyAddressCreateEditFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+            android:id="@+id/profileMyAddressCreateEditFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.myAddresses.createEdit.ProfileMyAddressCreateEditFragment">
+        <argument
+                android:name="mode"
+                app:argType="uz.mod.templatex.ui.profile.authorized.myAddresses.ProfileMyAddressesFragment$Mode" />
+        <argument
+                android:name="addressId"
+                android:defaultValue="-1"
+                app:argType="integer" />
+    </fragment>
+    <fragment
+            android:id="@+id/profileMyDataFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.myData.ProfileMyDataFragment"
+            android:label="@string/profile_my_data_title" />
+    <fragment
+            android:id="@+id/profileMyFavoriteFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.myFavorite.ProfileMyFavoriteFragment"
+            android:label="@string/profile_favorites_title" />
     <include app:graph="@navigation/checkout_graph" />
 
 </navigation>

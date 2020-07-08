@@ -16,11 +16,19 @@ import uz.aqlify.yonda.utils.Prefs
 import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
+import uz.mod.templatex.model.remote.api.profile.MyAddressesService
+import uz.mod.templatex.model.remote.api.profile.MyDataService
+import uz.mod.templatex.model.remote.api.profile.MyFavoritesService
+import uz.mod.templatex.model.remote.api.profile.MyOrdersService
 import uz.mod.templatex.model.remote.network.AppExecutors
 import uz.mod.templatex.model.remote.network.AuthInterceptor
 import uz.mod.templatex.model.remote.network.LiveDataCallAdapterFactory
 import uz.mod.templatex.model.remote.network.NetworkInterceptor
 import uz.mod.templatex.model.repository.*
+import uz.mod.templatex.model.repository.profile.MyAddressesRepository
+import uz.mod.templatex.model.repository.profile.MyDataRepository
+import uz.mod.templatex.model.repository.profile.MyFavoritesRepository
+import uz.mod.templatex.model.repository.profile.MyOrdersRepository
 import uz.mod.templatex.ui.MainViewModel
 import uz.mod.templatex.ui.about.AboutViewModel
 import uz.mod.templatex.ui.address.AddressViewModel
@@ -41,6 +49,10 @@ import uz.mod.templatex.ui.payment.PaymentViewModel
 import uz.mod.templatex.ui.product.ProductViewModel
 import uz.mod.templatex.ui.products.ProductsViewModel
 import uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedViewModel
+import uz.mod.templatex.ui.profile.authorized.myAddresses.ProfileMyAddressesViewModel
+import uz.mod.templatex.ui.profile.authorized.myAddresses.createEdit.ProfileMyAddressCreateEditViewModel
+import uz.mod.templatex.ui.profile.authorized.myData.ProfileMyDataViewModel
+import uz.mod.templatex.ui.profile.authorized.myFavorite.ProfileMyFavoriteViewModel
 import uz.mod.templatex.ui.profile.authorized.myOrder.ProfileMyOrderViewModel
 import uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersViewModel
 import uz.mod.templatex.ui.profile.guest.ProfileGuestViewModel
@@ -86,8 +98,12 @@ val viewModelModule = module {
         )
     }
     viewModel { ProfileAuthorizedViewModel(get()) }
-    viewModel { ProfileMyOrdersViewModel(get()) }
-    viewModel { ProfileMyOrderViewModel(get()) }
+    viewModel { ProfileMyOrdersViewModel(get(), get()) }
+    viewModel { ProfileMyOrderViewModel(get(), get()) }
+    viewModel { ProfileMyAddressesViewModel(get(), get()) }
+    viewModel { ProfileMyAddressCreateEditViewModel(get(), get()) }
+    viewModel { ProfileMyDataViewModel(get(), get()) }
+    viewModel { ProfileMyFavoriteViewModel(get(), get()) }
     viewModel { CountryViewModel(get()) }
     viewModel { CallMeViewModel(get()) }
     viewModel { CheckOrderStatusViewModel(get()) }
@@ -120,6 +136,10 @@ val dbModule = module {
     }
     factory { get<AppDatabase>().productDao() }
     factory { get<AppDatabase>().filterDao() }
+    factory { get<AppDatabase>().profileAddressDao() }
+    factory { get<AppDatabase>().profileRegionDao() }
+    factory { get<AppDatabase>().profileOrderDao() }
+    factory { get<AppDatabase>().profileFavoriteDao() }
 }
 
 val repositoryModule = module {
@@ -128,6 +148,10 @@ val repositoryModule = module {
     single { AuthRepository(get(), get()) }
     single { CartRepository(get(), get(), get()) }
     single { CheckoutRepository(get(), get()) }
+    single { MyAddressesRepository(get(), get(), get(), get()) }
+    single { MyOrdersRepository(get(), get(), get()) }
+    single { MyDataRepository(get()) }
+    single { MyFavoritesRepository(get(), get(), get()) }
 }
 
 val apiModule = module {
@@ -136,6 +160,10 @@ val apiModule = module {
     factory { get<Retrofit>().create(AuthService::class.java) }
     factory { get<Retrofit>().create(CartService::class.java) }
     factory { get<Retrofit>().create(CheckoutService::class.java) }
+    factory { get<Retrofit>().create(MyAddressesService::class.java) }
+    factory { get<Retrofit>().create(MyOrdersService::class.java) }
+    factory { get<Retrofit>().create(MyDataService::class.java) }
+    factory { get<Retrofit>().create(MyFavoritesService::class.java) }
 }
 
 val retrofitModule = module {
