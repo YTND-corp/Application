@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import timber.log.Timber
 import uz.mod.templatex.databinding.ProductItemBinding
 import uz.mod.templatex.model.local.entity.Product
+import uz.mod.templatex.ui.product.ProductFragmentDirections
 
 class ProductAdapter(private var listener: (id: Int, isFavorite: Boolean)-> Unit) :
 
@@ -46,9 +47,7 @@ class ProductAdapter(private var listener: (id: Int, isFavorite: Boolean)-> Unit
 
                 root.setOnClickListener {
                     it.findNavController().navigate(
-                        ProductsFragmentDirections.actionGlobalProductFragment(
-                            product.id
-                        )
+                        ProductFragmentDirections.actionGlobalProductFragment(product.id)
                     )
                 }
             }

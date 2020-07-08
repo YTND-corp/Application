@@ -4,16 +4,11 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import org.jetbrains.annotations.NotNull
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,7 +20,6 @@ import uz.mod.templatex.databinding.MainActivityBinding
 import uz.mod.templatex.ui.parent.ParentActivity
 import uz.mod.templatex.utils.extension.color
 import uz.mod.templatex.utils.extension.drawable
-import uz.mod.templatex.utils.extension.inputMethodManager
 import uz.mod.templatex.utils.extension.setupWithNavControllerMultipleStack
 
 
@@ -110,7 +104,7 @@ class MainActivity : ParentActivity() {
             val controller = bottomNavigationView.setupWithNavControllerMultipleStack(listOf(
                 R.navigation.home_graph,
                 R.navigation.catalog_graph,
-                R.navigation.starred_graph,
+                R.navigation.favorites_graph,
                 R.navigation.profile_graph,
                 R.navigation.cart_graph
             ),supportFragmentManager,R.id.nav_host_container)
@@ -129,10 +123,6 @@ class MainActivity : ParentActivity() {
         hideKeyboard()
         toolbar.setupWithNavController(navController, appBarConfiguration)
         viewModel!!.destinationChanged(navController.currentDestination!!)
-    }
-
-    private fun hideKeyboard() {
-        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
     override fun onSupportNavigateUp(): Boolean =
