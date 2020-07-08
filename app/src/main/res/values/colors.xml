@@ -11,11 +11,13 @@
     <color name="white">#FFFFFF</color>
     <color name="gray">#EFEFEF</color>
     <color name="darkGray">#666666</color>
+    <color name="lightGray">#EEEEF0</color>
     <color name="black">#222222</color>
     <color name="black_50">#80222222</color>
     <string name="green">#34C759</string>
     <string name="orange">#FF9500</string>
     <string name="blue">#007AFF</string>
+    <color name="red">#D54A52</color>
 
     <!--Text-->
     <color name="primaryTextColor">@color/colorAccent</color>

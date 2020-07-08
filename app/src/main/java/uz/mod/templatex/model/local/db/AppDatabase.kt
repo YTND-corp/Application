@@ -9,10 +9,11 @@ import uz.mod.templatex.model.local.db.dao.*
 import uz.mod.templatex.model.local.entity.Filter
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.local.entity.profile.ProfileAddress
+import uz.mod.templatex.model.local.entity.profile.ProfileFavorite
 import uz.mod.templatex.model.local.entity.profile.ProfileOrder
 import uz.mod.templatex.model.local.entity.profile.ProfileRegion
 
-@Database(entities = [Product::class, Filter::class, ProfileAddress::class, ProfileRegion::class, ProfileOrder::class], version = 1, exportSchema = false)
+@Database(entities = [Product::class, Filter::class, ProfileAddress::class, ProfileRegion::class, ProfileOrder::class, ProfileFavorite::class], version = 1, exportSchema = false)
 @TypeConverters(ProductTypeConverter::class, OrderTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
@@ -20,4 +21,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun profileAddressDao(): ProfileAddressDao
     abstract fun profileRegionDao(): ProfileRegionDao
     abstract fun profileOrderDao(): ProfileOrderDao
+    abstract fun profileFavoriteDao(): ProfileFavoriteDao
 }

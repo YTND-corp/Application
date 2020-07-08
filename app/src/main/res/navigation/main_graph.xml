@@ -59,6 +59,9 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_profileAuthorizedFragment_to_profileMyFavoriteFragment"
+                app:destination="@id/profileMyFavoriteFragment" />
     </fragment>
     <fragment
             android:id="@+id/profileFragment"
@@ -313,4 +316,8 @@
             android:id="@+id/profileMyDataFragment"
             android:name="uz.mod.templatex.ui.profile.authorized.myData.ProfileMyDataFragment"
             android:label="@string/profile_my_data_title" />
+    <fragment
+            android:id="@+id/profileMyFavoriteFragment"
+            android:name="uz.mod.templatex.ui.profile.authorized.myFavorite.ProfileMyFavoriteFragment"
+            android:label="@string/profile_favorites_title" />
 </navigation>

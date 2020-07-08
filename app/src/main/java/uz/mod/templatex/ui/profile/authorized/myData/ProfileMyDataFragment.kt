@@ -57,7 +57,13 @@ class ProfileMyDataFragment : ParentFragment() {
                         name.setText(result?.data?.user?.printFullName())
                         phone.setText(result?.data?.user?.phone)
                         email.setText(result?.data?.user?.email)
-                        birthDate.setText("$birthday.${birthdayMonth + 1}.$birthdayYear")
+                        birthDate.setText(
+                            LocalDate.parse(
+                                result?.data?.user?.birthday,
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                            )
+                                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                        )
                         sNotification.isChecked = result?.data?.user?.notifications == true
                         sSubscription.isChecked = result?.data?.user?.subscriptions == true
                     }

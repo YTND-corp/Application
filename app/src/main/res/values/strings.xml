@@ -169,6 +169,9 @@
     <string name="profile_settings_notification">Уведомления</string>
     <string name="profile_settings_subscription_to_news">Подписка на рассылку</string>
 
+    <!--Profile Favorites-->
+    <string name="profile_favorites_title">ИЗБРАННОЕ</string>
+
     <!--Favorite-->
     <string name="favorite_placeholder_title">Здесь пока пусто</string>
     <string name="favorite_placeholder_message">Вы пока ничего не добавили в избранное</string>

@@ -21,8 +21,8 @@ class MyOrdersRepository(
     fun getOrders(searchText: String): LiveData<Resource<List<ProfileOrder>>> {
         return object : NetworkBoundResource<List<ProfileOrder>, MyOrdersResponse>(executors) {
             override fun saveCallResult(item: MyOrdersResponse) {
-                ordersDao.deleteAll()
-                ordersDao.insertAll(item.orders)
+                /*ordersDao.deleteAll()
+                ordersDao.insertAll(item.orders)*/
             }
 
             override fun shouldFetch(data: List<ProfileOrder>?): Boolean {

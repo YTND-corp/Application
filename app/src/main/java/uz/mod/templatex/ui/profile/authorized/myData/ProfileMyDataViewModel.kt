@@ -8,6 +8,8 @@ import androidx.lifecycle.Transformations
 import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.model.repository.profile.MyDataRepository
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class ProfileMyDataViewModel(application: Application, val repository: MyDataRepository) :
     AndroidViewModel(application) {
@@ -36,6 +38,12 @@ class ProfileMyDataViewModel(application: Application, val repository: MyDataRep
     fun updateUserInfo(): LiveData<Resource<Any>> {
         var firstName: String? = null
         var lastName: String? = null
+        val birthday =
+            LocalDate.parse(
+                this.birthday.value,
+                DateTimeFormatter.ofPattern("dd.MM.yyyy")
+            )
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
         fullName.value?.trim()?.split(" ")?.forEachIndexed { index, s ->
             when (index) {
@@ -50,7 +58,7 @@ class ProfileMyDataViewModel(application: Application, val repository: MyDataRep
             lastName,
             phone.value,
             email.value,
-            birthday.value,
+            birthday,
             selectedGender,
             if (isNotificationEnabled.value == true) 1 else 0,
             if (isSubscriptionEnabled.value == true) 1 else 0
