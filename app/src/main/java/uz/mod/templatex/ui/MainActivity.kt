@@ -20,13 +20,13 @@ import uz.mod.templatex.databinding.MainActivityBinding
 import uz.mod.templatex.ui.parent.ParentActivity
 import uz.mod.templatex.utils.extension.color
 import uz.mod.templatex.utils.extension.drawable
-import uz.mod.templatex.utils.extension.setupWithNavControllerMultipleStack
+import uz.mod.templatex.utils.extension.setupWithNavController
 
 
 class MainActivity : ParentActivity() {
 
     private val viewModel: MainViewModel by viewModel()
-    private lateinit var currentNavController : LiveData<NavController>
+    private lateinit var currentNavController: LiveData<NavController>
 
     private val binding by lazy { MainActivityBinding.inflate(layoutInflater) }
 
@@ -101,15 +101,17 @@ class MainActivity : ParentActivity() {
 
             appBarConfiguration = AppBarConfiguration(TOP_LEVEL_FRAGMENTS)
 
-            val controller = bottomNavigationView.setupWithNavControllerMultipleStack(listOf(
-                R.navigation.home_graph,
-                R.navigation.catalog_graph,
-                R.navigation.favorites_graph,
-                R.navigation.profile_graph,
-                R.navigation.cart_graph
-            ),supportFragmentManager,R.id.nav_host_container)
+            val controller = bottomNavigationView.setupWithNavController(
+                listOf(
+                    R.navigation.home_graph,
+                    R.navigation.catalog_graph,
+                    R.navigation.favorites_graph,
+                    R.navigation.profile_graph,
+                    R.navigation.cart_graph
+                ), supportFragmentManager, R.id.nav_host_container, intent
+            )
             currentNavController = controller
-            controller.observe(this@MainActivity, Observer {navController->
+            controller.observe(this@MainActivity, Observer { navController ->
                 onNavControllerChanged(navController)
             })
             bottomNavigationView.selectedItemId = R.id.home_graph
