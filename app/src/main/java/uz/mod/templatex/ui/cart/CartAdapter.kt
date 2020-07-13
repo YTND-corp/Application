@@ -39,11 +39,11 @@ class CartAdapter(val listener: ItemListener) : RecyclerView.Adapter<CartAdapter
                 executePendingBindings()
 
                 root.setOnClickListener {
-                    it.findNavController().navigate(
+                    /*it.findNavController().navigate(
                         CartFragmentDirections.actionCartFragmentToProductFragment(
                             product.id
                         )
-                    )
+                    )*/
                 }
 
                 select.setOnCheckedChangeListener { compoundButton, b ->

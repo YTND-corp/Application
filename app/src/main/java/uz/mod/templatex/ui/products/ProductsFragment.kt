@@ -115,7 +115,7 @@ class ProductsFragment : ParentFragment() {
             executePendingBindings()
 
             filter.setOnClickListener {
-                findNavController().navigate(ProductsFragmentDirections.actionProductsFragmentToMainFilterFragment(viewModel!!.categoryId))
+                //findNavController().navigate(ProductsFragmentDirections.actionProductsFragmentToMainFilterFragment(viewModel!!.categoryId))
             }
 
             val layoutManager = GridLayoutManager(requireContext(),2)
