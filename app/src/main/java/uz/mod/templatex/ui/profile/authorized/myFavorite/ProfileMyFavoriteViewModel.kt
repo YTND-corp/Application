@@ -2,11 +2,11 @@ package uz.mod.templatex.ui.profile.authorized.myFavorite
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import uz.mod.templatex.model.repository.profile.MyFavoritesRepository
+import uz.mod.templatex.model.repository.FavoriteRepository
 
 class ProfileMyFavoriteViewModel(
     application: Application,
-    val repository: MyFavoritesRepository
+    val repository: FavoriteRepository
 ) : AndroidViewModel(application) {
 
     fun getFavorites() = repository.getFavorites()

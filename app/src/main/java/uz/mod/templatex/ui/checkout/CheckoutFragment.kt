@@ -1,6 +1,7 @@
 package uz.mod.templatex.ui.checkout
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.BuildConfig
-import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CheckoutFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
-import uz.mod.templatex.ui.delivery.DeliveryFragment
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const.PHONE_CODE_DEFAULT
 import uz.mod.templatex.utils.MaskWatcher
@@ -39,14 +38,22 @@ class CheckoutFragment : ParentFragment() {
                 Status.SUCCESS -> {
                     hideLoading()
                     result.data?.let {
-                        val actionCheckoutfragmentToAddressfragment = R.id.action_checkoutFragment_to_addressFragment
-                        findNavController().navigate(actionCheckoutfragmentToAddressfragment)
-//                        findNavController().navigate(
-//                            CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment(
-//                                viewModel.getPhone(),
-//                                it
-//                            )
-//                        )
+                        //TODO after auth completed should work around this
+                        /*if (sharedViewModel.isAuthenticated.value == true) {
+                            findNavController().navigate(
+                                CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment(
+                                    it,
+                                    viewModel.getPhone()
+                                )
+                            )
+                        } else {*/
+                            findNavController().navigate(
+                                CheckoutFragmentDirections.actionCheckoutFragmentToCodeFragment(
+                                    viewModel.getPhone(),
+                                    true
+                                )
+                            )
+                        //}
                     }
                 }
             }

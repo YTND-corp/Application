@@ -7,7 +7,7 @@
 
         <variable
                 name="item"
-                type="uz.mod.templatex.model.local.entity.profile.ProfileFavorite" />
+                type="uz.mod.templatex.model.local.entity.Favorite" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,10 +5,31 @@
         android:id="@+id/sign_up_graph"
         app:startDestination="@id/signUpFragment"
         tools:ignore="UnusedNavigation">
+
+    <action
+            android:id="@+id/action_global_codeFragment"
+            app:destination="@id/codeFragment" />
+
     <fragment
             android:id="@+id/signUpFragment"
             android:name="uz.mod.templatex.ui.signUp.SignUpFragment"
             android:label="@string/title_sign_up"
-            tools:layout="@layout/sign_up_fragment"/>
+            tools:layout="@layout/sign_up_fragment" >
+        <action
+                android:id="@+id/action_signUpFragment_to_codeFragment3"
+                app:destination="@id/codeFragment" />
+    </fragment>
 
+    <fragment
+            android:id="@+id/codeFragment"
+            android:name="uz.mod.templatex.ui.code.CodeFragment"
+            android:label="@string/title_code"
+            tools:layout="@layout/code_fragment">
+        <argument
+                android:name="phone"
+                app:argType="string" />
+        <argument
+                android:name="isCheckout"
+                app:argType="boolean" />
+    </fragment>
 </navigation>

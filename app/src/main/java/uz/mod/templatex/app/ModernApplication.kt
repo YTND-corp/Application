@@ -18,7 +18,6 @@ class ModernApplication: Application() {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(LanguageHelper.onAttach(base))
-        MultiDex.install(this)
     }
 
     override fun onCreate() {

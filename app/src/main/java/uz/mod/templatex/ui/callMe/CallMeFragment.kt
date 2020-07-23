@@ -1,15 +1,14 @@
 package uz.mod.templatex.ui.callMe
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.databinding.CallMeFragmentBinding
+import uz.mod.templatex.ui.parent.ParentFragment
 
-class CallMeFragment : Fragment() {
+class CallMeFragment : ParentFragment() {
 
     val viewModel: CallMeViewModel by viewModel()
 

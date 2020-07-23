@@ -17,9 +17,8 @@ class ProfileAuthorizedViewModel constructor(
             email = "",
             country = "",
             phone = "",
-            expiresIn = 0L,
-            token = "",
-            tokenType = ""
+            gender = "",
+            birthday = ""
         )
     }
 }

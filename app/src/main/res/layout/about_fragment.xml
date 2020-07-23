@@ -53,7 +53,7 @@
                 tools:text="Позвонить по номеру +998 95 303-99-99\nС понедельника по пятницу с 9:00 по 21:0" />
 
         <Button
-                android:id="@+id/continue_button"
+                android:id="@+id/call_button"
                 style="@style/ContainedButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -75,35 +75,58 @@
                 android:textSize="@dimen/text_size_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/continue_button"
+                app:layout_constraintTop_toBottomOf="@id/call_button"
                 tools:text="Узнать больше" />
 
         <ImageView
-                android:id="@+id/facebook"
+                android:id="@+id/vk"
+                link="@{viewModel.VK_URL}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_facebook_black"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/ic_vk"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/socials_header" />
 
         <ImageView
                 android:id="@+id/instagram"
+                link="@{viewModel.INSTAGRAM_URL}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_instagram_black"
-                app:layout_constraintStart_toEndOf="@id/facebook"
-                app:layout_constraintTop_toTopOf="@id/facebook" />
+                android:src="@drawable/ic_instagram"
+                app:layout_constraintEnd_toStartOf="@id/telegram"
+                app:layout_constraintStart_toEndOf="@id/vk"
+                app:layout_constraintTop_toTopOf="@id/vk" />
 
         <ImageView
                 android:id="@+id/telegram"
+                link="@{viewModel.TELEGRAM_URL}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_telegram_black"
+                android:src="@drawable/ic_telegram"
+                app:layout_constraintEnd_toStartOf="@id/tik_tok"
                 app:layout_constraintStart_toEndOf="@id/instagram"
-                app:layout_constraintTop_toTopOf="@id/facebook" />
+                app:layout_constraintTop_toTopOf="@id/vk" />
+
+        <ImageView
+                android:id="@+id/tik_tok"
+                link="@{viewModel.TIKTOK_URL}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tik_tok"
+                app:layout_constraintEnd_toStartOf="@id/facebook"
+                app:layout_constraintStart_toEndOf="@id/telegram"
+                app:layout_constraintTop_toTopOf="@id/vk" />
+
+        <ImageView
+                android:id="@+id/facebook"
+                link="@{viewModel.FACEBOOK_URL}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_facebook"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tik_tok"
+                app:layout_constraintTop_toTopOf="@id/vk" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

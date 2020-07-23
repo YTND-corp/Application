@@ -2,13 +2,19 @@ package uz.mod.templatex.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.widget.TooltipCompat
+import androidx.core.content.ContextCompat
+import androidx.core.view.forEach
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.badge.BadgeDrawable
+import kotlinx.android.synthetic.main.main_activity.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import org.jetbrains.annotations.NotNull
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,6 +37,7 @@ class MainActivity : ParentActivity() {
     private val binding by lazy { MainActivityBinding.inflate(layoutInflater) }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private var cartBadge: BadgeDrawable? = null
 
     private val TOP_LEVEL_FRAGMENTS = setOf(
         R.id.selectionFragment,
@@ -91,6 +98,15 @@ class MainActivity : ParentActivity() {
 
             binding.toolbar.background = drawable
         })
+
+        viewModel.getCartItemCount().observe(this, Observer { count ->
+            if (count == 0) {
+                cartBadge?.isVisible = false
+            } else {
+                cartBadge?.isVisible = true
+                cartBadge?.number = count
+            }
+        })
     }
 
     fun initViews() {
@@ -98,6 +114,12 @@ class MainActivity : ParentActivity() {
             viewModel = this@MainActivity.viewModel
             executePendingBindings()
             setSupportActionBar(toolbar)
+
+            val menuItem = bottom_navigation_view.menu.findItem(R.id.cart_graph)
+            cartBadge = bottom_navigation_view.getOrCreateBadge(menuItem.itemId)
+            cartBadge?.badgeTextColor = ContextCompat.getColor(root.context, R.color.white)
+            cartBadge?.backgroundColor = ContextCompat.getColor(root.context, R.color.black)
+            cartBadge?.isVisible = false
 
             appBarConfiguration = AppBarConfiguration(TOP_LEVEL_FRAGMENTS)
 
@@ -116,6 +138,12 @@ class MainActivity : ParentActivity() {
             })
             bottomNavigationView.selectedItemId = R.id.home_graph
             binding.toolbar.title = ""
+
+            bottomNavigationView.menu.forEach {
+                findViewById<View>(it.itemId).setOnLongClickListener {
+                    true
+                }
+            }
         }
     }
 
@@ -123,6 +151,7 @@ class MainActivity : ParentActivity() {
         navController: NavController
     ) {
         hideKeyboard()
+        hideLoading()
         toolbar.setupWithNavController(navController, appBarConfiguration)
         viewModel!!.destinationChanged(navController.currentDestination!!)
     }

@@ -1,16 +1,18 @@
 package uz.mod.templatex.ui.product
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import uz.mod.templatex.model.remote.network.Resource
+import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.model.remote.response.ProductColor
 import uz.mod.templatex.model.remote.response.ProductDetailResponse
 import uz.mod.templatex.model.remote.response.ProductSize
+import uz.mod.templatex.model.repository.CartRepository
 import uz.mod.templatex.model.repository.ProductRepository
 import uz.mod.templatex.utils.Const
-import uz.mod.templatex.utils.extension.clear
 
-class ProductViewModel constructor(application: Application, val repository: ProductRepository) :
+class ProductViewModel constructor(application: Application, val repository: ProductRepository, val cartRepository: CartRepository) :
     AndroidViewModel(application) {
 
     private val request = MutableLiveData<Boolean>()
@@ -19,9 +21,12 @@ class ProductViewModel constructor(application: Application, val repository: Pro
     var selectedColor = MutableLiveData<ProductColor>()
     var selectedSize = MutableLiveData<ProductSize>()
 
-
     val response: LiveData<Resource<ProductDetailResponse>> = Transformations.switchMap(request) {
         repository.getProduct(id)
+    }
+
+    val isContentVisible: LiveData<Boolean> = Transformations.map(response) {
+        it.status == Status.SUCCESS
     }
 
     fun setArgs(args: ProductFragmentArgs) {
@@ -29,8 +34,16 @@ class ProductViewModel constructor(application: Application, val repository: Pro
         request.value = true
     }
 
+    val shareText = Transformations.map(response) { result ->
+        result.data?.product?.let { "${it.brand} ${it.name} ${it.images?.firstOrNull()}" }
+    }
+
     val product = Transformations.map(response) {
         it.data?.product
+    }
+
+    val relativeProducts = Transformations.map(response) {
+        it.data?.similarByBrand
     }
 
     val images = MediatorLiveData<List<String>?>()
@@ -46,11 +59,6 @@ class ProductViewModel constructor(application: Application, val repository: Pro
 
     val delivery = Transformations.map(response) {
         it.data?.delivery
-    }
-
-
-    val hasDescription = Transformations.map(product) {
-        !it?.description.isNullOrEmpty()
     }
 
     val hasComposition = Transformations.map(product) {
@@ -76,13 +84,15 @@ class ProductViewModel constructor(application: Application, val repository: Pro
         return temps
     }
 
-    fun addToCart() = repository.addToCart(id, 1, attributeIds())
+    fun addToCart() = cartRepository.addToCart(id, 1, attributeIds())
 
     fun isFavorite() = Transformations.map(repository.isFavorite(id)) {
         it?.isFavorite == true
     }
 
     fun favoriteToggle() = repository.favoriteToggle(id)
+
+    fun seeAlsoFavoriteToggle(id: Int) = repository.seeAlsoFavoriteToggle(id)
 
     val VK_URL = Const.VK_URL
     val INSTAGRAM_URL = Const.INSTAGRAM_URL

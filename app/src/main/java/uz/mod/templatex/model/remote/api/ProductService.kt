@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import retrofit2.http.*
 import uz.mod.templatex.model.remote.network.ApiResponse
 import uz.mod.templatex.model.remote.network.ProxyRetrofitQueryMap
-import uz.mod.templatex.model.remote.response.*
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
+import uz.mod.templatex.model.remote.response.CartResponse
+import uz.mod.templatex.model.remote.response.ProductDetailResponse
+import uz.mod.templatex.model.remote.response.ProductsResponse
 
 interface ProductService {
 
@@ -23,15 +24,12 @@ interface ProductService {
         @Path("id") id: Int
     ): LiveData<ApiResponse<ProductDetailResponse>>
 
-    @GET("v1/favorites")
-    fun getFavorites(): LiveData<ApiResponse<FavoritesResponse>>
-
-    @FormUrlEncoded
-    @POST("v1/favorites")
-    fun favoriteToggle(@Field("product") id: Int): LiveData<ApiResponse<FavoriteToggleResponse>>
-
     @FormUrlEncoded
     @POST("v1/carts")
-    fun addToCart(@Field("product") id: Int, @Field("quantity") quantity: Int, @Field("attributes[]") attributes: ArrayList<Int>): LiveData<ApiResponse<Any>>
+    fun addToCart(
+        @Field("product") id: Int,
+        @Field("quantity") quantity: Int,
+        @Field("attributes[]") attributes: ArrayList<Int>
+    ): LiveData<ApiResponse<CartResponse>>
 
 }

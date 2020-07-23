@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileItemFavoriteBinding
-import uz.mod.templatex.model.local.entity.profile.ProfileFavorite
+import uz.mod.templatex.model.local.entity.Favorite
 
 class FavoriteAdapter(private val listener: FavoriteAdapterListener) :
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
@@ -16,7 +16,7 @@ class FavoriteAdapter(private val listener: FavoriteAdapterListener) :
         fun onRemoveClick(id: Int)
     }
 
-    private var items: List<ProfileFavorite> = listOf()
+    private var items: List<Favorite> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = FavoriteViewHolder(
         ProfileItemFavoriteBinding.bind(
@@ -31,7 +31,7 @@ class FavoriteAdapter(private val listener: FavoriteAdapterListener) :
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) =
         holder.bind(items[position])
 
-    fun setItems(items: List<ProfileFavorite>?) {
+    fun setItems(items: List<Favorite>?) {
         this.items = items ?: listOf()
         notifyDataSetChanged()
     }
@@ -41,13 +41,13 @@ class FavoriteAdapter(private val listener: FavoriteAdapterListener) :
         val listener: FavoriteAdapterListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(favorite: ProfileFavorite) {
+        fun bind(favorite: Favorite) {
 
             binding.apply {
                 item = favorite
                 tvOldPrice.paintFlags = tvOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-                favorite.currency[0].apply {
+                favorite.currencies[0].apply {
                     if (discount == 0) {
                         tvDiscount.visibility = View.GONE
                     } else {

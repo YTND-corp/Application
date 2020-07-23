@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 import uz.mod.templatex.databinding.CheckOrderStatusFragmentBinding
+import uz.mod.templatex.ui.parent.ParentFragment
 
-class CheckOrderStatusFragment : Fragment() {
+class CheckOrderStatusFragment : ParentFragment() {
 
     val viewModel: CheckOrderStatusViewModel by viewModel()
 

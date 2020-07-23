@@ -1,30 +1,29 @@
 package uz.mod.templatex.ui.products
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.products_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProductsFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
-import uz.mod.templatex.ui.new_filter.MainFilterFragmentArgs
-import uz.mod.templatex.ui.new_filter.MainFilterFragmentDirections
+import uz.mod.templatex.ui.new_filter.MainFilterFragment
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
+import uz.mod.templatex.ui.new_filter.SortFragment
 import uz.mod.templatex.ui.parent.ParentFragment
 
 
 class ProductsFragment : ParentFragment() {
-    val sharedFilterViewModel : SharedFilterViewModel by activityViewModels<SharedFilterViewModel>()
+    val sharedFilterViewModel: SharedFilterViewModel by activityViewModels<SharedFilterViewModel>()
     val viewModel: ProductsViewModel by viewModel()
 
     private val binding by lazy { ProductsFragmentBinding.inflate(layoutInflater) }
@@ -44,18 +43,18 @@ class ProductsFragment : ParentFragment() {
 
         adapter = ProductAdapter { id, isFavorite ->
             viewModel.favoriteToggle(id).observe(viewLifecycleOwner, Observer { result ->
-                    when (result.status) {
-                        Status.LOADING -> showLoading()
-                        Status.ERROR -> {
-                            hideLoading()
-                            showError(result.error)
-                        }
-                        Status.SUCCESS -> {
-                            hideLoading()
-                            Timber.e(result.data.toString())
-                        }
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        showError(result.error)
                     }
-                })
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        Timber.e(result.data.toString())
+                    }
+                }
+            })
         }
 
         viewModel.setArgs(args)
@@ -75,6 +74,7 @@ class ProductsFragment : ParentFragment() {
 
         initViews()
 
+        viewModel.filterParams = sharedFilterViewModel.activeFilter
         viewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> {
@@ -89,7 +89,7 @@ class ProductsFragment : ParentFragment() {
                     isLoadingMore = false
                     hideLoading()
                     adapter.setItems(result.data)
-                    if (viewModel.page==1) {
+                    if (viewModel.page == 1) {
                         val string =
                             resources.getString(R.string.products_subtitle, result.data?.size.toString())
                         Timber.d("binding.subtitle.text $string")
@@ -101,7 +101,7 @@ class ProductsFragment : ParentFragment() {
 
     override fun onResume() {
         super.onResume()
-        if (sharedFilterViewModel.needToReloadFeed){
+        if (sharedFilterViewModel.needToReloadFeed) {
             sharedFilterViewModel.needToReloadFeed = false
             sharedFilterViewModel.fillActiveFilter()
             viewModel.filterParams = sharedFilterViewModel.activeFilter
@@ -114,11 +114,8 @@ class ProductsFragment : ParentFragment() {
             viewModel = this@ProductsFragment.viewModel
             executePendingBindings()
 
-            filter.setOnClickListener {
-                //findNavController().navigate(ProductsFragmentDirections.actionProductsFragmentToMainFilterFragment(viewModel!!.categoryId))
-            }
-
-            val layoutManager = GridLayoutManager(requireContext(),2)
+            sort.text = sharedFilterViewModel.activeFilter.sort.name
+            val layoutManager = GridLayoutManager(requireContext(), 2)
             products.layoutManager = layoutManager
             products.adapter = adapter
 
@@ -144,8 +141,19 @@ class ProductsFragment : ParentFragment() {
                 }
             })
 
-            sortWrapper.setOnClickListener {
+            filter.setOnClickListener {
+                viewModel?.categoryId?.let {
+                    findNavController().navigate(
+                        R.id.mainFilterFragment,
+                        bundleOf(MainFilterFragment.KEY_CATEGORY_ID to it)
+                    )
+                }
+            }
 
+            sortWrapper.setOnClickListener {
+                viewModel?.categoryId?.let {
+                    findNavController().navigate(R.id.sortFragment)
+                }
             }
 
             back.setOnClickListener {

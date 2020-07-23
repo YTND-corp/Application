@@ -53,11 +53,11 @@
     <string name="title_products">ВЕРХНЯЯ ОДЕЖДА</string>
     <string name="title_filter">Фильтры</string>
     <string name="title_choose_country">Выберите страну</string>
-    <string name="title_check_order_status">Проверить статус заказа</string>
-    <string name="title_call_me">Заказать звонок</string>
-    <string name="title_ask_question">Задать нам вопрос</string>
-    <string name="title_support">Центр поддержки</string>
-    <string name="title_about">Наши контакты</string>
+    <string name="title_check_order_status">ПРОВЕРИТЬ СТАТУС ЗАКАЗА</string>
+    <string name="title_call_me">ЗАКАЗАТЬ ЗВОНОК</string>
+    <string name="title_ask_question">ЗАДАТЬ НАМ ВОПРОС</string>
+    <string name="title_support">ЦЕНТР ПОДДЕРЖКИ</string>
+    <string name="title_about">НАШИ КОНТАКТЫ</string>
     <string name="title_checkout">Оформления заказа</string>
     <string name="title_adres">Адрес доставки</string>
     <string name="title_search">Поиск</string>
@@ -106,6 +106,7 @@
     <string name="hint_repeat_password">Повторите пароль</string>
 
     <!--Profile-->
+    <string name="profile_title">ПРОФИЛЬ</string>
     <string name="auth_view_title">Привилегии</string>
     <string name="auth_view_message">Увеличивайте персональную скидку, сохраняйте\nизбранное, получайте персональные рекомендации.</string>
     <string name="profile_check_status_order">Проверить статус заказа</string>
@@ -177,6 +178,7 @@
     <string name="profile_favorites_title">ИЗБРАННОЕ</string>
 
     <!--Favorite-->
+    <string name="favorite_title">ИЗБРАННОЕ</string>
     <string name="favorite_placeholder_title">Здесь пока пусто</string>
     <string name="favorite_placeholder_message">Вы пока ничего не добавили в избранное</string>
 
@@ -189,7 +191,7 @@
     <string name="actual_header">Актуально</string>
 
     <!--  Call Me  -->
-    <string name="call_me_subtitle">Оставьте нам свой номер телефона и мы \nперезвоним Вам в течение 5-ты минут</string>
+    <string name="call_me_subtitle">Оставьте нам свой номер телефона и мы \nперезвоним Вам в течение 5-ти минут</string>
 
     <!--  Check Order Status  -->
     <string name="check_order_status_subtitle">Если у вас остались жалобы и вопросы по заказу или вы не можете вспомнить номер заказа, просим обратиться в службу поддержки</string>
@@ -220,22 +222,27 @@
     <!--  Product  -->
     <string name="sizes">Размер:</string>
     <string name="to_favorites">В избранное</string>
-    <string name="deliver_and_check">ДОСТАВКА И ПРИМЕРКА</string>
-    <string name="deliver_and_return">Deliver and return</string>
-    <string name="deliver">Deliver</string>
-    <string name="Return">Return</string>
+    <string name="deliver_and_return">Доставка и возврат</string>
+    <string name="deliver">Доставка</string>
+    <string name="Return">Возврат</string>
     <string name="info_about_product">ИНФОРМАЦИЯ О ПРОДУКТЕ</string>
     <string name="composition_and_care">СОСТАВ И УХОД</string>
-    <string name="related_products">Похожие товары</string>
+    <string name="related_products">Смотрите также</string>
     <string name="all_the_brand">Все %s</string>
     <string name="all_the_category_of_the_brand">Все %s %s</string>
     <string name="other_category">Другие %s</string>
+    <string name="article_number">Артикул</string>
+    <string name="size_table">Таблица размеров</string>
+    <string name="color">Цвет</string>
+    <string name="product_added_to_cart">Товар добавлен в корзину</string>
 
     <string name="recent_products">Вы недавно просматривали</string>
 
     <!--Cart-->
+    <string name="cart_title">КОРЗИНА</string>
     <string name="product_count">Товаров: %d</string>
     <string name="cart_placeholder_message">В вашей корзине пока ничего нет</string>
+    <string name="price">Цена</string>
 
     <!--  Cart Details  -->
     <string name="select_all">Выбрать все</string>

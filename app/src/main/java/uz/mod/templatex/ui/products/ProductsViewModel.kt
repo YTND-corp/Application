@@ -19,7 +19,6 @@ class ProductsViewModel constructor(application: Application, val repository: Pr
     var totalCount = ""
 
     var filterParams : SharedFilterViewModel.SelectedFitlerDto = SharedFilterViewModel.SelectedFitlerDto()
-
     var title = MutableLiveData<String>()
 
     private val request = MutableLiveData<Boolean>()

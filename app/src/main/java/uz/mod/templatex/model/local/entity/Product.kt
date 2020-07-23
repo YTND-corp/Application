@@ -12,12 +12,13 @@ data class Product(
     val id: Int,
     val name: String?,
     @SerializedName("currency")val currencies: List<Currency>?,
-    @SerializedName("is_favorites_added") val isFavorite: Boolean,
+    @SerializedName("is_favorites_added") var isFavorite: Boolean,
     var selected: Boolean = false,
     val image: String?,
     val brand: String?,
     val category: String?,
     val categoryId: Int?,
+    val reference: String?,
     val quantity: Int = 0,
     @SerializedName("cart_product_id") val cartProductId: Int = 0,
     @SerializedName("attribute_combination") val combinations: List<AttributeCombination>?
@@ -32,6 +33,7 @@ data class Product(
         parcel.readString(),
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
         parcel.readInt(),
         parcel.readInt(),
         parcel.createTypedArrayList(AttributeCombination)
@@ -54,6 +56,7 @@ data class Product(
         parcel.writeString(brand)
         parcel.writeString(category)
         parcel.writeValue(categoryId)
+        parcel.writeString(reference)
         parcel.writeInt(quantity)
         parcel.writeInt(cartProductId)
         parcel.writeTypedList(combinations)

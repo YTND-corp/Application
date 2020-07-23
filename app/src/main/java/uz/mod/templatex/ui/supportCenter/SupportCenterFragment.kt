@@ -10,8 +10,9 @@ import kotlinx.android.synthetic.main.view_support_fragment_center_item_black.vi
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.SupportCenterFragmentBinding
+import uz.mod.templatex.ui.parent.ParentFragment
 
-class SupportCenterFragment : Fragment() {
+class SupportCenterFragment : ParentFragment() {
 
     val viewModel: SupportCenterViewModel by viewModel()
 
@@ -32,7 +33,7 @@ class SupportCenterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
+        //initViews()
     }
 
     private fun initViews() {
@@ -76,9 +77,9 @@ class SupportCenterFragment : Fragment() {
             returnItem.titleTv.setOnClickListener {
                 // TODO
             }
-            salesItem.titleTv.setOnClickListener {
+            /*salesItem.titleTv.setOnClickListener {
                 // TODO
-            }
+            }*/
             orderItem.titleTv.setOnClickListener {
                 // TODO
             }

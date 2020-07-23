@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -77,6 +78,8 @@ open class ParentActivity : AppCompatActivity() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
+
+            viewLayoutParams.bottomMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 56f, resources.displayMetrics).toInt()
 
             var progressDialog = progressView?.findViewById<ProgressBar>(R.id.prograss_dialog)
 

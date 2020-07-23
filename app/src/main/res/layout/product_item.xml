@@ -20,10 +20,10 @@
 
         <ImageView
                 android:id="@+id/image"
+                url="@{item.image}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                url="@{item.image}"
                 app:layout_constraintDimensionRatio="0.65"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,9 +48,9 @@
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:text="@{item.brand}"
-                tools:text="Massimo Dutti"
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintTop_toBottomOf="@id/image" />
+                app:layout_constraintTop_toBottomOf="@id/image"
+                tools:text="Massimo Dutti" />
 
         <TextView
                 android:id="@+id/subtitle"
@@ -59,9 +59,9 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="@{item.name}"
-                tools:text="СВИТЕР - ТУНИКА ИЗ ШЕРСТИ И.."
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintTop_toBottomOf="@id/title" />
+                app:layout_constraintTop_toBottomOf="@id/title"
+                tools:text="СВИТЕР - ТУНИКА ИЗ ШЕРСТИ И.." />
 
         <TextView
                 android:id="@+id/price"
@@ -72,7 +72,5 @@
                 android:text="@{item.priceFormatted}"
                 android:textSize="@dimen/text_size_tiny"
                 app:layout_constraintTop_toBottomOf="@id/subtitle" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

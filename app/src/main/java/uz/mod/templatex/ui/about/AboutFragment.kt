@@ -1,15 +1,18 @@
 package uz.mod.templatex.ui.about
 
 
+import android.content.Intent
+import android.content.Intent.ACTION_DIAL
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.AboutFragmentBinding
+import uz.mod.templatex.ui.parent.ParentFragment
 
-class AboutFragment : Fragment() {
+class AboutFragment : ParentFragment() {
 
     val viewModel: AboutViewModel by viewModel()
 
@@ -57,6 +60,9 @@ class AboutFragment : Fragment() {
             viewModel = this@AboutFragment.viewModel
             executePendingBindings()
 
+            callButton.setOnClickListener {
+                startActivity(Intent(ACTION_DIAL, Uri.parse("tel:${viewModel?.PHONE_NUMBER}")))
+            }
         }
     }
 }

@@ -9,7 +9,9 @@ import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.ui.new_filter.adapter.SingleAttributeFilterAdapter
 
 class SingleAttributeViewModel(application: Application) : AndroidViewModel(application){
+
     lateinit var sharedModel : SharedFilterViewModel
+    val itemsData = MutableLiveData<List<SingleAttributeFilterAdapter.AttributeValueItem>>()
 
     var attributeId : Int = -1
         set(value) {
@@ -31,8 +33,6 @@ class SingleAttributeViewModel(application: Application) : AndroidViewModel(appl
         }
         return values
     }
-
-    val itemsData = MutableLiveData<List<SingleAttributeFilterAdapter.AttributeValueItem>>()
 
     fun onQueryChanged(query : String){
         if (query == null || query.isEmpty()){

@@ -14,9 +14,9 @@
     <color name="lightGray">#EEEEF0</color>
     <color name="black">#222222</color>
     <color name="black_50">#80222222</color>
-    <string name="green">#34C759</string>
-    <string name="orange">#FF9500</string>
-    <string name="blue">#007AFF</string>
+    <color name="green">#34C759</color>
+    <color name="orange">#FF9500</color>
+    <color name="blue">#007AFF</color>
     <color name="red">#D54A52</color>
 
     <!--Text-->

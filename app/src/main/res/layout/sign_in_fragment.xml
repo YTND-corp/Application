@@ -13,9 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusableInTouchMode="true"
-            android:focusable="true"
             android:background="@color/windowBackgroundWhiteColor"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             tools:context=".ui.signUp.SignUpFragment">
 
         <ScrollView
@@ -54,64 +54,17 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_password"
-                        style="@style/TextInputLayoutAppearance"
-                        android:layout_marginTop="10dp"
-                        android:hint="@string/hint_password"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_phone">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/password"
-                            style="@style/TextInputEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:imeOptions="actionDone"
-                            android:inputType="textPassword"
-                            android:text="@={viewModel.password}"
-                            tools:text="Rontgenstrasse 30" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <CheckBox
-                        android:id="@+id/password_toggle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                        android:background="@color/windowBackgroundWhiteColor"
-                        android:button="@drawable/bg_password_toggle"
-                        app:layout_constraintBottom_toBottomOf="@id/til_password"
-                        app:layout_constraintEnd_toEndOf="@id/til_password"
-                        app:layout_constraintTop_toTopOf="@id/til_password" />
-
                 <Button
                         android:id="@+id/continue_button"
                         style="@style/ContainedButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_marginTop="25dp"
-                        android:enabled="@{viewModel.isAllValid}"
                         android:onClick="@{()->viewModel.signIn()}"
                         android:text="@string/action_continue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_password"
-                        app:layout_constraintVertical_chainStyle="packed" />
+                        app:layout_constraintTop_toBottomOf="@id/til_phone" />
 
-                <Button
-                        android:id="@+id/forgot_password_button"
-                        style="@style/TextButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_marginTop="38dp"
-                        android:background="?selectableItemBackground"
-                        android:drawableStart="@drawable/ic_unlock"
-                        android:drawablePadding="8dp"
-                        android:paddingStart="@dimen/activity_horizontal_margin"
-                        android:paddingEnd="@dimen/activity_horizontal_margin"
-                        android:text="@string/action_forgot_password"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/continue_button" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

@@ -27,9 +27,9 @@
 
         <argument
                 android:name="category"
+                android:defaultValue="@null"
                 app:argType="uz.mod.templatex.model.local.entity.Category"
-                app:nullable="true"
-                android:defaultValue="@null" />
+                app:nullable="true" />
 
     </fragment>
     <fragment
@@ -50,8 +50,8 @@
                 app:nullable="true" />
         <argument
                 android:name="brand_id"
-                app:argType="integer"
-                android:defaultValue="0" />
+                android:defaultValue="0"
+                app:argType="integer" />
         <action
                 android:id="@+id/action_productsFragment_to_mainFilterFragment"
                 app:destination="@id/mainFilterFragment"
@@ -59,6 +59,9 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_productsFragment_to_sortFragment"
+                app:destination="@id/sortFragment" />
 
     </fragment>
 
@@ -77,9 +80,6 @@
     <fragment
             android:id="@+id/mainFilterFragment"
             android:name="uz.mod.templatex.ui.new_filter.MainFilterFragment">
-        <argument
-                android:name="categoryId"
-                app:argType="integer" />
         <action
                 android:id="@+id/action_mainFilterFragment_to_singleAttributeFragment"
                 app:destination="@id/singleAttributeFragment"
@@ -87,11 +87,13 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right" />
+        <argument
+                android:name="categoryId"
+                app:argType="integer" />
     </fragment>
     <fragment
             android:id="@+id/singleAttributeFragment"
-            android:name="uz.mod.templatex.ui.new_filter.singleattribute.SingleAttributeFragment"
-            android:label="SingleAttributeFragment" >
+            android:name="uz.mod.templatex.ui.new_filter.singleattribute.SingleAttributeFragment">
         <argument
                 android:name="attrId"
                 app:argType="integer" />
@@ -101,12 +103,27 @@
             android:id="@+id/productFragment"
             android:name="uz.mod.templatex.ui.product.ProductFragment"
             android:label=""
-            tools:layout="@layout/product_fragment" >
+            tools:layout="@layout/product_fragment">
 
         <argument
                 android:name="product_id"
-                app:argType="integer"
-                android:defaultValue="0" />
+                android:defaultValue="0"
+                app:argType="integer" />
     </fragment>
+    <fragment
+            android:id="@+id/fullScreenImageFragment"
+            android:name="uz.mod.templatex.ui.fullscreen_image.FullScreenImageFragment"
+            android:label="FullScreenImageFragment">
 
+        <argument
+                android:name="images"
+                app:argType="string[]" />
+        <argument
+                android:name="selectedPosition"
+                app:argType="integer" />
+    </fragment>
+    <fragment
+            android:id="@+id/sortFragment"
+            android:name="uz.mod.templatex.ui.new_filter.SortFragment"
+            tools:layout="@layout/sort_fragment" />
 </navigation>

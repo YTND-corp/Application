@@ -1,18 +1,16 @@
 package uz.mod.templatex.ui.signIn
 
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import uz.mod.templatex.R
 import uz.mod.templatex.databinding.SignInFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
+import uz.mod.templatex.ui.code.CodeFragmentDirections
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.MaskWatcher
 import uz.mod.templatex.utils.PhoneFieldFocusChangeListener
@@ -40,8 +38,8 @@ class SignInFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        viewModel.responce.observe(viewLifecycleOwner, Observer {result ->
-            when(result.status) {
+        viewModel.responce.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
@@ -50,10 +48,7 @@ class SignInFragment : ParentFragment() {
                 Status.SUCCESS -> {
                     hideLoading()
                     Timber.e(result.data.toString())
-                    result.data?.let {
-                        sharedViewModel.loggedIn(it)
-                        findNavController().popBackStack()
-                    }
+                    findNavController().navigate(CodeFragmentDirections.actionGlobalCodeFragment(viewModel.phone.value!!, false))
                 }
             }
         })
@@ -65,24 +60,7 @@ class SignInFragment : ParentFragment() {
             executePendingBindings()
 
             phone.addTextChangedListener(MaskWatcher.phoneWatcher())
-
             phone.onFocusChangeListener = PhoneFieldFocusChangeListener()
-
-            passwordToggle.setOnCheckedChangeListener { _, b ->
-                val cursorPosition = password.selectionStart
-                password.transformationMethod =
-                    if (b) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
-                password.setSelection(cursorPosition)
-            }
-
-            forgotPasswordButton.setOnClickListener {
-                goRecoveryPage()
-            }
-
         }
-    }
-
-    fun goRecoveryPage() {
-        findNavController().navigate(R.id.action_signInFragment_to_recoveryPasswordFragment)
     }
 }

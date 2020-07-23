@@ -1,14 +1,18 @@
 package uz.mod.templatex.ui.profile.guest
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileGuestFragmentBinding
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
 
 
 class ProfileGuestFragment : ParentFragment() {
@@ -19,23 +23,6 @@ class ProfileGuestFragment : ParentFragment() {
 
     companion object {
         fun newInstance() = ProfileGuestFragment()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.profile_guest_fragment, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.settingsFragment -> true
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     override fun onCreateView(
@@ -70,11 +57,7 @@ class ProfileGuestFragment : ParentFragment() {
             executePendingBindings()
 
             signIn.setOnClickListener {
-                if (BuildConfig.DEBUG) {
-                    findNavController().navigate(R.id.action_profileFragment_to_profileAuthorizedFragment)
-                } else {
-                    findNavController().navigate(R.id.action_profileFragment_to_sign_in_graph)
-                }
+                findNavController().navigate(R.id.action_profileFragment_to_sign_in_graph)
             }
 
             signUp.setOnClickListener {
@@ -91,6 +74,10 @@ class ProfileGuestFragment : ParentFragment() {
 
             askQuestion.setOnClickListener {
                 findNavController().navigate(R.id.action_profileFragment_to_askQuestionFragment)
+            }
+
+            callUs.setOnClickListener {
+                startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${Const.PHONE_NUMBER}")))
             }
 
             callMe.setOnClickListener {

@@ -14,7 +14,7 @@ object DestinationHelper {
     private val configs = setOf(
         DestinationConfig(R.id.selectionFragment, true, false, true, true),
         DestinationConfig(R.id.categoryFragment, false, false),
-        DestinationConfig(R.id.favoriteFragment, false, false),
+        DestinationConfig(R.id.favoriteFragment, true, false),
         DestinationConfig(R.id.profileFragment, true, false),
         DestinationConfig(
             R.id.profileAuthorizedFragment,
@@ -23,7 +23,7 @@ object DestinationHelper {
             toolbarGrayBackground = true
         ),
         DestinationConfig(R.id.profileMyOrdersFragment, true, true),
-        DestinationConfig(R.id.cartFragment, false, false),
+        DestinationConfig(R.id.cartFragment, true, false),
         DestinationConfig(R.id.productsFragment, false, false),
         DestinationConfig(R.id.productFragment, false, false),
         DestinationConfig(R.id.subCategoryFragment, true, true),
@@ -35,8 +35,14 @@ object DestinationHelper {
         DestinationConfig(R.id.paymentFragment, bottomBar = false),
         DestinationConfig(R.id.checkoutFinalFragment, false,false, bottomBar = false),
         DestinationConfig(R.id.subCategoryFragment, true, true),
-        DestinationConfig(R.id.mainFilterFragment, false, true),
-        DestinationConfig(R.id.singleAttributeFragment, false, true)
+        DestinationConfig(R.id.mainFilterFragment, true, true),
+        DestinationConfig(R.id.singleAttributeFragment, true, true),
+        DestinationConfig(R.id.fullScreenImageFragment, false, true),
+        DestinationConfig(R.id.checkOrderStatusFragment, true, true),
+        DestinationConfig(R.id.askQuestionFragment, true, true),
+        DestinationConfig(R.id.callMeFragment, true, true),
+        DestinationConfig(R.id.aboutFragment, true, true),
+        DestinationConfig(R.id.supportCenterFragment, true, true)
     )
 
     data class DestinationConfig(

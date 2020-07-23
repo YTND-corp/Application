@@ -44,7 +44,7 @@
     <fragment
             android:id="@+id/profileFragment"
             android:name="uz.mod.templatex.ui.profile.guest.ProfileGuestFragment"
-            android:label=""
+            android:label="@string/profile_title"
             tools:layout="@layout/profile_guest_fragment">
         <action
                 android:id="@+id/action_profileFragment_to_sign_up_graph"

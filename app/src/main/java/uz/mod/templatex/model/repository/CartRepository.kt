@@ -7,12 +7,13 @@ import uz.mod.templatex.model.local.db.dao.ProductDao
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.remote.api.CartService
+import uz.mod.templatex.model.remote.api.ProductService
 import uz.mod.templatex.model.remote.network.*
 import uz.mod.templatex.model.remote.response.CartResponse
 import uz.mod.templatex.model.remote.response.FavoritesResponse
 import uz.mod.templatex.utils.AbsentLiveData
 
-class CartRepository constructor(val service: CartService, val productDao: ProductDao,val executors: AppExecutors) {
+class CartRepository constructor(val productService: ProductService, val service: CartService, val productDao: ProductDao,val executors: AppExecutors) {
 
     init {
         Timber.d("Injection CartRepository")
@@ -42,15 +43,15 @@ class CartRepository constructor(val service: CartService, val productDao: Produ
         }.asLiveData()
     }
 
-    fun delete(ids: List<Int>): LiveData<Resource<Any>> {
+    fun delete(id: Int): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {
             override fun processResult(item: Any?): Any? {
-                productDao.delete(ids)
+                productDao.delete(id)
                 return item
             }
 
             override fun createCall(): LiveData<ApiResponse<Any>> {
-                return service.delete(ids)
+                return service.delete(id)
             }
 
         }.asLiveData()
@@ -72,5 +73,25 @@ class CartRepository constructor(val service: CartService, val productDao: Produ
 
     fun select(id: Int, isSelected: Boolean) {
         productDao.setSelect(id, isSelected)
+    }
+
+    fun addToCart(
+        id: Int,
+        quantity: Int,
+        attributes: ArrayList<Int>
+    ): LiveData<Resource<Any>> {
+        return object : NetworkOnlyResource<Any, CartResponse>() {
+            override fun processResult(item: CartResponse?): Any? {
+                productDao.deleteAll()
+                item?.cart?.products?.let {
+                    productDao.insertAll(it)
+                }
+                return item
+            }
+
+            override fun createCall(): LiveData<ApiResponse<CartResponse>> {
+                return productService.addToCart(id, quantity, attributes)
+            }
+        }.asLiveData()
     }
 }

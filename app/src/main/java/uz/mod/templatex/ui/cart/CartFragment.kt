@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.yanzhenjie.recyclerview.SwipeMenuItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CartFragmentBinding
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.extension.toPx
 
 
 class CartFragment : ParentFragment(), CartAdapter.ItemListener {
@@ -41,9 +42,8 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
 
         initViews()
 
-
-        viewModel.response.observe(viewLifecycleOwner, Observer {result ->
-            when(result.status) {
+        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
@@ -55,8 +55,8 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             }
         })
 
-        viewModel.updateResponse.observe(viewLifecycleOwner, Observer {result ->
-            when(result.status) {
+        viewModel.updateResponse.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
@@ -68,8 +68,8 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             }
         })
 
-        viewModel.deleteResponse.observe(viewLifecycleOwner, Observer {result ->
-            when(result.status) {
+        viewModel.deleteResponse.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
@@ -81,12 +81,12 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             }
         })
 
-        viewModel.products.observe(viewLifecycleOwner, Observer {result ->
-           adapter.setItems(result)
+        viewModel.products.observe(viewLifecycleOwner, Observer { result ->
+            adapter.setItems(result)
         })
 
-        viewModel.isEditing.observe(viewLifecycleOwner, Observer {
-            adapter.setIsEditing(it)
+        viewModel.totalPrice.observe(viewLifecycleOwner, Observer {
+            binding.totalPrice.text = it
         })
 
         viewModel.getCart()
@@ -100,12 +100,28 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             viewModel = this@CartFragment.viewModel
             executePendingBindings()
 
-            continueButton.setOnClickListener {
-                if (viewModel?.isEditing?.value==true) {
-                    viewModel?.delete()
-                } else {
-                    findNavController().navigate(R.id.action_cartFragment_to_checkout_graph)
+            products.adapter = null
+
+            products.setSwipeMenuCreator { _, rightMenu, _ ->
+                rightMenu.addMenuItem(
+                    SwipeMenuItem(activity)
+                        .setBackground(R.color.black)
+                        .setImage(R.drawable.ic_trash)
+                        .setHeight(ViewGroup.LayoutParams.MATCH_PARENT)
+                        .setWidth(150.toPx())
+                )
+            }
+
+            products.setOnItemMenuClickListener { menuBridge, adapterPosition ->
+                menuBridge.closeMenu()
+
+                viewModel?.products?.value?.get(adapterPosition)?.id?.let {
+                    viewModel?.delete(it)
                 }
+            }
+
+            continueButton.setOnClickListener {
+                findNavController().navigate(R.id.action_cartFragment_to_checkout_graph)
             }
 
             placeholderButton.setOnClickListener {
@@ -117,12 +133,7 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             viewModel?.products?.observe(viewLifecycleOwner, Observer {
                 adapter.setItems(it)
             })
-
         }
-    }
-
-    override fun select(product: Product) {
-        viewModel.select(product)
     }
 
     override fun minus(product: Product) {
@@ -131,5 +142,21 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
 
     override fun plus(product: Product) {
         viewModel.add(product)
+    }
+
+    override fun favoriteToggle(product: Product) {
+        viewModel.favoriteToggle(product.id)
+            .observe(viewLifecycleOwner, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        showError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                    }
+                }
+            })
     }
 }

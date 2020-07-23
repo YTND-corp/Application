@@ -5,23 +5,31 @@
         android:id="@+id/sign_in_graph"
         app:startDestination="@id/signInFragment"
         tools:ignore="UnusedNavigation">
+
+    <action
+            android:id="@+id/action_global_codeFragment"
+            app:destination="@id/codeFragment" />
+
     <fragment
             android:id="@+id/signInFragment"
             android:name="uz.mod.templatex.ui.signIn.SignInFragment"
             android:label="@string/title_sign_in"
             tools:layout="@layout/sign_in_fragment">
         <action
-                android:id="@+id/action_signInFragment_to_recoveryPasswordFragment"
-                app:destination="@id/recoveryPasswordFragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right" />
+                android:id="@+id/action_signInFragment_to_codeFragment7"
+                app:destination="@id/codeFragment" />
     </fragment>
-    <fragment
-            android:id="@+id/recoveryPasswordFragment"
-            android:name="uz.mod.templatex.ui.recoveryPassword.RecoveryPasswordFragment"
-            android:label="@string/title_recovery"
-            tools:layout="@layout/recovery_password_fragment"/>
 
+    <fragment
+            android:id="@+id/codeFragment"
+            android:name="uz.mod.templatex.ui.code.CodeFragment"
+            android:label="@string/title_code"
+            tools:layout="@layout/code_fragment">
+        <argument
+                android:name="phone"
+                app:argType="string" />
+        <argument
+                android:name="isCheckout"
+                app:argType="boolean" />
+    </fragment>
 </navigation>

@@ -1,12 +1,15 @@
 package uz.mod.templatex.ui.favorite
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.FavoriteFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
@@ -18,7 +21,7 @@ class FavoriteFragment : ParentFragment() {
 
     private val binding by lazy { FavoriteFragmentBinding.inflate(layoutInflater) }
 
-    private lateinit var adapter: ProductAdapter
+    private lateinit var adapter: FavoriteAdapter
 
     companion object {
         fun newInstance() = FavoriteFragment()
@@ -27,7 +30,7 @@ class FavoriteFragment : ParentFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        adapter = ProductAdapter { id, isFavorite ->
+        adapter = FavoriteAdapter { id, isFavorite ->
             viewModel.favoriteToggle(id).observe(this, Observer { result ->
                 when (result.status) {
                     Status.LOADING -> showLoading()
@@ -71,10 +74,6 @@ class FavoriteFragment : ParentFragment() {
             }
         })
 
-        viewModel.isEmpty.observe(viewLifecycleOwner, Observer { result ->
-           Timber.e("IsEmpty = $result")
-        })
-
         viewModel.getFavorites()
     }
 
@@ -84,6 +83,10 @@ class FavoriteFragment : ParentFragment() {
             executePendingBindings()
 
             products.adapter = adapter
+
+            placeholderButton.setOnClickListener {
+                findNavController().navigate(R.id.action_favoriteFragment_to_categoryFragment)
+            }
         }
     }
 }

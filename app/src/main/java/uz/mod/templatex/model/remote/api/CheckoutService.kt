@@ -38,7 +38,7 @@ interface CheckoutService {
     @FormUrlEncoded
     @POST("v1/checkout/store")
     fun store(
-        @Field("address[region_id]") regionId: Int?,
+        @Field("address[region]") regionId: Int?,
         @Field("address[city]") region: String?,
         @Field("address[district]") street: String?,
         @Field("address[building]") home: String?,

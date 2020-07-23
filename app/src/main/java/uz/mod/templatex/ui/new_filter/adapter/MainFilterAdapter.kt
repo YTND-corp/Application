@@ -95,12 +95,11 @@ class MainFilterAdapter(val items : MutableList<MainFilterDataItem<*>> = mutable
         override fun bind(title : MainFilterDataItem<*>) {
             val sortItem = title as SortItem
             itemView.clickableRoot.setOnClickListener {
-                sharedFilterViewModel.activeFilter.sort = sortItem.sort
-                sharedFilterViewModel.needToReloadFeed = true
+                sharedFilterViewModel.tempSort = sortItem.sort
                 notifyDataSetChanged()
             }
             binding.sort = itemView.resources.getString(sortItem.sort.stringResId)
-            binding.dto = sharedFilterViewModel.activeFilter
+            binding.selected.isChecked = sortItem.sort == sharedFilterViewModel.tempSort
         }
     }
 }

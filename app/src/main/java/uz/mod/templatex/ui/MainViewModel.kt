@@ -7,10 +7,11 @@ import com.google.firebase.crashlytics.internal.model.CrashlyticsReport
 import uz.aqlify.yonda.utils.Prefs
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.repository.AuthRepository
+import uz.mod.templatex.model.repository.CartRepository
 import uz.mod.templatex.utils.DestinationHelper
 
 
-class MainViewModel constructor(application: Application, val authRepository: AuthRepository, val prefs: Prefs) : AndroidViewModel(application) {
+class MainViewModel constructor(application: Application, val authRepository: AuthRepository, val cartRepository: CartRepository, val prefs: Prefs) : AndroidViewModel(application) {
 
     val isAuthenticated = MutableLiveData<Boolean>(false)
 
@@ -63,7 +64,6 @@ class MainViewModel constructor(application: Application, val authRepository: Au
 
     fun loggedIn(user: User?) {
         user?.let {
-            prefs.token = user.token
             isAuthenticated.value = true
         }
     }
@@ -75,4 +75,6 @@ class MainViewModel constructor(application: Application, val authRepository: Au
     fun setTitle(name: String?) {
         title.value = name
     }
+
+    fun getCartItemCount() = cartRepository.products().map { it.data?.size ?: 0 }
 }

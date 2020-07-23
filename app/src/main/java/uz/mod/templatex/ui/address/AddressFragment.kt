@@ -109,7 +109,8 @@ class AddressFragment : ParentFragment() {
                     )
                 } else {
                     findNavController().navigate(
-                        AddressFragmentDirections.actionAddressFragmentToCodeFragment(
+                        AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
+                            args.response,
                             viewModel?.getDetails()
                         )
                     )

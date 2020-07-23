@@ -9,8 +9,9 @@ import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.databinding.CategoryChildFragmentBinding
 import uz.mod.templatex.model.local.entity.CategoryGender
+import uz.mod.templatex.ui.parent.ParentFragment
 
-class CategoryChildFragment : Fragment() {
+class CategoryChildFragment : ParentFragment() {
     val viewModel: CategoryChildViewModel by viewModel()
 
     private val binding by lazy { CategoryChildFragmentBinding.inflate(layoutInflater) }
@@ -60,6 +61,10 @@ class CategoryChildFragment : Fragment() {
             catalogs.hasFixedSize()
             catalogs.adapter = adapter
 
+            catalogs.setOnTouchListener { v, event ->
+                hideKeyboard()
+                false
+            }
         }
     }
 

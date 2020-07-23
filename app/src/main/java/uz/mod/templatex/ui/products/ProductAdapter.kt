@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import timber.log.Timber
 import uz.mod.templatex.databinding.ProductItemBinding
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.ui.product.ProductFragmentDirections
 
-class ProductAdapter(private var listener: (id: Int, isFavorite: Boolean)-> Unit) :
+class ProductAdapter(private var listener: (id: Int, isFavorite: Boolean) -> Unit) :
 
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 

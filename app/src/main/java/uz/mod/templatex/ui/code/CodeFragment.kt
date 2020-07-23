@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CodeFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
+import uz.mod.templatex.ui.address.AddressFragmentDirections
 import uz.mod.templatex.ui.parent.ParentFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CodeFragment : ParentFragment() {
 
@@ -28,23 +30,49 @@ class CodeFragment : ParentFragment() {
         super.onCreate(savedInstanceState)
         viewModel.setArguments(args)
 
-        viewModel.responce.observe(this@CodeFragment, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    binding.code.text = null
-                    sharedViewModel.loggedIn(result.data?.user)
-                    findNavController().navigate(CodeFragmentDirections.actionCodeFragmentToDeliveryFragment(result.data, args.request))
-                }
-            }
-        })
+        if (args.isCheckout) {
+            viewModel.checkoutConfirmResponse.observe(this@CodeFragment, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        showError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        binding.code.text = null
+                        sharedViewModel.loggedIn(result.data?.user)
 
-
+                        if (args.isCheckout) {
+                            findNavController().navigate(
+                                AddressFragmentDirections.actionGlobalAddressFragment(
+                                    result.data,
+                                    args.phone
+                                )
+                            )
+                        } else {
+                            findNavController().popBackStack(R.id.profileFragment, true)
+                        }
+                    }
+                }
+            })
+        } else {
+            viewModel.authConfirmResponse.observe(this@CodeFragment, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        showError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        binding.code.text = null
+                        sharedViewModel.loggedIn(result.data)
+                        findNavController().popBackStack(R.id.profileFragment, true)
+                    }
+                }
+            })
+        }
     }
 
     override fun onCreateView(
@@ -52,7 +80,7 @@ class CodeFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner =  this@CodeFragment
+        binding.lifecycleOwner = this@CodeFragment
         return binding.root
     }
 
@@ -60,10 +88,6 @@ class CodeFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-
-
-
-
     }
 
     private fun initViews() {
@@ -72,8 +96,11 @@ class CodeFragment : ParentFragment() {
             executePendingBindings()
 
             viewModel?.code?.observe(viewLifecycleOwner, Observer {
-                if (it.length==4) {
-                    viewModel?.confirm()
+                if (it.length == 4) {
+                    if (args.isCheckout)
+                        viewModel?.checkoutConfirm()
+                    else
+                        viewModel?.authConfirm()
                 }
             })
 

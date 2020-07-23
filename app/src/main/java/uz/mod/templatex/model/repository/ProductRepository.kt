@@ -6,13 +6,16 @@ import uz.mod.templatex.model.local.db.dao.FilterDao
 import uz.mod.templatex.model.local.db.dao.ProductDao
 import uz.mod.templatex.model.local.entity.Filter
 import uz.mod.templatex.model.local.entity.Product
+import uz.mod.templatex.model.remote.api.FavoritesService
 import uz.mod.templatex.model.remote.api.ProductService
 import uz.mod.templatex.model.remote.network.*
-import uz.mod.templatex.model.remote.response.*
+import uz.mod.templatex.model.remote.response.ProductDetailResponse
+import uz.mod.templatex.model.remote.response.ProductsResponse
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 
 class ProductRepository constructor(
-    val service: ProductService,
+    val productService: ProductService,
+    val favoritesService: FavoritesService,
     val productDao: ProductDao,
     val filterDao: FilterDao,
     val executors: AppExecutors
@@ -24,7 +27,7 @@ class ProductRepository constructor(
 
     fun getFilters() = filterDao.getAll()
 
-    fun getFiltersForCategory(catId : Int) : Filter? {
+    fun getFiltersForCategory(catId: Int): Filter? {
         return filterDao.get(catId)
     }
 
@@ -35,14 +38,14 @@ class ProductRepository constructor(
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductDetailResponse>> {
-                return service.getProduct(id)
+                return productService.getProduct(id)
             }
 
         }.asLiveData()
     }
 
 
-    fun getProducts(id: Int, filter:SharedFilterViewModel.SelectedFitlerDto, page: Int): LiveData<Resource<List<Product>>> {
+    fun getProducts(id: Int, filter: SharedFilterViewModel.SelectedFitlerDto, page: Int): LiveData<Resource<List<Product>>> {
         return object : NetworkBoundResource<List<Product>, ProductsResponse>(executors) {
             override fun saveCallResult(item: ProductsResponse) {
                 if (page == 1) {
@@ -73,68 +76,39 @@ class ProductRepository constructor(
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
-                val attrMap = filter.attributes.mapValues { it.value as Any }.mapKeys { it.key+"[]" }.toMutableMap()
+                val attrMap = filter.attributes.mapValues { it.value as Any }.mapKeys { it.key + "[]" }.toMutableMap()
                 val proxyRetrofitQueryMap = ProxyRetrofitQueryMap(attrMap)
-                return service.getProducts(id, filter.sort.key, filter.brands.map { it.toString() }.toTypedArray(),
+                return productService.getProducts(
+                    id, filter.sort.key, filter.brands.map { it.toString() }.toTypedArray(),
                     proxyRetrofitQueryMap,
-                    page)
+                    page
+                )
             }
         }.asLiveData()
     }
 
-    fun favorites(): LiveData<Resource<List<Product>>> {
-        return object : NetworkBoundResource<List<Product>, FavoritesResponse>(executors) {
-            //TODO: Store favorites in separate table!!!!!!!!
-
-            override fun saveCallResult(item: FavoritesResponse) {
-                //This causes deleting list on catalog tab!!!!
-                productDao.deleteAll()
-                item.data?.let {
-                    productDao.insertAll(it)
-                }
-            }
-
-            override fun shouldFetch(data: List<Product>?): Boolean {
-                return true
-            }
-
-            override fun loadFromDb(): LiveData<List<Product>> {
-                return productDao.getFavorites()
-            }
-
-            override fun createCall(): LiveData<ApiResponse<FavoritesResponse>> {
-                return service.getFavorites()
-            }
-        }.asLiveData()
-    }
-
-    fun favoriteToggle(id: Int): LiveData<Resource<String>> {
-        return object : NetworkOnlyResource<String, FavoriteToggleResponse>() {
-            override fun processResult(item: FavoriteToggleResponse?): String? {
+    fun favoriteToggle(id: Int): LiveData<Resource<Any>> {
+        return object : NetworkOnlyResource<Any, Any>() {
+            override fun processResult(item: Any?): Any? {
                 productDao.setFavorite(id, !productDao.get(id).isFavorite)
-                return item?.result
+                return item
             }
 
-            override fun createCall(): LiveData<ApiResponse<FavoriteToggleResponse>> {
-                return service.favoriteToggle(id)
+            override fun createCall(): LiveData<ApiResponse<Any>> {
+                return favoritesService.toggleFavorite(id)
             }
         }.asLiveData()
     }
 
-    fun addToCart(
-        id: Int,
-        quantity: Int,
-        attributes: ArrayList<Int>
-    ): LiveData<Resource<Any>> {
+    fun seeAlsoFavoriteToggle(id: Int): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {
             override fun processResult(item: Any?): Any? {
                 return item
             }
 
             override fun createCall(): LiveData<ApiResponse<Any>> {
-                return service.addToCart(id, quantity, attributes)
+                return favoritesService.toggleFavorite(id)
             }
-
         }.asLiveData()
     }
 

@@ -8,10 +8,6 @@
         <variable
                 name="item"
                 type="uz.mod.templatex.model.local.entity.Product" />
-
-        <variable
-                name="isEditing"
-                type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,11 +17,11 @@
 
         <ImageView
                 android:id="@+id/image"
+                url="@{item.image}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                url="@{item.image}"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="0.65"
@@ -34,133 +30,76 @@
                 app:layout_constraintWidth_percent="0.43" />
 
         <CheckBox
-                android:id="@+id/select"
+                android:id="@+id/favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:button="@drawable/ic_cart_details"
+                android:layout_margin="18dp"
+                android:button="@drawable/ic_like"
+                android:checked="@{item.isFavorite}"
                 android:text=""
-                isVisible="@{isEditing}"
-                android:checked="@{item.selected}"
-                app:layout_constraintStart_toStartOf="@id/image"
+                app:layout_constraintEnd_toEndOf="@id/image"
                 app:layout_constraintTop_toTopOf="@id/image" />
 
         <TextView
-                android:id="@+id/title"
+                android:id="@+id/tvBrand"
                 style="@style/SemiBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="17dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:text="@{item.name}"
+                android:text="@{item.brand}"
                 android:textSize="@dimen/text_size_tiny"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image"
                 app:layout_constraintTop_toTopOf="@id/image"
-                tools:text="Пальто Tailored из шерсти с лацканами" />
+                tools:text="Zara" />
 
         <TextView
-                android:id="@+id/subtitle"
+                android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{item.subtitle()}"
+                android:text="@{item.name}"
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintEnd_toEndOf="@id/title"
-                app:layout_constraintStart_toStartOf="@id/title"
-                app:layout_constraintTop_toBottomOf="@id/title" />
+                app:layout_constraintEnd_toEndOf="@id/tvBrand"
+                app:layout_constraintStart_toStartOf="@id/tvBrand"
+                app:layout_constraintTop_toBottomOf="@id/tvBrand"
+                tools:text="сандалии с ремешками" />
 
         <TextView
-                android:id="@+id/color_hint"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvCategory"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="@{item.category}"
+                android:textSize="@dimen/text_size_tiny"
+                app:layout_constraintEnd_toEndOf="@id/tvName"
+                app:layout_constraintStart_toStartOf="@id/tvName"
+                app:layout_constraintTop_toBottomOf="@id/tvName"
+                tools:text="Обувь" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAttributes"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="8dp"
-                android:text="Цвет: "
-                android:textColor="@color/secondaryTextColor"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintStart_toStartOf="@id/title"
-                app:layout_constraintTop_toBottomOf="@id/subtitle" />
+                android:layout_marginBottom="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/minus"
+                app:layout_constraintEnd_toEndOf="@id/tvBrand"
+                app:layout_constraintStart_toStartOf="@id/tvBrand"
+                app:layout_constraintTop_toBottomOf="@id/tvCategory" />
 
-        <TextView
-                android:id="@+id/color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Черный"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintStart_toEndOf="@id/color_hint"
-                app:layout_constraintTop_toTopOf="@id/color_hint" />
-
-        <TextView
-                android:id="@+id/size_hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Размер: "
-                android:textColor="@color/secondaryTextColor"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintStart_toStartOf="@id/title"
-                app:layout_constraintTop_toBottomOf="@id/color_hint" />
-
-        <TextView
-                android:id="@+id/size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XS"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintStart_toEndOf="@id/size_hint"
-                app:layout_constraintTop_toTopOf="@id/size_hint" />
-
-
-        <TextView
-                android:id="@+id/price_hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Цена: "
-                android:textColor="@color/secondaryTextColor"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintStart_toStartOf="@id/title"
-                app:layout_constraintTop_toBottomOf="@id/size_hint" />
-
-        <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{item.priceFormatted()}"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintStart_toEndOf="@id/price_hint"
-                app:layout_constraintTop_toTopOf="@id/price_hint"
-                tools:text="951 000 UZS" />
-
-        <TextView
-                android:id="@+id/total_price_hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Итого: "
-                android:textColor="@color/secondaryTextColor"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintStart_toStartOf="@id/title"
-                app:layout_constraintTop_toBottomOf="@id/price_hint" />
-
-        <TextView
-                android:id="@+id/total_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{item.totalPriceFormatted()}"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintStart_toEndOf="@id/total_price_hint"
-                app:layout_constraintTop_toTopOf="@id/total_price_hint"
-                tools:text="951 000 UZS" />
 
         <ImageView
                 android:id="@+id/minus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/ic_substract"
                 android:background="?selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
-                isVisible="@{isEditing}"
+                android:src="@drawable/ic_substract"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/title" />
+                app:layout_constraintStart_toStartOf="@id/tvBrand" />
 
         <TextView
                 android:id="@+id/count"
@@ -168,28 +107,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
+                android:text="@{item.quantityText()}"
                 android:textSize="@dimen/text_size_tiny"
-                isVisible="@{isEditing}"
+                app:layout_constraintBottom_toBottomOf="@id/minus"
                 app:layout_constraintStart_toEndOf="@id/minus"
                 app:layout_constraintTop_toTopOf="@id/minus"
-                app:layout_constraintBottom_toBottomOf="@id/minus"
-                android:text="@{item.quantityText()}"
                 tools:text="1" />
 
         <ImageView
                 android:id="@+id/plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add"
+                android:background="?selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
-                isVisible="@{isEditing}"
-                android:background="?selectableItemBackground"
-                app:layout_constraintStart_toEndOf="@id/count"
+                android:src="@drawable/ic_add"
                 app:layout_constraintBottom_toBottomOf="@id/minus"
-                />
-
-
+                app:layout_constraintStart_toEndOf="@id/count" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

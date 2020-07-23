@@ -23,6 +23,9 @@ data class Currency(
     }
 
     fun getMoneyFormat() = "${price.moneyFormat()} $currency"
+
+    fun getOldPriceFormat() = "${oldPrice.moneyFormat()} $currency"
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(currency)
         parcel.writeInt(price)

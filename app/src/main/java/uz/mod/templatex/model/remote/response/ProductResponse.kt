@@ -2,11 +2,15 @@ package uz.mod.templatex.model.remote.response
 
 import com.google.gson.annotations.SerializedName
 import uz.mod.templatex.model.local.entity.Currency
-import kotlin.collections.ArrayList
+import uz.mod.templatex.model.local.entity.Product
 
 data class ProductDetailResponse(
     @SerializedName("details") val product: ProductDetail,
-    val delivery: ProductDelivery?
+    val delivery: ProductDelivery?,
+    @SerializedName("similar_by_brand")
+    val similarByBrand: List<Product>,
+    @SerializedName("similar_by_category")
+    val similarByCategory: List<Product>
 )
 
 data class ProductDetail(
@@ -26,6 +30,8 @@ data class ProductDetail(
     val images: List<String>?
 ) {
     fun priceFormatted() = currencies?.first()?.getMoneyFormat()
+
+    fun oldPriceFormatted() = currencies?.first()?.getOldPriceFormat()
 
     fun compositionAndCare() = features?.joinToString("\n") { it.getText().toString() }
 }

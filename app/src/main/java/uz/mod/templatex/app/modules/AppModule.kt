@@ -18,7 +18,7 @@ import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
 import uz.mod.templatex.model.remote.api.profile.MyAddressesService
 import uz.mod.templatex.model.remote.api.profile.MyDataService
-import uz.mod.templatex.model.remote.api.profile.MyFavoritesService
+import uz.mod.templatex.model.remote.api.FavoritesService
 import uz.mod.templatex.model.remote.api.profile.MyOrdersService
 import uz.mod.templatex.model.remote.network.AppExecutors
 import uz.mod.templatex.model.remote.network.AuthInterceptor
@@ -27,7 +27,7 @@ import uz.mod.templatex.model.remote.network.NetworkInterceptor
 import uz.mod.templatex.model.repository.*
 import uz.mod.templatex.model.repository.profile.MyAddressesRepository
 import uz.mod.templatex.model.repository.profile.MyDataRepository
-import uz.mod.templatex.model.repository.profile.MyFavoritesRepository
+import uz.mod.templatex.model.repository.FavoriteRepository
 import uz.mod.templatex.model.repository.profile.MyOrdersRepository
 import uz.mod.templatex.ui.MainViewModel
 import uz.mod.templatex.ui.about.AboutViewModel
@@ -47,6 +47,7 @@ import uz.mod.templatex.ui.favorite.FavoriteViewModel
 import uz.mod.templatex.ui.filter.FilterViewModel
 import uz.mod.templatex.ui.new_filter.MainFilterViewModel
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
+import uz.mod.templatex.ui.new_filter.SortViewModel
 import uz.mod.templatex.ui.new_filter.singleattribute.SingleAttributeViewModel
 import uz.mod.templatex.ui.payment.PaymentViewModel
 import uz.mod.templatex.ui.product.ProductViewModel
@@ -59,7 +60,6 @@ import uz.mod.templatex.ui.profile.authorized.myFavorite.ProfileMyFavoriteViewMo
 import uz.mod.templatex.ui.profile.authorized.myOrder.ProfileMyOrderViewModel
 import uz.mod.templatex.ui.profile.authorized.myOrders.ProfileMyOrdersViewModel
 import uz.mod.templatex.ui.profile.guest.ProfileGuestViewModel
-import uz.mod.templatex.ui.recoveryPassword.RecoveryPasswordViewModel
 import uz.mod.templatex.ui.search.SearchViewModel
 import uz.mod.templatex.ui.selection.SelectionChildViewModel
 import uz.mod.templatex.ui.selection.SelectionViewModel
@@ -78,13 +78,12 @@ import javax.net.ssl.X509TrustManager
 
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
-    viewModel { MainViewModel(get(), get(), get()) }
+    viewModel { MainViewModel(get(), get(), get(), get()) }
 
     viewModel { FavoriteViewModel(get(), get()) }
 
     viewModel { SignUpViewModel(get(), get()) }
     viewModel { SignInViewModel(get(), get()) }
-    viewModel { RecoveryPasswordViewModel(get()) }
 
     viewModel { SelectionViewModel(get(), get()) }
     viewModel { SelectionChildViewModel(get()) }
@@ -114,21 +113,22 @@ val viewModelModule = module {
     viewModel { SupportCenterViewModel(get()) }
     viewModel { AboutViewModel(get()) }
 
-    viewModel { CartViewModel(get(), get()) }
+    viewModel { CartViewModel(get(), get(), get()) }
     viewModel { CheckoutViewModel(get(), get()) }
     viewModel { AddressViewModel(get(), get()) }
-    viewModel { CodeViewModel(get(), get()) }
+    viewModel { CodeViewModel(get(), get(), get()) }
     viewModel { DeliveryViewModel(get()) }
     viewModel { PaymentViewModel(get(), get()) }
     viewModel { CheckoutFinalViewModel(get(), get()) }
 
     viewModel { ProductsViewModel(get(), get()) }
-    viewModel { ProductViewModel(get(), get()) }
+    viewModel { ProductViewModel(get(), get(), get()) }
 
     viewModel { FilterViewModel(get()) }
     viewModel { MainFilterViewModel(get(),get()) }
     viewModel { SharedFilterViewModel(get()) }
     viewModel { SingleAttributeViewModel(get()) }
+    viewModel { SortViewModel(get()) }
 }
 
 val prefsModule = module {
@@ -148,19 +148,19 @@ val dbModule = module {
     factory { get<AppDatabase>().profileAddressDao() }
     factory { get<AppDatabase>().profileRegionDao() }
     factory { get<AppDatabase>().profileOrderDao() }
-    factory { get<AppDatabase>().profileFavoriteDao() }
+    factory { get<AppDatabase>().favoriteDao() }
 }
 
 val repositoryModule = module {
     single { CategoryRepository(get()) }
-    single { ProductRepository(get(), get(), get(), get()) }
+    single { ProductRepository(get(), get(), get(), get(), get()) }
     single { AuthRepository(get(), get()) }
-    single { CartRepository(get(), get(), get()) }
+    single { CartRepository(get(), get(), get(), get()) }
     single { CheckoutRepository(get(), get()) }
     single { MyAddressesRepository(get(), get(), get(), get()) }
     single { MyOrdersRepository(get(), get(), get()) }
     single { MyDataRepository(get()) }
-    single { MyFavoritesRepository(get(), get(), get()) }
+    single { FavoriteRepository(get(), get(), get()) }
 }
 
 val apiModule = module {
@@ -172,7 +172,7 @@ val apiModule = module {
     factory { get<Retrofit>().create(MyAddressesService::class.java) }
     factory { get<Retrofit>().create(MyOrdersService::class.java) }
     factory { get<Retrofit>().create(MyDataService::class.java) }
-    factory { get<Retrofit>().create(MyFavoritesService::class.java) }
+    factory { get<Retrofit>().create(FavoritesService::class.java) }
 }
 
 val retrofitModule = module {

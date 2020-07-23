@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_main_filter.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,21 +15,25 @@ import uz.mod.templatex.ui.new_filter.adapter.MainFilterAdapter
 import uz.mod.templatex.ui.parent.ParentFragment
 
 class MainFilterFragment : ParentFragment() {
-    val sharedFilterViewModel : SharedFilterViewModel by activityViewModels<SharedFilterViewModel>()
-    val mainFilterViewModel : MainFilterViewModel by viewModel()
-    val args : MainFilterFragmentArgs by navArgs()
+
+    companion object {
+        const val KEY_CATEGORY_ID = "MainFilterFragment.keyCategoryId"
+    }
+
+    val sharedFilterViewModel: SharedFilterViewModel by activityViewModels<SharedFilterViewModel>()
+    val mainFilterViewModel: MainFilterViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main_filter,container,false)
+        return inflater.inflate(R.layout.fragment_main_filter, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        filterLl.visibility = View.GONE
+        searchContainer.visibility = View.GONE
         applyBt.visibility = View.GONE
         mainFilterViewModel.sharedModel = sharedFilterViewModel
         val mainFilterAdapter = MainFilterAdapter(sharedFilterViewModel = sharedFilterViewModel)
@@ -48,6 +50,6 @@ class MainFilterFragment : ParentFragment() {
             mainFilterAdapter.items.addAll(it)
             mainFilterAdapter.notifyDataSetChanged()
         })
-        mainFilterViewModel.categoryId = args.categoryId
+        mainFilterViewModel.categoryId = arguments?.getInt(KEY_CATEGORY_ID)
     }
 }

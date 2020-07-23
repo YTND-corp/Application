@@ -56,7 +56,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
-                            android:inputType="textEmailAddress" />
+                            android:maxLength="@integer/phone_length"
+                            android:inputType="phone" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

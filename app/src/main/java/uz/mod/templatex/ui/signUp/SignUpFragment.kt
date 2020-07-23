@@ -1,8 +1,6 @@
 package uz.mod.templatex.ui.signUp
 
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.databinding.SignUpFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
+import uz.mod.templatex.ui.code.CodeFragmentDirections
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.MaskWatcher
 
@@ -39,8 +38,8 @@ class SignUpFragment : ParentFragment() {
 
         initViews()
 
-        viewModel.responce.observe(viewLifecycleOwner, Observer {result ->
-            when(result.status) {
+        viewModel.responce.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
@@ -48,7 +47,7 @@ class SignUpFragment : ParentFragment() {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    findNavController().popBackStack()
+                    findNavController().navigate(CodeFragmentDirections.actionGlobalCodeFragment(viewModel.phone.value!!, false))
                 }
             }
         })
@@ -73,20 +72,6 @@ class SignUpFragment : ParentFragment() {
                         phone.setText("")
                     }
                 }
-            }
-
-            passwordToggle.setOnCheckedChangeListener { _, b ->
-                val cursorPosition = password.selectionStart
-                password.transformationMethod =
-                    if (b) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
-                password.setSelection(cursorPosition)
-            }
-
-            repeatPasswordToggle.setOnCheckedChangeListener { _, b ->
-                val cursorPosition: Int = repeatPassword.selectionStart
-                repeatPassword.transformationMethod =
-                    if (b) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
-                repeatPassword.setSelection(cursorPosition)
             }
         }
     }

@@ -2,7 +2,10 @@ package uz.mod.templatex.ui.product
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProductBannerItemBinding
 
 class ProductBannerAdapter : RecyclerView.Adapter<ProductBannerAdapter.ViewHolder>() {
@@ -19,7 +22,7 @@ class ProductBannerAdapter : RecyclerView.Adapter<ProductBannerAdapter.ViewHolde
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], position)
 
     fun setItems(it: List<String>?) {
         items = it ?: listOf()
@@ -28,10 +31,20 @@ class ProductBannerAdapter : RecyclerView.Adapter<ProductBannerAdapter.ViewHolde
 
     inner class ViewHolder(val binding: ProductBannerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(url: String) {
+        fun bind(url: String, position: Int) {
             binding.apply {
                 item = url
                 executePendingBindings()
+
+                root.setOnClickListener {
+                    it.findNavController().navigate(
+                        R.id.fullScreenImageFragment,
+                        bundleOf(
+                            "images" to items.toTypedArray(),
+                            "selectedPosition" to position
+                        )
+                    )
+                }
             }
         }
     }
