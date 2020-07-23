@@ -38,17 +38,24 @@ class SignInFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        viewModel.responce.observe(viewLifecycleOwner, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    Timber.e(result.data.toString())
-                    findNavController().navigate(CodeFragmentDirections.actionGlobalCodeFragment(viewModel.phone.value!!, false))
+        viewModel.response.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled()?.let { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        showError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        Timber.e(result.data.toString())
+                        findNavController().navigate(
+                            CodeFragmentDirections.actionGlobalCodeFragment(
+                                viewModel.phone.value!!,
+                                false
+                            )
+                        )
+                    }
                 }
             }
         })

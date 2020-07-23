@@ -3,8 +3,10 @@ package uz.mod.templatex.ui.checkout
 import android.app.Application
 import android.util.Patterns
 import androidx.lifecycle.*
+import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.utils.extension.clear
 import uz.mod.templatex.model.remote.network.Resource
+import uz.mod.templatex.model.remote.response.ConfirmResponse
 import uz.mod.templatex.model.repository.CheckoutRepository
 import uz.mod.templatex.utils.SingleLiveEvent
 
@@ -44,7 +46,7 @@ class CheckoutViewModel constructor(
         }
 
     val request = MutableLiveData<Boolean>()
-    val response= Transformations.switchMap(request) {
+    val response = Transformations.switchMap(request) {
         repository.user(
             name.value!!,
             surname.value!!,

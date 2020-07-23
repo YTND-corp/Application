@@ -41,7 +41,8 @@ class ProfileGuestFragment : ParentFragment() {
 
         sharedViewModel.isAuthenticated.observe(viewLifecycleOwner, Observer { isAuthorized ->
             if (isAuthorized) {
-                binding.unauthorized
+                //binding.unauthorized
+                findNavController().navigate(R.id.action_profileFragment_to_profileAuthorizedFragment)
             } else {
 
             }

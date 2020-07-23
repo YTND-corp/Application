@@ -38,16 +38,23 @@ class SignUpFragment : ParentFragment() {
 
         initViews()
 
-        viewModel.responce.observe(viewLifecycleOwner, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    findNavController().navigate(CodeFragmentDirections.actionGlobalCodeFragment(viewModel.phone.value!!, false))
+        viewModel.response.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled()?.let { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        showError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        findNavController().navigate(
+                            CodeFragmentDirections.actionGlobalCodeFragment(
+                                viewModel.phone.value!!,
+                                false
+                            )
+                        )
+                    }
                 }
             }
         })

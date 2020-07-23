@@ -57,13 +57,15 @@ class ProfileMyDataFragment : ParentFragment() {
                         name.setText(result?.data?.user?.printFullName())
                         phone.setText(result?.data?.user?.phone)
                         email.setText(result?.data?.user?.email)
-                        birthDate.setText(
-                            LocalDate.parse(
-                                result?.data?.user?.birthday,
-                                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        result?.data?.user?.birthday?.let {
+                            birthDate.setText(
+                                LocalDate.parse(
+                                    it,
+                                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                                )
+                                    .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
                             )
-                                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                        )
+                        }
                         sNotification.isChecked = result?.data?.user?.notifications == true
                         sSubscription.isChecked = result?.data?.user?.subscriptions == true
                     }

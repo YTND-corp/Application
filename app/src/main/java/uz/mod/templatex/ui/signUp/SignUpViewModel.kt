@@ -8,6 +8,7 @@ import uz.mod.templatex.utils.extension.clear
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.repository.AuthRepository
+import uz.mod.templatex.utils.Event
 
 class SignUpViewModel constructor(
     application: Application, repository: AuthRepository
@@ -42,13 +43,17 @@ class SignUpViewModel constructor(
         }
 
     val request = MutableLiveData<Boolean>()
-    val responce: LiveData<Resource<Any>> = Transformations.switchMap(request) {
+    val res: LiveData<Resource<Any>> = Transformations.switchMap(request) {
         repository.signUp(
             name.value!!,
             surname.value!!,
             email.value!!,
             phone.value?.backEndPhoneFormat()!!
         )
+    }
+
+    val response = Transformations.map(res) {
+        Event(it)
     }
 
     fun signUp() {

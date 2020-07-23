@@ -16,7 +16,7 @@ data class User(
     @SerializedName("last_name")
     val lastName: String,
     val gender: GenderType,
-    val birthday: String,
+    val birthday: String?,
     val email: String,
     val phone: String,
     val subscriptions: Boolean,

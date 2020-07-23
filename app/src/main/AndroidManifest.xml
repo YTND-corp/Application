@@ -19,6 +19,7 @@
                 android:name="uz.mod.templatex.ui.MainActivity"
                 android:configChanges="keyboard|keyboardHidden|locale"
                 android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.Launcher"
                 android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

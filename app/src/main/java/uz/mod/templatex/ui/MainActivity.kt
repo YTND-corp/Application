@@ -48,6 +48,7 @@ class MainActivity : ParentActivity() {
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
 
         val analyticsManager = AnalyticsManager(this)
