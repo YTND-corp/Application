@@ -54,4 +54,7 @@
 
     <!--Spinner-->
     <color name="spinner_border_color">#F2F2F7</color>
+
+    <!--Placeholder-->
+    <color name="placeholder_bg_color">#dddddd</color>
 </resources>

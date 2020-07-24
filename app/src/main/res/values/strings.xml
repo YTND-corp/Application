@@ -35,9 +35,18 @@
     <string name="action_see_products">Смотреть товары</string>
     <string name="action_show_all_products">ПОКАЗАТЬ ВСЕ ТОВАРЫ</string>
     <string name="action_add_to_cart">Добавить в корзину</string>
+    <string name="action_try_again">Попробовать снова</string>
+    <string name="action_remind_later">НАПОМНИТЬ ПОЗЖЕ</string>
 
     <!--Errors-->
     <string name="error_no_connection">Нет интернет подключения</string>
+    <string name="error_no_connection2">НЕТ СОЕДИНЕНИЯ \nС ИНТЕРНЕТОМ</string>
+    <string name="server_error">ОШИБКА СЕРВЕРА</string>
+    <string name="server_is_not_working_or_is_not_being_updated">Сервер не работает или \nне обновляется</string>
+
+    <!--Alert text-->
+    <string name="new_version">НОВАЯ ВЕРСИЯ</string>
+    <string name="available_new_version">Доступна новая версия \n%s</string>
 
     <!--Permissions-->
     <string name="rationale_camera">Нужен доступ к камере</string>
