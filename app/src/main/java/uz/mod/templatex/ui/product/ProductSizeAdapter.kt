@@ -11,6 +11,7 @@ class ProductSizeAdapter(private var listener: (item: ProductSize)-> Unit) :
     RecyclerView.Adapter<ProductSizeAdapter.ViewHolder>() {
     private var items: List<ProductSize> = listOf()
     private var selected: ProductSize? = null
+    private var shouldSelectSize = false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= ViewHolder(ProductSizeItemBinding.inflate( LayoutInflater.from(parent.context), parent, false))
 
     override fun getItemCount(): Int = items.size
@@ -32,10 +33,11 @@ class ProductSizeAdapter(private var listener: (item: ProductSize)-> Unit) :
                 item = size
                 executePendingBindings()
 
-                text.isSelected =  size.id == selected?.id
+                text.isSelected =  shouldSelectSize && size.id == selected?.id
 
                 root.setOnClickListener {
                     listener.invoke(size)
+                    shouldSelectSize = true
                 }
             }
         }
