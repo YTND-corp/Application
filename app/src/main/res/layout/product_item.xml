@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
                 name="item"
                 type="uz.mod.templatex.model.local.entity.Product" />
@@ -18,7 +20,7 @@
             android:paddingEnd="4dp"
             android:paddingBottom="10dp">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image"
                 url="@{item.image}"
                 android:layout_width="0dp"
@@ -28,6 +30,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_rounded_red"
+                android:padding="5dp"
+                android:text="@{`-` + item.currencies.get(0).discount + `%`}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_tiny"
+                android:visibility="@{item.currencies.get(0).discount >0 ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         <CheckBox
                 android:id="@+id/favorite"
@@ -66,11 +84,27 @@
         <TextView
                 android:id="@+id/price"
                 style="@style/Regular"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="@{item.priceFormatted}"
                 android:textSize="@dimen/text_size_tiny"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/subtitle" />
+
+        <uz.mod.templatex.ui.custom.StrikeThroughTextView
+                style="@style/Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.oldPriceFormatted}"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="@dimen/text_size_tiny"
+                android:visibility="@{item.currencies.get(0).discount >0 ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/price"
+                app:layout_constraintStart_toEndOf="@id/price"
+                app:layout_constraintTop_toTopOf="@id/price" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

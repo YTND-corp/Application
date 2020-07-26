@@ -2,12 +2,10 @@ package uz.mod.templatex.model.local.entity
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import uz.mod.templatex.utils.extension.moneyFormat
 
 data class Currency(
-    @SerializedName("currency")
     val currency: String?,
     val price: Int,
     @SerializedName("old_price")
@@ -19,8 +17,7 @@ data class Currency(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readInt()
-    ) {
-    }
+    )
 
     fun getMoneyFormat() = "${price.moneyFormat()} $currency"
 
@@ -33,17 +30,10 @@ data class Currency(
         parcel.writeInt(discount)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents() = 0
 
     companion object CREATOR : Parcelable.Creator<Currency> {
-        override fun createFromParcel(parcel: Parcel): Currency {
-            return Currency(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Currency?> {
-            return arrayOfNulls(size)
-        }
+        override fun createFromParcel(parcel: Parcel) = Currency(parcel)
+        override fun newArray(size: Int) = arrayOfNulls<Currency>(size)
     }
 }

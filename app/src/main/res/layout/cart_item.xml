@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
                 name="item"
@@ -15,7 +16,7 @@
             android:layout_height="wrap_content"
             android:background="?selectableItemBackground">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image"
                 url="@{item.image}"
                 android:layout_width="0dp"
@@ -28,6 +29,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.43" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_rounded_red"
+                android:padding="5dp"
+                android:text="@{`-` + item.currencies.get(0).discount + `%`}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_tiny"
+                android:visibility="@{item.currencies.get(0).discount >0 ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintStart_toStartOf="@id/image"
+                app:layout_constraintTop_toTopOf="@id/image" />
+
 
         <CheckBox
                 android:id="@+id/favorite"
@@ -89,7 +106,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tvCategory" />
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/minus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,7 +131,7 @@
                 app:layout_constraintTop_toTopOf="@id/minus"
                 tools:text="1" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

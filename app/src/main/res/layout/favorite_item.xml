@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
                 name="item"
                 type="uz.mod.templatex.model.local.entity.Favorite" />
@@ -18,14 +20,28 @@
             android:paddingEnd="8dp"
             android:paddingBottom="10dp">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image"
+                url="@{item.image}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                url="@{item.image}"
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="0.65"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_rounded_red"
+                android:padding="5dp"
+                android:text="@{`-` + item.currencies.get(0).discount + `%`}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_tiny"
+                android:visibility="@{item.currencies.get(0).discount >0 ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,9 +64,9 @@
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:text="@{item.brand}"
-                tools:text="Massimo Dutti"
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintTop_toBottomOf="@id/image" />
+                app:layout_constraintTop_toBottomOf="@id/image"
+                tools:text="Massimo Dutti" />
 
         <TextView
                 android:id="@+id/subtitle"
@@ -59,20 +75,35 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="@{item.name}"
-                tools:text="СВИТЕР - ТУНИКА ИЗ ШЕРСТИ И.."
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintTop_toBottomOf="@id/title" />
+                app:layout_constraintTop_toBottomOf="@id/title"
+                tools:text="СВИТЕР - ТУНИКА ИЗ ШЕРСТИ И.." />
 
         <TextView
                 android:id="@+id/price"
                 style="@style/Regular"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="@{item.priceFormatted()}"
+                android:text="@{item.priceFormatted}"
                 android:textSize="@dimen/text_size_tiny"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/subtitle" />
 
+        <uz.mod.templatex.ui.custom.StrikeThroughTextView
+                style="@style/Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.oldPriceFormatted}"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="@dimen/text_size_tiny"
+                android:visibility="@{item.currencies.get(0).discount >0 ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/price"
+                app:layout_constraintStart_toEndOf="@id/price"
+                app:layout_constraintTop_toTopOf="@id/price" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

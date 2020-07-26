@@ -12,21 +12,20 @@ class AuthInterceptor constructor(val context: Context, val prefs: Prefs): Inter
         var req = chain.request()
         var url = req.url()
         val mobuid = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-        Timber.e("Mobile-UID: ${mobuid}")
-        var reqBuilder = req.newBuilder()
+        Timber.e("Mobile-UID: $mobuid")
+        val reqBuilder = req.newBuilder()
             .addHeader("Content-Type", "application/json")
 //            .addHeader("language",prefs.selectedLanguage?.name?:"ru")
             .addHeader("Mobile-UID", mobuid)
 //           .url(url)
         prefs.token?.let {
-            reqBuilder.addHeader("Authorization", "Bearer " + it)
+            reqBuilder.addHeader("Authorization", "Bearer $it")
         }
 //        val versionName = BuildConfig.VERSION_NAME
 //        reqBuilder.addHeader("version", "a${versionName}")
 
         req = reqBuilder.build()
-        val responce: Response = chain.proceed(req)
-        return responce
+        return chain.proceed(req)
     }
 
 }

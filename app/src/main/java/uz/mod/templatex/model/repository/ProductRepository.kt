@@ -71,8 +71,7 @@ class ProductRepository constructor(
             }
 
             override fun loadFromDb(): LiveData<List<Product>> {
-                val all = productDao.getAll()
-                return all
+                return productDao.getAll()
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {

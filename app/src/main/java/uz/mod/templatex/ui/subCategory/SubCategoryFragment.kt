@@ -71,7 +71,7 @@ class SubCategoryFragment : ParentFragment() {
             continueButton.setOnClickListener {
                 findNavController().navigate(
                     SubCategoryFragmentDirections.actionGlobalProductsFragment(
-                        args.category?.parentId ?: 0,
+                        args.category?.id ?: 0,
                         args.category?.name
                     )
                 )

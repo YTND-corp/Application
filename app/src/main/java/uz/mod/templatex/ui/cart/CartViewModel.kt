@@ -16,7 +16,7 @@ import uz.mod.templatex.utils.extension.moneyFormat
 class CartViewModel constructor(
     application: Application,
     val repository: CartRepository,
-    val favoriteRepository: FavoriteRepository
+    private val favoriteRepository: FavoriteRepository
 ) : AndroidViewModel(application) {
 
     var cart = MutableLiveData<Cart>()
@@ -54,8 +54,8 @@ class CartViewModel constructor(
 
     val totalPrice = Transformations.map(products) {
         var sum = 0
-        it?.forEach {
-            sum += it.totalPrice()
+        it?.forEach { product ->
+            sum += product.totalPrice()
         }
         application.getString(R.string.total_price, (sum.moneyFormat() + " UZS"))
     }

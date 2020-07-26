@@ -22,12 +22,12 @@ class ProductColorAdapter(private var listener: (item: ProductColor) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 
-    fun setItems(it: List<ProductColor>?) {
-        items = it ?: listOf()
+    fun setItems(colors: List<ProductColor>?) {
+        items = colors ?: listOf()
     }
 
-    fun setSelectedColor(selectedColor: ProductColor?) {
-        this.selected = selectedColor
+    fun setSelectedColor(selectedColor: ProductColor?) = selectedColor?.apply {
+        selected = this
         notifyItemRangeChanged(0, items.size)
     }
 
@@ -36,7 +36,7 @@ class ProductColorAdapter(private var listener: (item: ProductColor) -> Unit) :
             binding.apply {
                 executePendingBindings()
 
-                rbColor.isChecked = selected == color
+                rbColor.isChecked = selected !=null && selected == color
 
                 color.color?.let {
                     rbColor.buttonTintList = ColorStateList.valueOf(Color.parseColor(it))

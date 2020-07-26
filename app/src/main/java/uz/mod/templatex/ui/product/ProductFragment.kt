@@ -1,7 +1,6 @@
 package uz.mod.templatex.ui.product
 
 import android.content.Intent
-import android.graphics.Paint
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -45,8 +44,6 @@ class ProductFragment : ParentFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.setArgs(args)
-
-
     }
 
     override fun onCreateView(
@@ -120,8 +117,6 @@ class ProductFragment : ParentFragment() {
             val displayMetrics = DisplayMetrics()
             activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
             val colorRowCount = displayMetrics.widthPixels / 48.toPx()
-
-            tvOldPrice.paintFlags = tvOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
             back.setOnClickListener {
                 findNavController().popBackStack()
@@ -245,7 +240,7 @@ class ProductFragment : ParentFragment() {
                 })
             }
 
-            favorite.setOnCheckedChangeListener { compoundButton, b ->
+            favorite.setOnCheckedChangeListener { compoundButton, _ ->
                 if (compoundButton.isPressed) {
                     viewModel?.favoriteToggle()?.observe(viewLifecycleOwner, Observer { result ->
                         when (result.status) {

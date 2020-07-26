@@ -18,12 +18,12 @@ import uz.mod.templatex.databinding.ProductsFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.new_filter.MainFilterFragment
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
-import uz.mod.templatex.ui.new_filter.SortFragment
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.extension.toast
 
 
 class ProductsFragment : ParentFragment() {
-    val sharedFilterViewModel: SharedFilterViewModel by activityViewModels<SharedFilterViewModel>()
+    private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
     val viewModel: ProductsViewModel by viewModel()
 
     private val binding by lazy { ProductsFragmentBinding.inflate(layoutInflater) }
@@ -51,6 +51,7 @@ class ProductsFragment : ParentFragment() {
                     }
                     Status.SUCCESS -> {
                         hideLoading()
+                        showFavouriteStatus(isFavorite)
                         Timber.e(result.data.toString())
                     }
                 }
@@ -58,6 +59,11 @@ class ProductsFragment : ParentFragment() {
         }
 
         viewModel.setArgs(args)
+    }
+
+    private fun showFavouriteStatus(isFavorite : Boolean) {
+        val message = if (isFavorite) "Added to favourite" else "Removed from favourite"
+        requireActivity().toast(message)
     }
 
     override fun onCreateView(
