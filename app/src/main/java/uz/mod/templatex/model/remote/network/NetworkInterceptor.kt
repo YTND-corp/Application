@@ -10,15 +10,10 @@ import uz.mod.templatex.R
 import java.io.IOException
 
 
-
-class NetworkInterceptor constructor(val application: Application): Interceptor {
+class NetworkInterceptor constructor(val application: Application) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        return if (isConnected()) {
-            chain.proceed(chain.request())
-        } else {
-            throw IOException(application.getString(R.string.error_no_connection))
-        }
-
+        return if (isConnected()) chain.proceed(chain.request())
+        else throw IOException(application.getString(R.string.error_no_connection))
     }
 
     fun isConnected(): Boolean {
