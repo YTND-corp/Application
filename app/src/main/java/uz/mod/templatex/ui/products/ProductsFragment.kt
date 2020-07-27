@@ -42,8 +42,8 @@ class ProductsFragment : ParentFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        adapter = ProductAdapter { id, isFavorite ->
-            viewModel.favoriteToggle(id).observe(viewLifecycleOwner, Observer { result ->
+        adapter = ProductAdapter { product, position ->
+            viewModel.favoriteToggle(product.id).observe(viewLifecycleOwner, Observer { result ->
                 when (result.status) {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
@@ -52,7 +52,8 @@ class ProductsFragment : ParentFragment() {
                     }
                     Status.SUCCESS -> {
                         hideLoading()
-                        showFavouriteStatus(isFavorite)
+                        adapter.updateItem(product, position)
+                        showFavouriteStatus(product.isFavorite)
                         Timber.e(result.data.toString())
                     }
                 }
@@ -66,7 +67,7 @@ class ProductsFragment : ParentFragment() {
         viewModel.setArgs(args)
     }
 
-    private fun showFavouriteStatus(isFavorite : Boolean) {
+    private fun showFavouriteStatus(isFavorite: Boolean) {
         val message = if (isFavorite) "Added to favourite" else "Removed from favourite"
         requireActivity().toast(message)
     }

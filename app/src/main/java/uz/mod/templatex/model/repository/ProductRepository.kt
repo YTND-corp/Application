@@ -117,7 +117,7 @@ class ProductRepository constructor(
     fun favoriteToggle(id: Int): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {
             override fun processResult(item: Any?): Any? {
-                productDao.setFavorite(id, !productDao.get(id).isFavorite)
+                //productDao.setFavorite(id, !productDao.get(id).isFavorite)
                 return item
             }
 

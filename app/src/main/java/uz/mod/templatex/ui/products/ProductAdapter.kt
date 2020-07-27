@@ -10,7 +10,7 @@ import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.ui.product.ProductFragmentDirections
 import uz.mod.templatex.utils.GlideApp
 
-class ProductAdapter(private var listener: (id: Int, isFavorite: Boolean) -> Unit) :
+class ProductAdapter(private var listener: (item: Product, position: Int) -> Unit) :
 
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
@@ -26,7 +26,7 @@ class ProductAdapter(private var listener: (id: Int, isFavorite: Boolean) -> Uni
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], position)
 
     fun setItems(it: List<Product>?) {
         items = it?.toMutableList() ?: mutableListOf()
@@ -38,6 +38,11 @@ class ProductAdapter(private var listener: (id: Int, isFavorite: Boolean) -> Uni
         notifyDataSetChanged()
     }
 
+    fun updateItem(item: Product, position: Int) {
+        item.isFavorite = !item.isFavorite
+        notifyItemChanged(position)
+    }
+
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         GlideApp.with(holder.itemView.context)
@@ -46,14 +51,14 @@ class ProductAdapter(private var listener: (id: Int, isFavorite: Boolean) -> Uni
 
     inner class ViewHolder(val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product) {
+        fun bind(product: Product, position: Int) {
             binding.apply {
                 item = product
                 executePendingBindings()
 
                 favorite.setOnCheckedChangeListener { compoundButton, b ->
                     if (compoundButton.isPressed) {
-                        listener.invoke(product.id, !product.isFavorite)
+                        listener.invoke(product, position)
                     }
                 }
 
