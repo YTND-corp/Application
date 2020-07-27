@@ -134,7 +134,7 @@
     <string name="profile_authorized_item_my_addresses">Мои адреса</string>
     <string name="profile_authorized_item_favorites">Избранные</string>
     <string name="profile_authorized_item_call_us">Позвоните нам</string>
-    <string name="profile_authorized_item_call_you">Позвонит вам</string>
+    <string name="profile_authorized_item_call_you">Позвонить вам</string>
     <string name="profile_authorized_item_support_center">Центр поддержки MOD</string>
     <string name="profile_authorized_item_about_mod">О MOD</string>
     <string name="profile_authorized_item_logout">Выйти</string>
