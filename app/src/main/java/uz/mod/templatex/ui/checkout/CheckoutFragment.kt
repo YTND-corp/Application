@@ -1,7 +1,6 @@
 package uz.mod.templatex.ui.checkout
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,22 +37,21 @@ class CheckoutFragment : ParentFragment() {
                 Status.SUCCESS -> {
                     hideLoading()
                     result.data?.let {
-                        //TODO after auth completed should work around this
-                        /*if (sharedViewModel.isAuthenticated.value == true) {
+                        if (sharedViewModel.isAuthenticated.value == true) {
                             findNavController().navigate(
                                 CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment(
                                     it,
                                     viewModel.getPhone()
                                 )
                             )
-                        } else {*/
+                        } else {
                             findNavController().navigate(
                                 CheckoutFragmentDirections.actionCheckoutFragmentToCodeFragment(
                                     viewModel.getPhone(),
                                     true
                                 )
                             )
-                        //}
+                        }
                     }
                 }
             }

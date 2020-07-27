@@ -10,6 +10,7 @@ import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.repository.ProductRepository
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.utils.AbsentLiveData
+import uz.mod.templatex.utils.Event
 
 class ProductsViewModel constructor(application: Application, val repository: ProductRepository) :
     AndroidViewModel(application) {
@@ -23,11 +24,15 @@ class ProductsViewModel constructor(application: Application, val repository: Pr
 
     private val request = MutableLiveData<Boolean>()
     val response = Transformations.switchMap(request) {
-        repository.getProducts(categoryId, filterParams, page)
+        repository.getProducts(categoryId, filterParams, page).map { Event(it) }
     }
 
     val filter = Transformations.map(repository.getFilters()) {
         if (!it.isNullOrEmpty()) it.first() else null
+    }
+
+    val brands = Transformations.map(filter) {
+        it?.brands
     }
 
     val total = Transformations.map(filter) {

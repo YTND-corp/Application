@@ -68,7 +68,7 @@ class CodeFragment : ParentFragment() {
                         hideLoading()
                         binding.code.text = null
                         sharedViewModel.loggedIn(result.data)
-                        findNavController().popBackStack(R.id.profileFragment, true)
+                        findNavController().navigate(R.id.action_codeFragment_to_profileFragment)
                     }
                 }
             })
@@ -107,7 +107,6 @@ class CodeFragment : ParentFragment() {
             resendButton.setOnClickListener {
 
             }
-
         }
     }
 }

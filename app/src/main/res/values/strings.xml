@@ -27,6 +27,7 @@
     <string name="action_delete">Удалить</string>
     <string name="action_close">ЗАКРЫТЬ</string>
     <string name="action_add">Добавить</string>
+    <string name="action_reset">Сбросить</string>
 
     <string name="action_start_shopping">Начать покупки</string>
     <string name="action_forgot_password">Забыли пароль?</string>

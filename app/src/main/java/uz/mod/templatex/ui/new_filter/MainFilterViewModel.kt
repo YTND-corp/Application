@@ -12,6 +12,7 @@ class MainFilterViewModel(application: Application, val repository: ProductRepos
     lateinit var sharedModel: SharedFilterViewModel
     private var filterForCategory: Filter? = null
     val itemsData = MutableLiveData<List<MainFilterAdapter.MainFilterDataItem<*>>>()
+    val isResetButtonVisible = MutableLiveData<Boolean>()
 
     var categoryId: Int? = null
         set(value) {
@@ -33,5 +34,36 @@ class MainFilterViewModel(application: Application, val repository: ProductRepos
             items.add(MainFilterAdapter.AttributeItem(it))
         }
         itemsData.postValue(items)
+    }
+
+    fun onResetClick() {
+        sharedModel.currentFilter?.brands?.forEach {
+            it.selected = false
+        }
+        sharedModel.currentFilter?.attributes?.forEach {
+            it.values?.forEach {
+                it.selected = false
+            }
+        }
+        sharedModel.needToReloadFeed = true
+        isResetButtonVisible.value = false
+    }
+
+    fun shouldShowResetButton() {
+        if (sharedModel.currentFilter?.brands?.find { it.selected } != null) {
+            isResetButtonVisible.value = true
+            return
+        }
+
+        sharedModel.currentFilter?.attributes?.forEach {
+            it.values?.forEach {
+                if (it.selected) {
+                    isResetButtonVisible.value = true
+                    return
+                }
+            }
+        }
+
+        isResetButtonVisible.value = false
     }
 }

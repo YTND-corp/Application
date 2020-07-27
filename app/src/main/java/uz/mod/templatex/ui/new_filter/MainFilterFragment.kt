@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_main_filter.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -50,6 +51,18 @@ class MainFilterFragment : ParentFragment() {
             mainFilterAdapter.items.addAll(it)
             mainFilterAdapter.notifyDataSetChanged()
         })
+        mainFilterViewModel.isResetButtonVisible.observe(viewLifecycleOwner, Observer {
+            btnReset.visibility = if (it) View.VISIBLE else View.GONE
+        })
         mainFilterViewModel.categoryId = arguments?.getInt(KEY_CATEGORY_ID)
+        mainFilterViewModel.shouldShowResetButton()
+
+        btnReset.setOnClickListener {
+            mainFilterViewModel.onResetClick()
+        }
+
+        back.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 }

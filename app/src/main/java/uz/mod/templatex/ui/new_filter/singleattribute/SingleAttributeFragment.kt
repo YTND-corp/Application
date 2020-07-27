@@ -36,7 +36,9 @@ class SingleAttributeFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         singleAttributeViewModel.sharedModel = sharedFilterViewModel
         sharedFilterViewModel.buildTemporaryData()
-        val adapter = SingleAttributeFilterAdapter(filter = sharedFilterViewModel.cachedFilter, attrId = attrs.attrId)
+        val adapter = SingleAttributeFilterAdapter {
+            singleAttributeViewModel.onItemClick(it)
+        }
         rvList.adapter = adapter
         rvList.layoutManager = LinearLayoutManager(context)
         rvList.addItemDecoration(
@@ -50,11 +52,24 @@ class SingleAttributeFragment : ParentFragment() {
             adapter.items.addAll(it)
             adapter.notifyDataSetChanged()
         })
+        singleAttributeViewModel.isResetButtonVisible.observe(viewLifecycleOwner, Observer {
+            btnReset.visibility = if (it) View.VISIBLE else View.GONE
+        })
+        singleAttributeViewModel.updateList.observe(viewLifecycleOwner, Observer {
+            adapter.notifyDataSetChanged()
+        })
         singleAttributeViewModel.attributeId = attrs.attrId
+        singleAttributeViewModel.shouldShowResetButton()
         searchEt.hint = ""
         searchEt.addTextChangedListener { text -> singleAttributeViewModel.onQueryChanged(text.toString()) }
         applyBt.setOnClickListener {
             sharedFilterViewModel.saveTemporaryData()
+            findNavController().popBackStack()
+        }
+        btnReset.setOnClickListener {
+            singleAttributeViewModel.onResetClick()
+        }
+        back.setOnClickListener {
             findNavController().popBackStack()
         }
     }

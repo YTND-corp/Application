@@ -63,6 +63,11 @@ class AuthRepository constructor(val service: AuthService, val prefs: Prefs) {
         }.asLiveData()
     }
 
+    fun logout() {
+        prefs.userName = null
+        prefs.token = null
+    }
+
     fun getUserName() = prefs.userName
 
     fun getUserPhone() = prefs.phone
