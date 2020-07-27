@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.databinding.CallMeFragmentBinding
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.MaskWatcher
+import uz.mod.templatex.utils.PhoneFieldFocusChangeListener
 
 class CallMeFragment : ParentFragment() {
 
@@ -36,6 +38,9 @@ class CallMeFragment : ParentFragment() {
         binding.apply {
             viewModel = this@CallMeFragment.viewModel
             executePendingBindings()
+
+            etPhone.addTextChangedListener(MaskWatcher.phoneWatcher())
+            etPhone.onFocusChangeListener = PhoneFieldFocusChangeListener()
         }
     }
 }
