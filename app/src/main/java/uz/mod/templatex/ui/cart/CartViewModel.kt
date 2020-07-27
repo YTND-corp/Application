@@ -62,13 +62,13 @@ class CartViewModel constructor(
 
     fun add(product: Product) {
         Timber.e("Add...")
-        updateRequest.value = Pair(product.id, product.quantity + 1)
+        updateRequest.value = Pair(product.cartProductId, product.quantity + 1)
     }
 
     fun sub(product: Product) {
         Timber.e("Sub...")
         if (product.quantity > 1) {
-            updateRequest.value = Pair(product.id, product.quantity - 1)
+            updateRequest.value = Pair(product.cartProductId, product.quantity - 1)
         }
     }
 
