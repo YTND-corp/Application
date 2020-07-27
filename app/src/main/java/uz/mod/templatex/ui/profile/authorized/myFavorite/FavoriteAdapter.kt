@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileItemFavoriteBinding
 import uz.mod.templatex.model.local.entity.Favorite
 
@@ -19,10 +18,7 @@ class FavoriteAdapter(private val listener: FavoriteAdapterListener) :
     private var items: List<Favorite> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = FavoriteViewHolder(
-        ProfileItemFavoriteBinding.bind(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.profile_item_favorite, parent, false)
-        ),
+        ProfileItemFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         listener
     )
 
@@ -59,7 +55,6 @@ class FavoriteAdapter(private val listener: FavoriteAdapterListener) :
                         tvOldPrice.visibility = View.GONE
                     } else {
                         tvOldPrice.visibility = View.VISIBLE
-                        tvOldPrice.text = "$ $oldPrice"
                     }
 
                     btnClose.setOnClickListener {
