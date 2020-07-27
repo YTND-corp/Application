@@ -107,6 +107,10 @@ class CodeFragment : ParentFragment() {
             resendButton.setOnClickListener {
 
             }
+
+            change.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
 }

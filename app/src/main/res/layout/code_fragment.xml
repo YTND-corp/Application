@@ -32,9 +32,9 @@
                         android:layout_marginStart="@dimen/activity_horizontal_margin"
                         android:layout_marginTop="50dp"
                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:gravity="center"
                         android:text="@string/code_header"
                         android:textAlignment="center"
-                        android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_large"
                         app:layout_constraintBottom_toTopOf="@id/phone"
@@ -45,39 +45,40 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:gravity="center"
                         android:lineSpacingExtra="9.3sp"
+                        android:text="@{viewModel.getSubTitle}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_small"
-                        android:gravity="center"
                         app:layout_constraintEnd_toEndOf="@id/title"
                         app:layout_constraintStart_toStartOf="@id/title"
                         app:layout_constraintTop_toBottomOf="@id/title"
-                        android:text="@{viewModel.getSubTitle}"
                         tools:text="Чтобы подтвердить +998 90 184 49 91" />
 
                 <TextView
                         android:id="@+id/change"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:clickable="true"
                         android:focusable="true"
+                        android:gravity="center"
                         android:lineSpacingExtra="9.3sp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/code_change_phone"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_small"
-                        android:gravity="center"
                         app:layout_constraintEnd_toEndOf="@id/title"
                         app:layout_constraintStart_toStartOf="@id/title"
-                        app:layout_constraintTop_toBottomOf="@id/phone"
-                        android:text="@string/code_change_phone" />
+                        app:layout_constraintTop_toBottomOf="@id/phone" />
 
                 <LinearLayout
                         android:id="@+id/code_wrapper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="60dp"
+                        android:layout_marginTop="50dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/change">
@@ -87,9 +88,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_code"
+                            android:gravity="center"
                             android:inputType="number"
                             android:maxLength="1"
-                            android:gravity="center"
                             android:text="@{viewModel.first}"
                             android:textAlignment="center"
                             android:textColor="@color/black"
@@ -106,9 +107,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_code"
+                            android:gravity="center"
                             android:inputType="number"
                             android:maxLength="1"
-                            android:gravity="center"
                             android:text="@{viewModel.second}"
                             android:textAlignment="center"
                             android:textColor="@color/black"
@@ -125,9 +126,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_code"
+                            android:gravity="center"
                             android:inputType="number"
                             android:maxLength="1"
-                            android:gravity="center"
                             android:text="@{viewModel.third}"
                             android:textAlignment="center"
                             android:textColor="@color/black"
@@ -144,9 +145,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_code"
+                            android:gravity="center"
                             android:inputType="number"
                             android:maxLength="1"
-                            android:gravity="center"
                             android:text="@{viewModel.fourth}"
                             android:textAlignment="center"
                             android:textColor="@color/black"
@@ -154,20 +155,21 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/change" />
                 </LinearLayout>
+
                 <EditText
                         android:id="@+id/code"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        app:layout_constraintStart_toStartOf="@id/code_wrapper"
-                        app:layout_constraintEnd_toEndOf="@id/code_wrapper"
-                        app:layout_constraintTop_toTopOf="@id/code_wrapper"
-                        app:layout_constraintBottom_toBottomOf="@id/code_wrapper"
-                        android:textColor="@color/transparentColor"
-                        android:text="@={viewModel.code}"
-                        android:inputType="number"
+                        android:background="@null"
                         android:cursorVisible="false"
+                        android:inputType="number"
                         android:maxLength="4"
-                        android:background="@null"/>
+                        android:text="@={viewModel.code}"
+                        android:textColor="@color/transparentColor"
+                        app:layout_constraintBottom_toBottomOf="@id/code_wrapper"
+                        app:layout_constraintEnd_toEndOf="@id/code_wrapper"
+                        app:layout_constraintStart_toStartOf="@id/code_wrapper"
+                        app:layout_constraintTop_toTopOf="@id/code_wrapper" />
 
                 <Button
                         android:id="@+id/resend_button"
@@ -178,11 +180,11 @@
                         android:text="@string/action_send_code_again"
                         android:textAllCaps="false"
                         android:textSize="@dimen/text_size_smaller"
-                        app:layout_constraintVertical_bias="1"
-                        app:layout_constraintTop_toBottomOf="@id/code"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/code"
+                        app:layout_constraintVertical_bias="1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
