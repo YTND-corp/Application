@@ -18,4 +18,5 @@ class Favorite(
     val image: String
 ) {
     fun priceFormatted() = "${currencies.first().price.moneyFormat()} ${currencies.first().currency}"
+    fun oldPriceFormatted() = "${currencies.first().oldPrice.moneyFormat()} ${currencies.first().currency}"
 }

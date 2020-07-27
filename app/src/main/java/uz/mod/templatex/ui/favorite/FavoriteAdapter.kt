@@ -6,9 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.FavoriteItemBinding
 import uz.mod.templatex.model.local.entity.Favorite
-import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.ui.product.ProductFragmentDirections
-import uz.mod.templatex.ui.products.ProductsFragmentDirections
 
 class FavoriteAdapter(private var listener: (id: Int, isFavorite: Boolean) -> Unit) :
     RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
@@ -34,12 +32,12 @@ class FavoriteAdapter(private var listener: (id: Int, isFavorite: Boolean) -> Un
                 item = favorite
                 executePendingBindings()
 
-                chbFavorite.setOnCheckedChangeListener { compoundButton, b ->
+                chbFavorite.setOnCheckedChangeListener { compoundButton, _ ->
                     if (compoundButton.isPressed) {
                         listener.invoke(favorite.id, !favorite.isFavorite)
                     }
                 }
-
+                
                 root.setOnClickListener {
                     it.findNavController().navigate(ProductFragmentDirections.actionGlobalProductFragment(favorite.id))
                 }

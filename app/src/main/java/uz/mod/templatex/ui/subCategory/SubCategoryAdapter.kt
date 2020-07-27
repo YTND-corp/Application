@@ -28,19 +28,18 @@ class SubCategoryAdapter(private var items: List<SubCategory> = listOf()) :
 
     inner class ViewHolder(val binding: SubCategoryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(subCategory: SubCategory) {
-            binding.apply {
-                item = subCategory
-                executePendingBindings()
-                root.setOnClickListener {
-                    it.findNavController()
-                        .navigate(
-                            SubCategoryFragmentDirections.actionGlobalProductsFragment(
-                                subCategory.parentId,
-                                subCategory.name
-                            )
+        fun bind(subCategory: SubCategory): Unit = with(binding) {
+            item = subCategory
+            executePendingBindings()
+            root.setOnClickListener {
+                println("Subcategory parentID ${subCategory.parentId} name ${subCategory.name}")
+                it.findNavController()
+                    .navigate(
+                        SubCategoryFragmentDirections.actionGlobalProductsFragment(
+                            subCategory.id,
+                            subCategory.name
                         )
-                }
+                    )
             }
         }
     }

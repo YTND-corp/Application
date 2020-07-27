@@ -33,7 +33,10 @@ class CategoryAdapter(
                 executePendingBindings()
                 root.setOnClickListener {
                     val action =
-                        CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(category)
+                        CategoryFragmentDirections.actionGlobalProductsFragment(
+                            category.id,
+                            category.name
+                        )
                     it.findNavController().navigate(action)
                 }
             }

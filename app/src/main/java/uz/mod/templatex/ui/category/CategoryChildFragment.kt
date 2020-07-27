@@ -58,7 +58,7 @@ class CategoryChildFragment : ParentFragment() {
 
             adapter = CategoryAdapter()
 
-            catalogs.hasFixedSize()
+            catalogs.setHasFixedSize(true)
             catalogs.adapter = adapter
 
             catalogs.setOnTouchListener { v, event ->

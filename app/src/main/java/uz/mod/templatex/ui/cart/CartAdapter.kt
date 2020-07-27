@@ -43,12 +43,11 @@ class CartAdapter(val listener: ItemListener) : RecyclerView.Adapter<CartAdapter
                     AttributeAdapter().apply {
                         val attributes = mutableListOf<AttributeCombination>()
                         attributes.add(AttributeCombination("No", product.reference))
-                        attributes.add(
-                            AttributeCombination(
-                                binding.root.context.getString(R.string.price),
-                                product.priceFormatted()
-                            )
-                        )
+                        val priceAttribute = if (product.currencies?.first()?.discount ?: -1 > 0)
+                            AttributeCombination(product.oldPriceFormatted(), product.priceFormatted())
+                        else AttributeCombination(binding.root.context.getString(R.string.price), product.priceFormatted())
+
+                        attributes.add(priceAttribute)
                         product.combinations?.let { attributes.addAll(it) }
                         setItems(attributes)
                     }

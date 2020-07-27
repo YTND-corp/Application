@@ -12,6 +12,7 @@ class ProductColorAdapter(private var listener: (item: ProductColor) -> Unit) :
     RecyclerView.Adapter<ProductColorAdapter.ViewHolder>() {
     private var items: List<ProductColor> = listOf()
     private var selected: ProductColor? = null
+    private var shouldChooseColor = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ProductColorItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,12 +23,12 @@ class ProductColorAdapter(private var listener: (item: ProductColor) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 
-    fun setItems(it: List<ProductColor>?) {
-        items = it ?: listOf()
+    fun setItems(colors: List<ProductColor>?) {
+        items = colors ?: listOf()
     }
 
-    fun setSelectedColor(selectedColor: ProductColor?) {
-        this.selected = selectedColor
+    fun setSelectedColor(selectedColor: ProductColor?) = selectedColor?.apply {
+        selected = this
         notifyItemRangeChanged(0, items.size)
     }
 
@@ -36,7 +37,7 @@ class ProductColorAdapter(private var listener: (item: ProductColor) -> Unit) :
             binding.apply {
                 executePendingBindings()
 
-                rbColor.isChecked = selected == color
+                rbColor.isChecked = shouldChooseColor && selected == color
 
                 color.color?.let {
                     rbColor.buttonTintList = ColorStateList.valueOf(Color.parseColor(it))
@@ -44,6 +45,7 @@ class ProductColorAdapter(private var listener: (item: ProductColor) -> Unit) :
 
                 rbColor.setOnClickListener {
                     listener.invoke(color)
+                    shouldChooseColor = true
                 }
             }
         }
