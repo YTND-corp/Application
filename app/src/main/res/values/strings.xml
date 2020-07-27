@@ -212,8 +212,8 @@
     <string name="hint_message">Сообщение</string>
     <string name="ask_question_with_socials">Если у вас возникли любые вопросы по заказу, оформлению, статусу или доставке - пишите нам в чат. Мы будем рады помочь Вам!</string>
     <string name="ask_question_by_phone">Вы также можете позвонить нам по телефонам</string>
-    <string name="ask_question_phone_for_regions">%1$s - для звонков из региона</string>
-    <string name="ask_question_phone_for_capital">%1$s - для звонков из Ташкента</string>
+    <string name="ask_question_phone_for_regions">%s - для звонков из региона</string>
+    <string name="ask_question_phone_for_capital">%s - для звонков из Ташкента</string>
 
     <!--  Address  -->
     <string name="hint_city">Город</string>
