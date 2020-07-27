@@ -45,7 +45,7 @@ class ProductRepository constructor(
     }
 
 
-    fun getProducts(id: Int, filter: SharedFilterViewModel.SelectedFitlerDto, page: Int): LiveData<Resource<List<Product>>> {
+    /*fun getProducts(id: Int, filter: SharedFilterViewModel.SelectedFitlerDto, page: Int): LiveData<Resource<List<Product>>> {
         return object : NetworkBoundResource<List<Product>, ProductsResponse>(executors) {
             override fun saveCallResult(item: ProductsResponse) {
                 if (page == 1) {
@@ -73,6 +73,34 @@ class ProductRepository constructor(
             override fun loadFromDb(): LiveData<List<Product>> {
                 val all = productDao.getAll()
                 return all
+            }
+
+            override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {
+                val attrMap = filter.attributes.mapValues { it.value as Any }.mapKeys { it.key + "[]" }.toMutableMap()
+                val proxyRetrofitQueryMap = ProxyRetrofitQueryMap(attrMap)
+                return productService.getProducts(
+                    id, filter.sort.key, filter.brands.map { it.toString() }.toTypedArray(),
+                    proxyRetrofitQueryMap,
+                    page
+                )
+            }
+        }.asLiveData()
+    }*/
+
+    fun getProducts(id: Int, filter: SharedFilterViewModel.SelectedFitlerDto, page: Int): LiveData<Resource<List<Product>>> {
+        return object : NetworkOnlyResource<List<Product>, ProductsResponse>() {
+            override fun processResult(item: ProductsResponse?): List<Product>? {
+                if (page == 1) {
+                    filterDao.deleteAll()
+                }
+
+                item?.filter?.let {
+                    it.id = id
+                    it.pagination = item.productWrapper?.pagination
+                    filterDao.insert(it)
+                }
+
+                return item?.productWrapper?.data
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {

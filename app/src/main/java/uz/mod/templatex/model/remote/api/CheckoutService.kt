@@ -29,7 +29,7 @@ interface CheckoutService {
     @POST("v1/checkout/phone/confirm")
     fun confirm(
         @Field("phone") phone: String,
-        @Field("code") email: String
+        @Field("code") code: String
     ): LiveData<ApiResponse<ConfirmResponse>>
 
 

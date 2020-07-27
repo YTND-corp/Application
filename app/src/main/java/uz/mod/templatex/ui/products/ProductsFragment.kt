@@ -18,7 +18,6 @@ import uz.mod.templatex.databinding.ProductsFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.new_filter.MainFilterFragment
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
-import uz.mod.templatex.ui.new_filter.SortFragment
 import uz.mod.templatex.ui.parent.ParentFragment
 
 
@@ -29,6 +28,7 @@ class ProductsFragment : ParentFragment() {
     private val binding by lazy { ProductsFragmentBinding.inflate(layoutInflater) }
 
     private lateinit var adapter: ProductAdapter
+    private lateinit var mBrandAdapter: BrandAdapter
 
     private val args: ProductsFragmentArgs by navArgs()
 
@@ -57,6 +57,10 @@ class ProductsFragment : ParentFragment() {
             })
         }
 
+        mBrandAdapter = BrandAdapter {
+            findNavController().navigate(ProductsFragmentDirections.actionGlobalProductsFragment(it.id, it.name))
+        }
+
         viewModel.setArgs(args)
     }
 
@@ -75,27 +79,35 @@ class ProductsFragment : ParentFragment() {
         initViews()
 
         viewModel.filterParams = sharedFilterViewModel.activeFilter
-        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> {
-                    if (!isLoadingMore) showLoading()
-                }
-                Status.ERROR -> {
-                    isLoadingMore = false
-                    hideLoading()
-                    showError(result.error)
-                }
-                Status.SUCCESS -> {
-                    isLoadingMore = false
-                    hideLoading()
-                    adapter.setItems(result.data)
-                    if (viewModel.page == 1) {
-                        val string =
-                            resources.getString(R.string.products_subtitle, result.data?.size.toString())
-                        Timber.d("binding.subtitle.text $string")
+        viewModel.response.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled()?.let { result ->
+                when (result.status) {
+                    Status.LOADING -> {
+                        if (!isLoadingMore) showLoading()
+                    }
+                    Status.ERROR -> {
+                        isLoadingMore = false
+                        hideLoading()
+                        showError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        isLoadingMore = false
+                        hideLoading()
+                        if (viewModel.page == 1) {
+                            val string =
+                                resources.getString(R.string.products_subtitle, result.data?.size.toString())
+                            Timber.d("binding.subtitle.text $string")
+                            adapter.setItems(result.data)
+                        } else {
+                            adapter.addItems(result.data)
+                        }
                     }
                 }
             }
+        })
+
+        viewModel.brands.observe(viewLifecycleOwner, Observer {
+            mBrandAdapter.setItems(it)
         })
     }
 
@@ -118,7 +130,7 @@ class ProductsFragment : ParentFragment() {
             val layoutManager = GridLayoutManager(requireContext(), 2)
             products.layoutManager = layoutManager
             products.adapter = adapter
-
+            rvBrands.adapter = mBrandAdapter
 
             var pastVisiblesItems: Int
             var visibleItemCount: Int

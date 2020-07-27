@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,6 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProductFragmentBinding
+import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.SnapOnScrollListener
@@ -45,8 +47,6 @@ class ProductFragment : ParentFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.setArgs(args)
-
-
     }
 
     override fun onCreateView(
@@ -152,24 +152,33 @@ class ProductFragment : ParentFragment() {
             }
             sizes.adapter = sizeAdapter
 
-            relativeProductAdapter = ProductHorizontalAdapter { product, position ->
-                viewModel?.seeAlsoFavoriteToggle(product.id)?.observe(viewLifecycleOwner, Observer { result ->
-                    when (result.status) {
-                        Status.LOADING -> {
-                            showLoading()
+            relativeProductAdapter = ProductHorizontalAdapter(object : ProductHorizontalAdapter.ClickListener {
+                override fun onItemClick(item: Product) {
+                    findNavController().navigate(
+                        ProductFragmentDirections.actionGlobalProductFragment(item.id)
+                    )
+                }
+
+                override fun onFavoriteClick(item: Product, position: Int) {
+                    viewModel?.seeAlsoFavoriteToggle(item.id)?.observe(viewLifecycleOwner, Observer { result ->
+                        when (result.status) {
+                            Status.LOADING -> {
+                                showLoading()
+                            }
+                            Status.ERROR -> {
+                                hideLoading()
+                                showError(result.error)
+                            }
+                            Status.SUCCESS -> {
+                                hideLoading()
+                                item.isFavorite = !item.isFavorite
+                                relativeProductAdapter.notifyItemChanged(position)
+                            }
                         }
-                        Status.ERROR -> {
-                            hideLoading()
-                            showError(result.error)
-                        }
-                        Status.SUCCESS -> {
-                            hideLoading()
-                            product.isFavorite = !product.isFavorite
-                            relativeProductAdapter.notifyItemChanged(position)
-                        }
-                    }
-                })
-            }
+                    })
+                }
+            })
+
             relativeProducts.hasFixedSize()
             relativeProducts.adapter = relativeProductAdapter
 //            val relativeSnapHelper = LinearSnapHelper()

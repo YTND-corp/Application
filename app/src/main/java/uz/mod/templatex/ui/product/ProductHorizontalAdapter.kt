@@ -9,8 +9,13 @@ import uz.mod.templatex.databinding.ProductItemBinding
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.utils.extension.toPx
 
-class ProductHorizontalAdapter(private var listener: (id: Product, position: Int) -> Unit) :
+class ProductHorizontalAdapter(private var mListener: ClickListener) :
     RecyclerView.Adapter<ProductHorizontalAdapter.ViewHolder>() {
+
+    interface ClickListener {
+        fun onItemClick(item: Product)
+        fun onFavoriteClick(item: Product, position: Int)
+    }
 
     private var items: List<Product> = listOf()
 
@@ -48,9 +53,13 @@ class ProductHorizontalAdapter(private var listener: (id: Product, position: Int
                 item = product
                 executePendingBindings()
 
+                root.setOnClickListener {
+                    mListener.onItemClick(product)
+                }
+
                 favorite.setOnCheckedChangeListener { compoundButton, b ->
                     if (compoundButton.isPressed) {
-                        listener.invoke(product, position)
+                        mListener.onFavoriteClick(product, position)
                     }
                 }
             }

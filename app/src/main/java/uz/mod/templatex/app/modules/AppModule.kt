@@ -99,7 +99,7 @@ val viewModelModule = module {
             get()
         )
     }
-    viewModel { ProfileAuthorizedViewModel(get()) }
+    viewModel { ProfileAuthorizedViewModel(get(), get()) }
     viewModel { ProfileMyOrdersViewModel(get(), get()) }
     viewModel { ProfileMyOrderViewModel(get(), get()) }
     viewModel { ProfileMyAddressesViewModel(get(), get()) }
