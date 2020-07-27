@@ -6,11 +6,12 @@ import android.content.Intent.ACTION_DIAL
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.AboutFragmentBinding
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Utils
 
 class AboutFragment : ParentFragment() {
 
@@ -35,7 +36,10 @@ class AboutFragment : ParentFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.aboutFragment -> true;
+            R.id.aboutFragment -> {
+                context?.let { Utils.openGooglePlay(it, BuildConfig.APPLICATION_ID) }
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
