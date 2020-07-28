@@ -6,9 +6,9 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -83,7 +83,6 @@ class ProductFragment : ParentFragment() {
         })
 
         viewModel.sizes.observe(viewLifecycleOwner, Observer {
-            viewModel.setSelectedSize(it?.firstOrNull())
             sizeAdapter.setItems(it)
         })
 
@@ -269,21 +268,24 @@ class ProductFragment : ParentFragment() {
             }
 
             addToCart.setOnClickListener {
-                viewModel?.addToCart()?.observe(viewLifecycleOwner, Observer { result ->
-                    when (result.status) {
-                        Status.LOADING -> showLoading()
-                        Status.ERROR -> {
-                            hideLoading()
-                            showError(result.error)
+                if (viewModel?.selectedSize?.value == null) {
+                    sizes.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.shake))
+                } else {
+                    viewModel?.addToCart()?.observe(viewLifecycleOwner, Observer { result ->
+                        when (result.status) {
+                            Status.LOADING -> showLoading()
+                            Status.ERROR -> {
+                                hideLoading()
+                                showError(result.error)
+                            }
+                            Status.SUCCESS -> {
+                                hideLoading()
+                                Toast.makeText(activity, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show()
+                            }
                         }
-                        Status.SUCCESS -> {
-                            hideLoading()
-                            Toast.makeText(activity, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                })
+                    })
+                }
             }
-
         }
     }
 }
