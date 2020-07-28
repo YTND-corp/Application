@@ -1,6 +1,7 @@
 package uz.mod.templatex.ui.products
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.products_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
@@ -92,15 +94,21 @@ class ProductsFragment : ParentFragment() {
                 when (result.status) {
                     Status.LOADING -> {
                         if (!isLoadingMore) showLoading()
+                        shimmer.visibility = View.VISIBLE
+                        shimmer.startShimmer()
                     }
                     Status.ERROR -> {
                         isLoadingMore = false
                         hideLoading()
                         showError(result.error)
+                        shimmer.stopShimmer()
+                        shimmer.visibility = View.GONE
                     }
                     Status.SUCCESS -> {
                         isLoadingMore = false
                         hideLoading()
+                        shimmer.stopShimmer()
+                        shimmer.visibility = View.GONE
                         if (viewModel.page == 1) {
                             val string =
                                 resources.getString(R.string.products_subtitle, result.data?.size.toString())

@@ -162,5 +162,81 @@
                 app:spanCount="2"
                 tools:listitem="@layout/product_item" />
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingHorizontal="4dp"
+                android:paddingTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/filter_bottom_divider">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <include
+                        android:id="@+id/placeholder1"
+                        layout="@layout/item_placeholder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toStartOf="@id/placeholder2"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                <include
+                        android:id="@+id/placeholder2"
+                        layout="@layout/item_placeholder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@id/placeholder1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                <include
+                        android:id="@+id/placeholder3"
+                        layout="@layout/item_placeholder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toStartOf="@id/placeholder4"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/placeholder1" />
+
+                <include
+                        android:id="@+id/placeholder4"
+                        layout="@layout/item_placeholder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@id/placeholder3"
+                        app:layout_constraintTop_toTopOf="@id/placeholder3" />
+
+                <include
+                        android:id="@+id/placeholder5"
+                        layout="@layout/item_placeholder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toStartOf="@id/placeholder6"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/placeholder4" />
+
+                <include
+                        android:id="@+id/placeholder6"
+                        layout="@layout/item_placeholder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@id/placeholder5"
+                        app:layout_constraintTop_toTopOf="@id/placeholder6" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
