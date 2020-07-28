@@ -2,13 +2,12 @@ package uz.mod.templatex.ui.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.CategoryItemBinding
 import uz.mod.templatex.model.local.entity.Category
 
 class CategoryAdapter(
-    private var items: List<Category> = arrayListOf()
+    private var items: List<Category> = arrayListOf(), val listener: (item: Category) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -32,12 +31,7 @@ class CategoryAdapter(
                 item = category
                 executePendingBindings()
                 root.setOnClickListener {
-                    val action =
-                        CategoryFragmentDirections.actionGlobalProductsFragment(
-                            category.id,
-                            category.name
-                        )
-                    it.findNavController().navigate(action)
+                    listener.invoke(category)
                 }
             }
         }

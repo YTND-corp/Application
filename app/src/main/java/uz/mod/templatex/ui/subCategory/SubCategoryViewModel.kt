@@ -14,7 +14,7 @@ import uz.mod.templatex.model.repository.CategoryRepository
 class SubCategoryViewModel constructor(application: Application, repository: CategoryRepository): AndroidViewModel(application) {
 
     val category = MutableLiveData<Category>()
-    val details = MutableLiveData<List<SubCategory>>()
+    val subCategory = MutableLiveData<List<SubCategory>>()
 
     private val request = MutableLiveData<Boolean>()
     val response: LiveData<Resource<List<CategoryGender>>> = Transformations.switchMap(request) {
@@ -27,6 +27,6 @@ class SubCategoryViewModel constructor(application: Application, repository: Cat
 
     fun setArgs(args: SubCategoryFragmentArgs) {
         category.value = args.category
-        details.value = args.category?.details
+        subCategory.value = args.category?.subCategory
     }
 }

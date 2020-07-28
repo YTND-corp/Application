@@ -9,7 +9,7 @@ data class Category(
     @SerializedName("parent_id") val parentId: Int,
     val name: String?,
     val image: String?,
-    @SerializedName("children") val details: List<SubCategory>?
+    @SerializedName("children") val subCategory: List<SubCategory>?
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -25,7 +25,7 @@ data class Category(
         parcel.writeInt(parentId)
         parcel.writeString(name)
         parcel.writeString(image)
-        parcel.writeTypedList(details)
+        parcel.writeTypedList(subCategory)
     }
 
     override fun describeContents(): Int {

@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.databinding.CategoryChildFragmentBinding
 import uz.mod.templatex.model.local.entity.CategoryGender
@@ -19,7 +19,7 @@ class CategoryChildFragment : ParentFragment() {
     private lateinit var adapter: CategoryAdapter
 
     companion object {
-        const val GENDER= "catalog_gender"
+        const val GENDER = "catalog_gender"
         fun newInstance(categoryGender: CategoryGender): CategoryChildFragment {
             val fragment = CategoryChildFragment()
             val bundle = Bundle()
@@ -56,7 +56,17 @@ class CategoryChildFragment : ParentFragment() {
             viewModel = this@CategoryChildFragment.viewModel
             executePendingBindings()
 
-            adapter = CategoryAdapter()
+            adapter = CategoryAdapter {
+                val action = if (it.subCategory.isNullOrEmpty()) {
+                    CategoryFragmentDirections.actionGlobalProductsFragment(
+                        it.id,
+                        it.name
+                    )
+                } else {
+                    CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(it)
+                }
+                findNavController().navigate(action)
+            }
 
             catalogs.setHasFixedSize(true)
             catalogs.adapter = adapter

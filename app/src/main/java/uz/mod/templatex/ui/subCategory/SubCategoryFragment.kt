@@ -48,7 +48,7 @@ class SubCategoryFragment : ParentFragment() {
 
         initViews()
 
-        viewModel.details.observe(viewLifecycleOwner, Observer {
+        viewModel.subCategory.observe(viewLifecycleOwner, Observer {
             adapter.setItems(it)
         })
     }
