@@ -48,6 +48,7 @@
     <!--Alert text-->
     <string name="new_version">НОВАЯ ВЕРСИЯ</string>
     <string name="available_new_version">Доступна новая версия \n%s</string>
+    <string name="logout_text">Вы действительно хотите выйти?</string>
 
     <!--Permissions-->
     <string name="rationale_camera">Нужен доступ к камере</string>

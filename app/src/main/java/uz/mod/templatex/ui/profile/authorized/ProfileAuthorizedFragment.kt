@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.core.text.bold
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -94,9 +95,17 @@ class ProfileAuthorizedFragment : ParentFragment() {
                 findNavController().navigate(R.id.action_profileAuthorizedFragment_to_aboutFragment)
             }
             profileLogoutTv.setOnClickListener {
-                viewModel?.logout()
-                sharedViewModel.loggedOut()
-                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileFragment)
+                context?.let {
+                    AlertDialog.Builder(it, R.style.AlertDialogTheme)
+                        .setMessage(R.string.logout_text)
+                        .setPositiveButton(R.string.action_yes) { _, _ ->
+                            viewModel?.logout()
+                            sharedViewModel.loggedOut()
+                            findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileFragment)
+                        }
+                        .setNegativeButton(R.string.action_no) { _, _ -> }
+                        .show()
+                }
             }
             profileQuestionsBtn.setOnClickListener {
                 findNavController().navigate(R.id.action_profileAuthorizedFragment_to_askQuestionFragment)
