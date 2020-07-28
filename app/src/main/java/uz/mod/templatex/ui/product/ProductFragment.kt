@@ -46,6 +46,9 @@ class ProductFragment : ParentFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.setArgs(args)
+        sizeAdapter = ProductSizeAdapter {
+            viewModel.setSelectedSize(it)
+        }
     }
 
     override fun onCreateView(
@@ -141,10 +144,6 @@ class ProductFragment : ParentFragment() {
             }
             rvColors.layoutManager = GridLayoutManager(activity, colorRowCount)
             rvColors.adapter = colorAdapter
-
-            sizeAdapter = ProductSizeAdapter {
-                viewModel?.setSelectedSize(it)
-            }
             sizes.adapter = sizeAdapter
 
             relativeProductAdapter = ProductHorizontalAdapter(object : ProductHorizontalAdapter.ClickListener {
