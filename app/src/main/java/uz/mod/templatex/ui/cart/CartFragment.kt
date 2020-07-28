@@ -115,7 +115,7 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             products.setOnItemMenuClickListener { menuBridge, adapterPosition ->
                 menuBridge.closeMenu()
 
-                viewModel?.products?.value?.get(adapterPosition)?.id?.let {
+                viewModel?.products?.value?.get(adapterPosition)?.cartProductId?.let {
                     viewModel?.delete(it)
                 }
             }

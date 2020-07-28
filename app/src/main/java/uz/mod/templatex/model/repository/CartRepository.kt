@@ -46,7 +46,7 @@ class CartRepository constructor(val productService: ProductService, val service
     fun delete(id: Int): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {
             override fun processResult(item: Any?): Any? {
-                productDao.delete(id)
+                productDao.deleteByCartProductId(id)
                 return item
             }
 
