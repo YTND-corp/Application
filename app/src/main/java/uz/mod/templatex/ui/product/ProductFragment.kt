@@ -62,7 +62,6 @@ class ProductFragment : ParentFragment() {
 
         initViews()
 
-
         viewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> {

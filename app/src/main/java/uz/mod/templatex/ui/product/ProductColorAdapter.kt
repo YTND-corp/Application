@@ -12,7 +12,7 @@ class ProductColorAdapter(private var listener: (item: ProductColor) -> Unit) :
     RecyclerView.Adapter<ProductColorAdapter.ViewHolder>() {
     private var items: List<ProductColor> = listOf()
     private var selected: ProductColor? = null
-    private var shouldChooseColor = false
+    private var shouldChooseColor = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ProductColorItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
