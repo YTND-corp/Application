@@ -68,7 +68,7 @@ class ProductsFragment : ParentFragment() {
     }
 
     private fun showFavouriteStatus(isFavorite: Boolean) {
-        val message = if (isFavorite) "Added to favourite" else "Removed from favourite"
+        val message = if (isFavorite) R.string.action_added_to_favorite else R.string.removed_from_favorite
         requireActivity().toast(message)
     }
 

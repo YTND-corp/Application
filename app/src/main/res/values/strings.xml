@@ -38,6 +38,8 @@
     <string name="action_add_to_cart">Добавить в корзину</string>
     <string name="action_try_again">Попробовать снова</string>
     <string name="action_remind_later">НАПОМНИТЬ ПОЗЖЕ</string>
+    <string name="action_added_to_favorite">Добавлено в избранное</string>
+    <string name="removed_from_favorite">Удалено из избранного</string>
 
     <!--Errors-->
     <string name="error_no_connection">Нет интернет подключения</string>
