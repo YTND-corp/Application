@@ -21,11 +21,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/unauthorized"
+                isVisible="@{!sharedViewModel.isAuthenticated()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:padding="@dimen/activity_horizontal_margin"
-                isVisible="@{!sharedViewModel.isAuthenticated()}"
                 app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -82,10 +82,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/user_details_view"
+                isVisible="@{sharedViewModel.isAuthenticated()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                isVisible="@{sharedViewModel.isAuthenticated()}"
                 app:layout_constraintTop_toBottomOf="@id/unauthorized">
 
             <View
@@ -135,178 +135,179 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp">
-                    <TextView
-                            android:id="@+id/country"
-                            style="@style/ProfileTextStyle"
-                            android:layout_width="match_parent"
-                            android:drawableStart="@drawable/ic_country"
-                            android:gravity="center_vertical"
-                            android:text="Uzbekistan"
-                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <View
-                            style="@style/Divider"
-                            android:layout_width="match_parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                        android:id="@+id/country"
+                        style="@style/ProfileTextStyle"
+                        android:layout_width="match_parent"
+                        android:drawableStart="@drawable/ic_profile_authorized_my_addresses"
+                        android:gravity="center_vertical"
+                        android:text="Uzbekistan"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <View
-                            style="@style/Divider"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/divider_line_height"
-                            android:layout_marginStart="56dp"
-                            app:layout_constraintBottom_toBottomOf="@id/country" />
+                <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                            android:layout_width="6dp"
-                            android:layout_height="10dp"
-                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                            android:src="@drawable/ic_chevron_right"
-                            app:layout_constraintBottom_toBottomOf="@id/country"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/country" />
+                <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_line_height"
+                        android:layout_marginStart="56dp"
+                        app:layout_constraintBottom_toBottomOf="@id/country" />
 
-                    <TextView
-                            android:id="@+id/check_order_status"
-                            style="@style/ProfileTextStyle"
-                            android:layout_width="match_parent"
-                            android:drawableStart="@drawable/ic_check_order_status"
-                            android:text="@string/profile_check_status_order"
-                            app:layout_constraintTop_toBottomOf="@id/country"
-                            tools:text="Uzbekistan" />
+                <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="@id/country"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/country" />
 
-                    <View
-                            style="@style/Divider"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/divider_line_height"
-                            android:layout_marginStart="56dp"
-                            app:layout_constraintBottom_toBottomOf="@id/check_order_status" />
+                <TextView
+                        android:id="@+id/check_order_status"
+                        style="@style/ProfileTextStyle"
+                        android:layout_width="match_parent"
+                        android:drawableStart="@drawable/ic_profile_authorized_my_orders"
+                        android:text="@string/profile_check_status_order"
+                        app:layout_constraintTop_toBottomOf="@id/country"
+                        tools:text="Uzbekistan" />
 
-                    <ImageView
-                            android:layout_width="6dp"
-                            android:layout_height="10dp"
-                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                            android:src="@drawable/ic_chevron_right"
-                            app:layout_constraintBottom_toBottomOf="@id/check_order_status"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/check_order_status" />
+                <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_line_height"
+                        android:layout_marginStart="56dp"
+                        app:layout_constraintBottom_toBottomOf="@id/check_order_status" />
 
-                    <TextView
-                            android:id="@+id/ask_question"
-                            style="@style/ProfileTextStyle"
-                            android:layout_width="match_parent"
-                            android:drawableStart="@drawable/ic_message"
-                            android:text="@string/profile_ask_question"
-                            app:layout_constraintTop_toBottomOf="@id/check_order_status" />
+                <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="@id/check_order_status"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/check_order_status" />
 
-                    <View
-                            style="@style/Divider"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/divider_line_height"
-                            android:layout_marginStart="56dp"
-                            app:layout_constraintBottom_toBottomOf="@id/ask_question" />
+                <TextView
+                        android:id="@+id/ask_question"
+                        style="@style/ProfileTextStyle"
+                        android:layout_width="match_parent"
+                        android:drawableStart="@drawable/ic_support_center_email"
+                        android:text="@string/profile_ask_question"
+                        app:layout_constraintTop_toBottomOf="@id/check_order_status" />
 
-                    <ImageView
-                            android:layout_width="6dp"
-                            android:layout_height="10dp"
-                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                            android:src="@drawable/ic_chevron_right"
-                            app:layout_constraintBottom_toBottomOf="@id/ask_question"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/ask_question" />
+                <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_line_height"
+                        android:layout_marginStart="56dp"
+                        app:layout_constraintBottom_toBottomOf="@id/ask_question" />
 
-                    <TextView
-                            android:id="@+id/call_us"
-                            style="@style/ProfileTextStyle"
-                            android:layout_width="match_parent"
-                            android:drawableStart="@drawable/ic_call"
-                            android:text="@string/profile_call_us"
-                            app:layout_constraintTop_toBottomOf="@id/ask_question" />
+                <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="@id/ask_question"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/ask_question" />
 
-                    <View
-                            style="@style/Divider"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/divider_line_height"
-                            android:layout_marginStart="56dp"
-                            app:layout_constraintBottom_toBottomOf="@id/call_us" />
+                <TextView
+                        android:id="@+id/call_us"
+                        style="@style/ProfileTextStyle"
+                        android:layout_width="match_parent"
+                        android:drawableStart="@drawable/ic_profile_authorized_call_us"
+                        android:text="@string/profile_call_us"
+                        app:layout_constraintTop_toBottomOf="@id/ask_question" />
 
-                    <ImageView
-                            android:layout_width="6dp"
-                            android:layout_height="10dp"
-                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                            android:src="@drawable/ic_chevron_right"
-                            app:layout_constraintBottom_toBottomOf="@id/call_us"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/call_us" />
+                <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_line_height"
+                        android:layout_marginStart="56dp"
+                        app:layout_constraintBottom_toBottomOf="@id/call_us" />
 
-                    <TextView
-                            android:id="@+id/call_me"
-                            style="@style/ProfileTextStyle"
-                            android:layout_width="match_parent"
-                            android:drawableStart="@drawable/ic_recive_call"
-                            android:text="@string/profile_call_me"
-                            app:layout_constraintTop_toBottomOf="@id/call_us" />
+                <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="@id/call_us"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/call_us" />
 
-                    <View
-                            style="@style/Divider"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/divider_line_height"
-                            android:layout_marginStart="56dp"
-                            app:layout_constraintBottom_toBottomOf="@id/call_me" />
+                <TextView
+                        android:id="@+id/call_me"
+                        style="@style/ProfileTextStyle"
+                        android:layout_width="match_parent"
+                        android:drawableStart="@drawable/ic_profile_authorized_call_you"
+                        android:text="@string/profile_call_me"
+                        app:layout_constraintTop_toBottomOf="@id/call_us" />
 
-                    <ImageView
-                            android:layout_width="6dp"
-                            android:layout_height="10dp"
-                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                            android:src="@drawable/ic_chevron_right"
-                            app:layout_constraintBottom_toBottomOf="@id/call_me"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/call_me" />
+                <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_line_height"
+                        android:layout_marginStart="56dp"
+                        app:layout_constraintBottom_toBottomOf="@id/call_me" />
 
-                    <TextView
-                            android:id="@+id/support_center"
-                            style="@style/ProfileTextStyle"
-                            android:layout_width="match_parent"
-                            android:drawableStart="@drawable/ic_support"
-                            android:text="@string/profile_call_support_center"
-                            app:layout_constraintTop_toBottomOf="@id/call_me" />
+                <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="@id/call_me"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/call_me" />
 
-                    <View
-                            style="@style/Divider"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/divider_line_height"
-                            android:layout_marginStart="56dp"
-                            app:layout_constraintBottom_toBottomOf="@id/support_center" />
+                <TextView
+                        android:id="@+id/support_center"
+                        style="@style/ProfileTextStyle"
+                        android:layout_width="match_parent"
+                        android:drawableStart="@drawable/ic_profile_authorized_support_center"
+                        android:text="@string/profile_call_support_center"
+                        app:layout_constraintTop_toBottomOf="@id/call_me" />
 
-                    <ImageView
-                            android:layout_width="6dp"
-                            android:layout_height="10dp"
-                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                            android:src="@drawable/ic_chevron_right"
-                            app:layout_constraintBottom_toBottomOf="@id/support_center"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/support_center" />
+                <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_line_height"
+                        android:layout_marginStart="56dp"
+                        app:layout_constraintBottom_toBottomOf="@id/support_center" />
 
-                    <TextView
-                            android:id="@+id/about"
-                            style="@style/ProfileTextStyle"
-                            android:layout_width="match_parent"
-                            android:drawableStart="@drawable/ic_about_app"
-                            android:text="@string/profile_about_app"
-                            app:layout_constraintTop_toBottomOf="@id/support_center" />
+                <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="@id/support_center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/support_center" />
 
-                    <View
-                            style="@style/Divider"
-                            android:layout_width="match_parent"
-                            app:layout_constraintBottom_toBottomOf="@id/about" />
+                <TextView
+                        android:id="@+id/about"
+                        style="@style/ProfileTextStyle"
+                        android:layout_width="match_parent"
+                        android:drawableStart="@drawable/ic_profile_authorized_about_mod"
+                        android:text="@string/profile_about_app"
+                        app:layout_constraintTop_toBottomOf="@id/support_center" />
 
-                    <ImageView
-                            android:layout_width="6dp"
-                            android:layout_height="10dp"
-                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                            android:src="@drawable/ic_chevron_right"
-                            app:layout_constraintBottom_toBottomOf="@id/about"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/about" />
+                <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        app:layout_constraintBottom_toBottomOf="@id/about" />
+
+                <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="@id/about"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/about" />
 
 
                 <TextView
@@ -335,8 +336,8 @@
                         android:layout_width="6dp"
                         android:layout_height="10dp"
                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                        android:visibility="gone"
                         android:src="@drawable/ic_chevron_right"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/exit"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/exit" />
