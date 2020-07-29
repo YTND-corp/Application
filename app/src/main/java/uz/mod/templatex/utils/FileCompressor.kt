@@ -17,7 +17,7 @@ class FileCompressor(context: Context) {
     private var destinationDirectoryPath: String? = null
 
     init {
-        destinationDirectoryPath = context.getCacheDir().getPath() + File.separator + "images"
+        destinationDirectoryPath = context.cacheDir.path + File.separator + "images"
     }
 
     fun setMaxWidth(maxWidth: Int): FileCompressor {
@@ -47,7 +47,7 @@ class FileCompressor(context: Context) {
 
     @Throws(IOException::class)
     @JvmOverloads
-    fun compressToFile(imageFile: File, compressedFileName: String = imageFile.getName()): File {
+    fun compressToFile(imageFile: File, compressedFileName: String = imageFile.name): File {
         return ImageUtil.compressImage(
             imageFile, maxWidth, maxHeight, compressFormat, quality,
             destinationDirectoryPath + File.separator + compressedFileName
@@ -60,7 +60,7 @@ class FileCompressor(context: Context) {
     }
 
     @JvmOverloads
-    fun compressToFileAsFlowable(imageFile: File, compressedFileName: String = imageFile.getName()): Flowable<File> {
+    fun compressToFileAsFlowable(imageFile: File, compressedFileName: String = imageFile.name): Flowable<File> {
         return Flowable.defer(object : Callable<Flowable<File>> {
             override fun call(): Flowable<File> {
                 try {
