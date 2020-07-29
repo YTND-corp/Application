@@ -94,8 +94,6 @@ class ProductsFragment : ParentFragment() {
                 when (result.status) {
                     Status.LOADING -> {
                         if (!isLoadingMore) showLoading()
-                        shimmer.visibility = View.VISIBLE
-                        shimmer.startShimmer()
                     }
                     Status.ERROR -> {
                         isLoadingMore = false
@@ -142,6 +140,7 @@ class ProductsFragment : ParentFragment() {
             viewModel = this@ProductsFragment.viewModel
             executePendingBindings()
 
+            shimmer.startShimmer()
             sort.text = sharedFilterViewModel.activeFilter.sort.name
             val layoutManager = GridLayoutManager(requireContext(), 2)
             products.layoutManager = layoutManager
