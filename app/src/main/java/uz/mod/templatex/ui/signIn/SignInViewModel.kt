@@ -1,15 +1,11 @@
 package uz.mod.templatex.ui.signIn
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import uz.mod.templatex.utils.extension.backEndPhoneFormat
 import uz.mod.templatex.utils.extension.clear
-import uz.mod.templatex.model.local.entity.User
-import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.repository.AuthRepository
 import uz.mod.templatex.utils.Event
-import uz.mod.templatex.utils.SingleLiveEvent
 
 class SignInViewModel constructor(
     application: Application,

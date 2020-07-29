@@ -24,7 +24,7 @@ class PaymentViewModel constructor(application: Application, val repository: Che
     private var details: StoreRequest? = null
 
     var request = MutableLiveData<Boolean>()
-    var responce = Transformations.switchMap(request) {
+    var response = Transformations.switchMap(request) {
         repository.store(
             details?.region?.id,
             details?.region?.name,

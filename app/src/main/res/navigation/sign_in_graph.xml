@@ -37,4 +37,9 @@
                 app:popUpTo="@id/signInFragment"
                 app:popUpToInclusive="true" />
     </fragment>
+
+    <dialog
+            android:id="@+id/noInternetFragment"
+            android:name="uz.mod.templatex.ui.common.NoInternetFragmentDialog"
+            tools:layout="@layout/include_no_internet" />
 </navigation>

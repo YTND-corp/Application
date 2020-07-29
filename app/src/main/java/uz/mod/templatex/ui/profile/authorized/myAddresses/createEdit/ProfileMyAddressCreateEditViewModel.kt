@@ -115,7 +115,10 @@ class ProfileMyAddressCreateEditViewModel(
     fun setArgs(args: ProfileMyAddressCreateEditFragmentArgs) {
         mode = args.mode
         addressId = args.addressId
+        sendRequest()
+    }
 
+    fun sendRequest() {
         if (mode == ProfileMyAddressesFragment.Mode.EDIT)
             request.value = true
     }

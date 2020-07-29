@@ -10,9 +10,13 @@ import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CodeFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.address.AddressFragmentDirections
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
 import uz.mod.templatex.utils.extension.lazyFast
 
 class CodeFragment : ParentFragment() {
@@ -37,7 +41,7 @@ class CodeFragment : ParentFragment() {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
                         hideLoading()
-                        showError(result.error)
+                        processError(result.error)
                     }
                     Status.SUCCESS -> {
                         hideLoading()
@@ -113,5 +117,20 @@ class CodeFragment : ParentFragment() {
                 navController.popBackStack()
             }
         }
+    }
+
+    //TODO("PLEASE CHECK FOLLOWING LINES IF THE LOGIC IS NOT BROKEN")
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) retryLastRequest()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
+    }
+
+    private fun retryLastRequest() {
+        if (args.isCheckout) viewModel.checkoutConfirm()
+        else viewModel.authConfirm()
     }
 }

@@ -9,12 +9,18 @@ import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileCreateEditAddressFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.ui.profile.authorized.myAddresses.ProfileMyAddressesFragment
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
+import uz.mod.templatex.utils.extension.lazyFast
 
 class ProfileMyAddressCreateEditFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: ProfileMyAddressCreateEditViewModel by viewModel()
     val args: ProfileMyAddressCreateEditFragmentArgs by navArgs()
 
@@ -48,7 +54,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_exit -> {
-                findNavController().popBackStack()
+                navController.popBackStack()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -64,7 +70,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                 }
                 Status.SUCCESS -> {
                     hideLoading()
@@ -95,11 +101,11 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    findNavController().popBackStack()
+                    navController.popBackStack()
                 }
             }
         })
@@ -109,11 +115,11 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    findNavController().popBackStack()
+                    navController.popBackStack()
                 }
             }
         })
@@ -153,5 +159,14 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
 
             region.adapter = adapter
         }
+    }
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) viewModel.sendRequest()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

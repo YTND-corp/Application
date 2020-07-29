@@ -13,9 +13,13 @@ import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.AddressFragmentBinding
 import uz.mod.templatex.model.local.entity.Adres
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.custom.LineDividerItemDecoration
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
 import uz.mod.templatex.utils.extension.lazyFast
 
 class AddressFragment : ParentFragment() {
@@ -56,7 +60,7 @@ class AddressFragment : ParentFragment() {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                 }
                 Status.SUCCESS -> {
                     hideLoading()
@@ -75,7 +79,7 @@ class AddressFragment : ParentFragment() {
 
                     val temp:  Array<String> = Array(cities?.size?:0) { cities?.get(it)?.name?:"" }
                     AlertDialog.Builder(requireContext())
-                        .setItems(temp) { a, i ->
+                        .setItems(temp) { _, i ->
                             viewModel.city.value = cities?.get(i)
                         }
                         .show()
@@ -118,5 +122,14 @@ class AddressFragment : ParentFragment() {
                 }
             }
         }
+    }
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true)  viewModel.getCities()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

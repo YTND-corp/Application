@@ -21,6 +21,7 @@ import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.extension.lazyFast
 
 class SingleAttributeFragment : ParentFragment() {
+
     private val navController by lazyFast { findNavController() }
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
     private val singleAttributeViewModel: SingleAttributeViewModel by viewModels()

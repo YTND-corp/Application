@@ -7,17 +7,23 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.SignUpFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.code.CodeFragmentDirections
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.MaskWatcher
+import uz.mod.templatex.utils.extension.getNavigationResult
+import uz.mod.templatex.utils.extension.lazyFast
 
 
 class SignUpFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: SignUpViewModel by viewModel()
-
     private val binding by lazy { SignUpFragmentBinding.inflate(layoutInflater) }
 
     companion object {
@@ -44,11 +50,11 @@ class SignUpFragment : ParentFragment() {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
                         hideLoading()
-                        showError(result.error)
+                        processError(result.error)
                     }
                     Status.SUCCESS -> {
                         hideLoading()
-                        findNavController().navigate(
+                        navController.navigate(
                             CodeFragmentDirections.actionGlobalCodeFragment(
                                 viewModel.phone.value!!,
                                 false
@@ -61,25 +67,33 @@ class SignUpFragment : ParentFragment() {
 
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@SignUpFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@SignUpFragment.viewModel
+        executePendingBindings()
 
-            phone.addTextChangedListener(MaskWatcher.phoneWatcher())
+        phone.addTextChangedListener(MaskWatcher.phoneWatcher())
 
-            phone.setOnFocusChangeListener { view, hasFocus ->
+        phone.setOnFocusChangeListener { _, hasFocus ->
 
-                if (hasFocus) {
-                    if (phone.text?.length ?: 0 < 5 && phone.text?.equals("+998") == false) {
-                        phone.setText("+998")
-                    }
-                } else {
-                    if (phone.text?.length ?: 0 <= 5) {
-                        phone.setText("")
-                    }
+            if (hasFocus) {
+                if (phone.text?.length ?: 0 < 5 && phone.text?.equals(Const.PHONE_CODE_DEFAULT) == false) {
+                    phone.setText(Const.PHONE_CODE_DEFAULT)
+                }
+            } else {
+                if (phone.text?.length ?: 0 <= 5) {
+                    phone.setText("")
                 }
             }
         }
+    }
+    
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) viewModel.signUp()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

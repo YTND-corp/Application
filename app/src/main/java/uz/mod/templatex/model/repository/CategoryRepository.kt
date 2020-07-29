@@ -17,40 +17,22 @@ class CategoryRepository constructor(val service: CategoryService) {
 
     fun getHome(): LiveData<Resource<List<HomeGender>>> {
         return object : NetworkOnlyResource<List<HomeGender>, List<HomeGender>>() {
-            override fun processResult(item: List<HomeGender>?): List<HomeGender>? {
-                return  item
-            }
-
-            override fun createCall(): LiveData<ApiResponse<List<HomeGender>>> {
-                return service.getHome()
-            }
-
+            override fun processResult(item: List<HomeGender>?) = item
+            override fun createCall() = service.getHome()
         }.asLiveData()
     }
 
     fun getCategories(): LiveData<Resource<List<CategoryGender>>> {
         return object : NetworkOnlyResource<List<CategoryGender>, List<CategoryGender>>() {
-            override fun processResult(item: List<CategoryGender>?): List<CategoryGender>? {
-                return  item
-            }
-
-            override fun createCall(): LiveData<ApiResponse<List<CategoryGender>>> {
-                return service.getCategories()
-            }
-
+            override fun processResult(item: List<CategoryGender>?) = item
+            override fun createCall() = service.getCategories()
         }.asLiveData()
     }
 
     fun getSubCategories(): LiveData<Resource<List<CategoryGender>>> {
         return object : NetworkOnlyResource<List<CategoryGender>, List<CategoryGender>>() {
-            override fun processResult(item: List<CategoryGender>?): List<CategoryGender>? {
-                return  item
-            }
-
-            override fun createCall(): LiveData<ApiResponse<List<CategoryGender>>> {
-                return service.getCategories()
-            }
-
+            override fun processResult(item: List<CategoryGender>?) = item
+            override fun createCall() = service.getCategories()
         }.asLiveData()
     }
 }

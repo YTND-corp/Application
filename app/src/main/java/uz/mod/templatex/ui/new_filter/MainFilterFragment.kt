@@ -21,8 +21,8 @@ class MainFilterFragment : ParentFragment() {
         const val KEY_CATEGORY_ID = "MainFilterFragment.keyCategoryId"
     }
 
-    val sharedFilterViewModel: SharedFilterViewModel by activityViewModels<SharedFilterViewModel>()
-    val mainFilterViewModel: MainFilterViewModel by viewModel()
+    private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
+    private val mainFilterViewModel: MainFilterViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

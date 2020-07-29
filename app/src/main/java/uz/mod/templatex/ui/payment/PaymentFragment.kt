@@ -9,16 +9,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.PaymentFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
+import uz.mod.templatex.utils.extension.lazyFast
 
 class PaymentFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: PaymentViewModel by viewModel()
-
     val args: PaymentFragmentArgs by navArgs()
-
     private val binding by lazy { PaymentFragmentBinding.inflate(layoutInflater) }
 
     private lateinit var paymentMethodAdapter: PaymentMethodAdapter
@@ -31,17 +36,22 @@ class PaymentFragment : ParentFragment() {
         super.onCreate(savedInstanceState)
         viewModel.setArguments(args)
 
-        viewModel.responce.observe(this, Observer { result ->
+        viewModel.response.observe(this, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                 }
                 Status.SUCCESS -> {
                     hideLoading()
                     Timber.e(result.data.toString())
-                    findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToCheckoutFinalFragment(result.data?.user?.name, result.data?.date))
+                    navController.navigate(
+                        PaymentFragmentDirections.actionPaymentFragmentToCheckoutFinalFragment(
+                            result.data?.user?.name,
+                            result.data?.date
+                        )
+                    )
                 }
             }
         })
@@ -70,21 +80,28 @@ class PaymentFragment : ParentFragment() {
         })
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@PaymentFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
 
-            paymentMethodAdapter = PaymentMethodAdapter(){
-                viewModel?.setSelectedMethod(it)
-            }
+        viewModel = this@PaymentFragment.viewModel
+        executePendingBindings()
 
-            options.adapter = paymentMethodAdapter
-
-            continueButton.setOnClickListener {
-                viewModel?.buy()
-            }
-
+        paymentMethodAdapter = PaymentMethodAdapter() {
+            viewModel?.setSelectedMethod(it)
         }
+
+        options.adapter = paymentMethodAdapter
+
+        continueButton.setOnClickListener {
+            viewModel?.buy()
+        }
+    }
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) viewModel.buy()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

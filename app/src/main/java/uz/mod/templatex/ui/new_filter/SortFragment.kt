@@ -18,8 +18,8 @@ import uz.mod.templatex.ui.parent.ParentFragment
 
 class SortFragment : ParentFragment() {
 
-    val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
-    val sortViewModel: SortViewModel by viewModel()
+    private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
+    private val sortViewModel: SortViewModel by viewModel()
 
 
     override fun onCreateView(

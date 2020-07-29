@@ -8,13 +8,19 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileMyAddressesFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.custom.LineDividerItemDecoration
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.ui.profile.authorized.myAddresses.ProfileMyAddressesAdapter.MyAddressesAdapterListener
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
+import uz.mod.templatex.utils.extension.lazyFast
 
 class ProfileMyAddressesFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: ProfileMyAddressesViewModel by viewModel()
 
     private val binding by lazy { ProfileMyAddressesFragmentBinding.inflate(layoutInflater) }
@@ -41,7 +47,7 @@ class ProfileMyAddressesFragment : ParentFragment() {
                         Status.LOADING -> showLoading()
                         Status.ERROR -> {
                             hideLoading()
-                            showError(result.error)
+                            processError(result.error)
                         }
                         Status.SUCCESS -> {
                             hideLoading()
@@ -50,7 +56,7 @@ class ProfileMyAddressesFragment : ParentFragment() {
                                     Mode.EDIT,
                                     addressId
                                 )
-                            findNavController().navigate(action)
+                            navController.navigate(action)
                         }
                     }
                 })
@@ -95,7 +101,7 @@ class ProfileMyAddressesFragment : ParentFragment() {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                 }
                 Status.SUCCESS -> {
                     hideLoading()
@@ -125,5 +131,14 @@ class ProfileMyAddressesFragment : ParentFragment() {
             )
             rvAddresses.adapter = adapter
         }
+    }
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) viewModel.getMyAddresses()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

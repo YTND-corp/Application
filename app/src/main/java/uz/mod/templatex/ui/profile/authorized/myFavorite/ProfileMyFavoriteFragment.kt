@@ -5,13 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileMyFavoriteFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
+import uz.mod.templatex.utils.extension.lazyFast
 
 class ProfileMyFavoriteFragment : ParentFragment() {
 
+
+    private val navController by lazyFast { findNavController() }
     val viewModel: ProfileMyFavoriteViewModel by viewModel()
 
     private val binding by lazy { ProfileMyFavoriteFragmentBinding.inflate(layoutInflater) }
@@ -26,7 +35,7 @@ class ProfileMyFavoriteFragment : ParentFragment() {
                         Status.LOADING -> showLoading()
                         Status.ERROR -> {
                             hideLoading()
-                            showError(result.error)
+                            processError(result.error)
                         }
                         Status.SUCCESS -> {
                             hideLoading()
@@ -55,7 +64,7 @@ class ProfileMyFavoriteFragment : ParentFragment() {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                 }
                 Status.SUCCESS -> {
                     hideLoading()
@@ -68,5 +77,14 @@ class ProfileMyFavoriteFragment : ParentFragment() {
     private fun initViews(): Unit = with(binding) {
         viewModel = this@ProfileMyFavoriteFragment.viewModel
         rvFavorites.adapter = adapter
+    }
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                //if (it.getContentIfNotHandled() == true) viewModel.getUserInfo()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

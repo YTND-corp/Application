@@ -300,5 +300,8 @@
             android:name="uz.mod.templatex.ui.profile.authorized.myFavorite.ProfileMyFavoriteFragment"
             android:label="@string/profile_favorites_title" />
 
-
+    <dialog
+            android:id="@+id/noInternetFragment"
+            android:name="uz.mod.templatex.ui.common.NoInternetFragmentDialog"
+            tools:layout="@layout/include_no_internet" />
 </navigation>

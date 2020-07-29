@@ -111,4 +111,9 @@
                 android:name="attrId"
                 app:argType="integer" />
     </fragment>
+
+    <dialog
+            android:id="@+id/noInternetFragment"
+            android:name="uz.mod.templatex.ui.common.NoInternetFragmentDialog"
+            tools:layout="@layout/include_no_internet" />
 </navigation>

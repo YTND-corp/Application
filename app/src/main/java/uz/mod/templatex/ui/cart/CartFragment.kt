@@ -51,11 +51,10 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    handleError(result.error)
+                    processError(result.error)
                 }
-                Status.SUCCESS -> {
-                    hideLoading()
-                }
+                Status.SUCCESS -> hideLoading()
+
             }
         })
 
@@ -64,11 +63,9 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    handleError(result.error)
+                    processError(result.error)
                 }
-                Status.SUCCESS -> {
-                    hideLoading()
-                }
+                Status.SUCCESS -> hideLoading()
             }
         })
 
@@ -77,11 +74,9 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    handleError(result.error)
+                    processError(result.error)
                 }
-                Status.SUCCESS -> {
-                    hideLoading()
-                }
+                Status.SUCCESS -> hideLoading()
             }
         })
 
@@ -140,12 +135,12 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
         }
     }
 
-    private fun handleError(error: ApiError?) {
+    private fun processError(error: ApiError?) {
         if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
             navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
                 if (it.getContentIfNotHandled() == true) viewModel.getCart()
             })
-            navController.navigate(R.id.action_global_noInternetFragment)
+            navController.navigate(R.id.noInternetFragment)
         } else showError(error)
     }
 
@@ -164,7 +159,7 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
                         hideLoading()
-                        handleError(result.error)
+                        processError(result.error)
                     }
                     Status.SUCCESS -> {
                         hideLoading()

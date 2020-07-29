@@ -1,16 +1,10 @@
 package uz.mod.templatex.ui.address
 
 import android.app.Application
-import android.graphics.Region
-import android.util.Patterns
 import androidx.lifecycle.*
 import uz.mod.templatex.model.local.entity.City
-import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.remote.request.StoreRequest
 import uz.mod.templatex.model.repository.CheckoutRepository
-import uz.mod.templatex.utils.SingleLiveEvent
-import uz.mod.templatex.utils.extension.backEndPhoneFormat
-import uz.mod.templatex.utils.extension.clear
 
 class AddressViewModel constructor(application: Application, val repository: CheckoutRepository) :
     AndroidViewModel(application) {

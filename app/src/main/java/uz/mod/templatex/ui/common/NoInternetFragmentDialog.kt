@@ -41,16 +41,15 @@ class NoInternetFragmentDialog : DialogFragment(R.layout.include_no_internet) {
     }
 
     private fun setClickListeners() {
-        closeFragment.setOnClickListener { closeFragment(false) }
-        btnTryAgain.setOnClickListener { checkConnectivity() }
+        btnTryAgain.setOnClickListener { connectivityChecker() }
     }
 
-    private fun checkConnectivity() {
+    private fun connectivityChecker() {
         toggleBtnEnable(false)
         showLoading()
         if (NetworkUtil.isConnected(requireContext())) {
             hideLoading()
-            closeFragment(true)
+            closeFragment()
         } else handler.postDelayed(hideProgressRunnable, 1000)
         toggleBtnEnable(true)
     }
@@ -59,8 +58,8 @@ class NoInternetFragmentDialog : DialogFragment(R.layout.include_no_internet) {
         btnTryAgain?.isEnabled = isEnable
     }
 
-    private fun closeFragment(shouldRetry: Boolean) {
-        navController.setNavigationResult(Event(shouldRetry))
+    private fun closeFragment() {
+        navController.setNavigationResult(Event(true))
         dismiss()
     }
 

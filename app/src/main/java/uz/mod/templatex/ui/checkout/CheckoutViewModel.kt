@@ -3,12 +3,9 @@ package uz.mod.templatex.ui.checkout
 import android.app.Application
 import android.util.Patterns
 import androidx.lifecycle.*
-import uz.mod.templatex.model.local.entity.User
-import uz.mod.templatex.utils.extension.clear
-import uz.mod.templatex.model.remote.network.Resource
-import uz.mod.templatex.model.remote.response.ConfirmResponse
 import uz.mod.templatex.model.repository.CheckoutRepository
-import uz.mod.templatex.utils.SingleLiveEvent
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.clear
 
 class CheckoutViewModel constructor(
     application: Application,
@@ -28,7 +25,7 @@ class CheckoutViewModel constructor(
         !it.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(it).matches()
     }
 
-    val navigator = SingleLiveEvent<Int>()
+    private val navigator = MutableLiveData<Event<Int>>()
 
     val isAllValid = MediatorLiveData<Boolean>()
         .apply {
@@ -62,6 +59,6 @@ class CheckoutViewModel constructor(
     fun getPhone() = phone.value!!
 
     fun next() {
-        navigator.value = 1
+        navigator.value = Event(1)
     }
 }

@@ -12,17 +12,20 @@ import uz.mod.templatex.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.databinding.SubCategoryFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.ui.custom.LineDividerItemDecoration
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
+import uz.mod.templatex.utils.extension.lazyFast
 
 class SubCategoryFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: SubCategoryViewModel by viewModel()
-
     private val binding by lazy { SubCategoryFragmentBinding.inflate(layoutInflater) }
-
     val args: SubCategoryFragmentArgs by navArgs()
-
     private lateinit var adapter: SubCategoryAdapter
 
     companion object {
@@ -53,29 +56,37 @@ class SubCategoryFragment : ParentFragment() {
         })
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@SubCategoryFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@SubCategoryFragment.viewModel
+        executePendingBindings()
 
-            adapter = SubCategoryAdapter()
-            catalogDetails.adapter = adapter
+        adapter = SubCategoryAdapter()
+        catalogDetails.adapter = adapter
 
-            catalogDetails.addItemDecoration(
-                LineDividerItemDecoration(
-                    requireContext(),
-                    R.drawable.list_divider
+        catalogDetails.addItemDecoration(
+            LineDividerItemDecoration(
+                requireContext(),
+                R.drawable.list_divider
+            )
+        )
+
+        continueButton.setOnClickListener {
+            navController.navigate(
+                SubCategoryFragmentDirections.actionGlobalProductsFragment(
+                    args.category?.id ?: 0,
+                    args.category?.name
                 )
             )
-
-            continueButton.setOnClickListener {
-                findNavController().navigate(
-                    SubCategoryFragmentDirections.actionGlobalProductsFragment(
-                        args.category?.id ?: 0,
-                        args.category?.name
-                    )
-                )
-            }
         }
+
+    }
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) viewModel.getCatalogs()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

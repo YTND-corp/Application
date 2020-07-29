@@ -3,7 +3,6 @@ package uz.mod.templatex.app
 import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
-import androidx.multidex.MultiDex
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber

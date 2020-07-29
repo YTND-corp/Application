@@ -5,11 +5,9 @@ import timber.log.Timber
 import uz.aqlify.yonda.utils.Prefs
 import uz.mod.templatex.model.local.entity.City
 import uz.mod.templatex.model.remote.api.CheckoutService
-import uz.mod.templatex.model.remote.network.ApiResponse
 import uz.mod.templatex.model.remote.network.NetworkOnlyResource
 import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.remote.response.CheckoutResponse
-import uz.mod.templatex.model.remote.response.CheckoutUserResponse
 import uz.mod.templatex.model.remote.response.ConfirmResponse
 import uz.mod.templatex.model.remote.response.StoreResponse
 
@@ -25,39 +23,21 @@ class CheckoutRepository constructor(val service: CheckoutService, prefs: Prefs)
         email: String,
         phone: String
     ): LiveData<Resource<ConfirmResponse>> = object : NetworkOnlyResource<ConfirmResponse, ConfirmResponse>() {
-        override fun processResult(item: ConfirmResponse?): ConfirmResponse? {
-            return item
-        }
-
-        override fun createCall(): LiveData<ApiResponse<ConfirmResponse>> {
-            return service.user(name, surname, email, phone)
-        }
-
+        override fun processResult(item: ConfirmResponse?) = item
+        override fun createCall() = service.user(name, surname, email, phone)
     }.asLiveData()
 
     fun confirm(phone: String, code: String): LiveData<Resource<ConfirmResponse>> {
         return object : NetworkOnlyResource<ConfirmResponse, ConfirmResponse>() {
-            override fun processResult(item: ConfirmResponse?): ConfirmResponse? {
-                return item
-            }
-
-            override fun createCall(): LiveData<ApiResponse<ConfirmResponse>> {
-                return service.confirm(phone, code)
-            }
-
+            override fun processResult(item: ConfirmResponse?) = item
+            override fun createCall() = service.confirm(phone, code)
         }.asLiveData()
     }
 
     fun checkout(): LiveData<Resource<List<City>>> {
         return object : NetworkOnlyResource<List<City>, CheckoutResponse>() {
-            override fun processResult(item: CheckoutResponse?): List<City>? {
-                return item?.cities
-            }
-
-            override fun createCall(): LiveData<ApiResponse<CheckoutResponse>> {
-                return service.checkOut()
-            }
-
+            override fun processResult(item: CheckoutResponse?) = item?.cities
+            override fun createCall() = service.checkOut()
         }.asLiveData()
     }
 
@@ -76,27 +56,21 @@ class CheckoutRepository constructor(val service: CheckoutService, prefs: Prefs)
         paymentProvider: String?
     ): LiveData<Resource<StoreResponse>> {
         return object : NetworkOnlyResource<StoreResponse, StoreResponse>() {
-            override fun processResult(item: StoreResponse?): StoreResponse? {
-                return item
-            }
-
-            override fun createCall(): LiveData<ApiResponse<StoreResponse>> {
-                return service.store(
-                    regionId,
-                    region,
-                    street,
-                    home,
-                    flat,
-                    comment,
-                    carrierId,
-                    carrierServiceId,
-                    date,
-                    time,
-                    paymentMethod,
-                    paymentProvider
-                )
-            }
-
+            override fun processResult(item: StoreResponse?) = item
+            override fun createCall() = service.store(
+                regionId,
+                region,
+                street,
+                home,
+                flat,
+                comment,
+                carrierId,
+                carrierServiceId,
+                date,
+                time,
+                paymentMethod,
+                paymentProvider
+            )
         }.asLiveData()
     }
 }

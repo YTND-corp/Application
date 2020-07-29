@@ -9,14 +9,21 @@ import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileMyDataFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
+import uz.mod.templatex.utils.extension.lazyFast
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class ProfileMyDataFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: ProfileMyDataViewModel by viewModel()
 
     private val binding by lazy { ProfileMyDataFragmentBinding.inflate(layoutInflater) }
@@ -48,7 +55,7 @@ class ProfileMyDataFragment : ParentFragment() {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                     binding.root.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
@@ -99,11 +106,11 @@ class ProfileMyDataFragment : ParentFragment() {
                         Status.LOADING -> showLoading()
                         Status.ERROR -> {
                             hideLoading()
-                            showError(result.error)
+                            processError(result.error)
                         }
                         Status.SUCCESS -> {
                             hideLoading()
-                            findNavController().popBackStack()
+                            navController.popBackStack()
                         }
                     }
                 })
@@ -128,21 +135,29 @@ class ProfileMyDataFragment : ParentFragment() {
         }
     }
 
-    private fun showDatePickerDialog() {
-        context?.let {
-            DatePickerDialog(
-                it,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    birthdayYear = year
-                    birthdayMonth = month
-                    birthday = dayOfMonth
+    private fun showDatePickerDialog() = context?.let {
+        DatePickerDialog(
+            it,
+            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                birthdayYear = year
+                birthdayMonth = month
+                birthday = dayOfMonth
 
-                    binding.birthDate.setText(
-                        LocalDate.of(year, month + 1, dayOfMonth)
-                            .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                    )
-                }, birthdayYear, birthdayMonth, birthday
-            ).show()
-        }
+                binding.birthDate.setText(
+                    LocalDate.of(year, month + 1, dayOfMonth)
+                        .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                )
+            }, birthdayYear, birthdayMonth, birthday
+        ).show()
+    }
+    
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) viewModel.getUserInfo()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

@@ -1,19 +1,20 @@
 package uz.mod.templatex.ui.favorite
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.FavoriteFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
-import uz.mod.templatex.ui.products.ProductAdapter
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
 import uz.mod.templatex.utils.extension.lazyFast
 
 class FavoriteFragment : ParentFragment() {
@@ -38,7 +39,7 @@ class FavoriteFragment : ParentFragment() {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
                         hideLoading()
-                        showError(result.error)
+                        processError(result.error)
                     }
                     Status.SUCCESS -> {
                         hideLoading()
@@ -67,7 +68,7 @@ class FavoriteFragment : ParentFragment() {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                 }
                 Status.SUCCESS -> {
                     hideLoading()
@@ -90,5 +91,14 @@ class FavoriteFragment : ParentFragment() {
                 navController.navigate(R.id.action_favoriteFragment_to_categoryFragment)
             }
         }
+    }
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) viewModel.getFavorites()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

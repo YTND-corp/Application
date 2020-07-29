@@ -16,10 +16,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProductsFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.new_filter.MainFilterFragment
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
 import uz.mod.templatex.utils.extension.lazyFast
 import uz.mod.templatex.utils.extension.toast
 
@@ -52,7 +56,7 @@ class ProductsFragment : ParentFragment() {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
                         hideLoading()
-                        showError(result.error)
+                        processError(result.error)
                     }
                     Status.SUCCESS -> {
                         hideLoading()
@@ -99,7 +103,7 @@ class ProductsFragment : ParentFragment() {
                     }
                     Status.ERROR -> {
                         handleLoadingDone()
-                        showError(result.error)
+                        processError(result.error)
                     }
                     Status.SUCCESS -> {
                         handleLoadingDone()
@@ -203,5 +207,14 @@ class ProductsFragment : ParentFragment() {
                 navController.popBackStack()
             }
         }
+    }
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) viewModel.refresh()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

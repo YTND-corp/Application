@@ -8,11 +8,16 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.BuildConfig
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CheckoutFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Const.PHONE_CODE_DEFAULT
+import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.MaskWatcher
+import uz.mod.templatex.utils.extension.getNavigationResult
 import uz.mod.templatex.utils.extension.lazyFast
 
 class CheckoutFragment : ParentFragment() {
@@ -34,7 +39,7 @@ class CheckoutFragment : ParentFragment() {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                 }
                 Status.SUCCESS -> {
                     hideLoading()
@@ -72,7 +77,6 @@ class CheckoutFragment : ParentFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-
     }
 
     private fun initViews() {
@@ -100,5 +104,14 @@ class CheckoutFragment : ParentFragment() {
                 phone.setText("+998765432100")
             }
         }
+    }
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) viewModel.user()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }

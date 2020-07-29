@@ -31,6 +31,10 @@ class ProductViewModel constructor(application: Application, val repository: Pro
 
     fun setArgs(args: ProductFragmentArgs) {
         id = args.productId
+        sendRequest()
+    }
+
+    fun sendRequest() {
         request.value = true
     }
 

@@ -10,12 +10,19 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.view_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileMyOrdersFragmentBinding
+import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.getNavigationResult
+import uz.mod.templatex.utils.extension.lazyFast
 
 class ProfileMyOrdersFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: ProfileMyOrdersViewModel by viewModel()
 
     private val binding by lazy { ProfileMyOrdersFragmentBinding.inflate(layoutInflater) }
@@ -61,7 +68,7 @@ class ProfileMyOrdersFragment : ParentFragment() {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
-                    showError(result.error)
+                    processError(result.error)
                 }
                 Status.SUCCESS -> {
                     hideLoading()
@@ -85,15 +92,24 @@ class ProfileMyOrdersFragment : ParentFragment() {
             viewModel = this@ProfileMyOrdersFragment.viewModel
             executePendingBindings()
 
-            searchEt.setOnEditorActionListener { v, actionId, event ->
+            searchEt.setOnEditorActionListener { v, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     viewModel?.getOrders(v.text.toString())
-                    true
+                    return@setOnEditorActionListener true
                 }
                 false
             }
 
             myOrdersRv.adapter = adapter
         }
+    }
+
+    private fun processError(error: ApiError?) {
+        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
+            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                if (it.getContentIfNotHandled() == true) viewModel.getOrders()
+            })
+            navController.navigate(R.id.noInternetFragment)
+        } else showError(error)
     }
 }
