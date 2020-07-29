@@ -70,7 +70,11 @@ class CheckoutFragment : ParentFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+    }
 
+    override fun onDetach() {
+        hideKeyboard()
+        super.onDetach()
     }
 
     private fun initViews() {
