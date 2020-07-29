@@ -8,19 +8,20 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.AddressFragmentBinding
-
 import uz.mod.templatex.model.local.entity.Adres
 import uz.mod.templatex.model.remote.network.Status
-import uz.mod.templatex.ui.code.CodeFragmentArgs
 import uz.mod.templatex.ui.custom.LineDividerItemDecoration
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.extension.lazyFast
 
 class AddressFragment : ParentFragment() {
+
+
+    private val navController by lazyFast { findNavController() }
 
     val viewModel: AddressViewModel by viewModel()
 
@@ -101,14 +102,14 @@ class AddressFragment : ParentFragment() {
 
             continueButton.setOnClickListener {
                 if (args.response?.confirmation == false) {
-                    findNavController().navigate(
+                    navController.navigate(
                         AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
                             args.response,
                             viewModel?.getDetails()
                         )
                     )
                 } else {
-                    findNavController().navigate(
+                    navController.navigate(
                         AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
                             args.response,
                             viewModel?.getDetails()

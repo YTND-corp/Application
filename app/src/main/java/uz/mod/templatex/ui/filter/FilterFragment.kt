@@ -31,16 +31,11 @@ class FilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initViews()
-
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@FilterFragment.viewModel
-            executePendingBindings()
-
-        }
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@FilterFragment.viewModel
+        executePendingBindings()
     }
 }

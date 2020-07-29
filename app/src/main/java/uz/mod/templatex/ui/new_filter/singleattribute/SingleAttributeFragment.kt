@@ -18,11 +18,13 @@ import uz.mod.templatex.ui.custom.LineDividerItemDecoration
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.ui.new_filter.adapter.SingleAttributeFilterAdapter
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.extension.lazyFast
 
 class SingleAttributeFragment : ParentFragment() {
-    val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
-    val singleAttributeViewModel: SingleAttributeViewModel by viewModels()
-    val attrs: SingleAttributeFragmentArgs by navArgs()
+    private val navController by lazyFast { findNavController() }
+    private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
+    private val singleAttributeViewModel: SingleAttributeViewModel by viewModels()
+    private val attrs: SingleAttributeFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,13 +66,13 @@ class SingleAttributeFragment : ParentFragment() {
         searchEt.addTextChangedListener { text -> singleAttributeViewModel.onQueryChanged(text.toString()) }
         applyBt.setOnClickListener {
             sharedFilterViewModel.saveTemporaryData()
-            findNavController().popBackStack()
+            navController.popBackStack()
         }
         btnReset.setOnClickListener {
             singleAttributeViewModel.onResetClick()
         }
         back.setOnClickListener {
-            findNavController().popBackStack()
+            navController.popBackStack()
         }
     }
 }

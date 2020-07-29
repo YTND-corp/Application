@@ -1,10 +1,6 @@
 package uz.mod.templatex.ui.delivery
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +8,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.mod.templatex.databinding.DeliveryFragmentBinding
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.extension.lazyFast
 
 
 class DeliveryFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: DeliveryViewModel by viewModel()
-
     val args: DeliveryFragmentArgs by navArgs()
 
     private val binding by lazy { DeliveryFragmentBinding.inflate(layoutInflater) }
@@ -74,7 +70,7 @@ class DeliveryFragment : ParentFragment() {
             continueButton.setOnClickListener {
                 val detail = args.details
                 detail?.delivery = viewModel?.selectedOption?.value
-                findNavController().navigate(DeliveryFragmentDirections.actionDeliveryFragmentToPaymentFragment(args.response, detail))
+                navController.navigate(DeliveryFragmentDirections.actionDeliveryFragmentToPaymentFragment(args.response, detail))
             }
         }
     }

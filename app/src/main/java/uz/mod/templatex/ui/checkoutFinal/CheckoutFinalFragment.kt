@@ -12,10 +12,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CheckoutFinalFragmentBinding
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.extension.lazyFast
 
 
 class CheckoutFinalFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: CheckoutFinalViewModel by viewModel()
 
     private val binding by lazy { CheckoutFinalFragmentBinding.inflate(layoutInflater) }
@@ -40,7 +42,7 @@ class CheckoutFinalFragment : ParentFragment() {
         initViews()
 
         requireActivity().onBackPressedDispatcher.addCallback(this.viewLifecycleOwner,true) {
-            findNavController().popBackStack(R.id.cartFragment,false)
+            navController.popBackStack(R.id.cartFragment,false)
             remove()
         }
     }
@@ -53,7 +55,7 @@ class CheckoutFinalFragment : ParentFragment() {
             title.text = getString(R.string.checkout_final_title, args.name)
             message.text = getString(R.string.checkout_final_message, args.date)
             closeButton.setOnClickListener {
-                findNavController().popBackStack(R.id.checkoutFragment, true)
+                navController.popBackStack(R.id.checkoutFragment, true)
             }
         }
     }

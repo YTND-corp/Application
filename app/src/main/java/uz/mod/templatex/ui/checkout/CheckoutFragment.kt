@@ -13,9 +13,11 @@ import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const.PHONE_CODE_DEFAULT
 import uz.mod.templatex.utils.MaskWatcher
+import uz.mod.templatex.utils.extension.lazyFast
 
 class CheckoutFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     private val viewModel: CheckoutViewModel by viewModel()
 
     private val binding by lazy { CheckoutFragmentBinding.inflate(layoutInflater) }
@@ -38,14 +40,14 @@ class CheckoutFragment : ParentFragment() {
                     hideLoading()
                     result.data?.let {
                         if (sharedViewModel.isAuthenticated.value == true) {
-                            findNavController().navigate(
+                            navController.navigate(
                                 CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment(
                                     it,
                                     viewModel.getPhone()
                                 )
                             )
                         } else {
-                            findNavController().navigate(
+                            navController.navigate(
                                 CheckoutFragmentDirections.actionCheckoutFragmentToCodeFragment(
                                     viewModel.getPhone(),
                                     true
@@ -79,7 +81,7 @@ class CheckoutFragment : ParentFragment() {
             executePendingBindings()
 
             phone.addTextChangedListener(MaskWatcher.phoneWatcher())
-            phone.setOnFocusChangeListener { view, hasFocus ->
+            phone.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     if (phone.text?.length ?: 0 < 5 && phone.text?.equals(PHONE_CODE_DEFAULT) == false) {
                         phone.setText(PHONE_CODE_DEFAULT)

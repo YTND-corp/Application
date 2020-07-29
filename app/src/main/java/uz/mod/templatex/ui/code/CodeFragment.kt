@@ -13,11 +13,12 @@ import uz.mod.templatex.databinding.CodeFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.address.AddressFragmentDirections
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.extension.lazyFast
 
 class CodeFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: CodeViewModel by viewModel()
-
     val args: CodeFragmentArgs by navArgs()
 
     private val binding by lazy { CodeFragmentBinding.inflate(layoutInflater) }
@@ -44,14 +45,14 @@ class CodeFragment : ParentFragment() {
                         sharedViewModel.loggedIn(result.data?.user)
 
                         if (args.isCheckout) {
-                            findNavController().navigate(
+                            navController.navigate(
                                 AddressFragmentDirections.actionGlobalAddressFragment(
                                     result.data,
                                     args.phone
                                 )
                             )
                         } else {
-                            findNavController().popBackStack(R.id.profileFragment, true)
+                            navController.popBackStack(R.id.profileFragment, true)
                         }
                     }
                 }
@@ -68,7 +69,7 @@ class CodeFragment : ParentFragment() {
                         hideLoading()
                         binding.code.text = null
                         sharedViewModel.loggedIn(result.data)
-                        findNavController().navigate(R.id.action_codeFragment_to_profileFragment)
+                        navController.navigate(R.id.action_codeFragment_to_profileFragment)
                     }
                 }
             })
@@ -109,7 +110,7 @@ class CodeFragment : ParentFragment() {
             }
 
             change.setOnClickListener {
-                findNavController().popBackStack()
+                navController.popBackStack()
             }
         }
     }

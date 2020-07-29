@@ -65,11 +65,8 @@ class ProfileMyFavoriteFragment : ParentFragment() {
         })
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@ProfileMyFavoriteFragment.viewModel
-
-            rvFavorites.adapter = adapter
-        }
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@ProfileMyFavoriteFragment.viewModel
+        rvFavorites.adapter = adapter
     }
 }

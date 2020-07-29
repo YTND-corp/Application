@@ -1,7 +1,6 @@
 package uz.mod.templatex.ui.products
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +20,13 @@ import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.new_filter.MainFilterFragment
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.extension.lazyFast
 import uz.mod.templatex.utils.extension.toast
 
 
 class ProductsFragment : ParentFragment() {
+
+    private val navController by lazyFast { findNavController() }
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
     val viewModel: ProductsViewModel by viewModel()
 
@@ -63,7 +65,7 @@ class ProductsFragment : ParentFragment() {
         }
 
         mBrandAdapter = BrandAdapter {
-            findNavController().navigate(ProductsFragmentDirections.actionGlobalProductsFragment(it.id, it.name))
+            navController.navigate(ProductsFragmentDirections.actionGlobalProductsFragment(it.id, it.name))
         }
 
         viewModel.setArgs(args)
@@ -93,22 +95,14 @@ class ProductsFragment : ParentFragment() {
             it.getContentIfNotHandled()?.let { result ->
                 when (result.status) {
                     Status.LOADING -> {
-                        if (!isLoadingMore) showLoading()
-                        shimmer.visibility = View.VISIBLE
-                        shimmer.startShimmer()
+                        handleLoadingStart()
                     }
                     Status.ERROR -> {
-                        isLoadingMore = false
-                        hideLoading()
+                        handleLoadingDone()
                         showError(result.error)
-                        shimmer.stopShimmer()
-                        shimmer.visibility = View.GONE
                     }
                     Status.SUCCESS -> {
-                        isLoadingMore = false
-                        hideLoading()
-                        shimmer.stopShimmer()
-                        shimmer.visibility = View.GONE
+                        handleLoadingDone()
                         if (viewModel.page == 1) {
                             val string =
                                 resources.getString(R.string.products_subtitle, result.data?.size.toString())
@@ -125,6 +119,27 @@ class ProductsFragment : ParentFragment() {
         viewModel.brands.observe(viewLifecycleOwner, Observer {
             mBrandAdapter.setItems(it)
         })
+    }
+
+    private fun handleLoadingDone() {
+        isLoadingMore = false
+        hideLoading()
+        stopShimmer()
+    }
+
+    private fun handleLoadingStart() {
+        if (!isLoadingMore) showLoading()
+        startShimmer()
+    }
+
+    private fun startShimmer() {
+        shimmer.visibility = View.VISIBLE
+        shimmer.startShimmer()
+    }
+
+    private fun stopShimmer() {
+        shimmer.stopShimmer()
+        shimmer.visibility = View.GONE
     }
 
     override fun onResume() {
@@ -171,7 +186,7 @@ class ProductsFragment : ParentFragment() {
 
             filter.setOnClickListener {
                 viewModel?.categoryId?.let {
-                    findNavController().navigate(
+                    navController.navigate(
                         R.id.mainFilterFragment,
                         bundleOf(MainFilterFragment.KEY_CATEGORY_ID to it)
                     )
@@ -180,12 +195,12 @@ class ProductsFragment : ParentFragment() {
 
             sortWrapper.setOnClickListener {
                 viewModel?.categoryId?.let {
-                    findNavController().navigate(R.id.sortFragment)
+                    navController.navigate(R.id.sortFragment)
                 }
             }
 
             back.setOnClickListener {
-                findNavController().popBackStack()
+                navController.popBackStack()
             }
         }
     }

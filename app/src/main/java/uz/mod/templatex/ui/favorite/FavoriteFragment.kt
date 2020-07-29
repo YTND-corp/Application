@@ -14,9 +14,11 @@ import uz.mod.templatex.databinding.FavoriteFragmentBinding
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.ui.products.ProductAdapter
+import uz.mod.templatex.utils.extension.lazyFast
 
 class FavoriteFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: FavoriteViewModel by viewModel()
 
     private val binding by lazy { FavoriteFragmentBinding.inflate(layoutInflater) }
@@ -85,7 +87,7 @@ class FavoriteFragment : ParentFragment() {
             products.adapter = adapter
 
             placeholderButton.setOnClickListener {
-                findNavController().navigate(R.id.action_favoriteFragment_to_categoryFragment)
+                navController.navigate(R.id.action_favoriteFragment_to_categoryFragment)
             }
         }
     }

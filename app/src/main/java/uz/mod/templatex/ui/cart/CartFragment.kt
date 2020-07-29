@@ -24,11 +24,8 @@ import uz.mod.templatex.utils.extension.toPx
 class CartFragment : ParentFragment(), CartAdapter.ItemListener {
 
     private val navController by lazyFast { findNavController() }
-
     val viewModel: CartViewModel by viewModel()
-
     private val binding by lazy { CartFragmentBinding.inflate(layoutInflater) }
-
     private lateinit var adapter: CartAdapter
 
     companion object {

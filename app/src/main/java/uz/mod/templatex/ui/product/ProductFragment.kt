@@ -22,14 +22,14 @@ import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.SnapOnScrollListener
 import uz.mod.templatex.utils.extension.attachSnapHelperWithListener
+import uz.mod.templatex.utils.extension.lazyFast
 import uz.mod.templatex.utils.extension.toPx
 
 class ProductFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: ProductViewModel by viewModel()
-
     private val binding by lazy { ProductFragmentBinding.inflate(layoutInflater) }
-
     private val args: ProductFragmentArgs by navArgs()
 
     private var bannerAdapter = ProductBannerAdapter()
@@ -122,7 +122,7 @@ class ProductFragment : ParentFragment() {
             val colorRowCount = displayMetrics.widthPixels / 48.toPx()
 
             back.setOnClickListener {
-                findNavController().popBackStack()
+                navController.popBackStack()
             }
 
             banners.adapter = bannerAdapter
@@ -148,7 +148,7 @@ class ProductFragment : ParentFragment() {
 
             relativeProductAdapter = ProductHorizontalAdapter(object : ProductHorizontalAdapter.ClickListener {
                 override fun onItemClick(item: Product) {
-                    findNavController().navigate(
+                    navController.navigate(
                         ProductFragmentDirections.actionGlobalProductFragment(item.id)
                     )
                 }
@@ -201,7 +201,7 @@ class ProductFragment : ParentFragment() {
             })
 
             /*categoryBrand.setOnClickListener {
-                findNavController().navigate(
+                navController.navigate(
                     ProductFragmentDirections.actionGlobalProductsFragment(
                         0,
                         viewModel?.product?.value?.category,
@@ -209,11 +209,11 @@ class ProductFragment : ParentFragment() {
                     )
                 )
 
-                //findNavController().navigate(ProductFragmentDirections.actionGlobalProductFragment())
+                //navController.navigate(ProductFragmentDirections.actionGlobalProductFragment())
             }
 */
             /*category.setOnClickListener {
-                findNavController().navigate(
+                navController.navigate(
                     ProductFragmentDirections.actionGlobalProductsFragment(
                         0,
                         viewModel?.product?.value?.category?.name

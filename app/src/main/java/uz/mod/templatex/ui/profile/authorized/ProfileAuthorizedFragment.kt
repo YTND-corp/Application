@@ -5,17 +5,19 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.*
-import androidx.appcompat.app.AlertDialog
 import androidx.core.text.bold
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileAuthorizedFragmentBinding
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.extension.lazyFast
 
 class ProfileAuthorizedFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: ProfileAuthorizedViewModel by viewModel()
 
     private val binding by lazy { ProfileAuthorizedFragmentBinding.inflate(layoutInflater) }
@@ -71,44 +73,43 @@ class ProfileAuthorizedFragment : ParentFragment() {
                 // TODO
             }
             profileMyOrdersTv.setOnClickListener {
-                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileMyOrdersFragment)
+                navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyOrdersFragment)
             }
             profileMyDataTv.setOnClickListener {
-                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileMyDataFragment)
+                navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyDataFragment)
             }
             profileMyAddressesTv.setOnClickListener {
-                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileMyAddressesFragment)
+                navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyAddressesFragment)
             }
             profileFavoritesTv.setOnClickListener {
-                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileMyFavoriteFragment)
+                navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyFavoriteFragment)
             }
             profileCallUsTv.setOnClickListener {
                 startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${Const.PHONE_NUMBER}")))
             }
             profileCallYouTv.setOnClickListener {
-                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_callMeFragment)
+                navController.navigate(R.id.action_profileAuthorizedFragment_to_callMeFragment)
             }
             profileSupportCenterTv.setOnClickListener {
-                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_supportCenterFragment)
+                navController.navigate(R.id.action_profileAuthorizedFragment_to_supportCenterFragment)
             }
             profileAboutModTv.setOnClickListener {
-                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_aboutFragment)
+                navController.navigate(R.id.action_profileAuthorizedFragment_to_aboutFragment)
             }
             profileLogoutTv.setOnClickListener {
-                context?.let {
-                    AlertDialog.Builder(it, R.style.AlertDialogTheme)
-                        .setMessage(R.string.logout_text)
-                        .setPositiveButton(R.string.action_yes) { _, _ ->
-                            viewModel?.logout()
-                            sharedViewModel.loggedOut()
-                            findNavController().navigate(R.id.action_profileAuthorizedFragment_to_profileFragment)
-                        }
-                        .setNegativeButton(R.string.action_no) { _, _ -> }
-                        .show()
-                }
+                MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+                    .setMessage(R.string.logout_text)
+                    .setPositiveButton(R.string.action_yes) { _, _ ->
+                        viewModel?.logout()
+                        sharedViewModel.loggedOut()
+                        navController.navigate(R.id.action_profileAuthorizedFragment_to_profileFragment)
+                    }
+                    .setNegativeButton(R.string.action_no) { _, _ -> }
+                    .show()
+
             }
             profileQuestionsBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_profileAuthorizedFragment_to_askQuestionFragment)
+                navController.navigate(R.id.action_profileAuthorizedFragment_to_askQuestionFragment)
             }
         }
     }

@@ -13,10 +13,12 @@ import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileGuestFragmentBinding
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const
+import uz.mod.templatex.utils.extension.lazyFast
 
 
 class ProfileGuestFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val viewModel: ProfileGuestViewModel by viewModel()
 
     private val binding by lazy { ProfileGuestFragmentBinding.inflate(layoutInflater) }
@@ -42,10 +44,9 @@ class ProfileGuestFragment : ParentFragment() {
         sharedViewModel.isAuthenticated.observe(viewLifecycleOwner, Observer { isAuthorized ->
             if (isAuthorized) {
                 //binding.unauthorized
-                findNavController().navigate(R.id.action_profileFragment_to_profileAuthorizedFragment)
-            } else {
-
+                navController.navigate(R.id.action_profileFragment_to_profileAuthorizedFragment)
             }
+
             binding.name.text = viewModel.getUserName()
             binding.phone.text = viewModel.getUserPhone()
         })
@@ -58,23 +59,23 @@ class ProfileGuestFragment : ParentFragment() {
             executePendingBindings()
 
             signIn.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_sign_in_graph)
+                navController.navigate(R.id.action_profileFragment_to_sign_in_graph)
             }
 
             signUp.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_sign_up_graph)
+                navController.navigate(R.id.action_profileFragment_to_sign_up_graph)
             }
 
             country.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_countryFragment)
+                navController.navigate(R.id.action_profileFragment_to_countryFragment)
             }
 
             checkOrderStatus.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_checkOrderStatusFragment)
+                navController.navigate(R.id.action_profileFragment_to_checkOrderStatusFragment)
             }
 
             askQuestion.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_askQuestionFragment)
+                navController.navigate(R.id.action_profileFragment_to_askQuestionFragment)
             }
 
             callUs.setOnClickListener {
@@ -82,15 +83,15 @@ class ProfileGuestFragment : ParentFragment() {
             }
 
             callMe.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_callMeFragment)
+                navController.navigate(R.id.action_profileFragment_to_callMeFragment)
             }
 
             supportCenter.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_supportFragment)
+                navController.navigate(R.id.action_profileFragment_to_supportFragment)
             }
 
             about.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_aboutFragment)
+                navController.navigate(R.id.action_profileFragment_to_aboutFragment)
             }
         }
     }
