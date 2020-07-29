@@ -1,17 +1,13 @@
 package uz.mod.templatex.model.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import timber.log.Timber
 import uz.mod.templatex.model.local.db.dao.ProductDao
 import uz.mod.templatex.model.local.entity.Product
-import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.remote.api.CartService
 import uz.mod.templatex.model.remote.api.ProductService
 import uz.mod.templatex.model.remote.network.*
 import uz.mod.templatex.model.remote.response.CartResponse
-import uz.mod.templatex.model.remote.response.FavoritesResponse
-import uz.mod.templatex.utils.AbsentLiveData
 
 class CartRepository constructor(val productService: ProductService, val service: CartService, val productDao: ProductDao,val executors: AppExecutors) {
 
@@ -24,7 +20,7 @@ class CartRepository constructor(val productService: ProductService, val service
 
             override fun saveCallResult(item: CartResponse) {
                 productDao.deleteAll()
-                item.cart.products?.let {
+                item.cart?.products?.let {
                     productDao.insertAll(it)
                 }
             }

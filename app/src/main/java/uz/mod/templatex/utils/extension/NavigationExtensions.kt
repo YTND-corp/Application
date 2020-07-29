@@ -27,6 +27,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import uz.mod.templatex.R
+import uz.mod.templatex.utils.Event
 
 /**
  * Manages the various graphs needed for a [BottomNavigationView].
@@ -253,3 +254,10 @@ private fun FragmentManager.isOnBackStack(backStackName: String): Boolean {
 }
 
 private fun getFragmentTag(index: Int) = "bottomNavigation#$index"
+
+fun <T> NavController.getNavigationResult(key: String = "result") =
+    currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
+
+fun <V> NavController.setNavigationResult(result: V, key: String = "result") {
+    previousBackStackEntry?.savedStateHandle?.set(key, result)
+}

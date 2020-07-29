@@ -51,4 +51,12 @@
                 android:name="selectedPosition"
                 app:argType="integer" />
     </fragment>
+    <dialog
+            android:id="@+id/noInternetFragment"
+            android:name="uz.mod.templatex.ui.common.NoInternetFragmentDialog"
+            tools:layout="@layout/include_no_internet" />
+    <action
+            android:id="@+id/action_global_noInternetFragment"
+            app:destination="@id/noInternetFragment" />
+
 </navigation>

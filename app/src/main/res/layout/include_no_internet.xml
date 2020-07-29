@@ -4,17 +4,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/closeFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:padding="8dp"
-            android:src="@drawable/ic_close"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_close" />
+
+
+    <ProgressBar
+            android:id="@+id/loadingProgressIndicator"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/noConnectionText"
+            app:layout_constraintEnd_toEndOf="@id/noConnectionImage"
+            app:layout_constraintStart_toStartOf="@id/noConnectionImage"
+            app:layout_constraintTop_toTopOf="@id/noConnectionImage" />
 
     <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/noConnectionText"
             style="@style/Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,19 +38,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/noConnectionImage" />
 
-    <ImageView
-            android:id="@+id/imageView2"
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/noConnectionImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_no_internet"
-            app:layout_constraintBottom_toTopOf="@+id/textView6"
+            app:layout_constraintBottom_toTopOf="@+id/noConnectionText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/ic_no_internet" />
 
     <Button
             android:id="@+id/btnTryAgain"
@@ -46,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_margin="16dp"
             android:text="@string/action_try_again"
+            android:textSize="@dimen/text_size_normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

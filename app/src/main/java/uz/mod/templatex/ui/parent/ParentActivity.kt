@@ -2,7 +2,6 @@ package uz.mod.templatex.ui.parent
 
 import android.content.Context
 import android.content.DialogInterface
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.TypedValue
@@ -10,12 +9,10 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import timber.log.Timber
 import uz.mod.templatex.R
-import uz.mod.templatex.utils.extension.color
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.utils.LanguageHelper
 import uz.mod.templatex.utils.extension.inputMethodManager
@@ -53,17 +50,11 @@ open class ParentActivity : AppCompatActivity() {
         positiveClickListener: DialogInterface.OnClickListener? = null,
         negativeText: String? = null
     ) {
-        val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme).setMessage(msg)
-        title?.let {
-            builder.setTitle(title)
-        }
-
+        val builder = MaterialAlertDialogBuilder(this, R.style.AlertDialogTheme).setMessage(msg)
+        title?.let { builder.setTitle(title) }
         builder.setPositiveButton(positiveText, positiveClickListener)
-        negativeText?.let {
-            builder.setNegativeButton(negativeText, null)
-        }
-        val dialog = builder.create()
-        dialog.show()
+        negativeText?.let { builder.setNegativeButton(negativeText, null) }
+        builder.create().show()
     }
 
     fun isProgressing(): Boolean {

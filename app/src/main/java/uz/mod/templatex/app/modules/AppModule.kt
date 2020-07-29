@@ -23,7 +23,7 @@ import uz.mod.templatex.model.remote.api.profile.MyOrdersService
 import uz.mod.templatex.model.remote.network.AppExecutors
 import uz.mod.templatex.model.remote.network.AuthInterceptor
 import uz.mod.templatex.model.remote.network.LiveDataCallAdapterFactory
-import uz.mod.templatex.model.remote.network.NetworkInterceptor
+import uz.mod.templatex.model.remote.network.NetworkConnectivityInterceptor
 import uz.mod.templatex.model.repository.*
 import uz.mod.templatex.model.repository.profile.MyAddressesRepository
 import uz.mod.templatex.model.repository.profile.MyDataRepository
@@ -230,23 +230,22 @@ val retrofitModule = module {
             throw RuntimeException(e)
         }
     }
-
     fun provideHttpClient(
         cache: Cache,
+        networkConnectivityInterceptor: NetworkConnectivityInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        networkInterceptor: NetworkInterceptor,
         authInterceptor: AuthInterceptor,
         trustManager: X509TrustManager,
         sslSocketFactory: SSLSocketFactory
     ) = OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.SECONDS)
-        .retryOnConnectionFailure(true)
         .cache(cache)
-        .addInterceptor(httpLoggingInterceptor)
-        .addNetworkInterceptor(networkInterceptor)
+        .addInterceptor(networkConnectivityInterceptor)
         .addInterceptor(authInterceptor)
+        .addInterceptor(httpLoggingInterceptor)
         .sslSocketFactory(sslSocketFactory, trustManager)
         .build()
+
 
 
     fun provideRetrofit(factory: Gson, client: OkHttpClient) = Retrofit.Builder()
@@ -260,7 +259,7 @@ val retrofitModule = module {
     single { provideFile(get()) }
     single { Cache(get(), 10 * 1000 * 1000) }
     single { GsonBuilder().create() }
-    single { NetworkInterceptor(get()) }
+    single { NetworkConnectivityInterceptor(get()) }
     single { provideHttpLoggingInterceptor() }
     single { AuthInterceptor(get(), get()) }
     single { provideX509TrustManager() }
