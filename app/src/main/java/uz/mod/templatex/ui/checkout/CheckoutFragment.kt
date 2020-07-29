@@ -79,6 +79,11 @@ class CheckoutFragment : ParentFragment() {
         initViews()
     }
 
+    override fun onDetach() {
+        hideKeyboard()
+        super.onDetach()
+    }
+
     private fun initViews() {
         binding.apply {
             viewModel = this@CheckoutFragment.viewModel
