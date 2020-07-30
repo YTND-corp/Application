@@ -42,7 +42,8 @@ object DestinationHelper {
         DestinationConfig(R.id.askQuestionFragment, true, true),
         DestinationConfig(R.id.callMeFragment, true, true),
         DestinationConfig(R.id.aboutFragment, true, true),
-        DestinationConfig(R.id.supportCenterFragment, true, true)
+        DestinationConfig(R.id.supportCenterFragment, true, true),
+        DestinationConfig(R.id.supportCenterDetailsFragment, true, true)
     )
 
     data class DestinationConfig(

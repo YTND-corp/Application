@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.mod.templatex.ui.supportCenter.SupportCenterViewModel" />
+    </data>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/windowBackgroundWhiteColor"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+            <TextView
+                    style="@style/Regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="СНАЧАЛА ПРИМЕРЬТЕ — ПОТОМ КУПИТЕ" />
+
+            <TextView
+                    style="@style/Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Клиенты Ason могут примерить заказанную
+одежду и обувь перед тем, как принять
+Окончательное решение о покупке.\n
+Вы покупаете только то, что вам подошло.
+Остальные вещи вы можете отдать торговому
+Представителю или вернуть позже.\n
+Клиенты Ason могут примерить заказанную
+одежду и обувь перед тем, как принять
+Окончательное решение о покупке.\n
+Вы покупаете только то, что вам подошло.
+Остальные вещи вы можете отдать торговому
+Представителю или вернуть позже." />
+        </LinearLayout>
+    </ScrollView>
+</layout>

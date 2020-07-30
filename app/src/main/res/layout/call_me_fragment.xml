@@ -58,15 +58,17 @@
                             android:digits=" ,0,1,2,3,4,5,6,7,8,9,+"
                             android:imeOptions="actionDone"
                             android:inputType="phone"
-                            android:maxLength="@integer/phone_length" />
+                            android:maxLength="@integer/phone_length"
+                            android:text="@={viewModel.phone}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                        android:id="@+id/continue_button"
+                        android:id="@+id/send_button"
                         style="@style/ContainedButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_marginTop="40dp"
+                        android:enabled="@{viewModel.isPhoneValid()}"
                         android:text="@string/action_send"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

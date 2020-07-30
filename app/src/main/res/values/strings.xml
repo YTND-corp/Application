@@ -52,6 +52,7 @@
     <string name="new_version">НОВАЯ ВЕРСИЯ</string>
     <string name="available_new_version">Доступна новая версия</string>
     <string name="logout_text">Вы действительно хотите выйти?</string>
+    <string name="request_sent_successfully">Запрос успешно отправлен</string>
 
     <!--Permissions-->
     <string name="rationale_camera">Нужен доступ к камере</string>
@@ -210,6 +211,7 @@
     <!--  Check Order Status  -->
     <string name="check_order_status_subtitle">Если у вас остались жалобы и вопросы по заказу или вы не можете вспомнить номер заказа, просим обратиться в службу поддержки</string>
     <string name="hint_order_id">Номер заказа</string>
+    <string name="order_status">Статус: %s</string>
 
     <!--  Ask Question  -->
     <string name="hint_message_topic">Тема сообщения</string>

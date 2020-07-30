@@ -164,7 +164,22 @@
             android:id="@+id/supportCenterFragment"
             android:name="uz.mod.templatex.ui.supportCenter.SupportCenterFragment"
             android:label="@string/title_support"
-            tools:layout="@layout/support_center_fragment" />
+            tools:layout="@layout/support_center_fragment">
+        <action
+                android:id="@+id/action_supportCenterFragment_to_supportCenterDetailsFragment"
+                app:destination="@id/supportCenterDetailsFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_supportCenterFragment_to_askQuestionFragment"
+                app:destination="@id/askQuestionFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
             android:id="@+id/subCategoryFragment"
             android:name="uz.mod.templatex.ui.subCategory.SubCategoryFragment"
@@ -173,9 +188,9 @@
 
         <argument
                 android:name="category"
+                android:defaultValue="@null"
                 app:argType="uz.mod.templatex.model.local.entity.Category"
-                app:nullable="true"
-                android:defaultValue="@null" />
+                app:nullable="true" />
 
     </fragment>
     <fragment
@@ -201,8 +216,8 @@
                 app:nullable="true" />
         <argument
                 android:name="brand_id"
-                app:argType="integer"
-                android:defaultValue="0" />
+                android:defaultValue="0"
+                app:argType="integer" />
         <action
                 android:id="@+id/action_productsFragment_to_mainFilterFragment"
                 app:destination="@id/mainFilterFragment"
@@ -216,12 +231,12 @@
             android:id="@+id/productFragment"
             android:name="uz.mod.templatex.ui.product.ProductFragment"
             android:label=""
-            tools:layout="@layout/product_fragment" >
+            tools:layout="@layout/product_fragment">
 
         <argument
                 android:name="product_id"
-                app:argType="integer"
-                android:defaultValue="0" />
+                android:defaultValue="0"
+                app:argType="integer" />
     </fragment>
 
 
@@ -263,7 +278,7 @@
     <fragment
             android:id="@+id/profileMyOrderFragment"
             android:name="uz.mod.templatex.ui.profile.authorized.myOrder.ProfileMyOrderFragment"
-            tools:layout="@layout/profile_my_order_fragment" >
+            tools:layout="@layout/profile_my_order_fragment">
         <argument
                 android:name="orderId"
                 app:argType="integer" />
@@ -271,7 +286,7 @@
     <fragment
             android:id="@+id/profileMyAddressesFragment"
             android:name="uz.mod.templatex.ui.profile.authorized.myAddresses.ProfileMyAddressesFragment"
-            android:label="@string/profile_my_addresses_title" >
+            android:label="@string/profile_my_addresses_title">
         <action
                 android:id="@+id/action_profileMyAddressesFragment_to_profileMyAddressCreateEditFragment"
                 app:destination="@id/profileMyAddressCreateEditFragment"
@@ -312,5 +327,10 @@
             android:id="@+id/newVersionAvailableFragmentDialog"
             android:name="uz.mod.templatex.ui.common.NewVersionAvailableFragmentDialog"
             tools:layout="@layout/include_new_version_available" />
+    <fragment
+            android:id="@+id/supportCenterDetailsFragment"
+            android:name="uz.mod.templatex.ui.supportCenter.SupportCenterDetailsFragment"
+            android:label="СНАЧАЛА ПРИМЕРЬТЕ"
+            tools:layout="@layout/support_center_details_fragment" />
 
 </navigation>

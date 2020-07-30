@@ -16,7 +16,6 @@
             android:background="@color/windowBackgroundWhiteColor"
             tools:context=".ui.askQuestion.AskQuestionFragment">
 
-
         <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -45,15 +44,16 @@
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress" />
-
+                            android:imeOptions="actionNext"
+                            android:inputType="textPersonName"
+                            android:text="@={viewModel.name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_email"
                         style="@style/TextInputLayoutAppearance"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:hint="@string/hint_surname"
+                        android:hint="@string/hint_email"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/til_name">
@@ -63,47 +63,50 @@
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_topic"
-                        style="@style/TextInputLayoutAppearance"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:hint="@string/hint_message_topic"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_email">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/topic"
-                            style="@style/TextInputEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress" />
-
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:text="@={viewModel.email}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_phone"
                         style="@style/TextInputLayoutAppearance"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:hint="@string/hint_message"
+                        android:hint="@string/hint_phone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_topic">
+                        app:layout_constraintTop_toBottomOf="@id/til_email">
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/phone"
                             style="@style/TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:imeOptions="actionDone"
-                            android:inputType="textMultiLine"
+                            android:digits=" ,0,1,2,3,4,5,6,7,8,9,+"
+                            android:imeOptions="actionNext"
+                            android:inputType="phone"
                             android:maxLines="5"
-                            android:singleLine="false" />
+                            android:singleLine="false"
+                            android:text="@={viewModel.phone}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_question"
+                        style="@style/TextInputLayoutAppearance"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:hint="@string/hint_message"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/til_phone">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/question"
+                            style="@style/TextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:text="@={viewModel.question}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
@@ -113,9 +116,10 @@
                         android:layout_marginTop="40dp"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:text="@string/action_send"
+                        android:enabled="@{viewModel.isAllValid()}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_phone" />
+                        app:layout_constraintTop_toBottomOf="@id/til_question" />
 
                 <View
                         android:id="@+id/social_divider_top"
@@ -242,10 +246,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         app:layout_constraintTop_toBottomOf="@id/capital_phone" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
