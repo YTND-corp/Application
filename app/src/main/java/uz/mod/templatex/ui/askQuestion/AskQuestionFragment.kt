@@ -34,13 +34,11 @@ class AskQuestionFragment : ParentFragment() {
         initViews()
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@AskQuestionFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@AskQuestionFragment.viewModel
+        executePendingBindings()
 
-            regionPhone.text = getString(R.string.ask_question_phone_for_regions, Const.PHONE_NUMBER)
-            capitalPhone.text = getString(R.string.ask_question_phone_for_capital, Const.PHONE_NUMBER)
-        }
+        regionPhone.text = getString(R.string.ask_question_phone_for_regions, Const.PHONE_NUMBER)
+        capitalPhone.text = getString(R.string.ask_question_phone_for_capital, Const.PHONE_NUMBER)
     }
 }

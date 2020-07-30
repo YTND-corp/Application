@@ -2,14 +2,9 @@ package uz.mod.templatex.ui.products
 
 import android.app.Application
 import androidx.lifecycle.*
-import kotlinx.android.synthetic.main.products_fragment.view.*
 import uz.mod.templatex.R
-import uz.mod.templatex.model.local.entity.Filter
-import uz.mod.templatex.model.local.entity.Product
-import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.repository.ProductRepository
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
-import uz.mod.templatex.utils.AbsentLiveData
 import uz.mod.templatex.utils.Event
 
 class ProductsViewModel constructor(application: Application, val repository: ProductRepository) :

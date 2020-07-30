@@ -85,9 +85,12 @@ class ProfileMyOrderFragment : ParentFragment() {
             rvProducts.adapter = adapter
         }
     }
-
+    //TODO("PLEASE CHECK HERE IF THE LOGIC IS NOT BROKEN")
     private fun processError(error: ApiError?) {
-        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) navController.navigate(R.id.noInternetFragment)
-        else showError(error)
+        when (error?.code) {
+            Const.API_NO_CONNECTION_STATUS_CODE -> navController.navigate(R.id.noInternetFragment)
+            Const.API_SERVER_FAIL_STATUS_CODE -> navController.navigate(R.id.serverErrorDialogFragment)
+            else -> showError(error)
+        }
     }
 }

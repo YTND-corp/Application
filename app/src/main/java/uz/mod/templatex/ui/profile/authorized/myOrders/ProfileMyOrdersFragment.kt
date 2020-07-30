@@ -105,11 +105,20 @@ class ProfileMyOrdersFragment : ParentFragment() {
     }
 
     private fun processError(error: ApiError?) {
-        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
-            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                if (it.getContentIfNotHandled() == true) viewModel.getOrders()
-            })
-            navController.navigate(R.id.noInternetFragment)
-        } else showError(error)
+        when (error?.code) {
+            Const.API_NO_CONNECTION_STATUS_CODE -> {
+                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                    if (it.getContentIfNotHandled() == true) viewModel.getOrders()
+                })
+                navController.navigate(R.id.noInternetFragment)
+            }
+            Const.API_SERVER_FAIL_STATUS_CODE -> {
+                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                    if (it.getContentIfNotHandled() == true) viewModel.getOrders()
+                })
+                navController.navigate(R.id.serverErrorDialogFragment)
+            }
+            else -> showError(error)
+        }
     }
 }

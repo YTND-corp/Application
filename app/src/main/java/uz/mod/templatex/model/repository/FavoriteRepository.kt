@@ -1,8 +1,6 @@
 package uz.mod.templatex.model.repository
 
 import androidx.lifecycle.LiveData
-import okhttp3.MediaType
-import okhttp3.RequestBody
 import timber.log.Timber
 import uz.mod.templatex.model.local.db.dao.FavoriteDao
 import uz.mod.templatex.model.local.entity.Favorite

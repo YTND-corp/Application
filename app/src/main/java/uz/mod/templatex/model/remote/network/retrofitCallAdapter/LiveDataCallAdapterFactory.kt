@@ -1,8 +1,9 @@
-package uz.mod.templatex.model.remote.network
+package uz.mod.templatex.model.remote.network.retrofitCallAdapter
 
 import androidx.lifecycle.LiveData
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
+import uz.mod.templatex.model.remote.network.ApiResponse
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 

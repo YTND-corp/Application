@@ -85,23 +85,32 @@ class PaymentFragment : ParentFragment() {
         viewModel = this@PaymentFragment.viewModel
         executePendingBindings()
 
-        paymentMethodAdapter = PaymentMethodAdapter() {
+        paymentMethodAdapter = PaymentMethodAdapter {
             viewModel?.setSelectedMethod(it)
         }
 
         options.adapter = paymentMethodAdapter
 
         continueButton.setOnClickListener {
-            viewModel?.buy()
+            this@PaymentFragment.viewModel.buy()
         }
     }
 
     private fun processError(error: ApiError?) {
-        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
-            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                if (it.getContentIfNotHandled() == true) viewModel.buy()
-            })
-            navController.navigate(R.id.noInternetFragment)
-        } else showError(error)
+        when (error?.code) {
+            Const.API_NO_CONNECTION_STATUS_CODE -> {
+                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                    if (it.getContentIfNotHandled() == true) viewModel.buy()
+                })
+                navController.navigate(R.id.noInternetFragment)
+            }
+            Const.API_SERVER_FAIL_STATUS_CODE -> {
+                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                    if (it.getContentIfNotHandled() == true) viewModel.buy()
+                })
+                navController.navigate(R.id.serverErrorDialogFragment)
+            }
+            else -> showError(error)
+        }
     }
 }

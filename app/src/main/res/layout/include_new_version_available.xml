@@ -4,16 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_close"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView"
             android:layout_width="142dp"
             android:layout_height="wrap_content"
@@ -57,6 +48,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
+            android:textSize="@dimen/text_size_normal"
             android:id="@+id/btnTryAgain"
             style="@style/ContainedButtonStyle"
             android:layout_width="match_parent"
@@ -67,13 +59,14 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+            android:visibility="gone"
             android:id="@+id/btnRemindLater"
             style="@style/SupportCenterWhiteButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="20dp"
+            android:textSize="@dimen/text_size_small"
             android:layout_marginBottom="16dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"

@@ -21,9 +21,10 @@ import uz.mod.templatex.model.remote.api.profile.MyDataService
 import uz.mod.templatex.model.remote.api.FavoritesService
 import uz.mod.templatex.model.remote.api.profile.MyOrdersService
 import uz.mod.templatex.model.remote.network.AppExecutors
-import uz.mod.templatex.model.remote.network.AuthInterceptor
-import uz.mod.templatex.model.remote.network.LiveDataCallAdapterFactory
-import uz.mod.templatex.model.remote.network.NetworkConnectivityInterceptor
+import uz.mod.templatex.model.remote.network.interceptor.AuthInterceptor
+import uz.mod.templatex.model.remote.network.retrofitCallAdapter.LiveDataCallAdapterFactory
+import uz.mod.templatex.model.remote.network.interceptor.NetworkConnectivityInterceptor
+import uz.mod.templatex.model.remote.network.interceptor.ResponseInterceptor
 import uz.mod.templatex.model.repository.*
 import uz.mod.templatex.model.repository.profile.MyAddressesRepository
 import uz.mod.templatex.model.repository.profile.MyDataRepository
@@ -233,6 +234,7 @@ val retrofitModule = module {
     fun provideHttpClient(
         cache: Cache,
         networkConnectivityInterceptor: NetworkConnectivityInterceptor,
+        responseInterceptor: ResponseInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor,
         authInterceptor: AuthInterceptor,
         trustManager: X509TrustManager,
@@ -243,6 +245,7 @@ val retrofitModule = module {
         .addInterceptor(networkConnectivityInterceptor)
         .addInterceptor(authInterceptor)
         .addInterceptor(httpLoggingInterceptor)
+        .addInterceptor(responseInterceptor)
         .sslSocketFactory(sslSocketFactory, trustManager)
         .build()
 
@@ -260,11 +263,12 @@ val retrofitModule = module {
     single { Cache(get(), 10 * 1000 * 1000) }
     single { GsonBuilder().create() }
     single { NetworkConnectivityInterceptor(get()) }
+    single { ResponseInterceptor() }
     single { provideHttpLoggingInterceptor() }
     single { AuthInterceptor(get(), get()) }
     single { provideX509TrustManager() }
     single { providesSSLSocketFactory(get()) }
-    single { provideHttpClient(get(), get(), get(), get(), get(), get()) }
+    single { provideHttpClient(get(), get(), get(), get(), get(), get(), get()) }
     single { provideRetrofit(get(), get()) }
 }
 

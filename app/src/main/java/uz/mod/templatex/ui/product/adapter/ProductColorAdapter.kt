@@ -1,4 +1,4 @@
-package uz.mod.templatex.ui.product
+package uz.mod.templatex.ui.product.adapter
 
 import android.content.res.ColorStateList
 import android.graphics.Color

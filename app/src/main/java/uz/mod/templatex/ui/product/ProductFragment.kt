@@ -21,6 +21,7 @@ import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.ui.product.adapter.*
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.SnapOnScrollListener
@@ -146,7 +147,8 @@ class ProductFragment : ParentFragment() {
             rvColors.adapter = colorAdapter
             sizes.adapter = sizeAdapter
 
-            relativeProductAdapter = ProductHorizontalAdapter(object : ProductHorizontalAdapter.ClickListener {
+            relativeProductAdapter = ProductHorizontalAdapter(object :
+                ProductHorizontalAdapter.ClickListener {
                 override fun onItemClick(item: Product) {
                     navController.navigate(
                         ProductFragmentDirections.actionGlobalProductFragment(item.id)
@@ -287,11 +289,20 @@ class ProductFragment : ParentFragment() {
     }
 
     private fun processError(error: ApiError?) {
-        if (error?.code == Const.API_NO_CONNECTION_STATUS_CODE) {
-            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                if (it.getContentIfNotHandled() == true) viewModel.sendRequest()
-            })
-            navController.navigate(R.id.noInternetFragment)
-        } else showError(error)
+        when (error?.code) {
+            Const.API_NO_CONNECTION_STATUS_CODE -> {
+                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                    if (it.getContentIfNotHandled() == true) viewModel.sendRequest()
+                })
+                navController.navigate(R.id.noInternetFragment)
+            }
+            Const.API_SERVER_FAIL_STATUS_CODE -> {
+                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                    if (it.getContentIfNotHandled() == true) viewModel.sendRequest()
+                })
+                navController.navigate(R.id.serverErrorDialogFragment)
+            }
+            else -> showError(error)
+        }
     }
 }

@@ -51,10 +51,15 @@
                 android:name="selectedPosition"
                 app:argType="integer" />
     </fragment>
+
     <dialog
             android:id="@+id/noInternetFragment"
             android:name="uz.mod.templatex.ui.common.NoInternetFragmentDialog"
             tools:layout="@layout/include_no_internet" />
+    <dialog
+            android:id="@+id/serverErrorDialogFragment"
+            android:name="uz.mod.templatex.ui.common.ServerErrorDialogFragment"
+            tools:layout="@layout/include_server_error" />
 
 
 </navigation>

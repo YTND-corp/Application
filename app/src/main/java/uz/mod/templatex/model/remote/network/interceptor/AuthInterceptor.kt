@@ -1,4 +1,4 @@
-package uz.mod.templatex.model.remote.network
+package uz.mod.templatex.model.remote.network.interceptor
 
 import android.content.Context
 import android.provider.Settings

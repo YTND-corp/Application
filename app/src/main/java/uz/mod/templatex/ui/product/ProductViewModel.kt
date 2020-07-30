@@ -1,7 +1,6 @@
 package uz.mod.templatex.ui.product
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.remote.network.Status
