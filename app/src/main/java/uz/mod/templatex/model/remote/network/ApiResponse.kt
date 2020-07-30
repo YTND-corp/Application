@@ -3,6 +3,7 @@ package uz.mod.templatex.model.remote.network
 import com.google.gson.Gson
 import retrofit2.Response
 import timber.log.Timber
+import uz.mod.templatex.utils.AppNewVersionAvailableException
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.NoConnectionException
 import uz.mod.templatex.utils.ServerFailException
@@ -27,6 +28,14 @@ class ApiResponse<T> {
 
     constructor(error: ServerFailException) {
         this.code = Const.API_SERVER_FAIL_STATUS_CODE
+        this.body = null
+        this.message = ApiError(code,null, error.message?:"")
+        this.isFailure = true
+    }
+
+
+    constructor(error: AppNewVersionAvailableException) {
+        this.code = Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE
         this.body = null
         this.message = ApiError(code,null, error.message?:"")
         this.isFailure = true
@@ -60,7 +69,7 @@ class ApiResponse<T> {
             }
 
             if (errorMessage?.code==0) {
-                errorMessage = ApiError(code,null, response.message())
+                errorMessage = ApiError(code,null, errorMessage?.message ?: response.message())
             }
 
             Timber.e("Final error = ${errorMessage.toString()}")

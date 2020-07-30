@@ -47,5 +47,9 @@
             android:id="@+id/serverErrorDialogFragment"
             android:name="uz.mod.templatex.ui.common.ServerErrorDialogFragment"
             tools:layout="@layout/include_server_error" />
+    <dialog
+            android:id="@+id/newVersionAvailableFragmentDialog"
+            android:name="uz.mod.templatex.ui.common.NewVersionAvailableFragmentDialog"
+            tools:layout="@layout/include_new_version_available" />
 
 </navigation>

@@ -46,10 +46,11 @@
     <string name="error_no_connection2">НЕТ СОЕДИНЕНИЯ \nС ИНТЕРНЕТОМ</string>
     <string name="server_error">ОШИБКА СЕРВЕРА</string>
     <string name="server_is_not_working_or_is_not_being_updated">Сервер не работает или \nне обновляется</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 
     <!--Alert text-->
     <string name="new_version">НОВАЯ ВЕРСИЯ</string>
-    <string name="available_new_version">Доступна новая версия \n%s</string>
+    <string name="available_new_version">Доступна новая версия</string>
     <string name="logout_text">Вы действительно хотите выйти?</string>
 
     <!--Permissions-->

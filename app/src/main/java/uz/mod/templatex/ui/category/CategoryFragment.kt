@@ -115,6 +115,7 @@ class CategoryFragment : ParentFragment() {
                 })
                 navController.navigate(R.id.serverErrorDialogFragment)
             }
+            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
             else -> showError(error)
         }
     }

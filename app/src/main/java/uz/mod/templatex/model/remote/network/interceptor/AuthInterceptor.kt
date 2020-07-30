@@ -20,12 +20,9 @@ class AuthInterceptor constructor(val context: Context, val prefs: Prefs) : Inte
             .addHeader("Mobile-UID", mobuid)
             .addHeader("X-App-Platform", "Android")
             .addHeader("X-App-Version", BuildConfig.VERSION_NAME)
-//           .url(url)
         prefs.token?.let {
             reqBuilder.addHeader("Authorization", "Bearer $it")
         }
-//        val versionName = BuildConfig.VERSION_NAME
-//        reqBuilder.addHeader("version", "a${versionName}")
 
         req = reqBuilder.build()
         return chain.proceed(req)
