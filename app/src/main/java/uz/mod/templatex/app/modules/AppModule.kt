@@ -18,18 +18,18 @@ import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
 import uz.mod.templatex.model.remote.api.profile.MyAddressesService
 import uz.mod.templatex.model.remote.api.profile.MyDataService
-import uz.mod.templatex.model.remote.api.FavoritesService
 import uz.mod.templatex.model.remote.api.profile.MyOrdersService
+import uz.mod.templatex.model.remote.api.profile.ProfileService
 import uz.mod.templatex.model.remote.network.AppExecutors
 import uz.mod.templatex.model.remote.network.interceptor.AuthInterceptor
-import uz.mod.templatex.model.remote.network.retrofitCallAdapter.LiveDataCallAdapterFactory
 import uz.mod.templatex.model.remote.network.interceptor.NetworkConnectivityInterceptor
 import uz.mod.templatex.model.remote.network.interceptor.ResponseInterceptor
+import uz.mod.templatex.model.remote.network.retrofitCallAdapter.LiveDataCallAdapterFactory
 import uz.mod.templatex.model.repository.*
 import uz.mod.templatex.model.repository.profile.MyAddressesRepository
 import uz.mod.templatex.model.repository.profile.MyDataRepository
-import uz.mod.templatex.model.repository.FavoriteRepository
 import uz.mod.templatex.model.repository.profile.MyOrdersRepository
+import uz.mod.templatex.model.repository.profile.ProfileRepository
 import uz.mod.templatex.ui.MainViewModel
 import uz.mod.templatex.ui.about.AboutViewModel
 import uz.mod.templatex.ui.address.AddressViewModel
@@ -108,9 +108,9 @@ val viewModelModule = module {
     viewModel { ProfileMyDataViewModel(get(), get()) }
     viewModel { ProfileMyFavoriteViewModel(get(), get()) }
     viewModel { CountryViewModel(get()) }
-    viewModel { CallMeViewModel(get()) }
-    viewModel { CheckOrderStatusViewModel(get()) }
-    viewModel { AskQuestionViewModel(get()) }
+    viewModel { CallMeViewModel(get(), get()) }
+    viewModel { CheckOrderStatusViewModel(get(), get()) }
+    viewModel { AskQuestionViewModel(get(), get()) }
     viewModel { SupportCenterViewModel(get()) }
     viewModel { AboutViewModel(get()) }
 
@@ -126,7 +126,7 @@ val viewModelModule = module {
     viewModel { ProductViewModel(get(), get(), get()) }
 
     viewModel { FilterViewModel(get()) }
-    viewModel { MainFilterViewModel(get(),get()) }
+    viewModel { MainFilterViewModel(get(), get()) }
     viewModel { SharedFilterViewModel(get()) }
     viewModel { SingleAttributeViewModel(get()) }
     viewModel { SortViewModel(get()) }
@@ -162,6 +162,7 @@ val repositoryModule = module {
     single { MyOrdersRepository(get(), get(), get()) }
     single { MyDataRepository(get()) }
     single { FavoriteRepository(get(), get(), get()) }
+    single { ProfileRepository(get()) }
 }
 
 val apiModule = module {
@@ -174,6 +175,7 @@ val apiModule = module {
     factory { get<Retrofit>().create(MyOrdersService::class.java) }
     factory { get<Retrofit>().create(MyDataService::class.java) }
     factory { get<Retrofit>().create(FavoritesService::class.java) }
+    factory { get<Retrofit>().create(ProfileService::class.java) }
 }
 
 val retrofitModule = module {
@@ -231,6 +233,7 @@ val retrofitModule = module {
             throw RuntimeException(e)
         }
     }
+
     fun provideHttpClient(
         cache: Cache,
         networkConnectivityInterceptor: NetworkConnectivityInterceptor,
@@ -248,7 +251,6 @@ val retrofitModule = module {
         .addInterceptor(responseInterceptor)
         .sslSocketFactory(sslSocketFactory, trustManager)
         .build()
-
 
 
     fun provideRetrofit(factory: Gson, client: OkHttpClient) = Retrofit.Builder()
