@@ -88,7 +88,7 @@ val viewModelModule = module {
 
     viewModel { SelectionViewModel(get(), get()) }
     viewModel { SelectionChildViewModel(get()) }
-    viewModel { SearchViewModel(get()) }
+    viewModel { SearchViewModel(get(), get()) }
 
     viewModel { CategoryViewModel(get(), get()) }
     viewModel { CategoryChildViewModel(get()) }
@@ -163,6 +163,7 @@ val repositoryModule = module {
     single { MyDataRepository(get()) }
     single { FavoriteRepository(get(), get(), get()) }
     single { ProfileRepository(get()) }
+    single { SearchRepository(get()) }
 }
 
 val apiModule = module {
@@ -176,6 +177,7 @@ val apiModule = module {
     factory { get<Retrofit>().create(MyDataService::class.java) }
     factory { get<Retrofit>().create(FavoritesService::class.java) }
     factory { get<Retrofit>().create(ProfileService::class.java) }
+    factory { get<Retrofit>().create(SearchService::class.java) }
 }
 
 val retrofitModule = module {
@@ -259,7 +261,6 @@ val retrofitModule = module {
         .addCallAdapterFactory(LiveDataCallAdapterFactory())
         .client(client)
         .build()
-
 
     single { provideFile(get()) }
     single { Cache(get(), 10 * 1000 * 1000) }

@@ -109,10 +109,6 @@ class CodeFragment : ParentFragment() {
                 }
             })
 
-            resendButton.setOnClickListener {
-
-            }
-
             change.setOnClickListener {
                 navController.popBackStack()
             }

@@ -15,12 +15,12 @@ import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.extension.getNavigationResult
 import uz.mod.templatex.utils.extension.lazyFast
 
-class SelectionFragment: ParentFragment() {
+class SelectionFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     val viewModel: SelectionViewModel by viewModel()
 
-    private val binding  by lazy { SelectionFragmentBinding.inflate(layoutInflater) }
+    private val binding by lazy { SelectionFragmentBinding.inflate(layoutInflater) }
 
     private lateinit var pageAdapter: SelectionPagerAdapter
 
@@ -53,8 +53,8 @@ class SelectionFragment: ParentFragment() {
 
         initViews()
 
-        viewModel.response.observe(viewLifecycleOwner, Observer {result ->
-            when(result.status) {
+        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()

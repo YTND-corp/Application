@@ -41,7 +41,7 @@
     <color name="dividerBiggerColor">#eeeef0</color>
 
     <!--Bottom Navigation-->
-    <color name="bottomNavBgColor">#F9F9F9</color>
+    <color name="bottomNavBgColor">#FFFFFF</color>
 
     <!--Misc-->
     <color name="errorColor">#FF9500</color>

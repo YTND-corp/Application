@@ -11,10 +11,10 @@ class DeliveryViewModel constructor(application: Application): AndroidViewModel(
     val selectedOption = MutableLiveData<Delivery>()
     val options = MutableLiveData<List<Delivery>>()
 
-    fun setArguments(args: DeliveryFragmentArgs) {
+    /*fun setArguments(args: DeliveryFragmentArgs) {
         options.value = args.response?.delivery
         selectedOption.value = args.response?.delivery?.firstOrNull()
-    }
+    }*/
 
     fun setSelected(delivery: Delivery) {
         selectedOption.value = delivery

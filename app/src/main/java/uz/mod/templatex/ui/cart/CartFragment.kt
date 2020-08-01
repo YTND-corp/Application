@@ -13,7 +13,10 @@ import uz.mod.templatex.databinding.CartFragmentBinding
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
+import uz.mod.templatex.ui.category.CategoryFragmentDirections
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.ui.product.ProductFragmentDirections
+import uz.mod.templatex.ui.products.ProductsFragmentDirections
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.extension.getNavigationResult
@@ -124,7 +127,7 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             }
 
             placeholderButton.setOnClickListener {
-                navController.navigate(R.id.action_cartFragment_to_checkout_graph)
+                navController.navigate(R.id.categoryFragment)
             }
 
             products.adapter = adapter

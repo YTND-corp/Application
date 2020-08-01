@@ -139,4 +139,13 @@
             android:name="uz.mod.templatex.ui.common.NewVersionAvailableFragmentDialog"
             tools:layout="@layout/include_new_version_available" />
 
+    <fragment
+            android:id="@+id/searchFragment"
+            android:name="uz.mod.templatex.ui.search.SearchFragment"
+            android:label="@string/title_search"
+            tools:layout="@layout/search_fragment" />
+
+    <action
+            android:id="@+id/action_global_searchFragment"
+            app:destination="@id/searchFragment" />
 </navigation>

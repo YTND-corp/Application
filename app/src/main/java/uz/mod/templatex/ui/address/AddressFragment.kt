@@ -12,7 +12,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.AddressFragmentBinding
-import uz.mod.templatex.model.local.entity.Adres
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.custom.LineDividerItemDecoration
@@ -24,7 +23,7 @@ import uz.mod.templatex.utils.extension.lazyFast
 
 class AddressFragment : ParentFragment() {
 
-
+    //TODO delete DeliveryFragment after completing this
     private val navController by lazyFast { findNavController() }
 
     val viewModel: AddressViewModel by viewModel()
@@ -77,7 +76,7 @@ class AddressFragment : ParentFragment() {
                 if (hasFocus) {
                     view.clearFocus()
 
-                    val temp:  Array<String> = Array(cities?.size?:0) { cities?.get(it)?.name?:"" }
+                    val temp: Array<String> = Array(cities?.size ?: 0) { cities?.get(it)?.name ?: "" }
                     AlertDialog.Builder(requireContext())
                         .setItems(temp) { _, i ->
                             viewModel.city.value = cities?.get(i)
@@ -95,8 +94,9 @@ class AddressFragment : ParentFragment() {
             viewModel = this@AddressFragment.viewModel
             executePendingBindings()
 
-
-            addresses.adapter = AddressAdapter(listOf(Adres(0), Adres(0), Adres(0)))
+            addresses.adapter = AddressAdapter {
+                //viewModel?.selectedOption?.value = it
+            }
             addresses.addItemDecoration(
                 LineDividerItemDecoration(
                     requireContext(),
@@ -105,21 +105,12 @@ class AddressFragment : ParentFragment() {
             )
 
             continueButton.setOnClickListener {
-                if (args.response?.confirmation == false) {
-                    navController.navigate(
-                        AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
-                            args.response,
-                            viewModel?.getDetails()
-                        )
+                navController.navigate(
+                    AddressFragmentDirections.actionAddressFragmentToPaymentFragment(
+                        args.response,
+                        viewModel?.getDetails()
                     )
-                } else {
-                    navController.navigate(
-                        AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
-                            args.response,
-                            viewModel?.getDetails()
-                        )
-                    )
-                }
+                )
             }
         }
     }
@@ -128,13 +119,13 @@ class AddressFragment : ParentFragment() {
         when (error?.code) {
             Const.API_NO_CONNECTION_STATUS_CODE -> {
                 navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true)  viewModel.getCities()
+                    if (it.getContentIfNotHandled() == true) viewModel.getCities()
                 })
                 navController.navigate(R.id.noInternetFragment)
             }
             Const.API_SERVER_FAIL_STATUS_CODE -> {
                 navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true)  viewModel.getCities()
+                    if (it.getContentIfNotHandled() == true) viewModel.getCities()
                 })
                 navController.navigate(R.id.serverErrorDialogFragment)
             }

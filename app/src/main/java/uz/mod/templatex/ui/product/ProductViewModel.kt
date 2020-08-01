@@ -11,7 +11,11 @@ import uz.mod.templatex.model.repository.CartRepository
 import uz.mod.templatex.model.repository.ProductRepository
 import uz.mod.templatex.utils.Const
 
-class ProductViewModel constructor(application: Application, val repository: ProductRepository, val cartRepository: CartRepository) :
+class ProductViewModel constructor(
+    application: Application,
+    val repository: ProductRepository,
+    val cartRepository: CartRepository
+) :
     AndroidViewModel(application) {
 
     private val request = MutableLiveData<Boolean>()
@@ -74,6 +78,10 @@ class ProductViewModel constructor(application: Application, val repository: Pro
 
     val sizes = Transformations.map(product) {
         it?.attributeCombination?.sizeWrapper?.sizes
+    }
+
+    val shouldShowSize = Transformations.map(product) {
+        it?.inStock == true
     }
 
     private fun attributeIds(): ArrayList<Int> {

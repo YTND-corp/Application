@@ -1,11 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:lineSpacingExtra="3sp"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="Доставка день в день\n\nСтоимость доставки - 0,00 EPC вне зависомости от суммы покупки\nДата доставки: 17 марта, вторник"
-        android:textColor="@color/secondaryTextColor"
-        android:textSize="@dimen/text_size_small"
-        tools:text="Доставка день в день\n\nСтоимость доставки - 0,00 EPC вне зависомости от суммы покупки\nДата доставки: 17 марта, вторник" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="item"
+                type="uz.mod.templatex.model.remote.response.Delivery" />
+
+        <variable
+                name="isSelected"
+                type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_refresh"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvType" />
+
+        <TextView
+                android:id="@+id/tvType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Oбычная доставка"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tvPeriod"
+                app:layout_constraintEnd_toStartOf="@id/ivIndicator"
+                app:layout_constraintStart_toEndOf="@id/ivIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+                android:id="@+id/tvPeriod"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="от 2 до 7 рабочих дней"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvPrice"
+                app:layout_constraintEnd_toEndOf="@id/tvType"
+                app:layout_constraintStart_toStartOf="@id/tvType"
+                app:layout_constraintTop_toBottomOf="@+id/tvType" />
+
+        <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="БЕСПЛАТНО"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/tvType"
+                app:layout_constraintStart_toStartOf="@id/tvType"
+                app:layout_constraintTop_toBottomOf="@+id/tvPeriod" />
+
+        <ImageView
+                android:id="@+id/ivIndicator"
+                isVisible="@{isSelected}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_check"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+                android:id="@+id/overlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?selectableItemBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

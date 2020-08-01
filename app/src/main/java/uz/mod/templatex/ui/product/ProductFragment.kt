@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
+import kotlinx.android.synthetic.main.product_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
@@ -88,6 +89,12 @@ class ProductFragment : ParentFragment() {
 
         viewModel.sizes.observe(viewLifecycleOwner, Observer {
             sizeAdapter.setItems(it)
+        })
+
+        viewModel.shouldShowSize.observe(viewLifecycleOwner, Observer {
+            val visibility = if (it) View.VISIBLE else View.GONE
+            sizes.visibility = visibility
+            size_header.visibility = visibility
         })
 
         viewModel.selectedColor.observe(viewLifecycleOwner, Observer {

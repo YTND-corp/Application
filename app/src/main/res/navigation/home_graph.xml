@@ -9,16 +9,7 @@
             android:id="@+id/selectionFragment"
             android:name="uz.mod.templatex.ui.selection.SelectionFragment"
             android:label=""
-            tools:layout="@layout/selection_fragment">
-
-        <action
-                android:id="@+id/action_selectionFragment_to_searchFragment"
-                app:destination="@id/searchFragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
+            tools:layout="@layout/selection_fragment"/>
     <fragment
             android:id="@+id/categoryFragment"
             android:name="uz.mod.templatex.ui.category.CategoryFragment"
@@ -125,4 +116,21 @@
             android:name="uz.mod.templatex.ui.common.NewVersionAvailableFragmentDialog"
             tools:layout="@layout/include_new_version_available" />
 
+    <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment" />
+
+    <fragment
+            android:id="@+id/productFragment"
+            android:name="uz.mod.templatex.ui.product.ProductFragment"
+            android:label=""
+            tools:layout="@layout/product_fragment">
+
+        <argument
+                android:name="product_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+    </fragment>
+
+    <action
+            android:id="@+id/action_global_productFragment"
+            app:destination="@id/productFragment" />
 </navigation>

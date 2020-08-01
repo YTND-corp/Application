@@ -201,6 +201,11 @@ class ProductsFragment : ParentFragment() {
             back.setOnClickListener {
                 navController.popBackStack()
             }
+
+            search.setOnFocusChangeListener { v, hasFocus ->
+                if (hasFocus)
+                    navController.navigate(R.id.action_global_searchFragment)
+            }
         }
     }
 
