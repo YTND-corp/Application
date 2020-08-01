@@ -182,8 +182,6 @@
         <item name="errorTextAppearance">@style/ErrorText</item>
         <item name="helperTextTextAppearance">@style/HelperText</item>
         <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
-        <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin</item>
     </style>
 
     <style name="ErrorText" parent="TextAppearance.Design.Error">
