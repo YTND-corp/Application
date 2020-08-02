@@ -33,7 +33,7 @@
                 app:layout_constraintWidth_percent="0.3" />
 
         <TextView
-                android:id="@+id/text"
+                android:id="@+id/tvCategory"
                 style="@style/Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
