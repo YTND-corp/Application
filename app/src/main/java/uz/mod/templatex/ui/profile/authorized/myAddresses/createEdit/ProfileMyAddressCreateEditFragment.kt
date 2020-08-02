@@ -3,6 +3,7 @@ package uz.mod.templatex.ui.profile.authorized.myAddresses.createEdit
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
+import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -87,7 +88,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
 
         viewModel.response.observe(viewLifecycleOwner, Observer { result ->
             viewModel.region = result.region
-            binding.apply {
+            with(binding) {
                 receiverName.setText(result.getFullName())
                 address.setText(result.getStreetBuildingEntry())
                 city.setText(result.city)
@@ -132,49 +133,44 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
         }
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@ProfileMyAddressCreateEditFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@ProfileMyAddressCreateEditFragment.viewModel
+        executePendingBindings()
 
-            saveButton.setOnClickListener {
-                hideKeyboard()
-                viewModel?.save()
-            }
-
-            region.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    viewModel?.selectedRegionId = adapter.getRegion(position).id
-                }
-            }
-
-            region.adapter = adapter
+        saveButton.setOnClickListener {
+            hideKeyboard()
+            viewModel?.save()
         }
+
+        region.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                viewModel?.selectedRegionId = adapter.getRegion(position).id
+            }
+        }
+
+        region.adapter = adapter
     }
 
     private fun processError(error: ApiError?) {
         when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.sendRequest()
-                })
-                navController.navigate(R.id.noInternetFragment)
-            }
-            Const.API_SERVER_FAIL_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.sendRequest()
-                })
-                navController.navigate(R.id.serverErrorDialogFragment)
-            }
+            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
             Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
             else -> showError(error)
         }
+    }
+
+    private fun navigateAndObserveResult(@IdRes destinationID: Int) {
+        navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+            if (it.getContentIfNotHandled() == true) viewModel.sendRequest()
+        })
+        navController.navigate(destinationID)
     }
 }

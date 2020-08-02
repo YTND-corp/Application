@@ -5,7 +5,7 @@ import android.provider.Settings
 import okhttp3.Interceptor
 import okhttp3.Response
 import timber.log.Timber
-import uz.aqlify.yonda.utils.Prefs
+import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.BuildConfig
 
 class AuthInterceptor constructor(val context: Context, val prefs: Prefs) : Interceptor {

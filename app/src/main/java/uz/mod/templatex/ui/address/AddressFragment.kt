@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -77,7 +78,7 @@ class AddressFragment : ParentFragment() {
                 if (hasFocus) {
                     view.clearFocus()
 
-                    val temp:  Array<String> = Array(cities?.size?:0) { cities?.get(it)?.name?:"" }
+                    val temp: Array<String> = Array(cities?.size ?: 0) { cities?.get(it)?.name ?: "" }
                     AlertDialog.Builder(requireContext())
                         .setItems(temp) { _, i ->
                             viewModel.city.value = cities?.get(i)
@@ -90,56 +91,51 @@ class AddressFragment : ParentFragment() {
         viewModel.getCities()
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@AddressFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@AddressFragment.viewModel
+        executePendingBindings()
 
 
-            addresses.adapter = AddressAdapter(listOf(Adres(0), Adres(0), Adres(0)))
-            addresses.addItemDecoration(
-                LineDividerItemDecoration(
-                    requireContext(),
-                    R.drawable.divider
-                )
+        addresses.adapter = AddressAdapter(listOf(Adres(0), Adres(0), Adres(0)))
+        addresses.addItemDecoration(
+            LineDividerItemDecoration(
+                requireContext(),
+                R.drawable.divider
             )
+        )
 
-            continueButton.setOnClickListener {
-                if (args.response?.confirmation == false) {
-                    navController.navigate(
-                        AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
-                            args.response,
-                            viewModel?.getDetails()
-                        )
+        continueButton.setOnClickListener {
+            if (args.response?.confirmation == false) {
+                navController.navigate(
+                    AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
+                        args.response,
+                        viewModel?.getDetails()
                     )
-                } else {
-                    navController.navigate(
-                        AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
-                            args.response,
-                            viewModel?.getDetails()
-                        )
+                )
+            } else {
+                navController.navigate(
+                    AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
+                        args.response,
+                        viewModel?.getDetails()
                     )
-                }
+                )
             }
         }
+    
     }
 
     private fun processError(error: ApiError?) {
         when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true)  viewModel.getCities()
-                })
-                navController.navigate(R.id.noInternetFragment)
-            }
-            Const.API_SERVER_FAIL_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true)  viewModel.getCities()
-                })
-                navController.navigate(R.id.serverErrorDialogFragment)
-            }
+            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
             Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
             else -> showError(error)
         }
+    }
+    private fun navigateAndObserveResult(@IdRes destinationID: Int) {
+        navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+            if (it.getContentIfNotHandled() == true) viewModel.getCities()
+        })
+        navController.navigate(destinationID)
     }
 }

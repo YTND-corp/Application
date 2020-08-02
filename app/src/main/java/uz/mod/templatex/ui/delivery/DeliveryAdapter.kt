@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import uz.mod.templatex.databinding.DeliveryItemBinding
 import uz.mod.templatex.model.remote.response.Delivery
 
-class DeliveryAdapter(private var listener: ((item: Delivery)-> Unit)? = null) :
+class DeliveryAdapter(private var listener: ((item: Delivery) -> Unit)? = null) :
     RecyclerView.Adapter<DeliveryAdapter.ViewHolder>() {
     private var items: List<Delivery> = arrayListOf()
     private var selected: Delivery? = null
@@ -26,7 +26,7 @@ class DeliveryAdapter(private var listener: ((item: Delivery)-> Unit)? = null) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 
     fun setItems(it: List<Delivery>?) {
-        items = it?: arrayListOf()
+        items = it ?: arrayListOf()
     }
 
     fun setSelected(it: Delivery?) {
@@ -36,15 +36,13 @@ class DeliveryAdapter(private var listener: ((item: Delivery)-> Unit)? = null) :
 
     inner class ViewHolder(val binding: DeliveryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(delivery: Delivery) {
-            binding.apply {
-                item = delivery
-                isSelected = delivery.id == selected?.id
-                executePendingBindings()
+        fun bind(delivery: Delivery): Unit = with(binding) {
+            item = delivery
+            isSelected = delivery.id == selected?.id
+            executePendingBindings()
 
-                choose.setOnClickListener {
-                    listener?.invoke(delivery)
-                }
+            choose.setOnClickListener {
+                listener?.invoke(delivery)
             }
         }
     }

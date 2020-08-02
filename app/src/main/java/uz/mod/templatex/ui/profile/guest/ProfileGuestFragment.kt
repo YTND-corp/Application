@@ -52,47 +52,45 @@ class ProfileGuestFragment : ParentFragment() {
         })
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@ProfileGuestFragment.viewModel
-            sharedViewModel = this@ProfileGuestFragment.sharedViewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@ProfileGuestFragment.viewModel
+        sharedViewModel = this@ProfileGuestFragment.sharedViewModel
+        executePendingBindings()
 
-            signIn.setOnClickListener {
-                navController.navigate(R.id.action_profileFragment_to_sign_in_graph)
-            }
+        signIn.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_sign_in_graph)
+        }
 
-            signUp.setOnClickListener {
-                navController.navigate(R.id.action_profileFragment_to_sign_up_graph)
-            }
+        signUp.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_sign_up_graph)
+        }
 
-            country.setOnClickListener {
-                navController.navigate(R.id.action_profileFragment_to_countryFragment)
-            }
+        country.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_countryFragment)
+        }
 
-            checkOrderStatus.setOnClickListener {
-                navController.navigate(R.id.action_profileFragment_to_checkOrderStatusFragment)
-            }
+        checkOrderStatus.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_checkOrderStatusFragment)
+        }
 
-            askQuestion.setOnClickListener {
-                navController.navigate(R.id.action_profileFragment_to_askQuestionFragment)
-            }
+        askQuestion.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_askQuestionFragment)
+        }
 
-            callUs.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${Const.PHONE_NUMBER}")))
-            }
+        callUs.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${Const.PHONE_NUMBER}")))
+        }
 
-            callMe.setOnClickListener {
-                navController.navigate(R.id.action_profileFragment_to_callMeFragment)
-            }
+        callMe.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_callMeFragment)
+        }
 
-            supportCenter.setOnClickListener {
-                navController.navigate(R.id.action_profileFragment_to_supportFragment)
-            }
+        supportCenter.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_supportFragment)
+        }
 
-            about.setOnClickListener {
-                navController.navigate(R.id.action_profileFragment_to_aboutFragment)
-            }
+        about.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_aboutFragment)
         }
     }
 }

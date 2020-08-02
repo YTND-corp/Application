@@ -50,10 +50,10 @@ class GenderAdapter(val context: Context?) : BaseAdapter() {
 
     inner class GenderViewHolder(itemView: View?) {
 
-        val mTextView: TextView? = itemView?.findViewById(R.id.tvGender)
+        private val gender: TextView? = itemView?.findViewById(R.id.tvGender)
 
         fun bind(item: Gender) {
-            mTextView?.text = item.name
+            gender?.text = item.name
         }
     }
 }

@@ -26,14 +26,12 @@ class ProfileMyAddressesAdapter(private val listener: MyAddressesAdapterListener
 
     inner class ViewHolder(val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(address: ProfileAddress) {
-            binding.apply {
-                item = address
-                executePendingBindings()
+        fun bind(address: ProfileAddress): Unit = with(binding) {
+            item = address
+            executePendingBindings()
 
-                btnEdit.setOnClickListener {
-                    listener.toEditMyAddress(address.id)
-                }
+            btnEdit.setOnClickListener {
+                listener.toEditMyAddress(address.id)
             }
         }
     }

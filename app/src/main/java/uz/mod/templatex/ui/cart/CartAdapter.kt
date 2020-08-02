@@ -31,44 +31,43 @@ class CartAdapter(val listener: ItemListener) : RecyclerView.Adapter<CartAdapter
     }
 
     inner class ViewHolder(val binding: CartItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product) {
-            binding.apply {
-                item = product
-                executePendingBindings()
+        fun bind(product: Product): Unit = with(binding) {
+            item = product
+            executePendingBindings()
 
-                rvAttributes.layoutManager = LinearLayoutManager(binding.root.context).apply {
-                    initialPrefetchItemCount = product.combinations?.size ?: 0
-                }
-                rvAttributes.adapter =
-                    AttributeAdapter().apply {
-                        val attributes = mutableListOf<AttributeCombination>()
-                        attributes.add(AttributeCombination("No", product.reference))
-                        val priceAttribute = if (product.currencies?.first()?.discount ?: -1 > 0)
-                            AttributeCombination(product.oldPriceFormatted(), product.priceFormatted())
-                        else AttributeCombination(binding.root.context.getString(R.string.price), product.priceFormatted())
-
-                        attributes.add(priceAttribute)
-                        product.combinations?.let { attributes.addAll(it) }
-                        setItems(attributes)
-                    }
-                rvAttributes.setRecycledViewPool(viewPool)
-
-                root.setOnClickListener {
-                    it.findNavController().navigate(ProductFragmentDirections.actionGlobalProductFragment(product.id))
-                }
-
-                minus.setOnClickListener {
-                    listener.minus(product)
-                }
-
-                plus.setOnClickListener {
-                    listener.plus(product)
-                }
-
-                favorite.setOnClickListener {
-                    listener.favoriteToggle(product)
-                }
+            rvAttributes.layoutManager = LinearLayoutManager(binding.root.context).apply {
+                initialPrefetchItemCount = product.combinations?.size ?: 0
             }
+            rvAttributes.adapter =
+                AttributeAdapter().apply {
+                    val attributes = mutableListOf<AttributeCombination>()
+                    attributes.add(AttributeCombination("No", product.reference))
+                    val priceAttribute = if (product.currencies?.first()?.discount ?: -1 > 0)
+                        AttributeCombination(product.oldPriceFormatted(), product.priceFormatted())
+                    else AttributeCombination(binding.root.context.getString(R.string.price), product.priceFormatted())
+
+                    attributes.add(priceAttribute)
+                    product.combinations?.let { attributes.addAll(it) }
+                    setItems(attributes)
+                }
+            rvAttributes.setRecycledViewPool(viewPool)
+
+            root.setOnClickListener {
+                it.findNavController().navigate(ProductFragmentDirections.actionGlobalProductFragment(product.id))
+            }
+
+            minus.setOnClickListener {
+                listener.minus(product)
+            }
+
+            plus.setOnClickListener {
+                listener.plus(product)
+            }
+
+            favorite.setOnClickListener {
+                listener.favoriteToggle(product)
+            }
+            
         }
     }
 

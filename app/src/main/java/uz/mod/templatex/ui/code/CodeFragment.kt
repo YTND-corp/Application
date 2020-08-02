@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -95,48 +96,38 @@ class CodeFragment : ParentFragment() {
         initViews()
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@CodeFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@CodeFragment.viewModel
+        executePendingBindings()
 
-            viewModel?.code?.observe(viewLifecycleOwner, Observer {
-                if (it.length == 4) {
-                    if (args.isCheckout)
-                        viewModel?.checkoutConfirm()
-                    else
-                        viewModel?.authConfirm()
-                }
-            })
+        viewModel?.code?.observe(viewLifecycleOwner, Observer {
+            if (it.length != 4) return@Observer
+            if (args.isCheckout) viewModel?.checkoutConfirm()
+            else viewModel?.authConfirm()
+        })
 
-            resendButton.setOnClickListener {
+        resendButton.setOnClickListener {}
 
-            }
-
-            change.setOnClickListener {
-                navController.popBackStack()
-            }
+        change.setOnClickListener {
+            navController.popBackStack()
         }
     }
 
     //TODO("PLEASE CHECK FOLLOWING LINES IF THE LOGIC IS NOT BROKEN")
     private fun processError(error: ApiError?) {
         when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) retryLastRequest()
-                })
-                navController.navigate(R.id.noInternetFragment)
-            }
-            Const.API_SERVER_FAIL_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) retryLastRequest()
-                })
-                navController.navigate(R.id.serverErrorDialogFragment)
-            }
+            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
             Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
             else -> showError(error)
         }
+    }
+
+    private fun navigateAndObserveResult(@IdRes destinationID: Int) {
+        navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+            if (it.getContentIfNotHandled() == true) retryLastRequest()
+        })
+        navController.navigate(destinationID)
     }
 
     private fun retryLastRequest() {

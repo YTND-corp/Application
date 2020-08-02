@@ -25,11 +25,11 @@ class SharedFilterViewModel(application: Application) : AndroidViewModel(applica
     fun fillActiveFilter() {
         val selectedBrands = currentFilter?.brands?.filter { it.selected }?.map { it.id } ?: emptyList()
         val selectedAttrs = mutableMapOf<String, List<String>>()
-        currentFilter?.attributes?.filter { it.values?.find { it.selected } != null }?.forEach {
+        currentFilter?.attributes?.filter { it.values?.find { findElement-> findElement.selected } != null }?.forEach {attribute->
 
-            val elements = it.values?.filter { it.selected }?.map { it.id.toString() } ?: emptyList()
+            val elements = attribute.values?.filter { it.selected }?.map { it.id.toString() } ?: emptyList()
 
-            selectedAttrs.put(it.slug, elements)
+            selectedAttrs[attribute.slug] = elements
         }
 
         activeFilter.brands = selectedBrands
@@ -62,8 +62,8 @@ class SharedFilterViewModel(application: Application) : AndroidViewModel(applica
             const val SORT_NEW = "new"
             const val SORT_PRICE_ASC = "price_asc"
             const val SORT_PRICE_DESC = "price_desc"
-            const val SORT_DISCOUNTs = "discounts"
-            const val SORT_DISCOUNTs_NEW = "discounts_new"
+            const val SORT_DISCOUNTS = "discounts"
+            const val SORT_DISCOUNTS_NEW = "discounts_new"
 
             sealed class Sort(val key: String, val stringResId: Int) {
                 val name = application?.resources?.getString(stringResId)

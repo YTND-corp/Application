@@ -1,5 +1,6 @@
 package uz.mod.templatex.ui.fullscreen_image
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class FullScreenImageFragment : ParentFragment() {
         view.viewPager.adapter = ViewPagerAdapter(args.images.toList())
         view.viewPager.setCurrentItem(args.selectedPosition, false)
         view.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            @SuppressLint("SetTextI18n")
             override fun onPageSelected(position: Int) {
                 tvCount.text = "${position + 1} из $totalImageSize"
             }

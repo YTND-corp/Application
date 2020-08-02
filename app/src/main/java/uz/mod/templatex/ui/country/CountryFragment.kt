@@ -1,16 +1,15 @@
 package uz.mod.templatex.ui.country
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CountryFragmentBinding
 import uz.mod.templatex.model.local.entity.Country
 import uz.mod.templatex.ui.custom.LineDividerItemDecoration
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CountryFragment : Fragment() {
 
@@ -36,20 +35,17 @@ class CountryFragment : Fragment() {
         initViews()
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@CountryFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@CountryFragment.viewModel
+        executePendingBindings()
 
+        countries.adapter = CountryAdapter(listOf(Country(0), Country(0), Country(0)))
 
-            countries.adapter = CountryAdapter(listOf(Country(0), Country(0), Country(0)))
-
-            countries.addItemDecoration(
-                LineDividerItemDecoration(
-                    requireContext(),
-                    R.drawable.list_divider
-                )
+        countries.addItemDecoration(
+            LineDividerItemDecoration(
+                requireContext(),
+                R.drawable.list_divider
             )
-        }
+        )
     }
 }

@@ -58,14 +58,12 @@ class AboutFragment : ParentFragment() {
         initViews()
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@AboutFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@AboutFragment.viewModel
+        executePendingBindings()
 
-            callButton.setOnClickListener {
-                startActivity(Intent(ACTION_DIAL, Uri.parse("tel:${viewModel?.PHONE_NUMBER}")))
-            }
+        callButton.setOnClickListener {
+            startActivity(Intent(ACTION_DIAL, Uri.parse("tel:${viewModel?.PHONE_NUMBER}")))
         }
     }
 }

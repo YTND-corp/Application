@@ -2,7 +2,7 @@ package uz.mod.templatex.model.repository
 
 import androidx.lifecycle.LiveData
 import timber.log.Timber
-import uz.aqlify.yonda.utils.Prefs
+import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.remote.api.AuthService
 import uz.mod.templatex.model.remote.network.ApiResponse

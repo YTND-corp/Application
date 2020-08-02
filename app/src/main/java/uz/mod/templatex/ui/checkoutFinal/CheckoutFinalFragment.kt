@@ -41,22 +41,20 @@ class CheckoutFinalFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        requireActivity().onBackPressedDispatcher.addCallback(this.viewLifecycleOwner,true) {
-            navController.popBackStack(R.id.cartFragment,false)
+        requireActivity().onBackPressedDispatcher.addCallback(this.viewLifecycleOwner, true) {
+            navController.popBackStack(R.id.cartFragment, false)
             remove()
         }
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@CheckoutFinalFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@CheckoutFinalFragment.viewModel
+        executePendingBindings()
 
-            title.text = getString(R.string.checkout_final_title, args.name)
-            message.text = getString(R.string.checkout_final_message, args.date)
-            closeButton.setOnClickListener {
-                navController.popBackStack(R.id.checkoutFragment, true)
-            }
+        title.text = getString(R.string.checkout_final_title, args.name)
+        message.text = getString(R.string.checkout_final_message, args.date)
+        closeButton.setOnClickListener {
+            navController.popBackStack(R.id.checkoutFragment, true)
         }
     }
 }

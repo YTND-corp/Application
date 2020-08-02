@@ -53,14 +53,12 @@ class SelectionChildFragment : Fragment() {
 
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@SelectionChildFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@SelectionChildFragment.viewModel
+        executePendingBindings()
 
-            adapter = SelectionAdapter()
-            selections.hasFixedSize()
-            selections.adapter = adapter
-        }
+        adapter = SelectionAdapter()
+        selections.hasFixedSize()
+        selections.adapter = adapter
     }
 }

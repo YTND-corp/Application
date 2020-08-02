@@ -41,18 +41,16 @@ class SelectionSubAdapter(
 
     inner class ViewHolder(val binding: SelectionSubItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(homeSubItem: HomeSubItem) {
-            binding.apply {
-                item = homeSubItem
-                executePendingBindings()
-                root.setOnClickListener {
-                    it.findNavController().navigate(
-                        SelectionFragmentDirections.actionGlobalProductsFragment(
-                            homeSubItem.id,
-                            homeSubItem.name
-                        )
+        fun bind(homeSubItem: HomeSubItem): Unit = with(binding) {
+            item = homeSubItem
+            executePendingBindings()
+            root.setOnClickListener {
+                it.findNavController().navigate(
+                    SelectionFragmentDirections.actionGlobalProductsFragment(
+                        homeSubItem.id,
+                        homeSubItem.name
                     )
-                }
+                )
             }
         }
     }

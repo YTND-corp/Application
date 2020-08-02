@@ -55,23 +55,22 @@ class DeliveryFragment : ParentFragment() {
         })
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@DeliveryFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@DeliveryFragment.viewModel
+        executePendingBindings()
 
-            deliveryOptionAdapter = DeliveryAdapter{
-                viewModel?.selectedOption?.value = it
-            }
-
-            options.adapter = deliveryOptionAdapter
-
-
-            continueButton.setOnClickListener {
-                val detail = args.details
-                detail?.delivery = viewModel?.selectedOption?.value
-                navController.navigate(DeliveryFragmentDirections.actionDeliveryFragmentToPaymentFragment(args.response, detail))
-            }
+        deliveryOptionAdapter = DeliveryAdapter {
+            viewModel?.selectedOption?.value = it
         }
+
+        options.adapter = deliveryOptionAdapter
+
+
+        continueButton.setOnClickListener {
+            val detail = args.details
+            detail?.delivery = viewModel?.selectedOption?.value
+            navController.navigate(DeliveryFragmentDirections.actionDeliveryFragmentToPaymentFragment(args.response, detail))
+        }
+        
     }
 }

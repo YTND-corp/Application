@@ -26,7 +26,7 @@ class MaskWatcher(private val mask: String) : TextWatcher {
             if (mask[editableLength] != '#') {
                 editable.append(mask[editableLength])
             } else if (mask[editableLength - 1] != '#') {
-                editable.insert(editableLength - 1, mask, editableLength - 1, editableLength);
+                editable.insert(editableLength - 1, mask, editableLength - 1, editableLength)
             }
         }
         isRunning = false

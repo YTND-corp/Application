@@ -57,60 +57,59 @@ class ProfileAuthorizedFragment : ParentFragment() {
         initViews()
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@ProfileAuthorizedFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@ProfileAuthorizedFragment.viewModel
+        executePendingBindings()
 
-            val profileName = this@ProfileAuthorizedFragment.viewModel.getUser().name + "!"
-            val profileNameTitleText = SpannableStringBuilder()
-                .append(getString(R.string.profile_authorized_name_title_first_part))
-                .bold { append(profileName) }
+        val profileName = this@ProfileAuthorizedFragment.viewModel.getUser().name + "!"
+        val profileNameTitleText = SpannableStringBuilder()
+            .append(getString(R.string.profile_authorized_name_title_first_part))
+            .bold { append(profileName) }
 
-            profileNameTitleTv.text = profileNameTitleText
+        profileNameTitleTv.text = profileNameTitleText
 
-            profileHeaderContainer.setOnClickListener {
-                // TODO
-            }
-            profileMyOrdersTv.setOnClickListener {
-                navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyOrdersFragment)
-            }
-            profileMyDataTv.setOnClickListener {
-                navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyDataFragment)
-            }
-            profileMyAddressesTv.setOnClickListener {
-                navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyAddressesFragment)
-            }
-            profileFavoritesTv.setOnClickListener {
-                navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyFavoriteFragment)
-            }
-            profileCallUsTv.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${Const.PHONE_NUMBER}")))
-            }
-            profileCallYouTv.setOnClickListener {
-                navController.navigate(R.id.action_profileAuthorizedFragment_to_callMeFragment)
-            }
-            profileSupportCenterTv.setOnClickListener {
-                navController.navigate(R.id.action_profileAuthorizedFragment_to_supportCenterFragment)
-            }
-            profileAboutModTv.setOnClickListener {
-                navController.navigate(R.id.action_profileAuthorizedFragment_to_aboutFragment)
-            }
-            profileLogoutTv.setOnClickListener {
-                MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
-                    .setMessage(R.string.logout_text)
-                    .setPositiveButton(R.string.action_yes) { _, _ ->
-                        viewModel?.logout()
-                        sharedViewModel.loggedOut()
-                        navController.navigate(R.id.action_profileAuthorizedFragment_to_profileFragment)
-                    }
-                    .setNegativeButton(R.string.action_no) { _, _ -> }
-                    .show()
+        profileHeaderContainer.setOnClickListener {
+            // TODO
+        }
+        profileMyOrdersTv.setOnClickListener {
+            navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyOrdersFragment)
+        }
+        profileMyDataTv.setOnClickListener {
+            navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyDataFragment)
+        }
+        profileMyAddressesTv.setOnClickListener {
+            navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyAddressesFragment)
+        }
+        profileFavoritesTv.setOnClickListener {
+            navController.navigate(R.id.action_profileAuthorizedFragment_to_profileMyFavoriteFragment)
+        }
+        profileCallUsTv.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${Const.PHONE_NUMBER}")))
+        }
+        profileCallYouTv.setOnClickListener {
+            navController.navigate(R.id.action_profileAuthorizedFragment_to_callMeFragment)
+        }
+        profileSupportCenterTv.setOnClickListener {
+            navController.navigate(R.id.action_profileAuthorizedFragment_to_supportCenterFragment)
+        }
+        profileAboutModTv.setOnClickListener {
+            navController.navigate(R.id.action_profileAuthorizedFragment_to_aboutFragment)
+        }
+        profileLogoutTv.setOnClickListener {
+            MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+                .setMessage(R.string.logout_text)
+                .setPositiveButton(R.string.action_yes) { _, _ ->
+                    viewModel?.logout()
+                    sharedViewModel.loggedOut()
+                    navController.navigate(R.id.action_profileAuthorizedFragment_to_profileFragment)
+                }
+                .setNegativeButton(R.string.action_no) { _, _ -> }
+                .show()
 
-            }
-            profileQuestionsBtn.setOnClickListener {
-                navController.navigate(R.id.action_profileAuthorizedFragment_to_askQuestionFragment)
-            }
+        }
+        profileQuestionsBtn.setOnClickListener {
+            navController.navigate(R.id.action_profileAuthorizedFragment_to_askQuestionFragment)
         }
     }
+    
 }

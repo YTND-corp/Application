@@ -37,29 +37,27 @@ class FavoriteAdapter(private val listener: FavoriteAdapterListener) :
         val listener: FavoriteAdapterListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(favorite: Favorite) {
+        fun bind(favorite: Favorite): Unit = with(binding) {
 
-            binding.apply {
-                item = favorite
-                tvOldPrice.paintFlags = tvOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            item = favorite
+            tvOldPrice.paintFlags = tvOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-                favorite.currencies[0].apply {
-                    if (discount == 0) {
-                        tvDiscount.visibility = View.GONE
-                    } else {
-                        tvDiscount.visibility = View.VISIBLE
-                        tvDiscount.text = "$discount%"
-                    }
+            favorite.currencies[0].apply {
+                if (discount == 0) {
+                    tvDiscount.visibility = View.GONE
+                } else {
+                    tvDiscount.visibility = View.VISIBLE
+                    tvDiscount.text = "$discount%"
+                }
 
-                    if (oldPrice == 0) {
-                        tvOldPrice.visibility = View.GONE
-                    } else {
-                        tvOldPrice.visibility = View.VISIBLE
-                    }
+                if (oldPrice == 0) {
+                    tvOldPrice.visibility = View.GONE
+                } else {
+                    tvOldPrice.visibility = View.VISIBLE
+                }
 
-                    btnClose.setOnClickListener {
-                        listener.onRemoveClick(favorite.id)
-                    }
+                btnClose.setOnClickListener {
+                    listener.onRemoveClick(favorite.id)
                 }
             }
         }

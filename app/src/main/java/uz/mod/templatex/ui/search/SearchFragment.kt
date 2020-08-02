@@ -43,31 +43,28 @@ class SearchFragment : Fragment() {
         observeViews()
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@SearchFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@SearchFragment.viewModel
+        executePendingBindings()
 
-            adapter = ProductAdapter { id, isFavorite ->
-                // TODO adapter implementation
-            }
-            products.hasFixedSize()
-            products.adapter = adapter
+        adapter = ProductAdapter { id, isFavorite ->
+            // TODO adapter implementation
+        }
+        products.hasFixedSize()
+        products.adapter = adapter
 
-            searchContainer.searchEt.hint = getString(R.string.hint_catalog_search)
-            searchContainer.searchEt.addTextChangedListener(SimpleTextWatcher {
-                if (it.isNullOrEmpty()) this@SearchFragment.viewModel.isQuery.postValue(false)
-            })
-            searchContainer.searchEt.setOnEditorActionListener { v, actionId, event ->
-                if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    val searchQuery = searchContainer.searchEt.text.toString()
-                    this@SearchFragment.viewModel.search(searchQuery)
-                    // TODO searchLabelTv transform to horizontal recyclerView with multiple labels
-                    true
-                } else {
-                    false
-                }
-            }
+        searchContainer.searchEt.hint = getString(R.string.hint_catalog_search)
+        searchContainer.searchEt.addTextChangedListener(SimpleTextWatcher {
+            if (it.isNullOrEmpty()) this@SearchFragment.viewModel.isQuery.postValue(false)
+        })
+        searchContainer.searchEt.setOnEditorActionListener { _, actionId, event ->
+            if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val searchQuery = searchContainer.searchEt.text.toString()
+                this@SearchFragment.viewModel.search(searchQuery)
+                // TODO searchLabelTv transform to horizontal recyclerView with multiple labels
+                true
+            } else false
+
         }
     }
 

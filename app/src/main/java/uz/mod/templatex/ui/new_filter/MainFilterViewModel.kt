@@ -41,8 +41,8 @@ class MainFilterViewModel(application: Application, val repository: ProductRepos
             it.selected = false
         }
         sharedModel.currentFilter?.attributes?.forEach {
-            it.values?.forEach {
-                it.selected = false
+            it.values?.forEach { value ->
+                value.selected = false
             }
         }
         sharedModel.needToReloadFeed = true
@@ -56,8 +56,8 @@ class MainFilterViewModel(application: Application, val repository: ProductRepos
         }
 
         sharedModel.currentFilter?.attributes?.forEach {
-            it.values?.forEach {
-                if (it.selected) {
+            it.values?.forEach { value ->
+                if (value.selected) {
                     isResetButtonVisible.value = true
                     return
                 }

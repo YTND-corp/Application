@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
+import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.view_search.*
@@ -33,7 +34,7 @@ class ProfileMyOrdersFragment : ParentFragment() {
                 ProfileMyOrdersFragmentDirections.actionProfileMyOrdersFragmentToProfileMyOrderFragment(
                     orderId
                 )
-            findNavController().navigate(action)
+            navController.navigate(action)
         }
     }
 
@@ -87,39 +88,35 @@ class ProfileMyOrdersFragment : ParentFragment() {
         )
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@ProfileMyOrdersFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@ProfileMyOrdersFragment.viewModel
+        executePendingBindings()
 
-            searchEt.setOnEditorActionListener { v, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    viewModel?.getOrders(v.text.toString())
-                    return@setOnEditorActionListener true
-                }
-                false
+        searchEt.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel?.getOrders(v.text.toString())
+                return@setOnEditorActionListener true
             }
-
-            myOrdersRv.adapter = adapter
+            false
         }
+
+        myOrdersRv.adapter = adapter
+        
     }
 
     private fun processError(error: ApiError?) {
         when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.getOrders()
-                })
-                navController.navigate(R.id.noInternetFragment)
-            }
-            Const.API_SERVER_FAIL_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.getOrders()
-                })
-                navController.navigate(R.id.serverErrorDialogFragment)
-            }
+            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
             Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
             else -> showError(error)
         }
+    }
+
+    private fun navigateAndObserveResult(@IdRes destinationID: Int) {
+        navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+            if (it.getContentIfNotHandled() == true) viewModel.getOrders()
+        })
+        navController.navigate(destinationID)
     }
 }

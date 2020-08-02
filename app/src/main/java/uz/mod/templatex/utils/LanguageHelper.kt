@@ -9,12 +9,12 @@ import java.util.*
 
 
 enum class Language {
-    uz, ru, en
+    UZ, RU, EN
 }
 
 object LanguageHelper {
 
-    private val SELECTED_LANGUAGE = "Locale.Helper.Selected.Language"
+    private const val SELECTED_LANGUAGE = "Locale.Helper.Selected.Language"
 
     fun onAttach(context: Context): Context {
         val lang = getPersistedData(context)
@@ -44,15 +44,12 @@ object LanguageHelper {
         return  Locale.getDefault()
     }
 
-    private fun getPersistedData(context: Context, defaultLanguage: Language = Language.ru): Language? {
+    private fun getPersistedData(context: Context, defaultLanguage: Language = Language.RU): Language? {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val lang = preferences.getString(SELECTED_LANGUAGE, defaultLanguage.name)
-        if (lang == Language.uz.toString()) {
-            return Language.uz
-        } else if (lang == Language.en.toString()) {
-            return Language.en
-        } else {
-            return Language.ru
+        return when (preferences.getString(SELECTED_LANGUAGE, defaultLanguage.name)) {
+            Language.UZ.toString() -> Language.UZ
+            Language.EN.toString() -> Language.EN
+            else -> Language.RU
         }
     }
 
@@ -66,7 +63,8 @@ object LanguageHelper {
 
     @TargetApi(Build.VERSION_CODES.N)
     private fun updateResources(context: Context, language: Language?): Context {
-        val locale = Locale(language?.name)
+        language ?: return context
+        val locale = Locale(language.name)
         Locale.setDefault(locale)
 
         val configuration = context.resources.configuration
@@ -77,7 +75,8 @@ object LanguageHelper {
     }
 
     private fun updateResourcesLegacy(context: Context, language: Language?): Context {
-        val locale = Locale(language?.name)
+        language ?:return context
+        val locale = Locale(language.name)
         Locale.setDefault(locale)
 
         val resources = context.resources

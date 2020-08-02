@@ -1,9 +1,11 @@
 package uz.mod.templatex.ui.checkout
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,7 +26,6 @@ class CheckoutFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     private val viewModel: CheckoutViewModel by viewModel()
-
     private val binding by lazy { CheckoutFragmentBinding.inflate(layoutInflater) }
 
     companion object {
@@ -84,49 +85,45 @@ class CheckoutFragment : ParentFragment() {
         super.onDetach()
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@CheckoutFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@CheckoutFragment.viewModel
+        executePendingBindings()
 
-            phone.addTextChangedListener(MaskWatcher.phoneWatcher())
-            phone.setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    if (phone.text?.length ?: 0 < 5 && phone.text?.equals(PHONE_CODE_DEFAULT) == false) {
-                        phone.setText(PHONE_CODE_DEFAULT)
-                    }
-                } else {
-                    if (phone.text?.length ?: 0 <= 5) {
-                        phone.setText("")
-                    }
+        phone.addTextChangedListener(MaskWatcher.phoneWatcher())
+        phone.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                if (phone.text?.length ?: 0 < 5 && phone.text?.equals(PHONE_CODE_DEFAULT) == false) {
+                    phone.setText(PHONE_CODE_DEFAULT)
+                }
+            } else {
+                if (phone.text?.length ?: 0 <= 5) {
+                    phone.setText("")
                 }
             }
-
-            if (BuildConfig.DEBUG) {
-                name.setText("Someone")
-                surname.setText("Someone")
-                email.setText("example@gmail.com")
-                phone.setText("+998765432100")
-            }
         }
+        @SuppressLint("SetTextI18n")
+        if (BuildConfig.DEBUG) {
+            name.setText("Someone")
+            surname.setText("Someone")
+            email.setText("example@gmail.com")
+            phone.setText("+998765432100")
+        }
+        
     }
 
     private fun processError(error: ApiError?) {
         when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.user()
-                })
-                navController.navigate(R.id.noInternetFragment)
-            }
-            Const.API_SERVER_FAIL_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.user()
-                })
-                navController.navigate(R.id.serverErrorDialogFragment)
-            }
+            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
             Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
             else -> showError(error)
         }
+    }
+
+    private fun navigateAndObserveResult(@IdRes destinationID: Int) {
+        navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+            if (it.getContentIfNotHandled() == true) viewModel.user()
+        })
+        navController.navigate(destinationID)
     }
 }

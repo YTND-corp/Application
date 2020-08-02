@@ -32,22 +32,21 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
         val binding: ItemOrderProductBinding,
         private val viewPool: RecyclerView.RecycledViewPool
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product) {
-            binding.apply {
-                item = product
-                executePendingBindings()
+        fun bind(product: Product): Unit = with(binding) {
+            item = product
+            executePendingBindings()
 
-                rvAttributes.layoutManager = LinearLayoutManager(binding.root.context).apply {
-                    initialPrefetchItemCount = product.attributeCombination.size
-                }
-                rvAttributes.adapter =
-                    AttributeAdapter().apply { setItems(product.attributeCombination) }
-                rvAttributes.setRecycledViewPool(viewPool)
-
-                GlideApp.with(myOrderImageImg)
-                    .load(product.image)
-                    .into(myOrderImageImg)
+            rvAttributes.layoutManager = LinearLayoutManager(binding.root.context).apply {
+                initialPrefetchItemCount = product.attributeCombination.size
             }
+            rvAttributes.adapter =
+                AttributeAdapter().apply { setItems(product.attributeCombination) }
+            rvAttributes.setRecycledViewPool(viewPool)
+
+            GlideApp.with(myOrderImageImg)
+                .load(product.image)
+                .into(myOrderImageImg)
+            
         }
     }
 }

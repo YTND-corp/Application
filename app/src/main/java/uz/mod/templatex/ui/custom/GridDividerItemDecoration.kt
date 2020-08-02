@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import timber.log.Timber
+import kotlin.math.roundToInt
 
 class GridDividerItemDecoration(context: Context, orientation: Int) : RecyclerView.ItemDecoration() {
 
@@ -28,7 +29,7 @@ class GridDividerItemDecoration(context: Context, orientation: Int) : RecyclerVi
         mDivider = a.getDrawable(0)
         if (mDivider == null) {
             Timber.w(
-                "@android:attr/listDivider was not set in the theme used for this " + "DividerItemDecoration. Please set that attribute all call setDrawable()"
+                "@android:attr/listDivider was not set in the theme used for this DividerItemDecoration. Please set that attribute all call setDrawable()"
             )
         }
         a.recycle()
@@ -36,7 +37,7 @@ class GridDividerItemDecoration(context: Context, orientation: Int) : RecyclerVi
     }
 
     fun setDividerColor(color: Int) {
-        mDivider!!.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        mDivider?.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 
     /**
@@ -60,9 +61,6 @@ class GridDividerItemDecoration(context: Context, orientation: Int) : RecyclerVi
      * @param drawable Drawable that should be used as a divider.
      */
     fun setDrawable(drawable: Drawable) {
-        if (drawable == null) {
-            throw IllegalArgumentException("Drawable cannot be null.")
-        }
         mDivider = drawable
     }
 
@@ -111,7 +109,7 @@ class GridDividerItemDecoration(context: Context, orientation: Int) : RecyclerVi
         for (i in 0 until childCount - 1) {
             val child = parent.getChildAt(i) ?: return
             parent.getDecoratedBoundsWithMargins(child, mBounds)
-            val bottom = mBounds.bottom + Math.round(child.translationY)
+            val bottom = mBounds.bottom + child.translationY.roundToInt()
             val top = bottom - mDivider!!.intrinsicHeight
             mDivider!!.setBounds(left, top, right, bottom)
             mDivider!!.draw(canvas)
@@ -157,20 +155,18 @@ class GridDividerItemDecoration(context: Context, orientation: Int) : RecyclerVi
             outRect.set(0, 0, 0, 0)
             return
         }
-        if (mOrientation == VERTICAL) {
-            outRect.set(0, 0, 0, mDivider!!.intrinsicHeight)
-        } else {
-            outRect.set(0, 0, mDivider!!.intrinsicWidth, 0)
-        }
+        if (mOrientation == VERTICAL) outRect.set(0, 0, 0, mDivider!!.intrinsicHeight)
+        else outRect.set(0, 0, mDivider!!.intrinsicWidth, 0)
     }
 
     companion object {
-        val HORIZONTAL = LinearLayout.HORIZONTAL
-        val VERTICAL = LinearLayout.VERTICAL
-        //mainly used for GridLayoutManager
-        val ALL = 2
+        const val HORIZONTAL = LinearLayout.HORIZONTAL
+        const val VERTICAL = LinearLayout.VERTICAL
 
-        private val TAG = "DividerItem"
+        //mainly used for GridLayoutManager
+        const val ALL = 2
+
+        private const val TAG = "DividerItem"
         private val ATTRS = intArrayOf(android.R.attr.listDivider)
     }
 }

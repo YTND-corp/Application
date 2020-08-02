@@ -3,8 +3,7 @@ package uz.mod.templatex.ui
 import android.app.Application
 import androidx.lifecycle.*
 import androidx.navigation.NavDestination
-import com.google.firebase.crashlytics.internal.model.CrashlyticsReport
-import uz.aqlify.yonda.utils.Prefs
+import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.repository.AuthRepository
 import uz.mod.templatex.model.repository.CartRepository

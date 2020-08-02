@@ -26,11 +26,9 @@ class AttributeAdapter : RecyclerView.Adapter<AttributeAdapter.AttributeViewHold
 
     class AttributeViewHolder(val binding: ItemOrderAttributeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: AttributeCombination) {
-            binding.apply {
-                this.item = item
-                executePendingBindings()
-            }
+        fun bind(item: AttributeCombination): Unit = with(binding) {
+            this.item = item
+            executePendingBindings()
         }
     }
 }

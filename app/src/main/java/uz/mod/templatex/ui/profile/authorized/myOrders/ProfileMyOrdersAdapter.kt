@@ -31,21 +31,19 @@ class ProfileMyOrdersAdapter(
         val binding: ItemMyOrderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(order: ProfileOrder) {
-            binding.apply {
-                item = order
-                executePendingBindings()
+        fun bind(order: ProfileOrder): Unit = with(binding) {
+            item = order
+            executePendingBindings()
 
-                when (order.state?.type) {
-                    StateType.INFO -> ivState.setBackgroundResource(R.drawable.my_orders_indicator_blue)
-                    StateType.WARNING -> ivState.setBackgroundResource(R.drawable.my_orders_indicator_yellow)
-                    StateType.SUCCESS -> ivState.setBackgroundResource(R.drawable.my_orders_indicator_green)
-                    StateType.DANGER -> ivState.setBackgroundResource(R.drawable.my_orders_indicator_red)
-                }
+            when (order.state?.type) {
+                StateType.INFO -> ivState.setBackgroundResource(R.drawable.my_orders_indicator_blue)
+                StateType.WARNING -> ivState.setBackgroundResource(R.drawable.my_orders_indicator_yellow)
+                StateType.SUCCESS -> ivState.setBackgroundResource(R.drawable.my_orders_indicator_green)
+                StateType.DANGER -> ivState.setBackgroundResource(R.drawable.my_orders_indicator_red)
+            }
 
-                root.setOnClickListener {
-                    listener.toMyOrder(order.id)
-                }
+            root.setOnClickListener {
+                listener.toMyOrder(order.id)
             }
         }
     }

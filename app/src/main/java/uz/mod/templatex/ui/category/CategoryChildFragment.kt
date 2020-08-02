@@ -12,10 +12,9 @@ import uz.mod.templatex.model.local.entity.CategoryGender
 import uz.mod.templatex.ui.parent.ParentFragment
 
 class CategoryChildFragment : ParentFragment() {
+
     val viewModel: CategoryChildViewModel by viewModel()
-
     private val binding by lazy { CategoryChildFragmentBinding.inflate(layoutInflater) }
-
     private lateinit var adapter: CategoryAdapter
 
     companion object {
@@ -51,31 +50,30 @@ class CategoryChildFragment : ParentFragment() {
         })
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@CategoryChildFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@CategoryChildFragment.viewModel
+        executePendingBindings()
 
-            adapter = CategoryAdapter {
-                val action = if (it.subCategory.isNullOrEmpty()) {
-                    CategoryFragmentDirections.actionGlobalProductsFragment(
-                        it.id,
-                        it.name
-                    )
-                } else {
-                    CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(it)
-                }
-                findNavController().navigate(action)
+        adapter = CategoryAdapter {
+            val action = if (it.subCategory.isNullOrEmpty()) {
+                CategoryFragmentDirections.actionGlobalProductsFragment(
+                    it.id,
+                    it.name
+                )
+            } else {
+                CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(it)
             }
-
-            catalogs.setHasFixedSize(true)
-            catalogs.adapter = adapter
-
-            catalogs.setOnTouchListener { v, event ->
-                hideKeyboard()
-                false
-            }
+            findNavController().navigate(action)
         }
+
+        catalogs.setHasFixedSize(true)
+        catalogs.adapter = adapter
+
+        catalogs.setOnTouchListener { v, event ->
+            hideKeyboard()
+            false
+        }
+
     }
 
 

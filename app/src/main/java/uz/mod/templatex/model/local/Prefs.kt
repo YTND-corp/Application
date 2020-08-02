@@ -1,4 +1,4 @@
-package uz.aqlify.yonda.utils
+package uz.mod.templatex.model.local
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -51,13 +51,10 @@ class Prefs constructor(context: Context) {
 
     var selectedLanguage: Language?
         get() {
-            val selected = preferences.getString(SELECTED_LANGUAGE,Language.ru.name)
-            if (selected == Language.uz.toString()) {
-                return Language.uz
-            } else if (selected == Language.en.toString()) {
-                return Language.en
-            } else {
-                return Language.ru
+            return when (preferences.getString(SELECTED_LANGUAGE,Language.RU.name)) {
+                Language.UZ.toString() -> Language.UZ
+                Language.EN.toString() -> Language.EN
+                else -> Language.RU
             }
         }
         set(value) = preferences.edit {

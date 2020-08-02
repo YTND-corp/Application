@@ -29,32 +29,30 @@ class SelectionAdapter(
 
     inner class ViewHolder(val binding: SelectionItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(homeItem: HomeItem) {
-            binding.apply {
-                item = homeItem
-                executePendingBindings()
-                if (homeItem.isBanner()) {
-                    bannerHeader.text = homeItem.title
+        fun bind(homeItem: HomeItem): Unit = with(binding) {
+            item = homeItem
+            executePendingBindings()
+            if (homeItem.isBanner()) {
+                bannerHeader.text = homeItem.title
 
-                    if (homeItem.items?.isNotEmpty() == true) {
-                        Glide.with(binding.root.context)
-                            .load(homeItem.items?.first()?.image)
-                            .into(image)
-                    }
-                    image.setOnClickListener {
-                            it.findNavController().navigate(
-                                SelectionFragmentDirections.actionGlobalProductsFragment(
-                                    homeItem.id,
-                                    homeItem.title
-                                )
-                            )
-                    }
-
-                } else {
-                    actualHeader.text = homeItem.title
-                    actuals.adapter =
-                        SelectionSubAdapter(homeItem.id, homeItem.items ?: arrayListOf())
+                if (homeItem.items?.isNotEmpty() == true) {
+                    Glide.with(binding.root.context)
+                        .load(homeItem.items?.first()?.image)
+                        .into(image)
                 }
+                image.setOnClickListener {
+                    it.findNavController().navigate(
+                        SelectionFragmentDirections.actionGlobalProductsFragment(
+                            homeItem.id,
+                            homeItem.title
+                        )
+                    )
+                }
+
+            } else {
+                actualHeader.text = homeItem.title
+                actuals.adapter =
+                    SelectionSubAdapter(homeItem.id, homeItem.items ?: arrayListOf())
             }
         }
     }

@@ -7,6 +7,7 @@ import java.util.*
 import android.text.Html
 import android.os.Build
 import android.text.Spanned
+import uz.mod.templatex.utils.Const
 
 
 val String.clear: String
@@ -30,10 +31,11 @@ fun String.convertToDate(format: String): Date? {
 fun String.phoneFormat(): String? {
     val text = this.clear
     if (text.length == 9) {
-        return "+998" + text.substring(0, 2) + " " + text.substring(2, 5) + " " + text.substring(5, 7) + " " + text.substring(
-            7,
-            9
-        )
+        return Const.PHONE_CODE_DEFAULT +
+                text.substring(0, 2) + " " +
+                text.substring(2, 5) + " " +
+                text.substring(5, 7) + " " +
+                text.substring(7, 9)
     }
     return text
 }
@@ -49,17 +51,21 @@ fun String.plateFormat(): String? {
     val text = this.clear
     var customPlate = true
 
-    if (text.length >= 4) {
-        customPlate = !text[2].isDigit()
-    }
+    if (text.length >= 4) customPlate = !text[2].isDigit()
+
 
     if (text.length == 8) {
 
-        if (customPlate)
-            return text.substring(0, 2) + " " + text.substring(2, 3) + " " + text.substring(3, 6) + " " + text.substring(6)
-        else {
-            return text.substring(0, 2) + " " + text.substring(2, 5) + " " + text.substring(5, 8)
-        }
+        return if (customPlate)
+            text.substring(0, 2) + " " +
+                    text.substring(2, 3) + " " +
+                    text.substring(3, 6) + " " +
+                    text.substring(6)
+        else
+            text.substring(0, 2) + " " +
+                    text.substring(2, 5) + " " +
+                    text.substring(5, 8)
+
     }
     return text
 }
@@ -85,6 +91,7 @@ fun String.fromHtml(): Spanned {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
     } else {
+        @Suppress("deprecation")
         Html.fromHtml(this)
     }
 }

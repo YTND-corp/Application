@@ -26,13 +26,11 @@ class CategoryAdapter(
 
     inner class ViewHolder(val binding: CategoryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(category: Category) {
-            binding.apply {
-                item = category
-                executePendingBindings()
-                root.setOnClickListener {
-                    listener.invoke(category)
-                }
+        fun bind(category: Category): Unit = with(binding) {
+            item = category
+            executePendingBindings()
+            root.setOnClickListener {
+                listener.invoke(category)
             }
         }
     }

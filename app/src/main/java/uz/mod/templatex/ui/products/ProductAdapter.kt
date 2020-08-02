@@ -51,22 +51,18 @@ class ProductAdapter(private var listener: (item: Product, position: Int) -> Uni
 
     inner class ViewHolder(val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product, position: Int) {
-            binding.apply {
-                item = product
-                executePendingBindings()
+        fun bind(product: Product, position: Int): Unit = with(binding) {
+            item = product
+            executePendingBindings()
 
-                favorite.setOnCheckedChangeListener { compoundButton, b ->
-                    if (compoundButton.isPressed) {
-                        listener.invoke(product, position)
-                    }
-                }
+            favorite.setOnCheckedChangeListener { compoundButton, _ ->
+                if (compoundButton.isPressed) listener.invoke(product, position)
+            }
 
-                root.setOnClickListener {
-                    it.findNavController().navigate(
-                        ProductFragmentDirections.actionGlobalProductFragment(product.id)
-                    )
-                }
+            root.setOnClickListener {
+                it.findNavController().navigate(
+                    ProductFragmentDirections.actionGlobalProductFragment(product.id)
+                )
             }
         }
     }

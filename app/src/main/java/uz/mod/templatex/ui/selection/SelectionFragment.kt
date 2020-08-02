@@ -2,6 +2,7 @@ package uz.mod.templatex.ui.selection
 
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,12 +16,12 @@ import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.extension.getNavigationResult
 import uz.mod.templatex.utils.extension.lazyFast
 
-class SelectionFragment: ParentFragment() {
+class SelectionFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     val viewModel: SelectionViewModel by viewModel()
 
-    private val binding  by lazy { SelectionFragmentBinding.inflate(layoutInflater) }
+    private val binding by lazy { SelectionFragmentBinding.inflate(layoutInflater) }
 
     private lateinit var pageAdapter: SelectionPagerAdapter
 
@@ -53,8 +54,8 @@ class SelectionFragment: ParentFragment() {
 
         initViews()
 
-        viewModel.response.observe(viewLifecycleOwner, Observer {result ->
-            when(result.status) {
+        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
                     hideLoading()
@@ -68,38 +69,34 @@ class SelectionFragment: ParentFragment() {
         })
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@SelectionFragment.viewModel
-            executePendingBindings()
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@SelectionFragment.viewModel
+        executePendingBindings()
 
 
-            pager.offscreenPageLimit = 3
-            pager.adapter = pageAdapter
+        pager.offscreenPageLimit = 3
+        pager.adapter = pageAdapter
 
-            //pager.setSwipePagingEnabled(false)
+        //pager.setSwipePagingEnabled(false)
 
-            tabs.setupWithViewPager(pager)
-        }
+        tabs.setupWithViewPager(pager)
+        
     }
 
     private fun processError(error: ApiError?) {
         when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.getHome()
-                })
-                navController.navigate(R.id.noInternetFragment)
-            }
-            Const.API_SERVER_FAIL_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.getHome()
-                })
-                navController.navigate(R.id.serverErrorDialogFragment)
-            }
+            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
             Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
             else -> showError(error)
         }
+    }
+
+    private fun navigateAndObserveResult(@IdRes destinationID: Int) {
+        navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+            if (it.getContentIfNotHandled() == true) viewModel.getHome()
+        })
+        navController.navigate(destinationID)
     }
 }
 

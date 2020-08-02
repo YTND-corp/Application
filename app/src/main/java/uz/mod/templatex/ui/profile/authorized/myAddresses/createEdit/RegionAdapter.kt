@@ -50,10 +50,10 @@ class RegionAdapter(val context: Context?) : BaseAdapter() {
 
     inner class RegionViewHolder(itemView: View?) {
 
-        val mTextView: TextView? = itemView?.findViewById(R.id.tvRegion)
+        private val region: TextView? = itemView?.findViewById(R.id.tvRegion)
 
         fun bind(item: ProfileRegion) {
-            mTextView?.text = item.name
+            region?.text = item.name
         }
     }
 }

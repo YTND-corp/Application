@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -91,48 +92,47 @@ class ProfileMyDataFragment : ParentFragment() {
         viewModel.getUserInfo()
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = this@ProfileMyDataFragment.viewModel
+    private fun initViews(): Unit = with(binding) {
+        viewModel = this@ProfileMyDataFragment.viewModel
 
-            birthDate.setOnClickListener {
-                showDatePickerDialog()
-            }
-
-            saveButton.setOnClickListener {
-                hideKeyboard()
-                viewModel?.updateUserInfo()?.observe(viewLifecycleOwner, Observer { result ->
-                    when (result.status) {
-                        Status.LOADING -> showLoading()
-                        Status.ERROR -> {
-                            hideLoading()
-                            processError(result.error)
-                        }
-                        Status.SUCCESS -> {
-                            hideLoading()
-                            navController.popBackStack()
-                        }
-                    }
-                })
-            }
-
-            gender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    viewModel?.selectedGender = genderAdapter.getGender(position).type.toString()
-                }
-            }
-
-            gender.adapter = genderAdapter
+        birthDate.setOnClickListener {
+            showDatePickerDialog()
         }
+
+        saveButton.setOnClickListener {
+            hideKeyboard()
+            viewModel?.updateUserInfo()?.observe(viewLifecycleOwner, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        processError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        navController.popBackStack()
+                    }
+                }
+            })
+        }
+
+        gender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                viewModel?.selectedGender = genderAdapter.getGender(position).type.toString()
+            }
+        }
+
+        gender.adapter = genderAdapter
+        
     }
 
     private fun showDatePickerDialog() = context?.let {
@@ -150,24 +150,21 @@ class ProfileMyDataFragment : ParentFragment() {
             }, birthdayYear, birthdayMonth, birthday
         ).show()
     }
-    
+
 
     private fun processError(error: ApiError?) {
         when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.getUserInfo()
-                })
-                navController.navigate(R.id.noInternetFragment)
-            }
-            Const.API_SERVER_FAIL_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.getUserInfo()
-                })
-                navController.navigate(R.id.serverErrorDialogFragment)
-            }
+            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
             Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
             else -> showError(error)
         }
+    }
+
+    private fun navigateAndObserveResult(@IdRes destinationID: Int) {
+        navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+            if (it.getContentIfNotHandled() == true) viewModel.getUserInfo()
+        })
+        navController.navigate(destinationID)
     }
 }

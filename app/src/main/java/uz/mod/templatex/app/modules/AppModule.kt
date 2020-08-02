@@ -12,7 +12,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
-import uz.aqlify.yonda.utils.Prefs
+import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
@@ -94,12 +94,7 @@ val viewModelModule = module {
     viewModel { CategoryChildViewModel(get()) }
     viewModel { SubCategoryViewModel(get(), get()) }
 
-    viewModel {
-        ProfileGuestViewModel(
-            get(),
-            get()
-        )
-    }
+    viewModel { ProfileGuestViewModel(get(), get()) }
     viewModel { ProfileAuthorizedViewModel(get(), get()) }
     viewModel { ProfileMyOrdersViewModel(get(), get()) }
     viewModel { ProfileMyOrderViewModel(get(), get()) }
