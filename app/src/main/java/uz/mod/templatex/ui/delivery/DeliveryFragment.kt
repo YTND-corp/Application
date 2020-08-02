@@ -71,6 +71,5 @@ class DeliveryFragment : ParentFragment() {
             detail?.delivery = viewModel?.selectedOption?.value
             navController.navigate(DeliveryFragmentDirections.actionDeliveryFragmentToPaymentFragment(args.response, detail))
         }
-        
     }
 }

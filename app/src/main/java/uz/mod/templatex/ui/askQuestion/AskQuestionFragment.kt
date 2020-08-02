@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -76,19 +77,18 @@ class AskQuestionFragment : ParentFragment() {
 
     private fun processError(error: ApiError?) {
         when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.askQuestion()
-                })
-                navController.navigate(R.id.noInternetFragment)
-            }
-            Const.API_SERVER_FAIL_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.askQuestion()
-                })
-                navController.navigate(R.id.serverErrorDialogFragment)
-            }
+            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
             else -> showError(error)
         }
+    }
+
+
+    private fun navigateAndObserveResult(@IdRes destinationID: Int) {
+        navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+            if (it.getContentIfNotHandled() == true) viewModel.askQuestion()
+        })
+        navController.navigate(destinationID)
     }
 }

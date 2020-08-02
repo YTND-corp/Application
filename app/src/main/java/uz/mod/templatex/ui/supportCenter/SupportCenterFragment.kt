@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.view_support_fragment_center_item.view.*
 import kotlinx.android.synthetic.main.view_support_fragment_center_item_black.view.*
