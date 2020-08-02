@@ -304,4 +304,6 @@
     <string name="filter_item_brands">Бренд</string>
     <string name="bt_apply">Применить</string>
 
+    <!--Search-->
+    <string name="product">Товар</string>
 </resources>
