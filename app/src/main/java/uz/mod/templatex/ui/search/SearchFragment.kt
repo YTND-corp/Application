@@ -75,6 +75,11 @@ class SearchFragment : ParentFragment() {
         })
     }
 
+    override fun onDetach() {
+        hideKeyboard()
+        super.onDetach()
+    }
+
     private fun initViews() {
         binding.apply {
             viewModel = this@SearchFragment.viewModel
