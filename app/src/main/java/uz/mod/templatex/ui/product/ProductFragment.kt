@@ -3,6 +3,7 @@ package uz.mod.templatex.ui.product
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,7 +79,10 @@ class ProductFragment : ParentFragment() {
                     hideLoading()
                     processError(result.error)
                 }
-                Status.SUCCESS -> hideLoading()
+                Status.SUCCESS ->  {
+                    Log.d("myLogs", "SUCCESS")
+                    hideLoading()
+                }
             }
         })
 
@@ -202,10 +206,6 @@ class ProductFragment : ParentFragment() {
             compositionToggle.setOnCheckedChangeListener { _, b ->
                 composition.visibility = if (b) View.VISIBLE else View.GONE
             }
-
-            viewModel?.product?.observe(viewLifecycleOwner, Observer {
-                category.text = getString(R.string.all_the_brand, it?.category)
-            })
 
             /*categoryBrand.setOnClickListener {
                 navController.navigate(

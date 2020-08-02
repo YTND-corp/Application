@@ -244,7 +244,6 @@
     <string name="info_about_product">ИНФОРМАЦИЯ О ПРОДУКТЕ</string>
     <string name="composition_and_care">СОСТАВ И УХОД</string>
     <string name="related_products">Смотрите также</string>
-    <string name="all_the_brand">Все %s</string>
     <string name="all_the_category_of_the_brand">Все %s %s</string>
     <string name="other_category">Другие %s</string>
     <string name="article_number">Артикул</string>
