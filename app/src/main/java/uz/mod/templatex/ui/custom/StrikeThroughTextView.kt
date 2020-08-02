@@ -2,16 +2,17 @@ package uz.mod.templatex.ui.custom
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
+import uz.mod.templatex.R
 
 class StrikeThroughTextView(context: Context, attrs: AttributeSet) : AppCompatTextView(context, attrs) {
 
     private val strikeLinePaint: Paint = with(Paint()) {
-        color = Color.parseColor("#FFFF0000") // Red Color
+        color = ContextCompat.getColor(context, R.color.secondaryTextColor)
         style = Paint.Style.FILL
         return@with this
     }

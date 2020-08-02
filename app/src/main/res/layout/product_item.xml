@@ -60,13 +60,14 @@
 
         <TextView
                 android:id="@+id/title"
-                style="@style/SemiBold"
+                style="@style/Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:text="@{item.brand}"
-                android:textSize="@dimen/text_size_tiny"
+                android:textAllCaps="true"
+                android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@id/image"
                 tools:text="Massimo Dutti" />
 
@@ -74,12 +75,36 @@
                 android:id="@+id/subtitle"
                 style="@style/Regular"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{item.name}"
-                android:textSize="@dimen/text_size_tiny"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:text="СВИТЕР - ТУНИКА ИЗ ШЕРСТИ И.." />
+
+        <uz.mod.templatex.ui.custom.StrikeThroughTextView
+                android:id="@+id/oldPrice"
+                style="@style/Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.oldPriceFormatted}"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="11sp"
+                android:visibility="@{item.currencies.get(0).discount >0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/price"
+                app:layout_constraintEnd_toStartOf="@+id/price"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/price"
+                tools:text="200 UZS" />
 
         <TextView
                 android:id="@+id/price"
@@ -88,23 +113,11 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="@{item.priceFormatted}"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/subtitle" />
-
-        <uz.mod.templatex.ui.custom.StrikeThroughTextView
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{item.oldPriceFormatted}"
-                android:textColor="@color/secondaryTextColor"
-                android:textSize="@dimen/text_size_tiny"
-                android:visibility="@{item.currencies.get(0).discount >0 ? View.VISIBLE : View.INVISIBLE}"
-                app:layout_constraintBottom_toBottomOf="@id/price"
-                app:layout_constraintStart_toEndOf="@id/price"
-                app:layout_constraintTop_toTopOf="@id/price" />
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/oldPrice"
+                app:layout_constraintTop_toBottomOf="@id/subtitle"
+                tools:text="400 UZS" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

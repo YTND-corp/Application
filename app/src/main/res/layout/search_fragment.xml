@@ -35,7 +35,7 @@
 
             <TextView
                     android:id="@+id/placeholder_title_text_view"
-                    style="@style/SemiBold"
+                    style="@style/Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"

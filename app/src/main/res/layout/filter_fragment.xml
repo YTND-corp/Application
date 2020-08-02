@@ -28,7 +28,7 @@
 
             <TextView
                     android:id="@+id/price_header"
-                    style="@style/SemiBold"
+                    style="@style/Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -79,7 +79,7 @@
 
             <TextView
                     android:id="@+id/brand_header"
-                    style="@style/SemiBold"
+                    style="@style/Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -130,7 +130,7 @@
 
             <TextView
                     android:id="@+id/sport_sizes_header"
-                    style="@style/SemiBold"
+                    style="@style/Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -235,7 +235,7 @@
 
             <TextView
                     android:id="@+id/sizes_header"
-                    style="@style/SemiBold"
+                    style="@style/Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -310,7 +310,7 @@
 
             <TextView
                     android:id="@+id/foot_sizes_header"
-                    style="@style/SemiBold"
+                    style="@style/Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -385,7 +385,7 @@
 
             <TextView
                     android:id="@+id/fit_sizes_header"
-                    style="@style/SemiBold"
+                    style="@style/Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -436,7 +436,7 @@
 
             <TextView
                     android:id="@+id/color_header"
-                    style="@style/SemiBold"
+                    style="@style/Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"

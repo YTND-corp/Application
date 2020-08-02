@@ -15,7 +15,7 @@
 
         <TextView
                 android:id="@+id/banner_header"
-                style="@style/SemiBold"
+                style="@style/Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -45,7 +45,7 @@
 
         <TextView
                 android:id="@+id/actual_header"
-                style="@style/SemiBold"
+                style="@style/Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="start"
