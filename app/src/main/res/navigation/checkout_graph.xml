@@ -92,7 +92,13 @@
                 android:name="date"
                 app:argType="string"
                 app:nullable="true" />
-    </fragment><action android:id="@+id/action_global_addressFragment" app:destination="@id/addressFragment"/>
+        <action
+                android:id="@+id/action_checkoutFinalFragment_to_askQuestionFragment"
+                app:destination="@id/askQuestionFragment" />
+    </fragment>
+    <action
+            android:id="@+id/action_global_addressFragment"
+            app:destination="@id/addressFragment" />
 
     <dialog
             android:id="@+id/noInternetFragment"
@@ -107,4 +113,9 @@
             android:name="uz.mod.templatex.ui.common.NewVersionAvailableFragmentDialog"
             tools:layout="@layout/include_new_version_available" />
 
+    <fragment
+            android:id="@+id/askQuestionFragment"
+            android:name="uz.mod.templatex.ui.askQuestion.AskQuestionFragment"
+            android:label="@string/title_ask_question"
+            tools:layout="@layout/ask_question_fragment" />
 </navigation>
