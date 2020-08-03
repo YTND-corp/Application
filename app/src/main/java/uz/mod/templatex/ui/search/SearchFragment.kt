@@ -24,6 +24,7 @@ import uz.mod.templatex.ui.product.ProductFragmentDirections
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.SimpleTextWatcher
+import uz.mod.templatex.utils.extension.getNavigationResult
 import uz.mod.templatex.utils.extension.lazyFast
 import uz.mod.templatex.utils.extension.makeClearableEditText
 
@@ -112,31 +113,31 @@ class SearchFragment : ParentFragment() {
             viewModel?.search(searchContainer.searchEt.text.toString())
         })
     }
-}
 
-private fun addRightCancelDrawable(editText: EditText) {
-    context?.let {
-        val cancel = ContextCompat.getDrawable(it, R.drawable.ic_cancel)
-        cancel?.setBounds(0, 0, cancel.intrinsicWidth, cancel.intrinsicHeight)
-        editText.setCompoundDrawables(null, null, cancel, null)
+    private fun addRightCancelDrawable(editText: EditText) {
+        context?.let {
+            val cancel = ContextCompat.getDrawable(it, R.drawable.ic_cancel)
+            cancel?.setBounds(0, 0, cancel.intrinsicWidth, cancel.intrinsicHeight)
+            editText.setCompoundDrawables(null, null, cancel, null)
+        }
     }
-}
 
-private fun processError(error: ApiError?) {
-    when (error?.code) {
-        Const.API_NO_CONNECTION_STATUS_CODE -> {
-            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                if (it.getContentIfNotHandled() == true) viewModel.search(viewModel.query.value ?: "")
-            })
-            navController.navigate(R.id.noInternetFragment)
+    private fun processError(error: ApiError?) {
+        when (error?.code) {
+            Const.API_NO_CONNECTION_STATUS_CODE -> {
+                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                    if (it.getContentIfNotHandled() == true) viewModel.search(viewModel.query.value ?: "")
+                })
+                navController.navigate(R.id.noInternetFragment)
+            }
+            Const.API_SERVER_FAIL_STATUS_CODE -> {
+                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+                    if (it.getContentIfNotHandled() == true) viewModel.search(viewModel.query.value ?: "")
+                })
+                navController.navigate(R.id.serverErrorDialogFragment)
+            }
+            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+            else -> showError(error)
         }
-        Const.API_SERVER_FAIL_STATUS_CODE -> {
-            navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                if (it.getContentIfNotHandled() == true) viewModel.search(viewModel.query.value ?: "")
-            })
-            navController.navigate(R.id.serverErrorDialogFragment)
-        }
-        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-        else -> showError(error)
     }
 }

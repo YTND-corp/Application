@@ -62,26 +62,21 @@ class CheckoutFinalFragment : ParentFragment() {
         viewModel = this@CheckoutFinalFragment.viewModel
         executePendingBindings()
 
-        title.text = getString(R.string.checkout_final_title, args.name)
+        rvProducts.adapter = productAdapter
+        rvPrices.adapter = priceAdapter
+
+        btnEmailUs.setOnClickListener {
+            navController.navigate(R.id.action_checkoutFinalFragment_to_askQuestionFragment)
+        }
+
+        btnCallUs.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${Const.PHONE_NUMBER}")))
+        }
+
+        /*title.text = getString(R.string.checkout_final_title, args.name)
         message.text = getString(R.string.checkout_final_message, args.date)
         closeButton.setOnClickListener {
             navController.popBackStack(R.id.checkoutFragment, true)
-            rvProducts.adapter = productAdapter
-            rvPrices.adapter = priceAdapter
-
-            btnEmailUs.setOnClickListener {
-                navController.navigate(R.id.action_checkoutFinalFragment_to_askQuestionFragment)
-            }
-
-            btnCallUs.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${Const.PHONE_NUMBER}")))
-            }
-
-            /*title.text = getString(R.string.checkout_final_title, args.name)
-            message.text = getString(R.string.checkout_final_message, args.date)
-            closeButton.setOnClickListener {
-                navController.popBackStack(R.id.checkoutFragment, true)
-            }*/
-        }
+        }*/
     }
 }

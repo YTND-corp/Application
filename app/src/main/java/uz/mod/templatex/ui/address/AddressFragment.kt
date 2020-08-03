@@ -94,24 +94,23 @@ class AddressFragment : ParentFragment() {
         viewModel = this@AddressFragment.viewModel
         executePendingBindings()
 
-            addresses.adapter = AddressAdapter {
-                //viewModel?.selectedOption?.value = it
-            }
-            addresses.addItemDecoration(
-                LineDividerItemDecoration(
-                    requireContext(),
-                    R.drawable.divider
+        addresses.adapter = AddressAdapter {
+            //viewModel?.selectedOption?.value = it
+        }
+        addresses.addItemDecoration(
+            LineDividerItemDecoration(
+                requireContext(),
+                R.drawable.divider
+            )
+        )
+
+        continueButton.setOnClickListener {
+            navController.navigate(
+                AddressFragmentDirections.actionAddressFragmentToPaymentFragment(
+                    args.response,
+                    viewModel?.getDetails()
                 )
             )
-
-            continueButton.setOnClickListener {
-                navController.navigate(
-                    AddressFragmentDirections.actionAddressFragmentToPaymentFragment(
-                        args.response,
-                        viewModel?.getDetails()
-                    )
-                )
-            }
         }
     }
 
@@ -123,6 +122,7 @@ class AddressFragment : ParentFragment() {
             else -> showError(error)
         }
     }
+
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
             if (it.getContentIfNotHandled() == true) viewModel.getCities()
