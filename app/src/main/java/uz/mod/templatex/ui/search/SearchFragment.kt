@@ -10,7 +10,6 @@ import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.products_fragment.view.*
 import kotlinx.android.synthetic.main.search_fragment.*
 import kotlinx.android.synthetic.main.view_search.*
 import kotlinx.android.synthetic.main.view_search.view.*
@@ -64,8 +63,8 @@ class SearchFragment : ParentFragment() {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    adapter.setItems(result.data?.products?.data)
-                    placeholder_view.visibility = if (result.data?.products?.data.isNullOrEmpty()) View.VISIBLE else View.GONE
+                    adapter.setItems(result.data?.products)
+                    placeholder_view.visibility = if (result.data?.products.isNullOrEmpty()) View.VISIBLE else View.GONE
                 }
             }
         })
