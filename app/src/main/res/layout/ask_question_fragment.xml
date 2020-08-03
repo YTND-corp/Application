@@ -85,7 +85,7 @@
                             android:digits=" ,0,1,2,3,4,5,6,7,8,9,+"
                             android:imeOptions="actionNext"
                             android:inputType="phone"
-                            android:maxLines="5"
+                            android:maxLength="@integer/phone_length"
                             android:singleLine="false"
                             android:text="@={viewModel.phone}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -115,8 +115,8 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="40dp"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:text="@string/action_send"
                         android:enabled="@{viewModel.isAllValid()}"
+                        android:text="@string/action_send"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/til_question" />
