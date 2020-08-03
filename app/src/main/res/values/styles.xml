@@ -194,6 +194,9 @@
     </style>
 
     <style name="TitleTextStyle" parent="Medium">
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="fontFamily">@font/bold</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:layout_gravity">center</item>
