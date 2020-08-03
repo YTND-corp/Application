@@ -31,7 +31,6 @@ object DestinationHelper {
         DestinationConfig(R.id.checkoutFragment, bottomBar = false),
         DestinationConfig(R.id.addressFragment, bottomBar = false),
         DestinationConfig(R.id.codeFragment, bottomBar = false),
-        DestinationConfig(R.id.deliveryFragment, bottomBar = false),
         DestinationConfig(R.id.paymentFragment, bottomBar = false),
         DestinationConfig(R.id.checkoutFinalFragment, false,false, bottomBar = false),
         DestinationConfig(R.id.subCategoryFragment, true, true),

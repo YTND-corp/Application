@@ -7,13 +7,16 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CategoryChildFragmentBinding
 import uz.mod.templatex.model.local.entity.CategoryGender
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.utils.extension.lazyFast
 
 class CategoryChildFragment : ParentFragment() {
 
     val viewModel: CategoryChildViewModel by viewModel()
+    private val navController by lazyFast { findNavController() }
     private val binding by lazy { CategoryChildFragmentBinding.inflate(layoutInflater) }
     private lateinit var adapter: CategoryAdapter
 
@@ -63,18 +66,15 @@ class CategoryChildFragment : ParentFragment() {
             } else {
                 CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(it)
             }
-            findNavController().navigate(action)
+            navController.navigate(action)
         }
 
         catalogs.setHasFixedSize(true)
         catalogs.adapter = adapter
 
-        catalogs.setOnTouchListener { v, event ->
-            hideKeyboard()
-            false
+        searchEditText.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus)
+                navController.navigate(R.id.action_global_searchFragment)
         }
-
     }
-
-
 }

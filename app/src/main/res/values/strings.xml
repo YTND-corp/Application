@@ -75,7 +75,7 @@
     <string name="title_about">НАШИ КОНТАКТЫ</string>
     <string name="title_checkout">Оформления заказа</string>
     <string name="title_adres">Адрес доставки</string>
-    <string name="title_search">Поиск</string>
+    <string name="title_search">ПОИСК</string>
     <string name="title_profile_authorized">АККАУНТ</string>
     <string name="title_profile_my_orders">МОИ ЗАКАЗЫ</string>
     <string name="title_code">Подтверждение телефона</string>
@@ -244,7 +244,6 @@
     <string name="info_about_product">ИНФОРМАЦИЯ О ПРОДУКТЕ</string>
     <string name="composition_and_care">СОСТАВ И УХОД</string>
     <string name="related_products">Смотрите также</string>
-    <string name="all_the_brand">Все %s</string>
     <string name="all_the_category_of_the_brand">Все %s %s</string>
     <string name="other_category">Другие %s</string>
     <string name="article_number">Артикул</string>
@@ -292,8 +291,13 @@
     <string name="public_terms">Публичной оферты</string>
 
     <!--  CheckoutFinal  -->
-    <string name="checkout_final_title">Спасибо, %s!</string>
-    <string name="checkout_final_message">Вы получите свой заказ:\n%s\n\nУведомления отключены. \nНе забудьте,  что если вы не включите их, \nмы не сможем присылать вам информацию \nо состоянии заказа.</string>
+    <string name="your_order_successfully_completed_text">Ваш заказ №: %s \nуспешно оформлен</string>
+    <string name="checkout_thanks">Спасибо!</string>
+    <string name="send_type_text">ОТПРАВКА: %s</string>
+    <string name="delivery_price">Цена доставки</string>
+    <string name="delivery_discount">Скидки на отправку</string>
+    <string name="checkout_total">Всего</string>
+    <string name="checkout_description_text">Внимание! После обработки заявки Вы получите Смс уведомление либо с Вами свяжется наш менеджер для подтверждения заказа №%s</string>
 
     <!-- Sorting in filters   -->
     <string name="sort_popular">По популярности</string>
@@ -305,4 +309,6 @@
     <string name="filter_item_brands">Бренд</string>
     <string name="bt_apply">Применить</string>
 
+    <!--Search-->
+    <string name="product">Товар</string>
 </resources>

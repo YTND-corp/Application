@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.databinding.DeliveryFragmentBinding
 import uz.mod.templatex.ui.parent.ParentFragment
@@ -17,7 +16,7 @@ class DeliveryFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     val viewModel: DeliveryViewModel by viewModel()
-    val args: DeliveryFragmentArgs by navArgs()
+    //val args: DeliveryFragmentArgs by navArgs()
 
     private val binding by lazy { DeliveryFragmentBinding.inflate(layoutInflater) }
 
@@ -29,7 +28,7 @@ class DeliveryFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setArguments(args)
+        //viewModel.setArguments(args)
     }
 
     override fun onCreateView(
@@ -67,9 +66,9 @@ class DeliveryFragment : ParentFragment() {
 
 
         continueButton.setOnClickListener {
-            val detail = args.details
+            /*val detail = args.details
             detail?.delivery = viewModel?.selectedOption?.value
-            navController.navigate(DeliveryFragmentDirections.actionDeliveryFragmentToPaymentFragment(args.response, detail))
+            navController.navigate(DeliveryFragmentDirections.actionDeliveryFragmentToPaymentFragment(args.response, detail))*/
         }
     }
 }

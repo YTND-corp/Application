@@ -20,7 +20,6 @@ class DeliveryAdapter(private var listener: ((item: Delivery) -> Unit)? = null) 
             )
         )
 
-
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
@@ -41,7 +40,7 @@ class DeliveryAdapter(private var listener: ((item: Delivery) -> Unit)? = null) 
             isSelected = delivery.id == selected?.id
             executePendingBindings()
 
-            choose.setOnClickListener {
+            overlay.setOnClickListener {
                 listener?.invoke(delivery)
             }
         }

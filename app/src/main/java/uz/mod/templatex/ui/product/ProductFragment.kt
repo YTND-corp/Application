@@ -3,6 +3,7 @@ package uz.mod.templatex.ui.product
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
+import kotlinx.android.synthetic.main.product_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
@@ -78,7 +80,10 @@ class ProductFragment : ParentFragment() {
                     hideLoading()
                     processError(result.error)
                 }
-                Status.SUCCESS -> hideLoading()
+                Status.SUCCESS ->  {
+                    Log.d("myLogs", "SUCCESS")
+                    hideLoading()
+                }
             }
         })
 
@@ -89,6 +94,12 @@ class ProductFragment : ParentFragment() {
 
         viewModel.sizes.observe(viewLifecycleOwner, Observer {
             sizeAdapter.setItems(it)
+        })
+
+        viewModel.shouldShowSize.observe(viewLifecycleOwner, Observer {
+            val visibility = if (it) View.VISIBLE else View.GONE
+            sizes.visibility = visibility
+            size_header.visibility = visibility
         })
 
         viewModel.selectedColor.observe(viewLifecycleOwner, Observer {
@@ -196,10 +207,6 @@ class ProductFragment : ParentFragment() {
             compositionToggle.setOnCheckedChangeListener { _, b ->
                 composition.visibility = if (b) View.VISIBLE else View.GONE
             }
-
-            viewModel?.product?.observe(viewLifecycleOwner, Observer {
-                category.text = getString(R.string.all_the_brand, it?.category)
-            })
 
             /*categoryBrand.setOnClickListener {
                 navController.navigate(

@@ -121,16 +121,15 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             navController.navigate(R.id.action_cartFragment_to_checkout_graph)
         }
 
-        placeholderButton.setOnClickListener {
-            navController.navigate(R.id.action_cartFragment_to_checkout_graph)
-        }
+            placeholderButton.setOnClickListener {
+                navController.navigate(R.id.categoryFragment)
+            }
 
         products.adapter = adapter
 
         viewModel?.products?.observe(viewLifecycleOwner, Observer {
             adapter.setItems(it)
         })
-    
     }
 
     private fun processError(error: ApiError?) {

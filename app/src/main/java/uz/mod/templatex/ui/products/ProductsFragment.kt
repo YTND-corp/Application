@@ -196,6 +196,11 @@ class ProductsFragment : ParentFragment() {
             viewModel?.categoryId?.let {
                 navController.navigate(R.id.sortFragment)
             }
+
+            search.setOnFocusChangeListener { v, hasFocus ->
+                if (hasFocus)
+                    navController.navigate(R.id.action_global_searchFragment)
+            }
         }
 
         back.setOnClickListener {

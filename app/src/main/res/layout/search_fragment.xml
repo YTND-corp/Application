@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
                 name="viewModel"
                 type="uz.mod.templatex.ui.search.SearchViewModel" />
@@ -23,29 +24,18 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-                android:id="@+id/searchLabelTv"
-                style="@style/SearchLabelStyle"
-                isVisible="@{viewModel.isQuery()}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp"
-                android:text="@{viewModel.query}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/searchContainer"
-                tools:text="massimo" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/placeholder_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:background="@color/windowBackgroundWhiteColor"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/searchContainer">
 
             <TextView
                     android:id="@+id/placeholder_title_text_view"
-                    style="@style/SemiBold"
+                    style="@style/Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -90,13 +80,11 @@
                 android:paddingLeft="9dp"
                 android:paddingTop="10dp"
                 android:paddingRight="9dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/searchLabelTv"
-                app:spanCount="2"
-                tools:listitem="@layout/product_item" />
-
+                app:layout_constraintTop_toBottomOf="@id/searchContainer"
+                tools:listitem="@layout/item_search" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

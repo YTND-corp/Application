@@ -13,7 +13,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.AddressFragmentBinding
-import uz.mod.templatex.model.local.entity.Adres
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.custom.LineDividerItemDecoration
@@ -25,7 +24,7 @@ import uz.mod.templatex.utils.extension.lazyFast
 
 class AddressFragment : ParentFragment() {
 
-
+    //TODO delete DeliveryFragment after completing this
     private val navController by lazyFast { findNavController() }
 
     val viewModel: AddressViewModel by viewModel()
@@ -95,33 +94,25 @@ class AddressFragment : ParentFragment() {
         viewModel = this@AddressFragment.viewModel
         executePendingBindings()
 
-
-        addresses.adapter = AddressAdapter(listOf(Adres(0), Adres(0), Adres(0)))
-        addresses.addItemDecoration(
-            LineDividerItemDecoration(
-                requireContext(),
-                R.drawable.divider
-            )
-        )
-
-        continueButton.setOnClickListener {
-            if (args.response?.confirmation == false) {
-                navController.navigate(
-                    AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
-                        args.response,
-                        viewModel?.getDetails()
-                    )
+            addresses.adapter = AddressAdapter {
+                //viewModel?.selectedOption?.value = it
+            }
+            addresses.addItemDecoration(
+                LineDividerItemDecoration(
+                    requireContext(),
+                    R.drawable.divider
                 )
-            } else {
+            )
+
+            continueButton.setOnClickListener {
                 navController.navigate(
-                    AddressFragmentDirections.actionAddressFragmentToDeliveryFragment(
+                    AddressFragmentDirections.actionAddressFragmentToPaymentFragment(
                         args.response,
                         viewModel?.getDetails()
                     )
                 )
             }
         }
-    
     }
 
     private fun processError(error: ApiError?) {

@@ -33,12 +33,12 @@
                 app:argType="uz.mod.templatex.model.remote.response.ConfirmResponse"
                 app:nullable="true" />
 
-        <action
-                android:id="@+id/action_addressFragment_to_deliveryFragment"
-                app:destination="@id/deliveryFragment" />
         <argument
                 android:name="phone"
                 app:argType="string" />
+        <action
+                android:id="@+id/action_addressFragment_to_paymentFragment"
+                app:destination="@id/paymentFragment" />
     </fragment>
 
     <fragment
@@ -59,26 +59,6 @@
                 app:argType="boolean" />
     </fragment>
 
-    <fragment
-            android:id="@+id/deliveryFragment"
-            android:name="uz.mod.templatex.ui.delivery.DeliveryFragment"
-            android:label="@string/title_checkout"
-            tools:layout="@layout/delivery_fragment">
-        <argument
-                android:name="response"
-                android:defaultValue="@null"
-                app:argType="uz.mod.templatex.model.remote.response.ConfirmResponse"
-                app:nullable="true" />
-        <argument
-                android:name="details"
-                android:defaultValue="@null"
-                app:argType="uz.mod.templatex.model.remote.request.StoreRequest"
-                app:nullable="true" />
-
-        <action
-                android:id="@+id/action_deliveryFragment_to_paymentFragment"
-                app:destination="@id/paymentFragment" />
-    </fragment>
     <fragment
             android:id="@+id/paymentFragment"
             android:name="uz.mod.templatex.ui.payment.PaymentFragment"
@@ -112,7 +92,13 @@
                 android:name="date"
                 app:argType="string"
                 app:nullable="true" />
-    </fragment><action android:id="@+id/action_global_addressFragment" app:destination="@id/addressFragment"/>
+        <action
+                android:id="@+id/action_checkoutFinalFragment_to_askQuestionFragment"
+                app:destination="@id/askQuestionFragment" />
+    </fragment>
+    <action
+            android:id="@+id/action_global_addressFragment"
+            app:destination="@id/addressFragment" />
 
     <dialog
             android:id="@+id/noInternetFragment"
@@ -127,4 +113,9 @@
             android:name="uz.mod.templatex.ui.common.NewVersionAvailableFragmentDialog"
             tools:layout="@layout/include_new_version_available" />
 
+    <fragment
+            android:id="@+id/askQuestionFragment"
+            android:name="uz.mod.templatex.ui.askQuestion.AskQuestionFragment"
+            android:label="@string/title_ask_question"
+            tools:layout="@layout/ask_question_fragment" />
 </navigation>

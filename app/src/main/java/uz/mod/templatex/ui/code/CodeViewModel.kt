@@ -15,8 +15,8 @@ import uz.mod.templatex.utils.extension.backEndPhoneFormat
 
 class CodeViewModel constructor(
     application: Application,
-    val repository: CheckoutRepository,
-    val authRepository: AuthRepository
+    private val repository: CheckoutRepository,
+    private val authRepository: AuthRepository
 ) :
     AndroidViewModel(application) {
 
@@ -49,7 +49,6 @@ class CodeViewModel constructor(
             code.value!!
         )
     }
-
 
     fun checkCode() {
 
