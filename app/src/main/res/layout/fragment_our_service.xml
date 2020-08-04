@@ -12,7 +12,7 @@
             android:layout_marginTop="15dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="@string/frequent_asked_question"
+            android:text="@string/frequently_asked_question_title"
             android:textAllCaps="true"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -51,7 +51,7 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/bg_rounded_gray_stroke"
                     android:padding="8dp"
-                    android:text="@string/ask_question"
+                    android:text="@string/ask_question_section"
                     android:textAllCaps="true"
                     android:textSize="14sp"
                     android:textStyle="bold" />

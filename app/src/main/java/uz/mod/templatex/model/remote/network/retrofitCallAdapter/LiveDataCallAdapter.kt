@@ -34,8 +34,7 @@ class LiveDataCallAdapter<R>(private val responseType: Type) : CallAdapter<R, Li
 
                         override fun onFailure(call: Call<R>, throwable: Throwable) {
                             when (throwable) {
-                                is NoConnectionException, is UnknownHostException,
-                                is TimeoutException, is SocketTimeoutException ->
+                                is NoConnectionException, is UnknownHostException, is SocketTimeoutException ->
                                     postValue(ApiResponse(NoConnectionException()))
                                 is ServerFailException -> postValue(ApiResponse(throwable))
                                 is AppNewVersionAvailableException -> postValue(ApiResponse(throwable))

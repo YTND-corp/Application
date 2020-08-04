@@ -311,4 +311,12 @@
 
     <!--Search-->
     <string name="product">Товар</string>
+
+    <!--Our Service-->
+    <string name="frequently_asked_question_title">часто задаваемые вопросы</string>
+    <string name="delivery_and_sample_section">доставка и примерка</string>
+    <string name="ask_question_section">Задайте нам вопрос</string>
+    <string name="call_us">позвонить\nвам?</string>
+    <string name="write_to_us">написать\nвам?</string>
+    <string name="ask_question_from_us">задайте\nвопрос</string>
 </resources>
