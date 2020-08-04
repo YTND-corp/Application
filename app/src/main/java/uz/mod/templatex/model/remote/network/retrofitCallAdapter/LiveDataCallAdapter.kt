@@ -10,6 +10,9 @@ import uz.mod.templatex.utils.AppNewVersionAvailableException
 import uz.mod.templatex.utils.NoConnectionException
 import uz.mod.templatex.utils.ServerFailException
 import java.lang.reflect.Type
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import java.util.concurrent.TimeoutException
 import java.util.concurrent.atomic.AtomicBoolean
 
 class LiveDataCallAdapter<R>(private val responseType: Type) : CallAdapter<R, LiveData<ApiResponse<R>>> {
@@ -31,7 +34,9 @@ class LiveDataCallAdapter<R>(private val responseType: Type) : CallAdapter<R, Li
 
                         override fun onFailure(call: Call<R>, throwable: Throwable) {
                             when (throwable) {
-                                is NoConnectionException -> postValue(ApiResponse(throwable))
+                                is NoConnectionException, is UnknownHostException,
+                                is TimeoutException, is SocketTimeoutException ->
+                                    postValue(ApiResponse(NoConnectionException()))
                                 is ServerFailException -> postValue(ApiResponse(throwable))
                                 is AppNewVersionAvailableException -> postValue(ApiResponse(throwable))
                                 else -> postValue(ApiResponse(throwable))

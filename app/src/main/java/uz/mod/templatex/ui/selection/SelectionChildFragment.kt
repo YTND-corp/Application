@@ -18,7 +18,7 @@ class SelectionChildFragment : Fragment() {
     private lateinit var adapter: SelectionAdapter
 
     companion object {
-        const val GENDER = "DENDER"
+        const val GENDER = "GENDER"
         fun newInstance(gender: HomeGender): SelectionChildFragment {
             val fragment = SelectionChildFragment()
             val bundle = Bundle()

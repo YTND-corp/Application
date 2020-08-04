@@ -38,9 +38,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
 
     @MainThread
     private fun setValue(newValue: Resource<ResultType>) {
-        if (result.value != newValue) {
-            result.value = newValue
-        }
+        if (result.value != newValue) result.value = newValue
     }
 
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
@@ -54,10 +52,10 @@ abstract class NetworkBoundResource<ResultType, RequestType>
             result.removeSource(dbSource)
             response?.let {
                 if (response.isSuccessful) {
-                    processResponse(response)?.let {
-                        saveCallResult(it)
+                    processResponse(response)?.let { type ->
+                        saveCallResult(type)
                     }
-                    
+
                     appExecutors.mainThread.execute {
                         // we specially request a new live data,
                         // otherwise we will get immediately last cached value,
@@ -73,7 +71,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
 
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
-                        setValue(Resource.error(response.message?:ApiError(0,"",""), newData))
+                        setValue(Resource.error(response.message ?: ApiError(0, "", ""), newData))
                     }
                 }
             }

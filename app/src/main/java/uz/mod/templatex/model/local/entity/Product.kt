@@ -2,7 +2,8 @@ package uz.mod.templatex.model.local.entity
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.*
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import uz.mod.templatex.utils.extension.moneyFormat
 

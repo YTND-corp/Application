@@ -9,7 +9,12 @@ import uz.mod.templatex.model.remote.api.ProductService
 import uz.mod.templatex.model.remote.network.*
 import uz.mod.templatex.model.remote.response.CartResponse
 
-class CartRepository constructor(val productService: ProductService, val service: CartService, val productDao: ProductDao,val executors: AppExecutors) {
+class CartRepository constructor(
+    val productService: ProductService,
+    val service: CartService,
+    val productDao: ProductDao,
+    val executors: AppExecutors
+) {
 
     init {
         Timber.d("Injection CartRepository")
@@ -20,22 +25,16 @@ class CartRepository constructor(val productService: ProductService, val service
 
             override fun saveCallResult(item: CartResponse) {
                 productDao.deleteAll()
-                item.cart?.products?.let {
+                item.cart.products?.let {
                     productDao.insertAll(it)
                 }
             }
 
-            override fun shouldFetch(data: List<Product>?): Boolean {
-                return true
-            }
+            override fun shouldFetch(data: List<Product>?) = true
 
-            override fun loadFromDb(): LiveData<List<Product>> {
-                return productDao.getAll()
-            }
+            override fun loadFromDb() = productDao.getAll()
 
-            override fun createCall(): LiveData<ApiResponse<CartResponse>> {
-                return service.getCart()
-            }
+            override fun createCall() = service.getCart()
         }.asLiveData()
     }
 
