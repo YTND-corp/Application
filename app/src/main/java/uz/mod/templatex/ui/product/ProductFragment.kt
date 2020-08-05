@@ -3,7 +3,6 @@ package uz.mod.templatex.ui.product
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +55,6 @@ class ProductFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("myLogs", "onCreate")
         viewModel.setArgs(args)
         sizeAdapter = ProductSizeAdapter {
             viewModel.setSelectedSize(it)
@@ -67,9 +65,6 @@ class ProductFragment : ParentFragment() {
             banners.scrollToPosition(0)
         }
         bannerAdapter = ProductBannerAdapter { items, position ->
-            Log.d("myLogs", "bannerAdapter CLICK")
-
-
             navController.navigate(
                 R.id.fullScreenImageFragment,
                 bundleOf(
@@ -91,7 +86,6 @@ class ProductFragment : ParentFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("myLogs", "onViewCreated")
         initViews()
 
         viewModel.response.observe(viewLifecycleOwner, Observer { result ->
