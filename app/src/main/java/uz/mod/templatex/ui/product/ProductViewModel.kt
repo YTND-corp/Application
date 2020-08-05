@@ -73,11 +73,11 @@ class ProductViewModel constructor(
     }
 
     val colors = Transformations.map(product) {
-        it?.attributeCombination?.colorWrapper?.colors
+        it?.colors
     }
 
-    val sizes = Transformations.map(product) {
-        it?.attributeCombination?.sizeWrapper?.sizes
+    val sizes = Transformations.map(selectedColor) {
+        it?.sizes
     }
 
     val shouldShowSize = Transformations.map(product) {
@@ -112,9 +112,18 @@ class ProductViewModel constructor(
     val FACEBOOK_URL = Const.FACEBOOK_URL
 
     fun setSelectedColor(item: ProductColor?) {
+        val selectedSizeId = selectedSize.value?.id
+        selectedSize.value = null
+
+        item?.sizes?.forEach {
+            if (selectedSizeId == it.id) {
+                selectedSize.value = it
+                return@forEach
+            }
+        }
+
         selectedColor.value = item
     }
-
 
     fun setSelectedSize(item: ProductSize?) {
         selectedSize.value = item

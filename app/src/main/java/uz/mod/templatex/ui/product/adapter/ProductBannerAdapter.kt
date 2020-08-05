@@ -2,13 +2,11 @@ package uz.mod.templatex.ui.product.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProductBannerItemBinding
 
-class ProductBannerAdapter : RecyclerView.Adapter<ProductBannerAdapter.ViewHolder>() {
+class ProductBannerAdapter(val listener: (items: List<String>, position: Int) -> Unit) :
+    RecyclerView.Adapter<ProductBannerAdapter.ViewHolder>() {
 
     private var items: List<String> = listOf()
 
@@ -37,13 +35,7 @@ class ProductBannerAdapter : RecyclerView.Adapter<ProductBannerAdapter.ViewHolde
                 executePendingBindings()
 
                 root.setOnClickListener {
-                    it.findNavController().navigate(
-                        R.id.fullScreenImageFragment,
-                        bundleOf(
-                            "images" to items.toTypedArray(),
-                            "selectedPosition" to position
-                        )
-                    )
+                    listener.invoke(items, position)
                 }
             }
         }

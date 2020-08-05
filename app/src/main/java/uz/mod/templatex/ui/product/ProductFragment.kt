@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.IdRes
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -40,22 +41,42 @@ class ProductFragment : ParentFragment() {
     private val binding by lazy { ProductFragmentBinding.inflate(layoutInflater) }
     private val args: ProductFragmentArgs by navArgs()
 
-    private var bannerAdapter = ProductBannerAdapter()
     private var indicatorAdapter = ProductBannerIndicatorAdapter()
+    private lateinit var bannerAdapter: ProductBannerAdapter
     private lateinit var colorAdapter: ProductColorAdapter
     private lateinit var sizeAdapter: ProductSizeAdapter
     private lateinit var relativeProductAdapter: ProductHorizontalAdapter
     private lateinit var recentlyProductAdapter: ProductHorizontalAdapter
 
     companion object {
+        const val IMAGE_POSITION = "ProductFragment.IMAGE_POSITION"
+
         fun newInstance() = ProductFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("myLogs", "onCreate")
         viewModel.setArgs(args)
         sizeAdapter = ProductSizeAdapter {
             viewModel.setSelectedSize(it)
+        }
+        colorAdapter = ProductColorAdapter {
+            viewModel.setSelectedColor(it)
+            indicatorAdapter.setSelected(0)
+            banners.scrollToPosition(0)
+        }
+        bannerAdapter = ProductBannerAdapter { items, position ->
+            Log.d("myLogs", "bannerAdapter CLICK")
+
+
+            navController.navigate(
+                R.id.fullScreenImageFragment,
+                bundleOf(
+                    "images" to items.toTypedArray(),
+                    "selectedPosition" to position
+                )
+            )
         }
     }
 
@@ -70,7 +91,7 @@ class ProductFragment : ParentFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d("myLogs", "onViewCreated")
         initViews()
 
         viewModel.response.observe(viewLifecycleOwner, Observer { result ->
@@ -80,15 +101,15 @@ class ProductFragment : ParentFragment() {
                     hideLoading()
                     processError(result.error)
                 }
-                Status.SUCCESS ->  {
-                    Log.d("myLogs", "SUCCESS")
+                Status.SUCCESS -> {
                     hideLoading()
                 }
             }
         })
 
         viewModel.colors.observe(viewLifecycleOwner, Observer {
-            viewModel.setSelectedColor(it?.firstOrNull())
+            if (viewModel.selectedColor.value == null)
+                viewModel.setSelectedColor(it?.firstOrNull())
             colorAdapter.setItems(it)
         })
 
@@ -124,6 +145,13 @@ class ProductFragment : ParentFragment() {
         viewModel.relativeProducts.observe(viewLifecycleOwner, Observer {
             relativeProductAdapter.setItems(it)
         })
+
+        navController.getNavigationResult<Event<Int>>(IMAGE_POSITION)?.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled()?.let {
+                indicatorAdapter.setSelected(it)
+                banners.scrollToPosition(it)
+            }
+        })
     }
 
     private fun initViews() {
@@ -152,9 +180,6 @@ class ProductFragment : ParentFragment() {
                     })
             }
 
-            colorAdapter = ProductColorAdapter {
-                viewModel?.setSelectedColor(it)
-            }
             rvColors.layoutManager = GridLayoutManager(activity, colorRowCount)
             rvColors.adapter = colorAdapter
             sizes.adapter = sizeAdapter

@@ -12,9 +12,14 @@ import kotlinx.android.synthetic.main.fullscreen_image_fragment.*
 import kotlinx.android.synthetic.main.fullscreen_image_fragment.view.*
 import uz.mod.templatex.R
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.ui.product.ProductFragment.Companion.IMAGE_POSITION
+import uz.mod.templatex.utils.Event
+import uz.mod.templatex.utils.extension.lazyFast
+import uz.mod.templatex.utils.extension.setNavigationResult
 
 class FullScreenImageFragment : ParentFragment() {
 
+    private val navController by lazyFast { findNavController() }
     val args: FullScreenImageFragmentArgs by navArgs()
     var totalImageSize = 0
 
@@ -26,16 +31,17 @@ class FullScreenImageFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         totalImageSize = args.images.size
         view.viewPager.adapter = ViewPagerAdapter(args.images.toList())
-        view.viewPager.setCurrentItem(args.selectedPosition, false)
         view.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             @SuppressLint("SetTextI18n")
             override fun onPageSelected(position: Int) {
                 tvCount.text = "${position + 1} из $totalImageSize"
+                navController.setNavigationResult(Event(position), IMAGE_POSITION)
             }
         })
+        view.viewPager.setCurrentItem(args.selectedPosition, false)
 
         ivClose.setOnClickListener {
-            findNavController().popBackStack()
+            navController.popBackStack()
         }
     }
 }
