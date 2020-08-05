@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.yanzhenjie.recyclerview.SwipeMenuItem
@@ -119,8 +120,7 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
 
         continueButton.setOnClickListener {
             viewModel?.cartResponseSafeArgs?.let {
-                val direction = CartFragmentDirections.actionCartFragmentToCheckoutGraph(it)
-                navController.navigate(direction)
+                navController.navigate(R.id.action_cartFragment_to_checkout_graph, bundleOf("cartResponse" to it))
             }
         }
 

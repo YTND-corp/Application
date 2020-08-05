@@ -26,6 +26,10 @@
             android:label="@string/title_code"
             tools:layout="@layout/code_fragment">
         <argument
+                app:nullable="true"
+                android:name="cartResponse"
+                app:argType="uz.mod.templatex.model.local.CartResponseSafeArgs"/>
+        <argument
                 android:name="phone"
                 app:argType="string" />
         <argument
