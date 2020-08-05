@@ -35,50 +35,6 @@ class CodeFragment : ParentFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.setArguments(args)
-
-        if (args.isCheckout) {
-            viewModel.checkoutConfirmResponse.observe(this@CodeFragment, Observer { result ->
-                when (result.status) {
-                    Status.LOADING -> showLoading()
-                    Status.ERROR -> {
-                        hideLoading()
-                        processError(result.error)
-                    }
-                    Status.SUCCESS -> {
-                        hideLoading()
-                        binding.code.text = null
-                        sharedViewModel.loggedIn(result.data?.user)
-
-                        if (args.isCheckout) {
-                            navController.navigate(
-                                AddressFragmentDirections.actionGlobalAddressFragment(
-                                    result.data,
-                                    args.phone
-                                )
-                            )
-                        } else {
-                            navController.popBackStack(R.id.profileFragment, true)
-                        }
-                    }
-                }
-            })
-        } else {
-            viewModel.authConfirmResponse.observe(this@CodeFragment, Observer { result ->
-                when (result.status) {
-                    Status.LOADING -> showLoading()
-                    Status.ERROR -> {
-                        hideLoading()
-                        showError(result.error)
-                    }
-                    Status.SUCCESS -> {
-                        hideLoading()
-                        binding.code.text = null
-                        sharedViewModel.loggedIn(result.data)
-                        navController.navigate(R.id.action_codeFragment_to_profileFragment)
-                    }
-                }
-            })
-        }
     }
 
     override fun onCreateView(
@@ -94,6 +50,50 @@ class CodeFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+
+        if (args.isCheckout) {
+            viewModel.checkoutConfirmResponse.observe(viewLifecycleOwner, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        processError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        binding.code.text = null
+                        sharedViewModel.loggedIn(result.data?.user)
+                        if (args.isCheckout) {
+                            navController.navigate(
+                                AddressFragmentDirections.actionGlobalAddressFragment(
+                                    args.cartResponse,
+                                    result.data,
+                                    args.phone
+                                )
+                            )
+                        } else {
+                            navController.popBackStack(R.id.profileFragment, true)
+                        }
+                    }
+                }
+            })
+        } else {
+            viewModel.authConfirmResponse.observe(viewLifecycleOwner, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        processError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        binding.code.text = null
+                        sharedViewModel.loggedIn(result.data)
+                        navController.navigate(R.id.action_codeFragment_to_profileFragment)
+                    }
+                }
+            })
+        }
     }
 
     private fun initViews(): Unit = with(binding) {

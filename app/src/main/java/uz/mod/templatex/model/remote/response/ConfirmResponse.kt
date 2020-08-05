@@ -98,8 +98,7 @@ data class Payment(
         parcel.createTypedArrayList(PaymentMethod),
         parcel.createTypedArrayList(PaymentProvider),
         TODO("cart")
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeTypedList(methods)

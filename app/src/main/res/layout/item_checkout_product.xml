@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
+                name="viewModel"
+                type="uz.mod.templatex.ui.checkoutFinal.CheckoutFinalViewModel" />
+
+        <variable
                 name="item"
-                type="uz.mod.templatex.model.local.entity.AttributeCombination" />
+                type="uz.mod.templatex.model.local.entity.Product" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="БОСОНОЖКИ С ЛАКИРОВАННЫМИ РЕМЕШКАМИ"
+                android:text="@{item.name}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/ivIcon"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +48,7 @@
                 android:layout_marginEnd="20dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Черный - код 23432324"
+                android:text="@{viewModel.getColorAndReference(item)}"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvSize"
@@ -57,7 +62,7 @@
                 style="@style/Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="230 000 сум"
+                android:text="@{item.priceFormatted()}"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/tvColorAndReference"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="37"
+                tools:text="34"
+                android:text="@{viewModel.getProductSize(item)}"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/ivIcon"
                 app:layout_constraintStart_toStartOf="@id/ivIcon"

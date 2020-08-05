@@ -1,36 +1,58 @@
 package uz.mod.templatex.model.remote.response
 
-import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import uz.mod.templatex.model.local.entity.User
+import uz.mod.templatex.model.remote.response.profile.Address
 
-data class StoreResponse(val user: User?, val date: String?, val notifications: Boolean): Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readParcelable(User::class.java.classLoader),
-        parcel.readString(),
-        parcel.readByte() != 0.toByte()
-    ) {
-    }
+@Parcelize
+data class StoreResponse(
+    val user: User?,
+    val order: Order,
+    val date: String?,
+    val cart: Cart,
+    val delivery: StoreDelivery,
+    val address: Address,
+    val notifications: Boolean
+) : Parcelable
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeParcelable(user, flags)
-        parcel.writeString(date)
-        parcel.writeByte(if (notifications) 1 else 0)
-    }
+@Parcelize
+data class Order(
+    val reference: String,
+    val user_id: Long,
+    val cart_id: Long,
+    val address_id: Long,
+    val delivery_id: Long,
+    val payment_type: String,
+    val payment_provider: String,
+    val products_price: Long,
+    val delivery_price: Long,
+    val discount_price: Int,
+    val total_price: Int,
+    val updated_at: String,
+    val created_at: String,
+    val id: Long
+) : Parcelable
 
-    override fun describeContents(): Int {
-        return 0
-    }
 
-    companion object CREATOR : Parcelable.Creator<StoreResponse> {
-        override fun createFromParcel(parcel: Parcel): StoreResponse {
-            return StoreResponse(parcel)
-        }
+@Parcelize
+data class StoreDelivery(
+    @SerializedName("carrier_id")
+    val carrierID: Long,
+    @SerializedName("carrier_service_id")
+    val carrierServiceID: String,
+    val date: StoreDate,
+    val time: String,
+    val updatedAt: String,
+    val createdAt: String,
+    val id: Long
+) : Parcelable
 
-        override fun newArray(size: Int): Array<StoreResponse?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-}
+@Parcelize
+data class StoreDate(
+    val date: String,
+    @SerializedName("timezone_type")
+    val timezoneType: String,
+    val timezone: String
+) : Parcelable

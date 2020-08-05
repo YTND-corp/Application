@@ -1,6 +1,8 @@
 package uz.mod.templatex.model.remote.response.profile
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class MyOrdersOrderDetailsResponse(
     val order: Order,
@@ -94,6 +96,7 @@ data class AttributeCombination(
     val value: String
 )
 
+@Parcelize
 data class Address(
     val id: Int,
     @SerializedName("first_name")
@@ -109,6 +112,6 @@ data class Address(
     val postcode: String?,
     @SerializedName("is_default")
     val isDefault: Boolean?
-) {
-    fun getAddress() = arrayOf(street, building, entry, city).filterNotNull().joinToString()
+) : Parcelable {
+    fun getAddress() = arrayOf(street, building, entry, city, region).map { it?.trim() }.filter { !it.isNullOrEmpty() }.joinToString()
 }

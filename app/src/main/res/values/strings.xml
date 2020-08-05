@@ -293,7 +293,7 @@
     <!--  CheckoutFinal  -->
     <string name="your_order_successfully_completed_text">Ваш заказ №: %s \nуспешно оформлен</string>
     <string name="checkout_thanks">Спасибо!</string>
-    <string name="send_type_text">ОТПРАВКА: %s</string>
+    <string name="send_type_text">ОТПРАВКА: </string>
     <string name="delivery_price">Цена доставки</string>
     <string name="delivery_discount">Скидки на отправку</string>
     <string name="checkout_total">Всего</string>

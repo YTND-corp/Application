@@ -49,8 +49,9 @@ class PaymentFragment : ParentFragment() {
                     Timber.e(result.data.toString())
                     navController.navigate(
                         PaymentFragmentDirections.actionPaymentFragmentToCheckoutFinalFragment(
-                            result.data?.user?.name,
-                            result.data?.date
+                            args.cartResponse,
+                            args.response,
+                            result.data
                         )
                     )
                 }
@@ -97,13 +98,11 @@ class PaymentFragment : ParentFragment() {
         }
     }
 
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
     }
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {

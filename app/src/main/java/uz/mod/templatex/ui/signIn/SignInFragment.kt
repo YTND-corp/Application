@@ -58,6 +58,7 @@ class SignInFragment : ParentFragment() {
                         Timber.e(result.data.toString())
                         navController.navigate(
                             CodeFragmentDirections.actionGlobalCodeFragment(
+                                null,
                                 viewModel.phone.value!!,
                                 false
                             )

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.R
@@ -27,6 +28,7 @@ class CheckoutFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val viewModel: CheckoutViewModel by viewModel()
     private val binding by lazy { CheckoutFragmentBinding.inflate(layoutInflater) }
+    private val args : CheckoutFragmentArgs by navArgs()
 
     companion object {
         fun newInstance() = CheckoutFragment()
@@ -45,9 +47,10 @@ class CheckoutFragment : ParentFragment() {
                 Status.SUCCESS -> {
                     hideLoading()
                     result.data?.let {
-                        if (sharedViewModel.isAuthenticated.value == true) {
+                        if (it.confirmation == false && sharedViewModel.isAuthenticated.value == true) {
                             navController.navigate(
                                 CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment(
+                                    args.cartResponse,
                                     it,
                                     viewModel.getPhone()
                                 )
@@ -55,6 +58,7 @@ class CheckoutFragment : ParentFragment() {
                         } else {
                             navController.navigate(
                                 CheckoutFragmentDirections.actionCheckoutFragmentToCodeFragment(
+                                    args.cartResponse,
                                     viewModel.getPhone(),
                                     true
                                 )

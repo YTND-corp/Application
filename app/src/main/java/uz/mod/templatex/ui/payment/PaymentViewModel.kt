@@ -33,7 +33,7 @@ class PaymentViewModel constructor(application: Application, val repository: Che
             details?.flat,
             details?.comment,
             details?.delivery?.carrierId,
-            details?.delivery?.id,
+            details?.delivery?.id ?: 1,
             details?.delivery?.date,
             details?.delivery?.transitTime,
             selectedMethod.value?.type,

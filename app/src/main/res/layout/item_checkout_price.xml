@@ -4,8 +4,12 @@
     <data>
 
         <variable
+                name="viewModel"
+                type="uz.mod.templatex.ui.checkoutFinal.CheckoutFinalViewModel" />
+
+        <variable
                 name="item"
-                type="uz.mod.templatex.model.local.entity.AttributeCombination" />
+                type="uz.mod.templatex.model.local.entity.Product" />
     </data>
 
     <LinearLayout
@@ -18,14 +22,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="1 товар"
+                android:text="@{viewModel.getProductsQuantity(item)}"
                 android:textSize="16sp" />
 
         <TextView
                 style="@style/Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="230 000 сум"
+                android:text="@{viewModel.getProductsPriceRespectToQuantity(item)}"
                 android:textSize="16sp" />
     </LinearLayout>
 </layout>

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import timber.log.Timber
 import uz.mod.templatex.R
+import uz.mod.templatex.model.local.CartResponseSafeArgs
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.response.Cart
 import uz.mod.templatex.model.repository.CartRepository
@@ -20,6 +21,7 @@ class CartViewModel constructor(
 ) : AndroidViewModel(application) {
 
     var cart = MutableLiveData<Cart>()
+    var cartResponseSafeArgs : CartResponseSafeArgs? = null
 
     val request = MutableLiveData<Boolean>()
     val response = Transformations.switchMap(request) {
@@ -41,6 +43,7 @@ class CartViewModel constructor(
     }
 
     var products = Transformations.map(response) {
+        cartResponseSafeArgs = CartResponseSafeArgs(it?.data ?: arrayListOf())
         it?.data
     }
 

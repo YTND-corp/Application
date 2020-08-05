@@ -1,10 +1,13 @@
 package uz.mod.templatex.model.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import uz.mod.templatex.model.local.entity.Product
 
 data class CartResponse(val cart: Cart, val recommended: List<Product>)
 
+@Parcelize
 data class Cart(
     val id: Int,
     val uid: String?,
@@ -15,9 +18,10 @@ data class Cart(
     @SerializedName("total_price") val totalPrice: Int,
     val quantity: Int,
     val products: List<Product>?
-)
+):Parcelable
 
+@Parcelize
 data class Carrier(
     val id: Int,
     val name: String
-)
+):Parcelable

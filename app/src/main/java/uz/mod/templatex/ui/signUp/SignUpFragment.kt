@@ -57,6 +57,7 @@ class SignUpFragment : ParentFragment() {
                         hideLoading()
                         navController.navigate(
                             CodeFragmentDirections.actionGlobalCodeFragment(
+                                null,
                                 viewModel.phone.value!!,
                                 false
                             )

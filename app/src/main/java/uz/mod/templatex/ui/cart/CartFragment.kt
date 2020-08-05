@@ -118,7 +118,10 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
         }
 
         continueButton.setOnClickListener {
-            navController.navigate(R.id.action_cartFragment_to_checkout_graph)
+            viewModel?.cartResponseSafeArgs?.let {
+                val direction = CartFragmentDirections.actionCartFragmentToCheckoutGraph(it)
+                navController.navigate(direction)
+            }
         }
 
             placeholderButton.setOnClickListener {
