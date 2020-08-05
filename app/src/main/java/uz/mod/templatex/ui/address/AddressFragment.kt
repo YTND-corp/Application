@@ -26,12 +26,12 @@ class AddressFragment : ParentFragment() {
 
     //TODO delete DeliveryFragment after completing this
     private val navController by lazyFast { findNavController() }
-
     val viewModel: AddressViewModel by viewModel()
-
     private val binding by lazy { AddressFragmentBinding.inflate(layoutInflater) }
-
     val args: AddressFragmentArgs by navArgs()
+    private val adapter by lazyFast {
+        AddressAdapter { viewModel.delivery.value = it }
+    }
 
     companion object {
         fun newInstance() = AddressFragment()
@@ -94,9 +94,8 @@ class AddressFragment : ParentFragment() {
         viewModel = this@AddressFragment.viewModel
         executePendingBindings()
 
-        addresses.adapter = AddressAdapter {
-            //viewModel?.selectedOption?.value = it
-        }
+        addresses.adapter = adapter
+        adapter.setItems(args.response?.delivery)
         addresses.addItemDecoration(
             LineDividerItemDecoration(
                 requireContext(),

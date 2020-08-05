@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import uz.mod.templatex.model.local.entity.User
+import uz.mod.templatex.utils.extension.moneyFormat
 
 data class ConfirmResponse(val confirmation: Boolean?, val user: User?, val delivery: List<Delivery>?, val payment: Payment?) :
     Parcelable {
@@ -49,6 +50,9 @@ data class Delivery(
     @SerializedName("sort_order") val sortOrder: Int?,
     val date: String?
 ) : Parcelable {
+
+    fun formattedPrice() = if (price == 0) "БЕСПЛАТНО" else "${price?.moneyFormat()} UZS"
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
@@ -58,9 +62,7 @@ data class Delivery(
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString()
-    ) {
-    }
-
+    )
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeString(name)

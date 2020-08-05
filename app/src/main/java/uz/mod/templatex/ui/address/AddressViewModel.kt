@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import uz.mod.templatex.model.local.entity.City
 import uz.mod.templatex.model.remote.request.StoreRequest
+import uz.mod.templatex.model.remote.response.Delivery
 import uz.mod.templatex.model.repository.CheckoutRepository
 
 class AddressViewModel constructor(application: Application, val repository: CheckoutRepository) :
@@ -13,6 +14,7 @@ class AddressViewModel constructor(application: Application, val repository: Che
     val street = MutableLiveData<String>()
     val home = MutableLiveData<String>()
     val flat = MutableLiveData<String>()
+    val delivery = MutableLiveData<Delivery>()
     lateinit var phone: String
 
     val isAllValid = MediatorLiveData<Boolean>()
@@ -22,11 +24,13 @@ class AddressViewModel constructor(application: Application, val repository: Che
                         && !street.value.isNullOrEmpty()
                         && !home.value.isNullOrEmpty()
                         && !flat.value.isNullOrEmpty()
+                        && delivery.value != null
             }
             addSource(city) { validateFrom() }
             addSource(street) { validateFrom() }
             addSource(home) { validateFrom() }
             addSource(flat) { validateFrom() }
+            addSource(delivery) { validateFrom() }
         }
 
     fun setArgs(args: AddressFragmentArgs) {
@@ -46,6 +50,6 @@ class AddressViewModel constructor(application: Application, val repository: Che
         request.value = true
     }
 
-    fun getDetails() = StoreRequest(phone, city.value, street.value, home.value, flat.value)
+    fun getDetails() = StoreRequest(phone, city.value, street.value, home.value, flat.value, null, delivery.value)
 
 }

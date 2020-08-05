@@ -46,7 +46,6 @@ class PaymentFragment : ParentFragment() {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    Timber.e(result.data.toString())
                     navController.navigate(
                         PaymentFragmentDirections.actionPaymentFragmentToCheckoutFinalFragment(
                             args.cartResponse,

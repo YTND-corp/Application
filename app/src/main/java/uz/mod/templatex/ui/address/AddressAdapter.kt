@@ -11,22 +11,22 @@ class AddressAdapter(private var listener: ((item: Delivery) -> Unit)) :
     private var items: List<Delivery> = arrayListOf()
     private var selected: Delivery? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(
-            DeliveryItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        DeliveryItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
+    )
 
-    //override fun getItemCount(): Int = items.size
-    override fun getItemCount(): Int = 2
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int){}// = holder.bind(items[position])
+    override fun getItemCount(): Int = items.size
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 
     fun setItems(it: List<Delivery>?) {
         items = it ?: arrayListOf()
+        notifyDataSetChanged()
     }
 
     fun setSelected(it: Delivery?) {
@@ -36,15 +36,14 @@ class AddressAdapter(private var listener: ((item: Delivery) -> Unit)) :
 
     inner class ViewHolder(val binding: DeliveryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(delivery: Delivery) {
-            binding.apply {
-                item = delivery
-                isSelected = delivery.id == selected?.id
-                executePendingBindings()
+        fun bind(delivery: Delivery): Unit = with(binding) {
+            item = delivery
+            isSelected = delivery.id == selected?.id
+            executePendingBindings()
 
-                overlay.setOnClickListener {
-                    listener.invoke(delivery)
-                }
+            overlay.setOnClickListener {
+                setSelected(delivery)
+                listener.invoke(delivery)
             }
         }
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -17,12 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="20dp"
-                android:src="@drawable/ic_refresh"
+                android:src="@drawable/ic_delivery_type"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvType" />
 
@@ -34,7 +35,8 @@
                 android:layout_marginTop="20dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Oбычная доставка"
+                android:text="@{item.name}"
+                tools:text="Oбычная доставка"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tvPeriod"
@@ -50,7 +52,8 @@
                 android:layout_marginVertical="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="от 2 до 7 рабочих дней"
+                android:text="@{item.transitTime}"
+                tools:text="от 2 до 7 рабочих дней"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvPrice"
                 app:layout_constraintEnd_toEndOf="@id/tvType"
@@ -64,7 +67,8 @@
                 android:layout_marginBottom="20dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="БЕСПЛАТНО"
+                android:text="@{item.formattedPrice}"
+                tools:text="БЕСПЛАТНО"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +76,7 @@
                 app:layout_constraintStart_toStartOf="@id/tvType"
                 app:layout_constraintTop_toBottomOf="@+id/tvPeriod" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivIndicator"
                 isVisible="@{isSelected}"
                 android:layout_width="wrap_content"

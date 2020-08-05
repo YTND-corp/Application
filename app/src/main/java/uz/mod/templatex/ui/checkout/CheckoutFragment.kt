@@ -107,10 +107,10 @@ class CheckoutFragment : ParentFragment() {
         }
         @SuppressLint("SetTextI18n")
         if (BuildConfig.DEBUG) {
-            name.setText("Someone")
-            surname.setText("Someone")
-            email.setText("example@gmail.com")
-            phone.setText("+998765432100")
+            name.setText("Jasurbek")
+            surname.setText("Abdiroziqov")
+            email.setText("jasurbek.abdiroziqov@gmail.com")
+            phone.setText("+998 99 076 37 26")
         }
         
     }
