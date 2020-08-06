@@ -27,7 +27,9 @@ data class ProductDetail(
     val category: String?,
     val brand: String?,
     val features: List<ProductFeature>?,
-    val images: List<String>?
+    val images: List<String>?,
+    @SerializedName("size_chart")
+    val sizeChart: String?
 ) {
     fun priceFormatted() = currencies?.first()?.getMoneyFormat()
 

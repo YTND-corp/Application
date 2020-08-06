@@ -68,7 +68,7 @@
                         android:paddingVertical="10dp"
                         android:text="@string/code_change_phone"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blue"
                         android:textSize="@dimen/text_size_small"
                         app:layout_constraintEnd_toEndOf="@id/title"
                         app:layout_constraintStart_toStartOf="@id/title"

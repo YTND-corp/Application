@@ -13,7 +13,7 @@ object DestinationHelper {
 
     private val configs = setOf(
         DestinationConfig(R.id.selectionFragment, true, false, true, true),
-        DestinationConfig(R.id.categoryFragment, false, false),
+        DestinationConfig(R.id.categoryFragment, true, false, true, true),
         DestinationConfig(R.id.favoriteFragment, true, false),
         DestinationConfig(R.id.profileFragment, true, false),
         DestinationConfig(
@@ -42,7 +42,8 @@ object DestinationHelper {
         DestinationConfig(R.id.callMeFragment, true, true),
         DestinationConfig(R.id.aboutFragment, true, true),
         DestinationConfig(R.id.supportCenterFragment, true, true),
-        DestinationConfig(R.id.supportCenterDetailsFragment, true, true)
+        DestinationConfig(R.id.supportCenterDetailsFragment, true, true),
+        DestinationConfig(R.id.sizeChartFragment, true, true)
     )
 
     data class DestinationConfig(

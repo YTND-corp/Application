@@ -25,6 +25,8 @@ import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.ui.product.adapter.*
+import uz.mod.templatex.ui.size_chart.SizeChartFragmentArgs
+import uz.mod.templatex.ui.size_chart.SizeChartFragmentDirections
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.SnapOnScrollListener
@@ -225,6 +227,12 @@ class ProductFragment : ParentFragment() {
 
             compositionToggle.setOnCheckedChangeListener { _, b ->
                 composition.visibility = if (b) View.VISIBLE else View.GONE
+            }
+
+            tvSizeTable.setOnClickListener {
+                viewModel?.sizeChart?.observe(viewLifecycleOwner, Observer {
+                    navController.navigate(R.id.action_productFragment_to_sizeChartFragment, bundleOf("sizeChart" to it))
+                })
             }
 
             /*categoryBrand.setOnClickListener {

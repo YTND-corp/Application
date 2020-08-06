@@ -109,6 +109,9 @@
                 android:name="product_id"
                 android:defaultValue="0"
                 app:argType="integer" />
+        <action
+                android:id="@+id/action_productFragment_to_sizeChartFragment"
+                app:destination="@id/sizeChartFragment" />
     </fragment>
     <fragment
             android:id="@+id/fullScreenImageFragment"
@@ -148,4 +151,13 @@
     <action
             android:id="@+id/action_global_searchFragment"
             app:destination="@id/searchFragment" />
+    <fragment
+            android:id="@+id/sizeChartFragment"
+            android:name="uz.mod.templatex.ui.size_chart.SizeChartFragment"
+            android:label="@string/size_table"
+            tools:layout="@layout/size_chart_fragment" >
+        <argument
+                android:name="sizeChart"
+                app:argType="string" />
+    </fragment>
 </navigation>

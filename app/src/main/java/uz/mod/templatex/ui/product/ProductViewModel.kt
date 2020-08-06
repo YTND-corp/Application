@@ -84,6 +84,10 @@ class ProductViewModel constructor(
         it?.inStock == true
     }
 
+    val sizeChart = Transformations.map(product) {
+        it?.sizeChart
+    }
+
     private fun attributeIds(): ArrayList<Int> {
         val temps: ArrayList<Int> = arrayListOf()
         selectedColor.value?.let {

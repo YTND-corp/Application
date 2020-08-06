@@ -1,9 +1,7 @@
 package uz.mod.templatex.ui.category
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -36,6 +34,7 @@ class CategoryFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
 
         viewModel.getCatalogs()
 
@@ -49,6 +48,16 @@ class CategoryFragment : ParentFragment() {
     ): View? {
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.category_fragment, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        navController.navigate(item.itemId)
+        return true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
