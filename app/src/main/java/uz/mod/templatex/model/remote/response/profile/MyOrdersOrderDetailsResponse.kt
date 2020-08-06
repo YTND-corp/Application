@@ -113,5 +113,6 @@ data class Address(
     @SerializedName("is_default")
     val isDefault: Boolean?
 ) : Parcelable {
-    fun getAddress() = arrayOf(street, building, entry, city, region).map { it?.trim() }.filter { !it.isNullOrEmpty() }.joinToString()
+    fun getAddress() = arrayOf(street, building, entry, city).map { it?.trim() }.filter { !it.isNullOrEmpty() }.joinToString()
+    fun getAddressForSuccessPage() = arrayOf(city, street, building).map { it?.trim() }.filter { !it.isNullOrBlank() }.joinToString()
 }

@@ -117,7 +117,7 @@ class PaymentFragment : ParentFragment() {
             PaymentData(
                 null,
                 args.response?.user?.phone,
-                args.response?.payment?.cart?.totalPrice ?: 0,
+                paymentViewModel.netPrice.value ?: 0,
                 args.cartResponse?.products?.first()?.currencies?.first()?.currency ?: "UZS",
                 paymentMethod
             )

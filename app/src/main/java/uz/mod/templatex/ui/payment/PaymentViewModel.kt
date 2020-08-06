@@ -21,6 +21,7 @@ class PaymentViewModel constructor(application: Application, val repository: Che
     val delivery = MutableLiveData<String>()
     val discount = MutableLiveData<String>()
     val total = MutableLiveData<String>()
+    val netPrice = MutableLiveData<Int>()
 
     private var details: StoreRequest? = null
 
@@ -50,11 +51,16 @@ class PaymentViewModel constructor(application: Application, val repository: Che
 
         selectedMethod.value = args.response?.payment?.methods?.first()
 
+        val deliveryPrice = args.details?.delivery?.price ?: 0
+        val productsTotalPrice = args.response?.payment?.cart?.totalPrice ?: 0
+        val discountPrice = args.response?.payment?.cart?.discountPrice ?: 0
+
+        netPrice.value = productsTotalPrice + deliveryPrice - discountPrice
         count.value = args.response?.payment?.cart?.quantity.toString()
         price.value = args.response?.payment?.cart?.productsPrice?.moneyFormat() + " UZS"
-        delivery.value = args.response?.payment?.cart?.deliveryPrice?.moneyFormat() + " UZS"
-        discount.value = args.response?.payment?.cart?.discountPrice?.moneyFormat() + " UZS"
-        total.value = args.response?.payment?.cart?.totalPrice?.moneyFormat() + " UZS"
+        delivery.value = deliveryPrice.moneyFormat() + " UZS"
+        discount.value = discountPrice.moneyFormat() + " UZS"
+        total.value = (productsTotalPrice + deliveryPrice - discountPrice).moneyFormat() + " UZS"
 
         details = args.details
     }

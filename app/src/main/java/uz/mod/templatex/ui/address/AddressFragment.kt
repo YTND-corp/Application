@@ -26,11 +26,14 @@ class AddressFragment : ParentFragment() {
 
     //TODO delete DeliveryFragment after completing this
     private val navController by lazyFast { findNavController() }
-    val viewModel: AddressViewModel by viewModel()
+    private val addressViewModel: AddressViewModel by viewModel()
     private val binding by lazy { AddressFragmentBinding.inflate(layoutInflater) }
     val args: AddressFragmentArgs by navArgs()
     private val adapter by lazyFast {
-        AddressAdapter { viewModel.delivery.value = it }
+        AddressAdapter {
+            Timber.e("${it.price}")
+            addressViewModel.delivery.value = it
+        }
     }
 
     companion object {
@@ -39,7 +42,7 @@ class AddressFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setArgs(args)
+        addressViewModel.setArgs(args)
     }
 
     override fun onCreateView(
@@ -55,7 +58,7 @@ class AddressFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+        addressViewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -69,7 +72,7 @@ class AddressFragment : ParentFragment() {
             }
         })
 
-        viewModel.cities.observe(viewLifecycleOwner, Observer { cities ->
+        addressViewModel.cities.observe(viewLifecycleOwner, Observer { cities ->
 
             Timber.e(cities.toString())
 
@@ -80,18 +83,18 @@ class AddressFragment : ParentFragment() {
                     val temp: Array<String> = Array(cities?.size ?: 0) { cities?.get(it)?.name ?: "" }
                     AlertDialog.Builder(requireContext())
                         .setItems(temp) { _, i ->
-                            viewModel.city.value = cities?.get(i)
+                            addressViewModel.city.value = cities?.get(i)
                         }
                         .show()
                 }
             }
         })
 
-        viewModel.getCities()
+        addressViewModel.getCities()
     }
 
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@AddressFragment.viewModel
+        viewModel = addressViewModel
         executePendingBindings()
 
         addresses.adapter = adapter
@@ -108,7 +111,7 @@ class AddressFragment : ParentFragment() {
                 AddressFragmentDirections.actionAddressFragmentToPaymentFragment(
                     args.cartResponse,
                     args.response,
-                    viewModel?.getDetails()
+                    addressViewModel.getDetails()
                 )
             )
         }
@@ -123,7 +126,7 @@ class AddressFragment : ParentFragment() {
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-            if (it.getContentIfNotHandled() == true) viewModel.getCities()
+            if (it.getContentIfNotHandled() == true) addressViewModel.getCities()
         })
         navController.navigate(destinationID)
     }

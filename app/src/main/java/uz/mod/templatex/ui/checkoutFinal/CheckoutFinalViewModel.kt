@@ -44,18 +44,22 @@ class CheckoutFinalViewModel(application: Application, repository: CheckoutRepos
     )
 
     fun getAddress(): String {
-        return arguments?.storeResponse?.address?.getAddress() ?: "Unknown Address"
+        return arguments?.storeResponse?.address?.getAddressForSuccessPage() ?: "Unknown Address"
     }
 
     fun getDeliveryCost(): String {
-        return arguments?.confirmResult?.delivery?.first()?.price?.moneyFormat() + " UZS"
+        return arguments?.storeResponse?.cart?.deliveryPrice?.moneyFormat() + " UZS"
     }
 
-    fun getDeliveryDiscount(): String = "-" + (arguments?.storeResponse?.order?.discount_price?.moneyFormat() ?: "") + " UZS"
+    fun getDeliveryDiscount(): String {
+        var discount = (arguments?.storeResponse?.order?.discount_price?.moneyFormat() ?: "0")
+        if (discount != "0") discount = "-$discount"
+        return "$discount UZS"
+    }
 
     fun getTotalPrice(): String  {
         val subTotal = arguments?.storeResponse?.order?.total_price ?:0
-        val deliveryCost = arguments?.confirmResult?.delivery?.first()?.price ?:0
+        val deliveryCost = arguments?.storeResponse?.cart?.deliveryPrice ?:0
         val deliveryDiscount = arguments?.storeResponse?.order?.discount_price?:0
         val total = subTotal + deliveryCost - deliveryDiscount
         return total.moneyFormat() + " UZS"
