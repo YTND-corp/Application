@@ -17,6 +17,7 @@ import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.MaskWatcher
+import uz.mod.templatex.utils.PhoneFieldFocusChangeListener
 import uz.mod.templatex.utils.extension.getNavigationResult
 import uz.mod.templatex.utils.extension.lazyFast
 
@@ -24,8 +25,10 @@ import uz.mod.templatex.utils.extension.lazyFast
 class SignUpFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
-    val viewModel: SignUpViewModel by viewModel()
+    private val signUpViewModel: SignUpViewModel by viewModel()
     private val binding by lazy { SignUpFragmentBinding.inflate(layoutInflater) }
+    private val textWatcher by lazyFast { MaskWatcher.phoneWatcher() }
+    private val focusChangeLister by lazyFast { PhoneFieldFocusChangeListener() }
 
     companion object {
         fun newInstance() = SignUpFragment()
@@ -45,7 +48,7 @@ class SignUpFragment : ParentFragment() {
 
         initViews()
 
-        viewModel.response.observe(viewLifecycleOwner, Observer {
+        signUpViewModel.response.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let { result ->
                 when (result.status) {
                     Status.LOADING -> showLoading()
@@ -58,7 +61,7 @@ class SignUpFragment : ParentFragment() {
                         navController.navigate(
                             CodeFragmentDirections.actionGlobalCodeFragment(
                                 null,
-                                viewModel.phone.value!!,
+                                signUpViewModel.phone.value!!,
                                 false
                             )
                         )
@@ -70,38 +73,34 @@ class SignUpFragment : ParentFragment() {
     }
 
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@SignUpFragment.viewModel
+        viewModel = signUpViewModel
         executePendingBindings()
+    }
 
-        phone.addTextChangedListener(MaskWatcher.phoneWatcher())
+    override fun onResume() {
+        super.onResume()
+        binding.phone.addTextChangedListener(textWatcher)
+        binding.phone.onFocusChangeListener = focusChangeLister
+    }
 
-        phone.setOnFocusChangeListener { _, hasFocus ->
-
-            if (hasFocus) {
-                if (phone.text?.length ?: 0 < 5 && phone.text?.equals(Const.PHONE_CODE_DEFAULT) == false) {
-                    phone.setText(Const.PHONE_CODE_DEFAULT)
-                }
-            } else {
-                if (phone.text?.length ?: 0 <= 5) {
-                    phone.setText("")
-                }
-            }
-        }
+    override fun onStop() {
+        super.onStop()
+        binding.phone.removeTextChangedListener(textWatcher)
     }
 
 
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
     }
+
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-            if (it.getContentIfNotHandled() == true) viewModel.signUp()
+            if (it.getContentIfNotHandled() == true) signUpViewModel.signUp()
         })
         navController.navigate(destinationID)
     }

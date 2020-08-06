@@ -33,8 +33,6 @@ class MaskWatcher(private val mask: String) : TextWatcher {
     }
 
     companion object {
-        fun phoneWatcher(): MaskWatcher {
-            return MaskWatcher("+### ## ### ## ##")
-        }
+        fun phoneWatcher() = MaskWatcher("+### ## ### ## ##")
     }
 }

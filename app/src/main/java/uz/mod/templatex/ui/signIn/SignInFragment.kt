@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.code_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.SignInFragmentBinding
 import uz.mod.templatex.model.remote.network.ApiError
@@ -27,6 +27,8 @@ class SignInFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     val viewModel: SignInViewModel by viewModel()
     private val binding by lazy { SignInFragmentBinding.inflate(layoutInflater) }
+    private val textWatcher by lazyFast { MaskWatcher.phoneWatcher() }
+    private val focusChangeListener by lazyFast { PhoneFieldFocusChangeListener() }
 
     companion object {
         fun newInstance() = SignInFragment()
@@ -55,7 +57,6 @@ class SignInFragment : ParentFragment() {
                     }
                     Status.SUCCESS -> {
                         hideLoading()
-                        Timber.e(result.data.toString())
                         navController.navigate(
                             CodeFragmentDirections.actionGlobalCodeFragment(
                                 null,
@@ -72,19 +73,26 @@ class SignInFragment : ParentFragment() {
     private fun initViews(): Unit = with(binding) {
         viewModel = this@SignInFragment.viewModel
         executePendingBindings()
-
-        phone.addTextChangedListener(MaskWatcher.phoneWatcher())
-        phone.onFocusChangeListener = PhoneFieldFocusChangeListener()
     }
 
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+    override fun onResume() {
+        super.onResume()
+        phone.addTextChangedListener(textWatcher)
+        phone.onFocusChangeListener = focusChangeListener
     }
+
+    override fun onStop() {
+        super.onStop()
+        phone.removeTextChangedListener(textWatcher)
+    }
+
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
+    }
+
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
@@ -92,4 +100,5 @@ class SignInFragment : ParentFragment() {
         })
         navController.navigate(destinationID)
     }
+
 }

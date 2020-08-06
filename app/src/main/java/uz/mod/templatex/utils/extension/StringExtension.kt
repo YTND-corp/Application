@@ -7,13 +7,14 @@ import java.util.*
 import android.text.Html
 import android.os.Build
 import android.text.Spanned
+import timber.log.Timber
 import uz.mod.templatex.utils.Const
 
 
 val String.clear: String
     get() {
-        return this.replace("-".toRegex(), "")
-            .replace(" ".toRegex(), "")
+        return this.replace("-", "")
+            .replace(" ", "")
             .trim()
     }
 
@@ -42,6 +43,7 @@ fun String.phoneFormat(): String? {
 
 fun String.backEndPhoneFormat(): String? {
     val text = this.clear
+    Timber.e("backEndPhoneFormat number $text")
     return if (text.length == 12) {
         "+${text}" //+ text.substring(0, 3) + " " + text.substring(3, 5) + " " + text.substring(5, 8) + "-" + text.substring(8, 10) + "-" + text.substring(10)
     } else text
