@@ -9,15 +9,17 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.ui.MainViewModel
+import uz.mod.templatex.utils.extension.lazyFast
 import uz.mod.templatex.utils.extension.toast
 
 open class ParentFragment : Fragment() {
 
+    private val navController by lazyFast { findNavController() }
     val sharedViewModel: MainViewModel by sharedViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        findNavController().currentDestination?.let {
+        navController.currentDestination?.let {
             sharedViewModel.destinationChanged(it)
         }
     }

@@ -1,6 +1,7 @@
 package uz.mod.templatex.ui.code
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,11 +23,12 @@ import uz.mod.templatex.utils.extension.lazyFast
 
 class CodeFragment : ParentFragment() {
 
-    private val navController by lazyFast { findNavController() }
-    val viewModel: CodeViewModel by viewModel()
-    val args: CodeFragmentArgs by navArgs()
 
+    private val navController by lazyFast { findNavController() }
+    private val codeViewModel: CodeViewModel by viewModel()
+    val args: CodeFragmentArgs by navArgs()
     private val binding by lazy { CodeFragmentBinding.inflate(layoutInflater) }
+    private lateinit var countDownTimer: CountDownTimer
 
     companion object {
         fun newInstance() = CodeFragment()
@@ -34,7 +36,7 @@ class CodeFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setArguments(args)
+        codeViewModel.setArguments(args)
     }
 
     override fun onCreateView(
@@ -52,7 +54,7 @@ class CodeFragment : ParentFragment() {
         initViews()
 
         if (args.isCheckout) {
-            viewModel.checkoutConfirmResponse.observe(viewLifecycleOwner, Observer { result ->
+            codeViewModel.checkoutConfirmResponse.observe(viewLifecycleOwner, Observer { result ->
                 when (result.status) {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
@@ -78,7 +80,7 @@ class CodeFragment : ParentFragment() {
                 }
             })
         } else {
-            viewModel.authConfirmResponse.observe(viewLifecycleOwner, Observer { result ->
+            codeViewModel.authConfirmResponse.observe(viewLifecycleOwner, Observer { result ->
                 when (result.status) {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
@@ -97,14 +99,17 @@ class CodeFragment : ParentFragment() {
     }
 
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@CodeFragment.viewModel
+        viewModel = codeViewModel
         executePendingBindings()
 
-        viewModel?.code?.observe(viewLifecycleOwner, Observer {
+        codeViewModel.code.observe(viewLifecycleOwner, Observer {
             if (it.length != 4) return@Observer
-            if (args.isCheckout) viewModel?.checkoutConfirm()
-            else viewModel?.authConfirm()
+            if (args.isCheckout) codeViewModel.checkoutConfirm()
+            else codeViewModel.authConfirm()
         })
+
+
+        startResendTimer()
 
         resendButton.setOnClickListener {}
 
@@ -113,15 +118,32 @@ class CodeFragment : ParentFragment() {
         }
     }
 
-    //TODO("PLEASE CHECK FOLLOWING LINES IF THE LOGIC IS NOT BROKEN")
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+    private fun startResendTimer() {
+        countDownTimer = object : CountDownTimer(
+            codeViewModel.getCountDownTimerPeek(sharedViewModel.countDownTimerMeta),
+            1000
+        ) {
+            override fun onFinish() {
+                sharedViewModel.countDownTimerMeta.lastTick = null
+                codeViewModel.countDownTimer.value = null
+            }
+
+            override fun onTick(time: Long) {
+                sharedViewModel.countDownTimerMeta.lastTick = time
+                codeViewModel.countDownTimer.value = time
+            }
+        }.start()
     }
+
+
+    //TODO("PLEASE CHECK FOLLOWING LINES IF THE LOGIC IS NOT BROKEN")
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
+    }
+
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
@@ -131,7 +153,7 @@ class CodeFragment : ParentFragment() {
     }
 
     private fun retryLastRequest() {
-        if (args.isCheckout) viewModel.checkoutConfirm()
-        else viewModel.authConfirm()
+        if (args.isCheckout) codeViewModel.checkoutConfirm()
+        else codeViewModel.authConfirm()
     }
 }

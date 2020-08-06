@@ -1,11 +1,13 @@
 package uz.mod.templatex.ui.code
 
 import android.app.Application
+import android.os.CountDownTimer
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import uz.mod.templatex.R
+import uz.mod.templatex.model.inApp.CountDownTimeMeta
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.remote.response.ConfirmResponse
@@ -23,6 +25,7 @@ class CodeViewModel constructor(
     val context = application.applicationContext
     val code = MutableLiveData<String>()
     val phone = MutableLiveData<String>()
+    val countDownTimer = MutableLiveData<Long?>()
     var isCheckout = false
 
     val first = Transformations.map(code) {
@@ -50,9 +53,21 @@ class CodeViewModel constructor(
         )
     }
 
-    fun checkCode() {
-
+    fun getCountDownTimerPeek(meta: CountDownTimeMeta) : Long {
+        val maxPeek = 120*1000L
+        return when {
+            meta.lastPhoneNumber == null || meta.lastPhoneNumber != phone.value -> {
+                meta.lastPhoneNumber = phone.value
+                maxPeek
+            }
+            meta.lastPhoneNumber == phone.value -> {
+                if (meta.lastTick == null) maxPeek
+                else meta.lastTick!!
+            }
+            else -> 0L
+        }
     }
+
 
     fun setArguments(args: CodeFragmentArgs) {
         phone.value = args.phone
@@ -64,6 +79,22 @@ class CodeViewModel constructor(
 
     fun authConfirm() {
         authConfirmRequest.value = true
+    }
+
+    var resendBtnEnabled = Transformations.map(countDownTimer) {
+        it == null
+    }
+
+    var resendText = Transformations.map(countDownTimer) { time ->
+        if (time == null)
+            application.getString(R.string.action_send_code_again, "")
+        else {
+            var minutes = (time / 60000).toString()
+            if (minutes == "1") minutes = "0$minutes" else if (minutes == "0") minutes = "00"
+            var seconds = ((time / 1000) % 60).toString()
+            if (seconds.toInt() < 10) seconds = "0$seconds"
+            application.getString(R.string.action_send_code_again, "($minutes:$seconds)")
+        }
     }
 
     var getSubTitle = Transformations.map(phone) {

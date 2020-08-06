@@ -3,6 +3,7 @@ package uz.mod.templatex.ui
 import android.app.Application
 import androidx.lifecycle.*
 import androidx.navigation.NavDestination
+import uz.mod.templatex.model.inApp.CountDownTimeMeta
 import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.repository.AuthRepository
@@ -17,6 +18,8 @@ class MainViewModel constructor(
     val cartRepository: CartRepository,
     val prefs: Prefs
 ) : AndroidViewModel(application) {
+
+    val countDownTimerMeta = CountDownTimeMeta()
 
     val isAuthenticated = MutableLiveData<Boolean>(false)
 
