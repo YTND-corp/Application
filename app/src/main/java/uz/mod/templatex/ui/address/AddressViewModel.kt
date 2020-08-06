@@ -17,8 +17,7 @@ class AddressViewModel constructor(application: Application, val repository: Che
     val delivery = MutableLiveData<Delivery>()
     lateinit var phone: String
 
-    val isAllValid = MediatorLiveData<Boolean>()
-        .apply {
+    val isAllValid = MediatorLiveData<Boolean>().apply {
             fun validateFrom() {
                 value = !city.value?.name.isNullOrEmpty()
                         && !street.value.isNullOrEmpty()

@@ -12,8 +12,8 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
-import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.BuildConfig
+import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
 import uz.mod.templatex.model.remote.api.profile.MyAddressesService
@@ -51,6 +51,7 @@ import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.ui.new_filter.SortViewModel
 import uz.mod.templatex.ui.new_filter.singleattribute.SingleAttributeViewModel
 import uz.mod.templatex.ui.payment.PaymentViewModel
+import uz.mod.templatex.ui.paymentProvider.PaymentDetailsViewModel
 import uz.mod.templatex.ui.product.ProductViewModel
 import uz.mod.templatex.ui.products.ProductsViewModel
 import uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedViewModel
@@ -115,6 +116,7 @@ val viewModelModule = module {
     viewModel { CodeViewModel(get(), get(), get()) }
     viewModel { DeliveryViewModel(get()) }
     viewModel { PaymentViewModel(get(), get()) }
+    viewModel { PaymentDetailsViewModel(get() , get()) }
     viewModel { CheckoutFinalViewModel(get(), get()) }
 
     viewModel { ProductsViewModel(get(), get()) }
@@ -159,6 +161,7 @@ val repositoryModule = module {
     single { FavoriteRepository(get(), get(), get()) }
     single { ProfileRepository(get()) }
     single { SearchRepository(get()) }
+    single { PaymentDetailsRepository(get()) }
 }
 
 val apiModule = module {
@@ -173,6 +176,7 @@ val apiModule = module {
     factory { get<Retrofit>().create(FavoritesService::class.java) }
     factory { get<Retrofit>().create(ProfileService::class.java) }
     factory { get<Retrofit>().create(SearchService::class.java) }
+    factory { get<Retrofit>().create(PaymentService::class.java) }
 }
 
 val retrofitModule = module {

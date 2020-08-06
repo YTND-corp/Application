@@ -2,6 +2,7 @@ package uz.mod.templatex.ui.payment
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import uz.mod.templatex.model.remote.request.StoreRequest
@@ -37,12 +38,15 @@ class PaymentViewModel constructor(application: Application, val repository: Che
             details?.delivery?.date,
             details?.delivery?.transitTime,
             selectedMethod.value?.type,
-            "click"
+            selectedMethod.value?.name
         )
     }
 
     fun setArguments(args: PaymentFragmentArgs) {
-        methods.value = args.response?.payment?.methods
+
+        args.response?.payment?.methods?.let {
+            methods.value = it
+        }
 
         selectedMethod.value = args.response?.payment?.methods?.first()
 
@@ -57,6 +61,14 @@ class PaymentViewModel constructor(application: Application, val repository: Che
 
     fun buy() {
         request.value = true
+    }
+
+    val isPaymentMethodSelected = MediatorLiveData<Boolean>().apply {
+        println("Checking point ${selectedMethod.value?.name}")
+        fun validateFrom() {
+            value = selectedMethod.value != null
+        }
+        addSource(selectedMethod) { validateFrom() }
     }
 
     fun setSelectedMethod(it: PaymentMethod) {

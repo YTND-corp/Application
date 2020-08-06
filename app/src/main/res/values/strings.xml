@@ -28,6 +28,7 @@
     <string name="action_close">ЗАКРЫТЬ</string>
     <string name="action_add">Добавить</string>
     <string name="action_reset">Сбросить</string>
+    <string name="action_pay">Оплатить</string>
 
     <string name="action_start_shopping">Начать покупки</string>
     <string name="action_forgot_password">Забыли пароль?</string>
@@ -319,4 +320,8 @@
     <string name="call_us">позвонить\nвам?</string>
     <string name="write_to_us">написать\nвам?</string>
     <string name="ask_question_from_us">задайте\nвопрос</string>
+
+    <!--Card details-->
+    <string name="hint_card_number">Введите номер карты</string>
+    <string name="hint_card_expire_date">Введите срок годности</string>
 </resources>

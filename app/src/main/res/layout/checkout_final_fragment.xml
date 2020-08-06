@@ -159,6 +159,7 @@
                     android:id="@+id/tvDeliveryDiscountTitle"
                     style="@style/Regular"
                     android:layout_width="0dp"
+                    android:textColor="@color/red"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
                     android:text="@string/delivery_discount"
@@ -170,6 +171,7 @@
             <TextView
                     android:id="@+id/tvDeliveryDiscount"
                     style="@style/Regular"
+                    android:textColor="@color/red"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.deliveryDiscount}"

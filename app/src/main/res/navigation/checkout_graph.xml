@@ -17,8 +17,7 @@
 
         <argument
                 android:name="cartResponse"
-                app:argType="uz.mod.templatex.model.local.CartResponseSafeArgs"/>
-
+                app:argType="uz.mod.templatex.model.inApp.CartResponseSafeArgs" />
 
 
         <action
@@ -37,9 +36,9 @@
 
 
         <argument
-                app:nullable="true"
                 android:name="cartResponse"
-                app:argType="uz.mod.templatex.model.local.CartResponseSafeArgs"/>
+                app:argType="uz.mod.templatex.model.inApp.CartResponseSafeArgs"
+                app:nullable="true" />
 
 
         <argument
@@ -62,9 +61,9 @@
             tools:layout="@layout/code_fragment">
 
         <argument
-                app:nullable="true"
                 android:name="cartResponse"
-                app:argType="uz.mod.templatex.model.local.CartResponseSafeArgs"/>
+                app:argType="uz.mod.templatex.model.inApp.CartResponseSafeArgs"
+                app:nullable="true" />
 
 
         <action
@@ -85,9 +84,9 @@
             tools:layout="@layout/payment_fragment">
 
         <argument
-                app:nullable="true"
                 android:name="cartResponse"
-                app:argType="uz.mod.templatex.model.local.CartResponseSafeArgs"/>
+                app:argType="uz.mod.templatex.model.inApp.CartResponseSafeArgs"
+                app:nullable="true" />
 
 
         <argument
@@ -103,6 +102,9 @@
         <action
                 android:id="@+id/action_paymentFragment_to_checkoutFinalFragment"
                 app:destination="@id/checkoutFinalFragment" />
+        <action
+                android:id="@+id/action_paymentFragment_to_paymentCardListFragment"
+                app:destination="@id/paymentCardListFragment"/>
     </fragment>
 
     <fragment
@@ -112,9 +114,9 @@
             tools:layout="@layout/checkout_final_fragment">
 
         <argument
-                app:nullable="true"
                 android:name="cartResponse"
-                app:argType="uz.mod.templatex.model.local.CartResponseSafeArgs"/>
+                app:argType="uz.mod.templatex.model.inApp.CartResponseSafeArgs"
+                app:nullable="true" />
 
         <argument
                 android:name="confirmResult"
@@ -154,4 +156,65 @@
             android:name="uz.mod.templatex.ui.askQuestion.AskQuestionFragment"
             android:label="@string/title_ask_question"
             tools:layout="@layout/ask_question_fragment" />
+    <fragment
+            android:id="@+id/paymentCardListFragment"
+            android:name="uz.mod.templatex.ui.paymentProvider.PaymentProviderFragment"
+            tools:layout="@layout/fragment_payment_cards">
+        <argument
+                android:name="cartResponse"
+                app:argType="uz.mod.templatex.model.inApp.CartResponseSafeArgs"
+                app:nullable="true" />
+
+
+        <argument
+                android:name="response"
+                android:defaultValue="@null"
+                app:argType="uz.mod.templatex.model.remote.response.ConfirmResponse"
+                app:nullable="true" />
+        <argument
+                android:name="details"
+                android:defaultValue="@null"
+                app:argType="uz.mod.templatex.model.remote.request.StoreRequest"
+                app:nullable="true" />
+
+        <argument
+                app:nullable="false"
+                android:name="paymentData"
+                app:argType="uz.mod.templatex.model.inApp.PaymentData" />
+
+        <action
+                android:id="@+id/action_paymentProviderFragment_to_paymentDetailsFragment"
+                app:destination="@id/paymentDetailsFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/paymentDetailsFragment"
+            android:name="uz.mod.templatex.ui.paymentProvider.PaymentDetailsFragment"
+            tools:layout="@layout/fragment_payment_details" >
+
+        <argument
+                android:name="cartResponse"
+                app:argType="uz.mod.templatex.model.inApp.CartResponseSafeArgs"
+                app:nullable="true" />
+
+
+        <argument
+                android:name="response"
+                android:defaultValue="@null"
+                app:argType="uz.mod.templatex.model.remote.response.ConfirmResponse"
+                app:nullable="true" />
+        <argument
+                android:name="details"
+                android:defaultValue="@null"
+                app:argType="uz.mod.templatex.model.remote.request.StoreRequest"
+                app:nullable="true" />
+
+        <argument
+                app:nullable="false"
+                android:name="paymentData"
+                app:argType="uz.mod.templatex.model.inApp.PaymentData" />
+        <action
+                android:id="@+id/action_paymentDetailsFragment_to_checkoutFinalFragment"
+                app:destination="@id/checkoutFinalFragment" />
+
+    </fragment>
 </navigation>

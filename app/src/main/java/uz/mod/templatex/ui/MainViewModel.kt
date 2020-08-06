@@ -7,10 +7,16 @@ import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.repository.AuthRepository
 import uz.mod.templatex.model.repository.CartRepository
+import uz.mod.templatex.model.repository.PaymentDetailsRepository
 import uz.mod.templatex.utils.DestinationHelper
 
 
-class MainViewModel constructor(application: Application, val authRepository: AuthRepository, val cartRepository: CartRepository, val prefs: Prefs) : AndroidViewModel(application) {
+class MainViewModel constructor(
+    application: Application,
+    val authRepository: AuthRepository,
+    val cartRepository: CartRepository,
+    val prefs: Prefs
+) : AndroidViewModel(application) {
 
     val isAuthenticated = MutableLiveData<Boolean>(false)
 
@@ -54,7 +60,7 @@ class MainViewModel constructor(application: Application, val authRepository: Au
     val isBottomBarVisible = MediatorLiveData<Boolean>()
         .apply {
             fun validateFrom() {
-                value = if(isKeyboardVisible.value == true) false else hasBottomBar.value == true
+                value = if (isKeyboardVisible.value == true) false else hasBottomBar.value == true
             }
 
             addSource(isKeyboardVisible) { validateFrom() }
@@ -71,8 +77,8 @@ class MainViewModel constructor(application: Application, val authRepository: Au
         isAuthenticated.value = false
     }
 
-    fun setTitle(name: String?) {
-        title.value = name
+    fun setTitle(name: String?) = name?.let {
+        title.value = it
     }
 
     fun getCartItemCount() = cartRepository.products().map { it.data?.size ?: 0 }

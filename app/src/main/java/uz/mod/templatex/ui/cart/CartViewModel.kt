@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import timber.log.Timber
 import uz.mod.templatex.R
-import uz.mod.templatex.model.local.CartResponseSafeArgs
+import uz.mod.templatex.model.inApp.CartResponseSafeArgs
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.response.Cart
 import uz.mod.templatex.model.repository.CartRepository

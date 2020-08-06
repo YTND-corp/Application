@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="uz.mod.templatex.ui.paymentProvider.PaymentDetailsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/paymentAmount"
+                style="@style/Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#e8e6e8"
+                android:gravity="center"
+                android:lineSpacingExtra="-3sp"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="5dp"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingBottom="5dp"
+                android:text="@{viewModel.moneyAmount()}"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/cardNumber"
+                style="@style/TextInputLayoutAppearance"
+                android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                android:hint="@string/hint_card_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/paymentAmount">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/number"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:text="@={viewModel.cardNumber}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/cardExpiry"
+                style="@style/TextInputLayoutAppearance"
+                android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                android:hint="@string/hint_card_expire_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardNumber">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/expiry"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:text="@={viewModel.cardExpire}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+                android:id="@+id/continue_button"
+                style="@style/ContainedButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                android:enabled="@{viewModel.isAllValid()}"
+                android:text="@string/action_pay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardExpiry" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

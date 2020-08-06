@@ -9,11 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.PaymentFragmentBinding
+import uz.mod.templatex.model.inApp.PaymentData
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
+import uz.mod.templatex.model.remote.response.PaymentMethod
+import uz.mod.templatex.ui.custom.LineDividerItemDecoration
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
@@ -23,7 +25,7 @@ import uz.mod.templatex.utils.extension.lazyFast
 class PaymentFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
-    val viewModel: PaymentViewModel by viewModel()
+    private val paymentViewModel: PaymentViewModel by viewModel()
     val args: PaymentFragmentArgs by navArgs()
     private val binding by lazy { PaymentFragmentBinding.inflate(layoutInflater) }
 
@@ -35,9 +37,9 @@ class PaymentFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setArguments(args)
+        paymentViewModel.setArguments(args)
 
-        viewModel.response.observe(this, Observer { result ->
+        paymentViewModel.response.observe(this, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -72,29 +74,55 @@ class PaymentFragment : ParentFragment() {
 
         initViews()
 
-        viewModel.methods.observe(viewLifecycleOwner, Observer {
+        paymentViewModel.methods.observe(viewLifecycleOwner, Observer {
             paymentMethodAdapter.setItems(it)
         })
 
-        viewModel.selectedMethod.observe(viewLifecycleOwner, Observer {
+        paymentViewModel.selectedMethod.observe(viewLifecycleOwner, Observer {
             paymentMethodAdapter.setSelected(it)
         })
     }
 
     private fun initViews(): Unit = with(binding) {
 
-        viewModel = this@PaymentFragment.viewModel
+        viewModel = paymentViewModel
         executePendingBindings()
 
-        paymentMethodAdapter = PaymentMethodAdapter {
-            viewModel?.setSelectedMethod(it)
+        paymentMethodAdapter = PaymentMethodAdapter { paymentMethod, adapterPosition ->
+            when (adapterPosition) {
+                0 -> navigateToPaymentProviders(paymentMethod)
+                else -> paymentViewModel.setSelectedMethod(paymentMethod)
+            }
         }
+
+        options.addItemDecoration(
+            LineDividerItemDecoration(
+                requireContext(),
+                R.drawable.divider
+            )
+        )
 
         options.adapter = paymentMethodAdapter
 
         continueButton.setOnClickListener {
-            this@PaymentFragment.viewModel.buy()
+            paymentViewModel.buy()
         }
+    }
+
+    private fun navigateToPaymentProviders(paymentMethod: PaymentMethod) {
+        PaymentFragmentDirections.actionPaymentFragmentToPaymentCardListFragment(
+            args.cartResponse,
+            args.response,
+            args.details,
+            PaymentData(
+                null,
+                args.response?.user?.phone,
+                args.response?.payment?.cart?.totalPrice ?: 0,
+                args.cartResponse?.products?.first()?.currencies?.first()?.currency ?: "UZS",
+                paymentMethod
+            )
+        ).run { navController.navigate(this) }
+
     }
 
     private fun processError(error: ApiError?) = when (error?.code) {
@@ -106,7 +134,7 @@ class PaymentFragment : ParentFragment() {
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-            if (it.getContentIfNotHandled() == true) viewModel.buy()
+            if (it.getContentIfNotHandled() == true) paymentViewModel.buy()
         })
         navController.navigate(destinationID)
     }

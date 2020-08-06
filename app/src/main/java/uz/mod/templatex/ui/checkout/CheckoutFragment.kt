@@ -9,6 +9,7 @@ import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import kotlinx.android.synthetic.main.checkout_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.R
@@ -48,6 +49,7 @@ class CheckoutFragment : ParentFragment() {
                     hideLoading()
                     result.data?.let {
                         if (it.confirmation == false && sharedViewModel.isAuthenticated.value == true) {
+                            sharedViewModel.prefs.phone = phone.text.toString()
                             navController.navigate(
                                 CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment(
                                     args.cartResponse,

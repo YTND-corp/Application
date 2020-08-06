@@ -231,6 +231,7 @@
                             app:layout_constraintVertical_bias="1">
 
                         <Button
+                                android:enabled="@{viewModel.isPaymentMethodSelected()}"
                                 android:id="@+id/continue_button"
                                 style="@style/ContainedButtonStyle"
                                 android:layout_width="match_parent"

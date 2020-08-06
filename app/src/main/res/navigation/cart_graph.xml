@@ -15,7 +15,7 @@
                 app:destination="@id/checkout_graph" >
             <argument
                     android:name="cartResponse"
-                    app:argType="uz.mod.templatex.model.local.CartResponseSafeArgs"/>
+                    app:argType="uz.mod.templatex.model.inApp.CartResponseSafeArgs"/>
 
         </action>
         <action

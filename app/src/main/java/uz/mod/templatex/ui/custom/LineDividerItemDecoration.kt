@@ -7,11 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class LineDividerItemDecoration(context: Context, id: Int) : RecyclerView.ItemDecoration() {
-    private val mDivider: Drawable
-
-    init {
-        mDivider = ContextCompat.getDrawable(context,id)!!
-    }
+    private val mDivider: Drawable = ContextCompat.getDrawable(context,id)!!
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val left = parent.paddingLeft

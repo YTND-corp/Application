@@ -1,4 +1,4 @@
-package uz.mod.templatex.model.local
+package uz.mod.templatex.model.inApp
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
