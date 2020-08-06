@@ -232,7 +232,7 @@
                     android:drawableTint="@color/black"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:text="@string/support_center_email_us"
+                    android:text="@string/action_email_us"
                     app:layout_constraintTop_toBottomOf="@id/tvDescription" />
 
             <Button
@@ -247,7 +247,7 @@
                     android:drawableTint="@color/white"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:text="@string/support_center_call_us"
+                    android:text="@string/action_call_us"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnEmailUs" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
                 android:gravity="center_horizontal"
-                android:text="Позвонить по номеру +998 95 303-99-99\nС понедельника по пятницу с 9:00 по 21:0"
+                android:text="Позвонить по номеру +998 95 303-99-99\nС понедельника по пятницу с 9:00 по 21:00"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -268,7 +268,7 @@
         <item name="android:fontFamily">@font/regular</item>
     </style>
 
-    <style name="SupportCenterItemTextStyle" parent="Bold">
+    <style name="SupportCenterItemTextStyle" parent="Medium">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingTop">8dp</item>
@@ -279,7 +279,7 @@
         <item name="android:textColor">@color/blackTextColor</item>
         <item name="android:paddingStart">20dp</item>
         <item name="android:paddingEnd">20dp</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">@font/regular</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
