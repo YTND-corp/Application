@@ -39,7 +39,8 @@ class MainActivity : ParentActivity() {
     private var cartBadge: BadgeDrawable? = null
 
     private val TOP_LEVEL_FRAGMENTS = setOf(
-        R.id.selectionFragment,
+        R.id.categoryFragment,
+        //R.id.selectionFragment,
         R.id.categoryFragment,
         R.id.favoriteFragment,
         R.id.profileFragment,

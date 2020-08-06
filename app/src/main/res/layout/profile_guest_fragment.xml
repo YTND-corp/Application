@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp">
 
-                <TextView
+                <!--<TextView
                         android:id="@+id/country"
                         style="@style/ProfileTextStyle"
                         android:layout_width="match_parent"
@@ -189,7 +189,7 @@
                         android:src="@drawable/ic_chevron_right"
                         app:layout_constraintBottom_toBottomOf="@id/check_order_status"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/check_order_status" />
+                        app:layout_constraintTop_toTopOf="@id/check_order_status" />-->
 
                 <TextView
                         android:id="@+id/ask_question"
@@ -197,7 +197,7 @@
                         android:layout_width="match_parent"
                         android:drawableStart="@drawable/ic_support_center_email"
                         android:text="@string/profile_ask_question"
-                        app:layout_constraintTop_toBottomOf="@id/check_order_status" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                         style="@style/Divider"

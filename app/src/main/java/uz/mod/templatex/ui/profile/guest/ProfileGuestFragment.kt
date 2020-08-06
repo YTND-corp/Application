@@ -65,13 +65,13 @@ class ProfileGuestFragment : ParentFragment() {
             navController.navigate(R.id.action_profileFragment_to_sign_up_graph)
         }
 
-        country.setOnClickListener {
+        /*country.setOnClickListener {
             navController.navigate(R.id.action_profileFragment_to_countryFragment)
         }
 
         checkOrderStatus.setOnClickListener {
             navController.navigate(R.id.action_profileFragment_to_checkOrderStatusFragment)
-        }
+        }*/
 
         askQuestion.setOnClickListener {
             navController.navigate(R.id.action_profileFragment_to_askQuestionFragment)
