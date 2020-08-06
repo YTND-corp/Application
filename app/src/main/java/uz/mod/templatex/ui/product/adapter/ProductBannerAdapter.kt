@@ -29,14 +29,12 @@ class ProductBannerAdapter(val listener: (items: List<String>, position: Int) ->
 
     inner class ViewHolder(val binding: ProductBannerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(url: String, position: Int) {
-            binding.apply {
-                item = url
-                executePendingBindings()
+        fun bind(url: String, position: Int): Unit = with(binding) {
+            item = url
+            executePendingBindings()
 
-                root.setOnClickListener {
-                    listener.invoke(items, position)
-                }
+            root.setOnClickListener {
+                listener.invoke(items, position)
             }
         }
     }

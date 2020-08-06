@@ -28,7 +28,7 @@
         <argument
                 app:nullable="true"
                 android:name="cartResponse"
-                app:argType="uz.mod.templatex.model.local.CartResponseSafeArgs"/>
+                app:argType="uz.mod.templatex.model.inApp.CartResponseSafeArgs"/>
         <argument
                 android:name="phone"
                 app:argType="string" />

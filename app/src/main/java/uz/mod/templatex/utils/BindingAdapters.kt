@@ -17,7 +17,7 @@ fun isVisible(view: View, value: Boolean) {
 @BindingAdapter("url")
 fun url(view: ImageView, url: String? = null) {
     Glide.with(view.context)
-        .load(url)//.apply(RequestOptions().circleCrop())
+        .load(url)
         .into(view)
 }
 

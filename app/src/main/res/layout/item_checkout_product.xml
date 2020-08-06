@@ -18,8 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivIcon"
+                url="@{item.image}"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 app:layout_constraintBottom_toTopOf="@+id/tvColorAndReference"
@@ -47,7 +48,7 @@
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="20dp"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:text="@{viewModel.getColorAndReference(item)}"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="16sp"
