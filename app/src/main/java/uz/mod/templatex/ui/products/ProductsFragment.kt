@@ -33,7 +33,7 @@ class ProductsFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
-    val viewModel: ProductsViewModel by viewModel()
+    private val productsViewModel: ProductsViewModel by viewModel()
 
     private val binding by lazy { ProductsFragmentBinding.inflate(layoutInflater) }
 
@@ -52,7 +52,7 @@ class ProductsFragment : ParentFragment() {
         super.onCreate(savedInstanceState)
 
         adapter = ProductAdapter { product, position ->
-            viewModel.favoriteToggle(product.id).observe(viewLifecycleOwner, Observer { result ->
+            productsViewModel.favoriteToggle(product.id).observe(viewLifecycleOwner, Observer { result ->
                 when (result.status) {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
@@ -73,7 +73,7 @@ class ProductsFragment : ParentFragment() {
             navController.navigate(ProductsFragmentDirections.actionGlobalProductsFragment(it.id, it.name))
         }
 
-        viewModel.setArgs(args)
+        productsViewModel.setArgs(args)
     }
 
     private fun showFavouriteStatus(isFavorite: Boolean) {
@@ -95,8 +95,8 @@ class ProductsFragment : ParentFragment() {
 
         initViews()
 
-        viewModel.filterParams = sharedFilterViewModel.activeFilter
-        viewModel.response.observe(viewLifecycleOwner, Observer {
+        productsViewModel.filterParams = sharedFilterViewModel.activeFilter
+        productsViewModel.response.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let { result ->
                 when (result.status) {
                     Status.LOADING -> {
@@ -108,7 +108,7 @@ class ProductsFragment : ParentFragment() {
                     }
                     Status.SUCCESS -> {
                         handleLoadingDone()
-                        if (viewModel.page == 1) {
+                        if (productsViewModel.page == 1) {
                             val string =
                                 resources.getString(R.string.products_subtitle, result.data?.size.toString())
                             Timber.d("binding.subtitle.text $string")
@@ -121,9 +121,9 @@ class ProductsFragment : ParentFragment() {
             }
         })
 
-        /*viewModel.brands.observe(viewLifecycleOwner, Observer {
+        productsViewModel.brands.observe(viewLifecycleOwner, Observer {
             mBrandAdapter.setItems(it)
-        })*/
+        })
     }
 
     private fun handleLoadingDone() {
@@ -146,13 +146,18 @@ class ProductsFragment : ParentFragment() {
         if (sharedFilterViewModel.needToReloadFeed) {
             sharedFilterViewModel.needToReloadFeed = false
             sharedFilterViewModel.fillActiveFilter()
-            viewModel.filterParams = sharedFilterViewModel.activeFilter
-            viewModel.refresh()
+            productsViewModel.filterParams = sharedFilterViewModel.activeFilter
+            productsViewModel.refresh()
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        hideKeyboard()
+    }
+
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@ProductsFragment.viewModel
+        viewModel = productsViewModel
         executePendingBindings()
 
         shimmer.startShimmer()
@@ -162,7 +167,7 @@ class ProductsFragment : ParentFragment() {
         products.adapter = adapter
         rvBrands.adapter = mBrandAdapter
 
-        var pastVisiblesItems: Int
+        var pastVisibleItems: Int
         var visibleItemCount: Int
         var totalItemCount: Int
 
@@ -171,12 +176,12 @@ class ProductsFragment : ParentFragment() {
                 if (dy > 0) {
                     visibleItemCount = layoutManager.childCount
                     totalItemCount = layoutManager.itemCount
-                    pastVisiblesItems = layoutManager.findFirstVisibleItemPosition()
+                    pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
                     if (!isLoadingMore) {
-                        if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
-                            Timber.e("LoadingMore..........")
+                        if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+                            Timber.e("LoadingMore Products..........")
                             isLoadingMore = true
-                            viewModel?.loadMore()
+                            productsViewModel.loadMore()
                         }
                     }
                 }
@@ -184,7 +189,7 @@ class ProductsFragment : ParentFragment() {
         })
 
         filter.setOnClickListener {
-            viewModel?.categoryId?.let {
+            productsViewModel.categoryId.let {
                 navController.navigate(
                     R.id.mainFilterFragment,
                     bundleOf(MainFilterFragment.KEY_CATEGORY_ID to it)
@@ -193,13 +198,12 @@ class ProductsFragment : ParentFragment() {
         }
 
         sortWrapper.setOnClickListener {
-            viewModel?.categoryId?.let {
+            productsViewModel.categoryId.let {
                 navController.navigate(R.id.sortFragment)
             }
 
-            search.setOnFocusChangeListener { v, hasFocus ->
-                if (hasFocus)
-                    navController.navigate(R.id.action_global_searchFragment)
+            search.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) navController.navigate(R.id.action_global_searchFragment)
             }
         }
 
@@ -218,7 +222,7 @@ class ProductsFragment : ParentFragment() {
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-            if (it.getContentIfNotHandled() == true) viewModel.refresh()
+            if (it.getContentIfNotHandled() == true) productsViewModel.refresh()
         })
         navController.navigate(destinationID)
     }
