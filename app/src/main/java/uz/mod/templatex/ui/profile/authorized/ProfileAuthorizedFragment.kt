@@ -18,7 +18,7 @@ import uz.mod.templatex.utils.extension.lazyFast
 class ProfileAuthorizedFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
-    val viewModel: ProfileAuthorizedViewModel by viewModel()
+    private val profileAuthorizedViewModel: ProfileAuthorizedViewModel by viewModel()
 
     private val binding by lazy { ProfileAuthorizedFragmentBinding.inflate(layoutInflater) }
 
@@ -48,7 +48,7 @@ class ProfileAuthorizedFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@ProfileAuthorizedFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -58,10 +58,10 @@ class ProfileAuthorizedFragment : ParentFragment() {
     }
 
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@ProfileAuthorizedFragment.viewModel
+        viewModel = profileAuthorizedViewModel
         executePendingBindings()
 
-        val profileName = this@ProfileAuthorizedFragment.viewModel.getUser().name + "!"
+        val profileName = profileAuthorizedViewModel.getUser().name + "!"
         val profileNameTitleText = SpannableStringBuilder()
             .append(getString(R.string.profile_authorized_name_title_first_part))
             .bold { append(profileName) }

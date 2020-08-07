@@ -30,7 +30,7 @@ import uz.mod.templatex.utils.extension.setupWithNavController
 
 class MainActivity : ParentActivity() {
 
-    private val viewModel: MainViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
     private lateinit var currentNavController: LiveData<NavController>
 
     private val binding by lazy { MainActivityBinding.inflate(layoutInflater) }
@@ -38,14 +38,30 @@ class MainActivity : ParentActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var cartBadge: BadgeDrawable? = null
 
-    private val TOP_LEVEL_FRAGMENTS = setOf(
+    private val topLevelFragments = setOf(
         R.id.categoryFragment,
-        //R.id.selectionFragment,
         R.id.categoryFragment,
         R.id.favoriteFragment,
         R.id.profileFragment,
         R.id.cartFragment
     )
+
+    private val destinationGraphResourceIds = listOf(
+        R.navigation.home_graph,
+        R.navigation.catalog_graph,
+        R.navigation.favorites_graph,
+        R.navigation.profile_graph,
+        R.navigation.cart_graph
+    )
+
+    private val bottomNavMenuItemIds = listOf(
+        R.id.home_graph,
+        R.id.catalog_graph,
+        R.id.starred_graph,
+        R.id.profile_graph,
+        R.id.cart_graph
+    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -62,15 +78,15 @@ class MainActivity : ParentActivity() {
 
         KeyboardVisibilityEvent.setEventListener(this) {
             Timber.e("Keyboard = $it")
-            viewModel.keyboardVisibilityChanged(it)
+            mainViewModel.keyboardVisibilityChanged(it)
         }
 
-        viewModel.hasBackButton.observe(this, Observer {
+        mainViewModel.hasBackButton.observe(this, Observer {
             supportActionBar?.apply {
                 setDisplayHomeAsUpEnabled(it)
                 setHomeAsUpIndicator(
                     when {
-                        viewModel.destination.value?.id == R.id.searchFragment -> R.drawable.ic_close
+                        mainViewModel.destination.value?.id == R.id.searchFragment -> R.drawable.ic_close
                         it -> R.drawable.ic_back
                         else -> 0
                     }
@@ -80,10 +96,10 @@ class MainActivity : ParentActivity() {
 
 
 
-        viewModel.title.observe(this, Observer {
+        mainViewModel.title.observe(this, Observer {
             binding.toolbar.title = ""
         })
-        viewModel.toolbarGrayBackground.observe(this, Observer { titleGrayBackground ->
+        mainViewModel.toolbarGrayBackground.observe(this, Observer { titleGrayBackground ->
             val drawable =
                 if (titleGrayBackground) drawable(R.color.windowBackgroundGrayColor)
                 else drawable(R.color.windowBackgroundWhiteColor)
@@ -100,7 +116,7 @@ class MainActivity : ParentActivity() {
             binding.toolbar.background = drawable
         })
 
-        viewModel.getCartItemCount().observe(this, Observer { count ->
+        mainViewModel.getCartItemCount().observe(this, Observer { count ->
             if (count == 0) {
                 cartBadge?.isVisible = false
             } else {
@@ -112,7 +128,7 @@ class MainActivity : ParentActivity() {
 
     fun initViews() {
         binding.apply {
-            viewModel = this@MainActivity.viewModel
+            viewModel = mainViewModel
             executePendingBindings()
             setSupportActionBar(toolbar)
 
@@ -122,16 +138,10 @@ class MainActivity : ParentActivity() {
             cartBadge?.backgroundColor = ContextCompat.getColor(root.context, R.color.black)
             cartBadge?.isVisible = false
 
-            appBarConfiguration = AppBarConfiguration(TOP_LEVEL_FRAGMENTS)
+            appBarConfiguration = AppBarConfiguration(topLevelFragments)
 
             val controller = bottomNavigationView.setupWithNavController(
-                listOf(
-                    R.navigation.home_graph,
-                    R.navigation.catalog_graph,
-                    R.navigation.favorites_graph,
-                    R.navigation.profile_graph,
-                    R.navigation.cart_graph
-                ), supportFragmentManager, R.id.nav_host_container, intent
+                destinationGraphResourceIds, supportFragmentManager, R.id.nav_host_container, intent
             )
             currentNavController = controller
             controller.observe(this@MainActivity, Observer { navController ->
@@ -140,12 +150,32 @@ class MainActivity : ParentActivity() {
             bottomNavigationView.selectedItemId = R.id.home_graph
             binding.toolbar.title = ""
 
+            mainViewModel.bottomNavBarSelection.observe(this@MainActivity, Observer {
+                it.getContentIfNotHandled()?.let { customArgs ->
+                    bottomNavMenuItemIds.indexOf(customArgs.destGraphID).let { menuIndex ->
+                        if (menuIndex != -1) bottomNavigationView.menu.getItem(menuIndex).isChecked = true
+                    }
+                    currentNavController.value?.navigate(customArgs.destFragmentID)
+                }
+            })
+
+
+
             bottomNavigationView.menu.forEach {
                 findViewById<View>(it.itemId).setOnLongClickListener {
                     true
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        currentNavController.value?.graph?.id?.let {
+            bottomNavMenuItemIds.indexOf(it).let { menuIndex ->
+                if (menuIndex != -1) binding.bottomNavigationView.menu.getItem(menuIndex).isChecked = true
+            }
+        }
+        super.onBackPressed()
     }
 
     private fun @NotNull MainActivityBinding.onNavControllerChanged(

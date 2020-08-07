@@ -1,21 +1,25 @@
 package uz.mod.templatex.ui
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.navigation.NavDestination
+import uz.mod.templatex.model.inApp.BottomNavCustomSelectionArgs
 import uz.mod.templatex.model.inApp.CountDownTimeMeta
 import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.repository.AuthRepository
 import uz.mod.templatex.model.repository.CartRepository
-import uz.mod.templatex.model.repository.PaymentDetailsRepository
 import uz.mod.templatex.utils.DestinationHelper
+import uz.mod.templatex.utils.Event
 
 
 class MainViewModel constructor(
     application: Application,
-    val authRepository: AuthRepository,
-    val cartRepository: CartRepository,
+    private val authRepository: AuthRepository,
+    private val cartRepository: CartRepository,
     val prefs: Prefs
 ) : AndroidViewModel(application) {
 
@@ -38,6 +42,8 @@ class MainViewModel constructor(
     var hasBottomBar = MutableLiveData<Boolean>()
 
     var isKeyboardVisible = MutableLiveData<Boolean>()
+
+    val bottomNavBarSelection = MutableLiveData<Event<BottomNavCustomSelectionArgs>>()
 
     fun destinationChanged(destination: NavDestination) {
         val config = DestinationHelper.getConfig(destination)
