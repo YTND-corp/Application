@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter
 class ProfileMyDataFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
-    val viewModel: ProfileMyDataViewModel by viewModel()
+    private val profileViewModel: ProfileMyDataViewModel by viewModel()
 
     private val binding by lazy { ProfileMyDataFragmentBinding.inflate(layoutInflater) }
     private lateinit var genderAdapter: GenderAdapter
@@ -51,7 +51,7 @@ class ProfileMyDataFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+        profileViewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -89,11 +89,11 @@ class ProfileMyDataFragment : ParentFragment() {
             }
         })
 
-        viewModel.getUserInfo()
+        profileViewModel.getUserInfo()
     }
 
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@ProfileMyDataFragment.viewModel
+        viewModel = profileViewModel
 
         birthDate.setOnClickListener {
             showDatePickerDialog()
@@ -101,7 +101,7 @@ class ProfileMyDataFragment : ParentFragment() {
 
         saveButton.setOnClickListener {
             hideKeyboard()
-            viewModel?.updateUserInfo()?.observe(viewLifecycleOwner, Observer { result ->
+            profileViewModel.updateUserInfo().observe(viewLifecycleOwner, Observer { result ->
                 when (result.status) {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
@@ -127,7 +127,7 @@ class ProfileMyDataFragment : ParentFragment() {
                 position: Int,
                 id: Long
             ) {
-                viewModel?.selectedGender = genderAdapter.getGender(position).type.toString()
+                profileViewModel.selectedGender = genderAdapter.getGender(position).type.toString()
             }
         }
 
@@ -163,7 +163,7 @@ class ProfileMyDataFragment : ParentFragment() {
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-            if (it.getContentIfNotHandled() == true) viewModel.getUserInfo()
+            if (it.getContentIfNotHandled() == true) profileViewModel.getUserInfo()
         })
         navController.navigate(destinationID)
     }

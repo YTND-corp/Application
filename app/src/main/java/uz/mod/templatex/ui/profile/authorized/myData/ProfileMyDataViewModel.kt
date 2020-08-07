@@ -38,12 +38,10 @@ class ProfileMyDataViewModel(application: Application, val repository: MyDataRep
     fun updateUserInfo(): LiveData<Resource<Any>> {
         var firstName: String? = null
         var lastName: String? = null
-        val birthday =
-            LocalDate.parse(
-                this.birthday.value,
-                DateTimeFormatter.ofPattern("dd.MM.yyyy")
-            )
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val birthday = if (this.birthday.value != null) LocalDate.parse(
+            this.birthday.value,
+            DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        ).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) else null
 
         fullName.value?.trim()?.split(" ")?.forEachIndexed { index, s ->
             when (index) {
