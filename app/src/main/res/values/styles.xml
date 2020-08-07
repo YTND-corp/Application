@@ -83,8 +83,8 @@
 
     <style name="Medium">
         <item name="android:textSize">@dimen/text_size_normal</item>
-        <item name="android:fontFamily">@font/medium</item>
-        <item name="fontFamily">@font/medium</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="fontFamily">@font/bold</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
