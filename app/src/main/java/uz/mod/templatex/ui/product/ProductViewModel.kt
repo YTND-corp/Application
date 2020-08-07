@@ -77,11 +77,11 @@ class ProductViewModel constructor(
     }
 
     val sizes = Transformations.map(selectedColor) {
-        it?.sizes
+        it?.sizes?.filter { it.inStock }
     }
 
-    val shouldShowSize = Transformations.map(product) {
-        it?.inStock == true
+    val shouldShowSize = Transformations.map(sizes) {
+        it?.isNotEmpty()
     }
 
     val sizeChart = Transformations.map(product) {

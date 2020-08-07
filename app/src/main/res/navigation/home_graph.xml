@@ -3,12 +3,17 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/home_graph"
-        app:startDestination="@id/categoryFragment">
+        app:startDestination="@id/selectionFragment">
 
-    <action
-            android:id="@+id/action_global_productFragment"
-            app:destination="@id/productFragment" />
-
+    <fragment
+            android:id="@+id/selectionFragment"
+            android:name="uz.mod.templatex.ui.selection.SelectionFragment"
+            android:label=""
+            tools:layout="@layout/selection_fragment">
+        <action
+                android:id="@+id/action_selectionFragment_to_catalog_graph"
+                app:destination="@id/catalog_graph" />
+    </fragment>
     <fragment
             android:id="@+id/categoryFragment"
             android:name="uz.mod.templatex.ui.category.CategoryFragment"
@@ -27,9 +32,9 @@
 
         <argument
                 android:name="category"
-                android:defaultValue="@null"
                 app:argType="uz.mod.templatex.model.local.entity.Category"
-                app:nullable="true" />
+                app:nullable="true"
+                android:defaultValue="@null" />
 
     </fragment>
     <fragment
@@ -50,8 +55,8 @@
                 app:nullable="true" />
         <argument
                 android:name="brand_id"
-                android:defaultValue="0"
-                app:argType="integer" />
+                app:argType="integer"
+                android:defaultValue="0" />
         <action
                 android:id="@+id/action_productsFragment_to_mainFilterFragment"
                 app:destination="@id/mainFilterFragment"
@@ -59,9 +64,6 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right" />
-        <action
-                android:id="@+id/action_productsFragment_to_sortFragment"
-                app:destination="@id/sortFragment" />
 
     </fragment>
 
@@ -71,6 +73,11 @@
             android:name="uz.mod.templatex.ui.filter.FilterFragment"
             android:label="@string/title_filter"
             tools:layout="@layout/filter_fragment" />
+    <fragment
+            android:id="@+id/searchFragment"
+            android:name="uz.mod.templatex.ui.search.SearchFragment"
+            android:label="@string/title_search"
+            tools:layout="@layout/search_fragment" />
 
     <action
             android:id="@+id/action_global_productsFragment"
@@ -80,6 +87,9 @@
     <fragment
             android:id="@+id/mainFilterFragment"
             android:name="uz.mod.templatex.ui.new_filter.MainFilterFragment">
+        <argument
+                android:name="categoryId"
+                app:argType="integer" />
         <action
                 android:id="@+id/action_mainFilterFragment_to_singleAttributeFragment"
                 app:destination="@id/singleAttributeFragment"
@@ -87,48 +97,16 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right" />
-        <argument
-                android:name="categoryId"
-                app:argType="integer" />
     </fragment>
     <fragment
             android:id="@+id/singleAttributeFragment"
-            android:name="uz.mod.templatex.ui.new_filter.singleattribute.SingleAttributeFragment">
+            android:name="uz.mod.templatex.ui.new_filter.singleattribute.SingleAttributeFragment"
+            android:label="SingleAttributeFragment" >
         <argument
                 android:name="attrId"
                 app:argType="integer" />
     </fragment>
 
-    <fragment
-            android:id="@+id/productFragment"
-            android:name="uz.mod.templatex.ui.product.ProductFragment"
-            android:label=""
-            tools:layout="@layout/product_fragment">
-
-        <argument
-                android:name="product_id"
-                android:defaultValue="0"
-                app:argType="integer" />
-        <action
-                android:id="@+id/action_productFragment_to_sizeChartFragment"
-                app:destination="@id/sizeChartFragment" />
-    </fragment>
-    <fragment
-            android:id="@+id/fullScreenImageFragment"
-            android:name="uz.mod.templatex.ui.fullscreen_image.FullScreenImageFragment"
-            android:label="FullScreenImageFragment">
-
-        <argument
-                android:name="images"
-                app:argType="string[]" />
-        <argument
-                android:name="selectedPosition"
-                app:argType="integer" />
-    </fragment>
-    <fragment
-            android:id="@+id/sortFragment"
-            android:name="uz.mod.templatex.ui.new_filter.SortFragment"
-            tools:layout="@layout/sort_fragment" />
     <dialog
             android:id="@+id/noInternetFragment"
             android:name="uz.mod.templatex.ui.common.NoInternetFragmentDialog"
@@ -142,22 +120,26 @@
             android:name="uz.mod.templatex.ui.common.NewVersionAvailableFragmentDialog"
             tools:layout="@layout/include_new_version_available" />
 
+    <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment" />
+
     <fragment
-            android:id="@+id/searchFragment"
-            android:name="uz.mod.templatex.ui.search.SearchFragment"
-            android:label="@string/title_search"
-            tools:layout="@layout/search_fragment" />
+            android:id="@+id/productFragment"
+            android:name="uz.mod.templatex.ui.product.ProductFragment"
+            android:label=""
+            tools:layout="@layout/product_fragment">
+
+        <argument
+                android:name="product_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+    </fragment>
 
     <action
-            android:id="@+id/action_global_searchFragment"
-            app:destination="@id/searchFragment" />
+            android:id="@+id/action_global_productFragment"
+            app:destination="@id/productFragment" />
+    <include app:graph="@navigation/catalog_graph" />
     <fragment
-            android:id="@+id/sizeChartFragment"
-            android:name="uz.mod.templatex.ui.size_chart.SizeChartFragment"
-            android:label="@string/size_table"
-            tools:layout="@layout/size_chart_fragment" >
-        <argument
-                android:name="sizeChart"
-                app:argType="string" />
-    </fragment>
+            android:id="@+id/askQuestionFragmentFromSelection"
+            android:name="uz.mod.templatex.ui.askQuestion.AskQuestionFragment"
+            android:label="AskQuestionFragment" />
 </navigation>

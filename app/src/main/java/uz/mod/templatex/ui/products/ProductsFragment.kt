@@ -121,9 +121,9 @@ class ProductsFragment : ParentFragment() {
             }
         })
 
-        productsViewModel.brands.observe(viewLifecycleOwner, Observer {
+        /*productsViewModel.brands.observe(viewLifecycleOwner, Observer {
             mBrandAdapter.setItems(it)
-        })
+        })*/
     }
 
     private fun handleLoadingDone() {

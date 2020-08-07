@@ -114,7 +114,7 @@ class ProductFragment : ParentFragment() {
         })
 
         viewModel.shouldShowSize.observe(viewLifecycleOwner, Observer {
-            val visibility = if (it) View.VISIBLE else View.GONE
+            val visibility = if (it == true) View.VISIBLE else View.GONE
             sizes.visibility = visibility
             size_header.visibility = visibility
         })
