@@ -73,9 +73,9 @@ class ProfileGuestFragment : ParentFragment() {
             navController.navigate(R.id.action_profileFragment_to_checkOrderStatusFragment)
         }*/
 
-        askQuestion.setOnClickListener {
+        /*askQuestion.setOnClickListener {
             navController.navigate(R.id.action_profileFragment_to_askQuestionFragment)
-        }
+        }*/
 
         callUs.setOnClickListener {
             startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${Const.PHONE_NUMBER}")))

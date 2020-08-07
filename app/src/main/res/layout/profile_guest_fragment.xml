@@ -191,7 +191,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/check_order_status" />-->
 
-                <TextView
+                <!--<TextView
                         android:id="@+id/ask_question"
                         style="@style/ProfileTextStyle"
                         android:layout_width="match_parent"
@@ -213,7 +213,7 @@
                         android:src="@drawable/ic_chevron_right"
                         app:layout_constraintBottom_toBottomOf="@id/ask_question"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/ask_question" />
+                        app:layout_constraintTop_toTopOf="@id/ask_question" />-->
 
                 <TextView
                         android:id="@+id/call_us"
@@ -221,7 +221,7 @@
                         android:layout_width="match_parent"
                         android:drawableStart="@drawable/ic_profile_authorized_call_us"
                         android:text="@string/profile_call_us"
-                        app:layout_constraintTop_toBottomOf="@id/ask_question" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                         style="@style/Divider"
