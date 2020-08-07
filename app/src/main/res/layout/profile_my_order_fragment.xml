@@ -24,7 +24,6 @@
                 android:layout_height="wrap_content"
                 android:background="@color/windowBackgroundWhiteColor"
                 android:paddingStart="20dp"
-                android:paddingTop="20dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="20dp">
 

@@ -15,7 +15,6 @@ import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.extension.getNavigationResult
-import uz.mod.templatex.utils.extension.inputMethodManager
 import uz.mod.templatex.utils.extension.lazyFast
 
 class CategoryFragment : ParentFragment() {
@@ -97,24 +96,17 @@ class CategoryFragment : ParentFragment() {
                 positionOffsetPixels: Int
             ) = Unit
 
-            override fun onPageSelected(position: Int) {
-                requireActivity().inputMethodManager.hideSoftInputFromWindow(
-                    view?.windowToken,
-                    0
-                )
-            }
+            override fun onPageSelected(position: Int) = hideKeyboard()
         })
-        
     }
 
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
     }
+    
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {

@@ -43,7 +43,7 @@ class ProfileMyOrderFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@ProfileMyOrderFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -85,13 +85,13 @@ class ProfileMyOrderFragment : ParentFragment() {
             rvProducts.adapter = adapter
         }
     }
+
     //TODO("PLEASE CHECK HERE IF THE LOGIC IS NOT BROKEN")
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navController.navigate(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navController.navigate(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navController.navigate(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navController.navigate(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
     }
+
 }

@@ -72,9 +72,8 @@ class CategoryChildFragment : ParentFragment() {
         catalogs.setHasFixedSize(true)
         catalogs.adapter = adapter
 
-        searchEditText.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus)
-                navController.navigate(R.id.action_global_searchFragment)
+        searchEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) navController.navigate(R.id.action_global_searchFragment)
         }
     }
 }

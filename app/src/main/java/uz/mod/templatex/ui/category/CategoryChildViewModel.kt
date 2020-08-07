@@ -7,13 +7,10 @@ import uz.mod.templatex.model.local.entity.Category
 import uz.mod.templatex.model.local.entity.CategoryGender
 
 class CategoryChildViewModel constructor(application: Application): AndroidViewModel(application) {
-    fun setArguments(gender: CategoryGender?) {
-        categories.value = gender?.categories//?: arrayListOf<Catalog>()
+    fun setArguments(gender: CategoryGender?) = gender?.categories?.let{
+        categories.value = it//?: arrayListOf<Catalog>()
     }
 
     val categories = MutableLiveData<List<Category>>()
 
-    init {
-
-    }
 }
