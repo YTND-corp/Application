@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.FavoriteFragmentBinding
+import uz.mod.templatex.model.inApp.BottomNavCustomSelectionArgs
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
@@ -88,7 +89,13 @@ class FavoriteFragment : ParentFragment() {
         products.adapter = adapter
 
         placeholderButton.setOnClickListener {
-            navController.navigate(R.id.action_favoriteFragment_to_categoryFragment)
+            sharedViewModel.bottomNavBarSelection.value = Event(
+                BottomNavCustomSelectionArgs(
+                    R.id.catalog_graph,
+                    R.id.categoryFragment
+                )
+            )
+            //navController.navigate(R.id.action_favoriteFragment_to_categoryFragment)
         }
     }
 

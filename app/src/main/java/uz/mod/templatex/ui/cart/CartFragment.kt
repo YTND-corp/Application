@@ -10,8 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.yanzhenjie.recyclerview.SwipeMenuItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CartFragmentBinding
+import uz.mod.templatex.model.inApp.BottomNavCustomSelectionArgs
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
@@ -125,7 +127,14 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
         }
 
             placeholderButton.setOnClickListener {
-                navController.navigate(R.id.categoryFragment)
+                Timber.e("Trigger a navigation")
+                sharedViewModel.bottomNavBarSelection.value = Event(
+                    BottomNavCustomSelectionArgs(
+                        R.id.catalog_graph,
+                        R.id.categoryFragment
+                    )
+                )
+                //navController.navigate(R.id.catalog_graph)
             }
 
         products.adapter = adapter

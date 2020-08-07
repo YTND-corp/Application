@@ -27,7 +27,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import uz.mod.templatex.R
-import uz.mod.templatex.utils.Event
 
 /**
  * Manages the various graphs needed for a [BottomNavigationView].
