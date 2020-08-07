@@ -33,8 +33,6 @@ class CategoryFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-
         viewModel.getCatalogs()
 
         pageAdapter = CategoryPagerAdapter(childFragmentManager)
@@ -47,16 +45,6 @@ class CategoryFragment : ParentFragment() {
     ): View? {
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.category_fragment, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        navController.navigate(item.itemId)
-        return true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
