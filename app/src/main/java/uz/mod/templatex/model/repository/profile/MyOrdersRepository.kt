@@ -18,11 +18,11 @@ class MyOrdersRepository(
         Timber.d("Injection MyOrdersRepository")
     }
 
-    fun getOrders(searchText: String): LiveData<Resource<List<ProfileOrder>>> {
+    fun getOrders(): LiveData<Resource<List<ProfileOrder>>> {
         return object : NetworkBoundResource<List<ProfileOrder>, MyOrdersResponse>(executors) {
             override fun saveCallResult(item: MyOrdersResponse) {
-                /*ordersDao.deleteAll()
-                ordersDao.insertAll(item.orders)*/
+                ordersDao.deleteAll()
+                ordersDao.insertAll(item.orders)
             }
 
             override fun shouldFetch(data: List<ProfileOrder>?): Boolean {
@@ -34,7 +34,7 @@ class MyOrdersRepository(
             }
 
             override fun createCall(): LiveData<ApiResponse<MyOrdersResponse>> {
-                return service.getOrders(searchText)
+                return service.getOrders()
             }
         }.asLiveData()
     }

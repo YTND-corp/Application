@@ -10,7 +10,7 @@ import uz.mod.templatex.model.remote.response.profile.MyOrdersResponse
 
 interface MyOrdersService {
     @GET("v1/profile/orders")
-    fun getOrders(@Query("q") searchText: String): LiveData<ApiResponse<MyOrdersResponse>>
+    fun getOrders(): LiveData<ApiResponse<MyOrdersResponse>>
 
     @GET("v1/profile/orders/{id}")
     fun getOrderDetails(@Path("id") id: Int): LiveData<ApiResponse<MyOrdersOrderDetailsResponse>>

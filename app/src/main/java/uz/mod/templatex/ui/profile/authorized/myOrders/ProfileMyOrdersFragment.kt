@@ -42,13 +42,6 @@ class ProfileMyOrdersFragment : ParentFragment() {
         fun newInstance() = ProfileMyOrdersFragment()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        activity?.window?.setSoftInputMode(
-            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
-        )
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -79,19 +72,11 @@ class ProfileMyOrdersFragment : ParentFragment() {
         viewModel.getOrders()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        activity?.window?.setSoftInputMode(
-            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
-        )
-    }
-
     private fun initViews(): Unit = with(binding) {
         viewModel = this@ProfileMyOrdersFragment.viewModel
         executePendingBindings()
 
         myOrdersRv.adapter = adapter
-
     }
 
     private fun processError(error: ApiError?) = when (error?.code) {

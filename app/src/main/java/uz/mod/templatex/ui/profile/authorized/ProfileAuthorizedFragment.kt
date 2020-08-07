@@ -61,7 +61,7 @@ class ProfileAuthorizedFragment : ParentFragment() {
         viewModel = profileAuthorizedViewModel
         executePendingBindings()
 
-        val profileName = profileAuthorizedViewModel.getUser().name + "!"
+        val profileName = profileAuthorizedViewModel.getUserName() + "!"
         val profileNameTitleText = SpannableStringBuilder()
             .append(getString(R.string.profile_authorized_name_title_first_part))
             .bold { append(profileName) }

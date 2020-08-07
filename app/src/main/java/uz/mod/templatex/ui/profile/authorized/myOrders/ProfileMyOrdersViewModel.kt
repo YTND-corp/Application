@@ -11,17 +11,17 @@ class ProfileMyOrdersViewModel constructor(
     val repository: MyOrdersRepository
 ) : AndroidViewModel(application) {
 
-    private val searchText = MutableLiveData<String>()
+    private val request = MutableLiveData<Boolean>()
 
-    val response = Transformations.switchMap(searchText) {
-        repository.getOrders(searchText.value ?: "")
+    val response = Transformations.switchMap(request) {
+        repository.getOrders()
     }
 
     val isEmpty = Transformations.map(response) {
         it?.data?.isNullOrEmpty()
     }
 
-    fun getOrders(searchText: String = "") {
-        this.searchText.value = searchText
+    fun getOrders() {
+        request.value = true
     }
 }
