@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.checkout_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CheckoutFragmentBinding
@@ -29,7 +30,7 @@ class CheckoutFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val viewModel: CheckoutViewModel by viewModel()
     private val binding by lazy { CheckoutFragmentBinding.inflate(layoutInflater) }
-    private val args : CheckoutFragmentArgs by navArgs()
+    private val args: CheckoutFragmentArgs by navArgs()
 
     companion object {
         fun newInstance() = CheckoutFragment()
@@ -66,6 +67,26 @@ class CheckoutFragment : ParentFragment() {
                                 )
                             )
                         }
+                    }
+                }
+            }
+        })
+
+        viewModel.getUserInfo().observe(this, Observer { result ->
+            when (result.status) {
+                Status.LOADING -> showLoading()
+                Status.ERROR -> {
+                    hideLoading()
+                    processError(result.error)
+                }
+                Status.SUCCESS -> {
+                    hideLoading()
+                    Timber.e(result.data.toString())
+                    result.data?.user?.let {
+                        binding.name.setText(it.firstName)
+                        binding.surname.setText(it.lastName)
+                        binding.email.setText(it.email)
+                        binding.phone.setText(it.phone)
                     }
                 }
             }
@@ -114,7 +135,7 @@ class CheckoutFragment : ParentFragment() {
             email.setText("jasurbek.abdiroziqov@gmail.com")
             phone.setText("+998 99 076 37 26")
         }
-        
+
     }
 
     private fun processError(error: ApiError?) {

@@ -4,12 +4,14 @@ import android.app.Application
 import android.util.Patterns
 import androidx.lifecycle.*
 import uz.mod.templatex.model.repository.CheckoutRepository
+import uz.mod.templatex.model.repository.profile.MyDataRepository
 import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.extension.clear
 
 class CheckoutViewModel constructor(
     application: Application,
-    repository: CheckoutRepository
+    repository: CheckoutRepository,
+    val myDataRepository: MyDataRepository
 ) : AndroidViewModel(application) {
 
     val phone = MutableLiveData<String>()
@@ -61,4 +63,6 @@ class CheckoutViewModel constructor(
     fun next() {
         navigator.value = Event(1)
     }
+
+    fun getUserInfo() = myDataRepository.getUserInfo()
 }

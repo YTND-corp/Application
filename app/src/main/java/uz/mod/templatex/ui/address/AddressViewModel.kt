@@ -1,11 +1,15 @@
 package uz.mod.templatex.ui.address
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import uz.mod.templatex.model.local.entity.City
 import uz.mod.templatex.model.remote.request.StoreRequest
 import uz.mod.templatex.model.remote.response.Delivery
 import uz.mod.templatex.model.repository.CheckoutRepository
+import uz.mod.templatex.utils.Event
 
 class AddressViewModel constructor(application: Application, val repository: CheckoutRepository) :
     AndroidViewModel(application) {
@@ -18,19 +22,19 @@ class AddressViewModel constructor(application: Application, val repository: Che
     lateinit var phone: String
 
     val isAllValid = MediatorLiveData<Boolean>().apply {
-            fun validateFrom() {
-                value = !city.value?.name.isNullOrEmpty()
-                        && !street.value.isNullOrEmpty()
-                        && !home.value.isNullOrEmpty()
-                        && !flat.value.isNullOrEmpty()
-                        && delivery.value != null
-            }
-            addSource(city) { validateFrom() }
-            addSource(street) { validateFrom() }
-            addSource(home) { validateFrom() }
-            addSource(flat) { validateFrom() }
-            addSource(delivery) { validateFrom() }
+        fun validateFrom() {
+            value = !city.value?.name.isNullOrEmpty()
+                    && !street.value.isNullOrEmpty()
+                    && !home.value.isNullOrEmpty()
+                    && !flat.value.isNullOrEmpty()
+                    && delivery.value != null
         }
+        addSource(city) { validateFrom() }
+        addSource(street) { validateFrom() }
+        addSource(home) { validateFrom() }
+        addSource(flat) { validateFrom() }
+        addSource(delivery) { validateFrom() }
+    }
 
     fun setArgs(args: AddressFragmentArgs) {
         phone = args.phone
@@ -42,7 +46,7 @@ class AddressViewModel constructor(application: Application, val repository: Che
     }
 
     val cities = Transformations.map(response) {
-        it.data
+        Event(it.data)
     }
 
     fun getCities() {

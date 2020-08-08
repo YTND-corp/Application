@@ -111,7 +111,7 @@ val viewModelModule = module {
     viewModel { AboutViewModel(get()) }
 
     viewModel { CartViewModel(get(), get(), get()) }
-    viewModel { CheckoutViewModel(get(), get()) }
+    viewModel { CheckoutViewModel(get(), get(), get()) }
     viewModel { AddressViewModel(get(), get()) }
     viewModel { CodeViewModel(get(), get(), get()) }
     viewModel { DeliveryViewModel(get()) }

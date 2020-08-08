@@ -72,20 +72,26 @@ class AddressFragment : ParentFragment() {
             }
         })
 
-        addressViewModel.cities.observe(viewLifecycleOwner, Observer { cities ->
+        addressViewModel.cities.observe(viewLifecycleOwner, Observer { result ->
+            result.getContentIfNotHandled()?.let { cities ->
+                Timber.e(cities.toString())
 
-            Timber.e(cities.toString())
+                if (addressViewModel.city.value == null)
+                    cities.find { it.id == 14 }?.let {
+                        addressViewModel.city.value = it
+                    }
 
-            binding.city.setOnFocusChangeListener { view, hasFocus ->
-                if (hasFocus) {
-                    view.clearFocus()
+                binding.city.setOnFocusChangeListener { view, hasFocus ->
+                    if (hasFocus) {
+                        view.clearFocus()
 
-                    val temp: Array<String> = Array(cities?.size ?: 0) { cities?.get(it)?.name ?: "" }
-                    AlertDialog.Builder(requireContext())
-                        .setItems(temp) { _, i ->
-                            addressViewModel.city.value = cities?.get(i)
-                        }
-                        .show()
+                        val temp: Array<String> = Array(cities.size) { cities[it].name ?: "" }
+                        AlertDialog.Builder(requireContext())
+                            .setItems(temp) { _, i ->
+                                addressViewModel.city.value = cities[i]
+                            }
+                            .show()
+                    }
                 }
             }
         })
