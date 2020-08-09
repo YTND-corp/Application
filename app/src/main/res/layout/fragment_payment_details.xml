@@ -47,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:inputType="number"
+                    android:maxLength="16"
                     android:text="@={viewModel.cardNumber}" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -66,7 +67,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="number"
+                    android:inputType="phone"
+                    android:maxLength="5"
                     android:text="@={viewModel.cardExpire}" />
 
         </com.google.android.material.textfield.TextInputLayout>

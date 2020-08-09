@@ -23,7 +23,7 @@ class PaymentDetailsViewModel(private val repository: PaymentDetailsRepository, 
         lastRequestID = 0
         repository.pay(
             cardNumber.value!!,
-            cardExpire.value!!,
+            cardExpire.value!!.replace("/", ""),
             args?.paymentData?.amount!!,
             args?.paymentData?.provider?.name!!.toLowerCase(Locale.ROOT),
             args?.paymentData?.phone!!.replace(" ", "")
@@ -52,7 +52,7 @@ class PaymentDetailsViewModel(private val repository: PaymentDetailsRepository, 
     val isAllValid = MediatorLiveData<Boolean>().apply {
         fun isExpiryValid(value: String?): Boolean {
             value ?: return false
-            return value.length == 4
+            return value.length == 5
         }
 
         fun validateFrom() {
