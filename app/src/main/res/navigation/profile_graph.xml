@@ -330,7 +330,10 @@
     <fragment
             android:id="@+id/supportCenterDetailsFragment"
             android:name="uz.mod.templatex.ui.supportCenter.SupportCenterDetailsFragment"
-            android:label="СНАЧАЛА ПРИМЕРЬТЕ"
-            tools:layout="@layout/support_center_details_fragment" />
+            tools:layout="@layout/support_center_details_fragment">
+        <argument
+                android:name="page"
+                app:argType="uz.mod.templatex.model.remote.response.profile.Page" />
+    </fragment>
 
 </navigation>

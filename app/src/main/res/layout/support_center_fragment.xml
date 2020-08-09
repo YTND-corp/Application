@@ -20,54 +20,12 @@
                 android:background="@color/windowBackgroundWhiteColor"
                 tools:context=".ui.supportCenter.SupportCenterFragment">
 
-            <include
-                    android:id="@+id/orderStatus"
-                    layout="@layout/view_support_fragment_center_item"
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPages"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            <include
-                    android:id="@+id/payment"
-                    layout="@layout/view_support_fragment_center_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/orderStatus" />
-
-            <include
-                    android:id="@+id/returnConditions"
-                    layout="@layout/view_support_fragment_center_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/payment" />
-
-            <include
-                    android:id="@+id/deliveryTerms"
-                    layout="@layout/view_support_fragment_center_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/returnConditions" />
-
-            <include
-                    android:id="@+id/howToChooseSize"
-                    layout="@layout/view_support_fragment_center_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/deliveryTerms" />
-
-            <include
-                    android:id="@+id/howToPlaceOrder"
-                    layout="@layout/view_support_fragment_center_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/howToChooseSize" />
-
-            <include
-                    android:id="@+id/offer"
-                    layout="@layout/view_support_fragment_center_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/howToPlaceOrder" />
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_support_center" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

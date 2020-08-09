@@ -16,20 +16,14 @@ import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.model.local.db.AppDatabase
 import uz.mod.templatex.model.remote.api.*
-import uz.mod.templatex.model.remote.api.profile.MyAddressesService
-import uz.mod.templatex.model.remote.api.profile.MyDataService
-import uz.mod.templatex.model.remote.api.profile.MyOrdersService
-import uz.mod.templatex.model.remote.api.profile.ProfileService
+import uz.mod.templatex.model.remote.api.profile.*
 import uz.mod.templatex.model.remote.network.AppExecutors
 import uz.mod.templatex.model.remote.network.interceptor.AuthInterceptor
 import uz.mod.templatex.model.remote.network.interceptor.NetworkConnectivityInterceptor
 import uz.mod.templatex.model.remote.network.interceptor.ResponseInterceptor
 import uz.mod.templatex.model.remote.network.retrofitCallAdapter.LiveDataCallAdapterFactory
 import uz.mod.templatex.model.repository.*
-import uz.mod.templatex.model.repository.profile.MyAddressesRepository
-import uz.mod.templatex.model.repository.profile.MyDataRepository
-import uz.mod.templatex.model.repository.profile.MyOrdersRepository
-import uz.mod.templatex.model.repository.profile.ProfileRepository
+import uz.mod.templatex.model.repository.profile.*
 import uz.mod.templatex.ui.MainViewModel
 import uz.mod.templatex.ui.about.AboutViewModel
 import uz.mod.templatex.ui.address.AddressViewModel
@@ -106,7 +100,7 @@ val viewModelModule = module {
     viewModel { CallMeViewModel(get(), get()) }
     viewModel { CheckOrderStatusViewModel(get(), get()) }
     viewModel { AskQuestionViewModel(get(), get()) }
-    viewModel { SupportCenterViewModel(get()) }
+    viewModel { SupportCenterViewModel(get(), get()) }
     viewModel { AboutViewModel(get()) }
 
     viewModel { CartViewModel(get(), get(), get()) }
@@ -114,7 +108,7 @@ val viewModelModule = module {
     viewModel { AddressViewModel(get(), get()) }
     viewModel { CodeViewModel(get(), get(), get()) }
     viewModel { PaymentViewModel(get(), get()) }
-    viewModel { PaymentDetailsViewModel(get() , get()) }
+    viewModel { PaymentDetailsViewModel(get(), get()) }
     viewModel { CheckoutFinalViewModel(get(), get()) }
 
     viewModel { ProductsViewModel(get(), get()) }
@@ -160,6 +154,7 @@ val repositoryModule = module {
     single { ProfileRepository(get()) }
     single { SearchRepository(get()) }
     single { PaymentDetailsRepository(get()) }
+    single { SupportCenterRepository(get()) }
 }
 
 val apiModule = module {
@@ -175,6 +170,7 @@ val apiModule = module {
     factory { get<Retrofit>().create(ProfileService::class.java) }
     factory { get<Retrofit>().create(SearchService::class.java) }
     factory { get<Retrofit>().create(PaymentService::class.java) }
+    factory { get<Retrofit>().create(SupportCenterService::class.java) }
 }
 
 val retrofitModule = module {
