@@ -90,11 +90,6 @@ class ProfileAuthorizedFragment : ParentFragment() {
                 }
                 .setNegativeButton(R.string.action_no) { _, _ -> }
                 .show()
-
-        }
-        profileQuestionsBtn.setOnClickListener {
-            navController.navigate(R.id.action_profileAuthorizedFragment_to_askQuestionFragment)
         }
     }
-
 }

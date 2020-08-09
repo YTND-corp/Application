@@ -43,7 +43,6 @@ import uz.mod.templatex.ui.checkout.CheckoutViewModel
 import uz.mod.templatex.ui.checkoutFinal.CheckoutFinalViewModel
 import uz.mod.templatex.ui.code.CodeViewModel
 import uz.mod.templatex.ui.country.CountryViewModel
-import uz.mod.templatex.ui.delivery.DeliveryViewModel
 import uz.mod.templatex.ui.favorite.FavoriteViewModel
 import uz.mod.templatex.ui.filter.FilterViewModel
 import uz.mod.templatex.ui.new_filter.MainFilterViewModel
@@ -114,7 +113,6 @@ val viewModelModule = module {
     viewModel { CheckoutViewModel(get(), get(), get()) }
     viewModel { AddressViewModel(get(), get()) }
     viewModel { CodeViewModel(get(), get(), get()) }
-    viewModel { DeliveryViewModel(get()) }
     viewModel { PaymentViewModel(get(), get()) }
     viewModel { PaymentDetailsViewModel(get() , get()) }
     viewModel { CheckoutFinalViewModel(get(), get()) }

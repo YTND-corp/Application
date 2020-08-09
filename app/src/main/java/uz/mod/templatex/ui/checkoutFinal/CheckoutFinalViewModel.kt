@@ -21,12 +21,16 @@ class CheckoutFinalViewModel(application: Application, repository: CheckoutRepos
         arguments = args
     }
 
-    fun getProductSize(product: Product): String {
-        return "${product.combinations?.first { it.key == "Размер" }?.value}"
+    fun getProductSizeAndColor(product: Product): String {
+        return "${product.combinations?.first { it.key == "Размер" }?.value}, ${product.combinations?.first {
+            it.key?.toLowerCase(
+                Locale.ROOT
+            ) == "цвет"
+        }?.value}"
     }
 
-    fun getColorAndReference(product: Product): String {
-        return "${product.combinations?.first { it.key?.toLowerCase(Locale.ROOT) == "цвет" }?.value} - код ${product.reference}"
+    fun getReference(product: Product): String {
+        return "Код ${product.reference}"
     }
 
     fun getProductsQuantity(product: Product): String {
@@ -57,12 +61,17 @@ class CheckoutFinalViewModel(application: Application, repository: CheckoutRepos
         return "$discount UZS"
     }
 
-    fun getTotalPrice(): String  {
-        val subTotal = arguments?.storeResponse?.order?.total_price ?:0
-        val deliveryCost = arguments?.storeResponse?.cart?.deliveryPrice ?:0
-        val deliveryDiscount = arguments?.storeResponse?.order?.discount_price?:0
+    fun getTotalPrice(): String {
+        val subTotal = arguments?.storeResponse?.order?.total_price ?: 0
+        val deliveryCost = arguments?.storeResponse?.cart?.deliveryPrice ?: 0
+        val deliveryDiscount = arguments?.storeResponse?.order?.discount_price ?: 0
         val total = subTotal + deliveryCost - deliveryDiscount
         return total.moneyFormat() + " UZS"
     }
 
+    fun getDeliveryType(): String? {
+        return arguments?.confirmResult?.delivery?.find {
+            arguments?.storeResponse?.delivery?.carrierServiceID == it.id
+        }?.name
+    }
 }

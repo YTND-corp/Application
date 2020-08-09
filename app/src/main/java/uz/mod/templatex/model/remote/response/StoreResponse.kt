@@ -41,7 +41,7 @@ data class StoreDelivery(
     @SerializedName("carrier_id")
     val carrierID: Long,
     @SerializedName("carrier_service_id")
-    val carrierServiceID: String,
+    val carrierServiceID: Int,
     val date: StoreDate,
     val time: String,
     val updatedAt: String,

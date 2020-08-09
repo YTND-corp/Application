@@ -49,8 +49,6 @@ class PaymentViewModel constructor(application: Application, val repository: Che
             methods.value = it
         }
 
-        selectedMethod.value = args.response?.payment?.methods?.first()
-
         val deliveryPrice = args.details?.delivery?.price ?: 0
         val productsTotalPrice = args.response?.payment?.cart?.totalPrice ?: 0
         val discountPrice = args.response?.payment?.cart?.discountPrice ?: 0

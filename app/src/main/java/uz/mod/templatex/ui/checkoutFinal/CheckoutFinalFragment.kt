@@ -3,13 +3,10 @@ package uz.mod.templatex.ui.checkoutFinal
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CheckoutFinalFragmentBinding
@@ -31,6 +28,10 @@ class CheckoutFinalFragment : ParentFragment() {
         fun newInstance() = CheckoutFinalFragment()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +42,21 @@ class CheckoutFinalFragment : ParentFragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.checkout_final_fragment, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_exit -> {
+                navController.popBackStack(R.id.cartFragment, false)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkoutFinalViewModel.setArgs(args)
@@ -48,7 +64,6 @@ class CheckoutFinalFragment : ParentFragment() {
         priceAdapter = PriceAdapter(checkoutFinalViewModel)
 
         initViews()
-
 
         requireActivity().onBackPressedDispatcher.addCallback(this.viewLifecycleOwner, true) {
             navController.popBackStack(R.id.cartFragment, false)
@@ -62,9 +77,11 @@ class CheckoutFinalFragment : ParentFragment() {
 
         rvProducts.adapter = productAdapter
         rvPrices.adapter = priceAdapter
+        tvDescription.text = getString(R.string.checkout_description_text, args.storeResponse?.order?.id.toString())
+        tvDeliveryType.text = getString(R.string.delivery_type_text, viewModel?.getDeliveryType())
 
-        btnEmailUs.setOnClickListener {
-            navController.navigate(R.id.action_checkoutFinalFragment_to_askQuestionFragment)
+        btnCallback.setOnClickListener {
+            navController.navigate(R.id.action_checkoutFinalFragment_to_callMeFragment)
         }
 
         btnCallUs.setOnClickListener {
@@ -73,6 +90,5 @@ class CheckoutFinalFragment : ParentFragment() {
 
         productAdapter.setItems(args.cartResponse?.products)
         priceAdapter.setItems(args.cartResponse?.products)
-
     }
 }

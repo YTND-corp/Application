@@ -25,8 +25,6 @@ import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.ui.product.adapter.*
-import uz.mod.templatex.ui.size_chart.SizeChartFragmentArgs
-import uz.mod.templatex.ui.size_chart.SizeChartFragmentDirections
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.SnapOnScrollListener
@@ -140,6 +138,10 @@ class ProductFragment : ParentFragment() {
 
         viewModel.relativeProducts.observe(viewLifecycleOwner, Observer {
             relativeProductAdapter.setItems(it)
+        })
+
+        viewModel.shouldShowSizeChart.observe(viewLifecycleOwner, Observer {
+            tvSizeTable.visibility = if (it) View.VISIBLE else View.INVISIBLE
         })
 
         navController.getNavigationResult<Event<Int>>(IMAGE_POSITION)?.observe(viewLifecycleOwner, Observer {

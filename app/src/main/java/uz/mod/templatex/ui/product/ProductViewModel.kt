@@ -87,6 +87,10 @@ class ProductViewModel constructor(
     val sizeChart = Transformations.map(product) {
         it?.sizeChart
     }
+    
+    val shouldShowSizeChart = Transformations.map(sizeChart) {
+        !it.isNullOrEmpty()
+    }
 
     private fun attributeIds(): ArrayList<Int> {
         val temps: ArrayList<Int> = arrayListOf()

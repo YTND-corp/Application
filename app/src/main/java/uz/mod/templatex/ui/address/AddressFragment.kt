@@ -24,7 +24,6 @@ import uz.mod.templatex.utils.extension.lazyFast
 
 class AddressFragment : ParentFragment() {
 
-    //TODO delete DeliveryFragment after completing this
     private val navController by lazyFast { findNavController() }
     private val addressViewModel: AddressViewModel by viewModel()
     private val binding by lazy { AddressFragmentBinding.inflate(layoutInflater) }

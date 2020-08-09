@@ -29,6 +29,7 @@
 
         <TextView
                 android:id="@+id/tvType"
+                style="@style/Bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -36,14 +37,14 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{item.name}"
-                tools:text="Oбычная доставка"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tvPeriod"
                 app:layout_constraintEnd_toStartOf="@id/ivIndicator"
                 app:layout_constraintStart_toEndOf="@id/ivIcon"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Oбычная доставка" />
 
         <TextView
                 android:id="@+id/tvPeriod"
@@ -52,29 +53,29 @@
                 android:layout_marginVertical="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.transitTime}"
-                tools:text="от 2 до 7 рабочих дней"
+                android:text="@{item.date}"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvPrice"
                 app:layout_constraintEnd_toEndOf="@id/tvType"
                 app:layout_constraintStart_toStartOf="@id/tvType"
-                app:layout_constraintTop_toBottomOf="@+id/tvType" />
+                app:layout_constraintTop_toBottomOf="@+id/tvType"
+                tools:text="от 2 до 7 рабочих дней" />
 
         <TextView
                 android:id="@+id/tvPrice"
+                style="@style/Bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{item.formattedPrice}"
-                tools:text="БЕСПЛАТНО"
                 android:textSize="13sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/tvType"
                 app:layout_constraintStart_toStartOf="@id/tvType"
-                app:layout_constraintTop_toBottomOf="@+id/tvPeriod" />
+                app:layout_constraintTop_toBottomOf="@+id/tvPeriod"
+                tools:text="БЕСПЛАТНО" />
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivIndicator"

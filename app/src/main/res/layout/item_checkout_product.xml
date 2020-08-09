@@ -23,42 +23,61 @@
                 url="@{item.image}"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvColorAndReference"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/tvBrand"
+                style="@style/Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.brand}"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivIcon"
+                app:layout_constraintTop_toTopOf="@id/ivIcon"
+                tools:text="Zara" />
 
         <TextView
                 android:id="@+id/tvProductName"
                 style="@style/Regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="3"
+                android:layout_marginTop="3dp"
                 android:ellipsize="end"
-                android:layout_marginStart="15dp"
+                android:maxLines="3"
                 android:text="@{item.name}"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/ivIcon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/ivIcon"
-                app:layout_constraintTop_toTopOf="@id/ivIcon" />
+                app:layout_constraintEnd_toEndOf="@id/tvBrand"
+                app:layout_constraintStart_toStartOf="@id/tvBrand"
+                app:layout_constraintTop_toBottomOf="@id/tvBrand"
+                tools:text="БОСОНОЖКИ С ЛАКИРОВАННЫМИ РЕМЕШКАМИ" />
+
+        <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="ivIcon, tvProductName" />
 
         <TextView
-                android:id="@+id/tvColorAndReference"
+                android:id="@+id/tvReference"
                 style="@style/Regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
-                android:layout_marginEnd="20dp"
                 android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@{viewModel.getColorAndReference(item)}"
+                android:maxLines="1"
+                android:text="@{viewModel.getReference(item)}"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvSize"
                 app:layout_constraintEnd_toStartOf="@+id/tvPrice"
-                app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/barrier"
+                tools:text="23432324" />
 
         <TextView
                 android:id="@+id/tvPrice"
@@ -67,22 +86,25 @@
                 android:layout_height="wrap_content"
                 android:text="@{item.priceFormatted()}"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@id/tvColorAndReference"
+                app:layout_constraintBottom_toBottomOf="@id/tvReference"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvColorAndReference"
-                app:layout_constraintTop_toTopOf="@id/tvColorAndReference" />
+                app:layout_constraintStart_toEndOf="@+id/tvReference"
+                app:layout_constraintTop_toTopOf="@id/tvReference"
+                tools:text="230 000 сум" />
 
         <TextView
-                android:id="@+id/tvSize"
+                android:id="@+id/tvSizeAndColor"
                 style="@style/Bold"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                tools:text="34"
-                android:text="@{viewModel.getProductSize(item)}"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.getProductSizeAndColor(item)}"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/ivIcon"
+                app:layout_constraintEnd_toEndOf="@id/tvBrand"
                 app:layout_constraintStart_toStartOf="@id/ivIcon"
-                app:layout_constraintTop_toBottomOf="@+id/tvColorAndReference" />
+                app:layout_constraintTop_toBottomOf="@+id/tvReference"
+                tools:text="L, Чёрный" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

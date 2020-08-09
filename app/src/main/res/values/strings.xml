@@ -29,7 +29,7 @@
     <string name="action_reset">Сбросить</string>
     <string name="action_pay">Оплатить</string>
     <string name="action_call_us">Позвоните нам</string>
-    <string name="action_email_us">Напишите нам</string>
+    <string name="action_call_you">Позвонить вам</string>
 
     <string name="action_start_shopping">Начать покупки</string>
     <string name="action_forgot_password">Забыли пароль?</string>
@@ -135,7 +135,6 @@
     <string name="profile_authorized_item_support_center">Центр поддержки MOD</string>
     <string name="profile_authorized_item_about_mod">О MOD</string>
     <string name="profile_authorized_item_logout">Выйти</string>
-    <string name="profile_authorized_btn_questions">Остались вопросы?</string>
 
     <!-- Profile My Orders  -->
     <string name="profile_my_orders_title">МОИ ЗАКАЗЫ</string>
@@ -218,7 +217,7 @@
     <string name="hint_street">Улица</string>
     <string name="hint_home">Дом</string>
     <string name="hint_flat">Квартира</string>
-    <string name="adreses_header">Выберите условия доставки</string>
+    <string name="delivery_type">Тип доставки</string>
 
     <!--  Country  -->
     <string name="country_header">Выберите страну</string>
@@ -285,7 +284,7 @@
     <!--  CheckoutFinal  -->
     <string name="your_order_successfully_completed_text">Ваш заказ №: %s \nуспешно оформлен</string>
     <string name="checkout_thanks">Спасибо!</string>
-    <string name="send_type_text">ОТПРАВКА: </string>
+    <string name="delivery_type_text">ОТПРАВКА: %s</string>
     <string name="delivery_price">Цена доставки</string>
     <string name="delivery_discount">Скидки на отправку</string>
     <string name="checkout_total">Всего</string>

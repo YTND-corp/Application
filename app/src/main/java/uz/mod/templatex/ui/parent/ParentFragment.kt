@@ -24,6 +24,11 @@ open class ParentFragment : Fragment() {
         }
     }
 
+    override fun onDetach() {
+        hideKeyboard()
+        super.onDetach()
+    }
+
     open fun showLoading() {
         (activity as? ParentActivity)?.showLoading()
     }

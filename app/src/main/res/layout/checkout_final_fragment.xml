@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/send_type_text"
+                    android:text="@string/delivery_type_text"
                     android:textAllCaps="true"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -159,10 +159,10 @@
                     android:id="@+id/tvDeliveryDiscountTitle"
                     style="@style/Regular"
                     android:layout_width="0dp"
-                    android:textColor="@color/red"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
                     android:text="@string/delivery_discount"
+                    android:textColor="@color/red"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toStartOf="@+id/tvDeliveryDiscount"
                     app:layout_constraintStart_toStartOf="parent"
@@ -171,10 +171,10 @@
             <TextView
                     android:id="@+id/tvDeliveryDiscount"
                     style="@style/Regular"
-                    android:textColor="@color/red"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.deliveryDiscount}"
+                    android:textColor="@color/red"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tvDeliveryDiscountTitle"
@@ -222,17 +222,17 @@
                     app:layout_constraintTop_toBottomOf="@id/descriptionSeparator" />
 
             <Button
-                    android:id="@+id/btnEmailUs"
+                    android:id="@+id/btnCallback"
                     style="@style/SupportCenterWhiteButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="27dp"
-                    android:drawableStart="@drawable/ic_support_center_email"
+                    android:drawableStart="@drawable/ic_support_center_call"
                     android:drawableEnd="@drawable/ic_chevron_right"
                     android:drawableTint="@color/black"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:text="@string/action_email_us"
+                    android:text="@string/action_call_you"
                     app:layout_constraintTop_toBottomOf="@id/tvDescription" />
 
             <Button
@@ -249,7 +249,7 @@
                     android:paddingEnd="16dp"
                     android:text="@string/action_call_us"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnEmailUs" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnCallback" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
