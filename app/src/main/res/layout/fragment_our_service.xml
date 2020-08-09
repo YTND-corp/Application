@@ -164,6 +164,4 @@
                     android:textSize="@dimen/text_size_smaller" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </LinearLayout>

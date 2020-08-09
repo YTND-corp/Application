@@ -12,6 +12,7 @@ class FavoriteAdapter(private val listener: FavoriteAdapterListener) :
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
     interface FavoriteAdapterListener {
+        fun onItemClick(id: Int)
         fun onRemoveClick(id: Int)
     }
 
@@ -54,6 +55,10 @@ class FavoriteAdapter(private val listener: FavoriteAdapterListener) :
                     tvOldPrice.visibility = View.GONE
                 } else {
                     tvOldPrice.visibility = View.VISIBLE
+                }
+
+                root.setOnClickListener {
+                    listener.onItemClick(favorite.id)
                 }
 
                 btnClose.setOnClickListener {

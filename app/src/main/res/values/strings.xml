@@ -129,7 +129,7 @@
     <string name="profile_authorized_item_my_orders">Мои заказы</string>
     <string name="profile_authorized_item_my_data">Мои данные</string>
     <string name="profile_authorized_item_my_addresses">Мои адреса</string>
-    <string name="profile_authorized_item_favorites">Избранные</string>
+    <string name="profile_authorized_item_favorites">Избранное</string>
     <string name="profile_authorized_item_call_us">Позвоните нам</string>
     <string name="profile_authorized_item_call_you">Позвонить вам</string>
     <string name="profile_authorized_item_support_center">Центр поддержки MOD</string>

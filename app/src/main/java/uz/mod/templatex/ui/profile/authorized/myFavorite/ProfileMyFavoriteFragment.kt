@@ -12,6 +12,7 @@ import uz.mod.templatex.databinding.ProfileMyFavoriteFragmentBinding
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
+import uz.mod.templatex.ui.product.ProductFragmentDirections
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.extension.lazyFast
 
@@ -27,6 +28,10 @@ class ProfileMyFavoriteFragment : ParentFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = FavoriteAdapter(object : FavoriteAdapter.FavoriteAdapterListener {
+            override fun onItemClick(id: Int) {
+                navController.navigate(ProductFragmentDirections.actionGlobalProductFragment(id))
+            }
+
             override fun onRemoveClick(id: Int) {
                 viewModel.toggleFavorite(id).observe(viewLifecycleOwner, Observer { result ->
                     when (result.status) {
