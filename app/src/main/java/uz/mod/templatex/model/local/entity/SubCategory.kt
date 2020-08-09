@@ -11,7 +11,9 @@ data class SubCategory(
     @SerializedName("parent_id") val parentId: Int,
     @SerializedName("is_multicurrency") val isMulticurrency: Boolean,
     @SerializedName("is_menu_shown") val isMenuShown: Int,
-    val image: String?
+    val image: String?,
+    @SerializedName("is_sale")
+    val isSale: Boolean
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -20,7 +22,8 @@ data class SubCategory(
         parcel.readInt(),
         parcel.readByte() != 0.toByte(),
         parcel.readInt(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readInt() == 1
     ) {
     }
 
@@ -32,6 +35,7 @@ data class SubCategory(
         parcel.writeByte(if (isMulticurrency) 1 else 0)
         parcel.writeInt(isMenuShown)
         parcel.writeString(image)
+        parcel.writeInt(if (isSale) 1 else 0)
     }
 
     override fun describeContents(): Int {

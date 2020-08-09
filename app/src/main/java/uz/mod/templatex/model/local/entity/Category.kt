@@ -9,13 +9,16 @@ data class Category(
     @SerializedName("parent_id") val parentId: Int,
     val name: String?,
     val image: String?,
+    @SerializedName("is_sale")
+    val isSale: Boolean,
     @SerializedName("children") val subCategory: List<SubCategory>?
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readInt() == 1,
         parcel.createTypedArrayList(SubCategory)
     ) {
     }
@@ -25,6 +28,7 @@ data class Category(
         parcel.writeInt(parentId)
         parcel.writeString(name)
         parcel.writeString(image)
+        parcel.writeInt(if (isSale) 1 else 0)
         parcel.writeTypedList(subCategory)
     }
 

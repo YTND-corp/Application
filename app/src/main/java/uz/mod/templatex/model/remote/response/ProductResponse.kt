@@ -15,6 +15,7 @@ data class ProductDetailResponse(
 
 data class ProductDetail(
     val id: Int,
+    val type: ProductType,
     val name: String,
     val description: String?,
     @SerializedName("long_description") val longDescription: String?,
@@ -60,5 +61,13 @@ data class ProductSize(
 
 data class ProductFeature(val care: String?, val composition: String?) {
     fun getText() = care ?: composition
+}
+
+enum class ProductType {
+    @SerializedName("single")
+    SINGLE,
+
+    @SerializedName("accessory")
+    ACCESSORY
 }
 

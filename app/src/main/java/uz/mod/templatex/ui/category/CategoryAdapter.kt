@@ -31,8 +31,7 @@ class CategoryAdapter(
             item = category
             executePendingBindings()
 
-            //TODO This is a temporary solution in the future, a flag will be added in the backend.
-            val textColor = if (category.id == 393)
+            val textColor = if (category.isSale)
                 ContextCompat.getColor(binding.root.context, R.color.red)
             else
                 ContextCompat.getColor(binding.root.context, R.color.black)

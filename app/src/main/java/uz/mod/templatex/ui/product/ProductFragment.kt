@@ -107,6 +107,12 @@ class ProductFragment : ParentFragment() {
             colorAdapter.setItems(it)
         })
 
+        viewModel.shouldShowColors.observe(viewLifecycleOwner, Observer {
+            val visibility = if (it == true) View.VISIBLE else View.GONE
+            tvColor.visibility = visibility
+            rvColors.visibility = visibility
+        })
+
         viewModel.sizes.observe(viewLifecycleOwner, Observer {
             sizeAdapter.setItems(it)
         })

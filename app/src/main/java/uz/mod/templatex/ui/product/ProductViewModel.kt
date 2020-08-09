@@ -7,6 +7,7 @@ import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.model.remote.response.ProductColor
 import uz.mod.templatex.model.remote.response.ProductDetailResponse
 import uz.mod.templatex.model.remote.response.ProductSize
+import uz.mod.templatex.model.remote.response.ProductType
 import uz.mod.templatex.model.repository.CartRepository
 import uz.mod.templatex.model.repository.ProductRepository
 import uz.mod.templatex.utils.Const
@@ -76,20 +77,29 @@ class ProductViewModel constructor(
         it?.colors
     }
 
+    val shouldShowColors = Transformations.map(product) {
+        it?.colors?.isNotEmpty() == true
+    }
+
     val sizes = Transformations.map(selectedColor) {
         it?.sizes?.filter { it.inStock }
     }
 
-    val shouldShowSize = Transformations.map(sizes) {
-        it?.isNotEmpty()
+    val shouldShowSize = MediatorLiveData<Boolean>().apply {
+        fun validate() {
+            value = selectedColor.value?.sizes?.isNotEmpty() == true && product.value?.type == ProductType.SINGLE
+        }
+
+        addSource(selectedColor) { validate() }
+        addSource(product) { validate() }
     }
 
     val sizeChart = Transformations.map(product) {
         it?.sizeChart
     }
     
-    val shouldShowSizeChart = Transformations.map(sizeChart) {
-        !it.isNullOrEmpty()
+    val shouldShowSizeChart = Transformations.map(product) {
+        it?.sizeChart?.isNotEmpty() == true && it.type == ProductType.SINGLE
     }
 
     private fun attributeIds(): ArrayList<Int> {
