@@ -25,7 +25,6 @@ import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.ui.product.adapter.*
-import uz.mod.templatex.ui.size_chart.SizeChartFragment
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.SnapOnScrollListener
@@ -37,7 +36,7 @@ import uz.mod.templatex.utils.extension.toPx
 class ProductFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
-    val viewModel: ProductViewModel by viewModel()
+    private val productViewModel: ProductViewModel by viewModel()
     private val binding by lazy { ProductFragmentBinding.inflate(layoutInflater) }
     private val args: ProductFragmentArgs by navArgs()
 
@@ -46,7 +45,6 @@ class ProductFragment : ParentFragment() {
     private lateinit var colorAdapter: ProductColorAdapter
     private lateinit var sizeAdapter: ProductSizeAdapter
     private lateinit var relativeProductAdapter: ProductHorizontalAdapter
-    private lateinit var recentlyProductAdapter: ProductHorizontalAdapter
 
     companion object {
         const val IMAGE_POSITION = "ProductFragment.IMAGE_POSITION"
@@ -56,23 +54,21 @@ class ProductFragment : ParentFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setArgs(args)
+        productViewModel.setArgs(args)
         sizeAdapter = ProductSizeAdapter {
-            viewModel.setSelectedSize(it)
+            productViewModel.setSelectedSize(it)
         }
         colorAdapter = ProductColorAdapter {
-            viewModel.setSelectedColor(it)
+            productViewModel.setSelectedColor(it)
             indicatorAdapter.setSelected(0)
             banners.scrollToPosition(0)
         }
         bannerAdapter = ProductBannerAdapter { items, position ->
-            navController.navigate(
-                R.id.fullScreenImageFragment,
-                bundleOf(
-                    "images" to items,
-                    "selectedPosition" to position
-                )
+            val direction = ProductFragmentDirections.actionProductFragmentToFullScreenImageFragment(
+                items.toTypedArray(),
+                position
             )
+            navController.navigate(direction)
         }
     }
 
@@ -89,7 +85,7 @@ class ProductFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+        productViewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -102,66 +98,66 @@ class ProductFragment : ParentFragment() {
             }
         })
 
-        viewModel.colors.observe(viewLifecycleOwner, Observer {
-            if (viewModel.selectedColor.value == null)
-                viewModel.setSelectedColor(it?.firstOrNull())
+        productViewModel.colors.observe(viewLifecycleOwner, Observer {
+            if (productViewModel.selectedColor.value == null)
+                productViewModel.setSelectedColor(it?.firstOrNull())
             colorAdapter.setItems(it)
         })
 
-        viewModel.shouldShowColors.observe(viewLifecycleOwner, Observer {
+        productViewModel.shouldShowColors.observe(viewLifecycleOwner, Observer {
             val visibility = if (it == true) View.VISIBLE else View.GONE
             tvColor.visibility = visibility
             rvColors.visibility = visibility
         })
 
-        viewModel.sizes.observe(viewLifecycleOwner, Observer {
+        productViewModel.sizes.observe(viewLifecycleOwner, Observer {
             sizeAdapter.setItems(it)
         })
 
-        viewModel.shouldShowSize.observe(viewLifecycleOwner, Observer {
+        productViewModel.shouldShowSize.observe(viewLifecycleOwner, Observer {
             val visibility = if (it == true) View.VISIBLE else View.GONE
             sizes.visibility = visibility
             size_header.visibility = visibility
         })
 
-        viewModel.selectedColor.observe(viewLifecycleOwner, Observer {
+        productViewModel.selectedColor.observe(viewLifecycleOwner, Observer {
             colorAdapter.setSelectedColor(it)
         })
 
-        viewModel.selectedSize.observe(viewLifecycleOwner, Observer {
+        productViewModel.selectedSize.observe(viewLifecycleOwner, Observer {
             sizeAdapter.setSelectedSize(it)
         })
 
-        viewModel.images.observe(viewLifecycleOwner, Observer {
+        productViewModel.images.observe(viewLifecycleOwner, Observer {
             Timber.e("Images = ${it?.size}")
 
             bannerAdapter.setItems(it)
             indicatorAdapter.setItems(it)
         })
 
-        viewModel.isFavorite().observe(viewLifecycleOwner, Observer {
+        productViewModel.isFavorite().observe(viewLifecycleOwner, Observer {
             binding.favorite.isChecked = it
         })
 
-        viewModel.relativeProducts.observe(viewLifecycleOwner, Observer {
+        productViewModel.relativeProducts.observe(viewLifecycleOwner, Observer {
             relativeProductAdapter.setItems(it)
         })
 
-        viewModel.shouldShowSizeChart.observe(viewLifecycleOwner, Observer {
+        productViewModel.shouldShowSizeChart.observe(viewLifecycleOwner, Observer {
             tvSizeTable.visibility = if (it) View.VISIBLE else View.INVISIBLE
         })
 
         navController.getNavigationResult<Event<Int>>(IMAGE_POSITION)?.observe(viewLifecycleOwner, Observer {
-            it.getContentIfNotHandled()?.let {
-                indicatorAdapter.setSelected(it)
-                banners.scrollToPosition(it)
+            it.getContentIfNotHandled()?.let { pos ->
+                indicatorAdapter.setSelected(pos)
+                banners.scrollToPosition(pos)
             }
         })
     }
 
     private fun initViews() {
         binding.apply {
-            viewModel = this@ProductFragment.viewModel
+            viewModel = productViewModel
             executePendingBindings()
             val displayMetrics = DisplayMetrics()
             activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
@@ -198,7 +194,7 @@ class ProductFragment : ParentFragment() {
                 }
 
                 override fun onFavoriteClick(item: Product, position: Int) {
-                    viewModel?.seeAlsoFavoriteToggle(item.id)?.observe(viewLifecycleOwner, Observer { result ->
+                    productViewModel.seeAlsoFavoriteToggle(item.id).observe(viewLifecycleOwner, Observer { result ->
                         when (result.status) {
                             Status.LOADING -> showLoading()
                             Status.ERROR -> {
@@ -239,8 +235,10 @@ class ProductFragment : ParentFragment() {
             }
 
             tvSizeTable.setOnClickListener {
-                viewModel?.sizeChart?.observe(viewLifecycleOwner, Observer {
-                    navController.navigate(R.id.action_productFragment_to_sizeChartFragment, bundleOf("sizeChart" to it))
+                productViewModel.sizeChart.observe(viewLifecycleOwner, Observer {
+                    it ?: return@Observer
+                    val direction= ProductFragmentDirections.actionProductFragmentToSizeChartFragment(it)
+                    navController.navigate(direction)
                 })
             }
 
@@ -283,7 +281,7 @@ class ProductFragment : ParentFragment() {
             }*/
 
             shareLayout.setOnClickListener {
-                viewModel?.shareText?.observe(viewLifecycleOwner, Observer {
+                productViewModel.shareText.observe(viewLifecycleOwner, Observer {
                     val intent = Intent()
                     intent.action = Intent.ACTION_SEND
                     intent.putExtra(Intent.EXTRA_TEXT, it)
@@ -294,7 +292,7 @@ class ProductFragment : ParentFragment() {
 
             favorite.setOnCheckedChangeListener { compoundButton, _ ->
                 if (compoundButton.isPressed) {
-                    viewModel?.favoriteToggle()?.observe(viewLifecycleOwner, Observer { result ->
+                    productViewModel.favoriteToggle().observe(viewLifecycleOwner, Observer { result ->
                         when (result.status) {
                             Status.LOADING -> showLoading()
                             Status.ERROR -> {
@@ -311,10 +309,10 @@ class ProductFragment : ParentFragment() {
             }
 
             addToCart.setOnClickListener {
-                if (viewModel?.selectedSize?.value == null) {
+                if (productViewModel.selectedSize.value == null) {
                     sizes.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.shake))
                 } else {
-                    viewModel?.addToCart()?.observe(viewLifecycleOwner, Observer { result ->
+                    productViewModel.addToCart().observe(viewLifecycleOwner, Observer { result ->
                         when (result.status) {
                             Status.LOADING -> showLoading()
                             Status.ERROR -> {
@@ -344,7 +342,7 @@ class ProductFragment : ParentFragment() {
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-            if (it.getContentIfNotHandled() == true) viewModel.sendRequest()
+            if (it.getContentIfNotHandled() == true) productViewModel.sendRequest()
         })
         navController.navigate(destinationID)
     }

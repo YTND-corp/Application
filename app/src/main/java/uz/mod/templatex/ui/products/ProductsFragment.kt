@@ -63,7 +63,6 @@ class ProductsFragment : ParentFragment() {
                         hideLoading()
                         adapter.updateItem(product, position)
                         showFavouriteStatus(product.isFavorite)
-                        Timber.e(result.data.toString())
                     }
                 }
             })
@@ -121,9 +120,6 @@ class ProductsFragment : ParentFragment() {
             }
         })
 
-        /*productsViewModel.brands.observe(viewLifecycleOwner, Observer {
-            mBrandAdapter.setItems(it)
-        })*/
     }
 
     private fun handleLoadingDone() {

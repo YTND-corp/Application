@@ -22,7 +22,7 @@ interface OurServiceClickEvent {
 }
 
 class SelectionChildFragment : Fragment() {
-    val viewModel: SelectionChildViewModel by viewModel()
+    private val selectionViewModel: SelectionChildViewModel by viewModel()
 
     private val binding by lazy { SelectionChildFragmentBinding.inflate(layoutInflater) }
 
@@ -48,7 +48,7 @@ class SelectionChildFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setArgs(arguments?.getParcelable(GENDER))
+        selectionViewModel.setArgs(arguments?.getParcelable(GENDER))
     }
 
     override fun onCreateView(
@@ -65,14 +65,14 @@ class SelectionChildFragment : Fragment() {
 
         initViews()
 
-        viewModel.items.observe(viewLifecycleOwner, Observer {
+        selectionViewModel.items.observe(viewLifecycleOwner, Observer {
             adapter.setItems(it)
         })
 
     }
 
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@SelectionChildFragment.viewModel
+        viewModel = selectionViewModel
         executePendingBindings()
 
         adapter = SelectionAdapter()

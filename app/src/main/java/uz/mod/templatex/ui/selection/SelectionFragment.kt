@@ -84,8 +84,6 @@ class SelectionFragment : ParentFragment(), OurServiceClickEvent {
         viewModel = this@SelectionFragment.viewModel
         executePendingBindings()
 
-
-
         pager.offscreenPageLimit = 3
         pager.adapter = pageAdapter
 

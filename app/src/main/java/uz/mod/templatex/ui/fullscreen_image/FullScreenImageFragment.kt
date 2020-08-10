@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.fullscreen_image_fragment.*
 import kotlinx.android.synthetic.main.fullscreen_image_fragment.view.*
@@ -19,7 +20,7 @@ import uz.mod.templatex.utils.extension.setNavigationResult
 class FullScreenImageFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
-    //val args: FullScreenImageFragmentArgs by navArgs()
+    val args: FullScreenImageFragmentArgs by navArgs()
     var totalImageSize = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -28,10 +29,8 @@ class FullScreenImageFragment : ParentFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val images = requireArguments().getStringArrayList("images")!!
-        val selectPosition = requireArguments().getInt("selectedPosition")
-        totalImageSize = images.size
-        view.viewPager.adapter = ViewPagerAdapter(images.toList())
+        totalImageSize = args.images.size
+        view.viewPager.adapter = ViewPagerAdapter(args.images.toList())
         view.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             @SuppressLint("SetTextI18n")
             override fun onPageSelected(position: Int) {
@@ -39,7 +38,7 @@ class FullScreenImageFragment : ParentFragment() {
                 navController.setNavigationResult(Event(position), IMAGE_POSITION)
             }
         })
-        view.viewPager.setCurrentItem(selectPosition, false)
+        view.viewPager.setCurrentItem(args.selectedPosition, false)
 
         ivClose.setOnClickListener {
             navController.popBackStack()

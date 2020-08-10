@@ -112,6 +112,9 @@
         <action
                 android:id="@+id/action_productFragment_to_sizeChartFragment"
                 app:destination="@id/sizeChartFragment" />
+        <action
+                android:id="@+id/action_productFragment_to_fullScreenImageFragment"
+                app:destination="@id/fullScreenImageFragment" />
     </fragment>
     <fragment
             android:id="@+id/fullScreenImageFragment"

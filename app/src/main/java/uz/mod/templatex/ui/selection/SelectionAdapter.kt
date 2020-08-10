@@ -18,9 +18,8 @@ class SelectionAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
+
 
     fun setItems(items: List<HomeItem>) {
         this.items = items
@@ -37,7 +36,7 @@ class SelectionAdapter(
 
                 if (homeItem.items?.isNotEmpty() == true) {
                     Glide.with(binding.root.context)
-                        .load(homeItem.items?.first()?.image)
+                        .load(homeItem.items.first().image)
                         .into(image)
                 }
                 image.setOnClickListener {

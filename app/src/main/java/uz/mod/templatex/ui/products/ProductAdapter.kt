@@ -11,7 +11,6 @@ import uz.mod.templatex.ui.product.ProductFragmentDirections
 import uz.mod.templatex.utils.GlideApp
 
 class ProductAdapter(private var listener: (item: Product, position: Int) -> Unit) :
-
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     private var items: MutableList<Product> = mutableListOf()

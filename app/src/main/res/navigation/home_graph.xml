@@ -132,6 +132,35 @@
                 android:name="product_id"
                 android:defaultValue="0"
                 app:argType="integer" />
+        <action
+                android:id="@+id/action_productFragment_to_fullScreenImageFragment"
+                app:destination="@id/fullScreenImageFragment" />
+        <action
+                android:id="@+id/action_productFragment_to_sizeChartFragment"
+                app:destination="@id/sizeChartFragment" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/sizeChartFragment"
+            android:name="uz.mod.templatex.ui.size_chart.SizeChartFragment"
+            android:label="@string/size_table"
+            tools:layout="@layout/size_chart_fragment" >
+        <argument
+                android:name="sizeChart"
+                app:argType="string" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/fullScreenImageFragment"
+            android:name="uz.mod.templatex.ui.fullscreen_image.FullScreenImageFragment"
+            android:label="FullScreenImageFragment">
+
+        <argument
+                android:name="images"
+                app:argType="string[]" />
+        <argument
+                android:name="selectedPosition"
+                app:argType="integer" />
     </fragment>
 
     <action
