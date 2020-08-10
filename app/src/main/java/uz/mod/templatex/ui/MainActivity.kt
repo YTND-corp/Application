@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.main_activity.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import org.jetbrains.annotations.NotNull
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.analytics.AnalyticsManager
 import uz.mod.templatex.analytics.EventBuilder
@@ -54,14 +53,6 @@ class MainActivity : ParentActivity() {
         R.navigation.cart_graph
     )
 
-    private val bottomNavMenuItemIds = listOf(
-        R.id.home_graph,
-        R.id.catalog_graph,
-        R.id.starred_graph,
-        R.id.profile_graph,
-        R.id.cart_graph
-    )
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -77,7 +68,6 @@ class MainActivity : ParentActivity() {
         initViews()
 
         KeyboardVisibilityEvent.setEventListener(this) {
-            Timber.e("Keyboard = $it")
             mainViewModel.keyboardVisibilityChanged(it)
         }
 
@@ -141,7 +131,7 @@ class MainActivity : ParentActivity() {
             appBarConfiguration = AppBarConfiguration(topLevelFragments)
 
             val controller = bottomNavigationView.setupWithNavController(
-                destinationGraphResourceIds, supportFragmentManager, R.id.nav_host_container, intent, bottomNavMenuItemIds
+                destinationGraphResourceIds, supportFragmentManager, R.id.nav_host_container, intent
             )
             currentNavController = controller
             controller.observe(this@MainActivity, Observer { navController ->
@@ -152,15 +142,9 @@ class MainActivity : ParentActivity() {
 
             mainViewModel.bottomNavBarSelection.observe(this@MainActivity, Observer {
                 it.getContentIfNotHandled()?.let { customArgs ->
-                    /*bottomNavMenuItemIds.indexOf(customArgs.destGraphID).let { menuIndex ->
-                        if (menuIndex != -1) bottomNavigationView.menu.getItem(menuIndex).isChecked = true
-                    }
-                    currentNavController.value?.navigate(customArgs.destFragmentID)*/
                     bottomNavigationView.selectedItemId = customArgs.destGraphID
                 }
             })
-
-
 
             bottomNavigationView.menu.forEach {
                 findViewById<View>(it.itemId).setOnLongClickListener {
@@ -168,15 +152,6 @@ class MainActivity : ParentActivity() {
                 }
             }
         }
-    }
-
-    override fun onBackPressed() {
-      /*  currentNavController.value?.graph?.id?.let {
-            bottomNavMenuItemIds.indexOf(it).let { menuIndex ->
-                if (menuIndex != -1) binding.bottomNavigationView.menu.getItem(menuIndex).isChecked = true
-            }
-        }*/
-        super.onBackPressed()
     }
 
     private fun @NotNull MainActivityBinding.onNavControllerChanged(

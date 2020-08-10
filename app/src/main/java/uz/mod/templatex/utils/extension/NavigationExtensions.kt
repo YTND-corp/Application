@@ -26,7 +26,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import timber.log.Timber
 import uz.mod.templatex.R
 
 /**
@@ -38,8 +37,7 @@ fun BottomNavigationView.setupWithNavController(
     navGraphResourcesIds: List<Int>,
     fragmentManager: FragmentManager,
     containerId: Int,
-    intent: Intent,
-    menuGraphsIds : List<Int>
+    intent: Intent
 ): LiveData<NavController> {
 
     // Map of tags
@@ -138,7 +136,7 @@ fun BottomNavigationView.setupWithNavController(
     }
 
     // Optional: on item reselected, pop back stack to the destination of the graph
-    setupItemReselected(graphIdToTagMap, fragmentManager, menuGraphsIds)
+    setupItemReselected(graphIdToTagMap, fragmentManager)
 
     // Handle deep link
     setupDeepLinks(navGraphResourcesIds, fragmentManager, containerId, intent)
@@ -187,8 +185,7 @@ private fun BottomNavigationView.setupDeepLinks(
 
 private fun BottomNavigationView.setupItemReselected(
     graphIdToTagMap: SparseArray<String>,
-    fragmentManager: FragmentManager,
-    menuGraphsIds: List<Int>
+    fragmentManager: FragmentManager
 ) {
     setOnNavigationItemReselectedListener { item ->
         val newlySelectedItemTag = graphIdToTagMap[item.itemId]
@@ -196,20 +193,10 @@ private fun BottomNavigationView.setupItemReselected(
                 as NavHostFragment
         val navController = selectedFragment.navController
 
-
-
         // Pop the back stack to the start destination of the current navController graph
         navController.popBackStack(
             navController.graph.startDestination, false
         )
-
-        val destinationID = navController.graph.id
-        Timber.e("BottomView Item reselected ${menu.findItem(item.itemId).order}")
-
-        menuGraphsIds.indexOf(destinationID).let { menuIndex ->
-            Timber.e("Menu reselect index $menuIndex")
-            if (menuIndex != -1) menu.getItem(menuIndex).isChecked = true
-        }
     }
 }
 
