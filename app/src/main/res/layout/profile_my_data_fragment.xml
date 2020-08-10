@@ -127,14 +127,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
                         app:layout_constraintTop_toBottomOf="@id/til_birth_date">
 
                     <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="30dp"
                             android:orientation="horizontal"
-                            android:paddingVertical="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            >
 
                         <TextView
                                 style="@style/Bold"
@@ -160,9 +162,11 @@
 
                     <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="30dp"
                             android:orientation="horizontal"
-                            android:paddingVertical="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            >
 
                         <TextView
                                 style="@style/Bold"
