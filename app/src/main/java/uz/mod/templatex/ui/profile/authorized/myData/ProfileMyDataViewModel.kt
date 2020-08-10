@@ -35,6 +35,9 @@ class ProfileMyDataViewModel(application: Application, val repository: MyDataRep
         request.value = true
     }
 
+    fun onUserInfoUpdateSuccess() = repository.saveUsername(fullName.value)
+
+
     fun updateUserInfo(): LiveData<Resource<Any>> {
         var firstName: String? = null
         var lastName: String? = null

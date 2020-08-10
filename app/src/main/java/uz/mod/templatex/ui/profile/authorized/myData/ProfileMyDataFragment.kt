@@ -110,6 +110,7 @@ class ProfileMyDataFragment : ParentFragment() {
                     }
                     Status.SUCCESS -> {
                         hideLoading()
+                        profileViewModel.onUserInfoUpdateSuccess()
                         navController.popBackStack()
                     }
                 }

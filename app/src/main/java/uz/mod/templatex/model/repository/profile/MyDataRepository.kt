@@ -1,6 +1,7 @@
 package uz.mod.templatex.model.repository.profile
 
 import androidx.lifecycle.LiveData
+import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.model.remote.api.profile.MyDataService
 import uz.mod.templatex.model.remote.network.ApiResponse
 import uz.mod.templatex.model.remote.network.NetworkOnlyResource
@@ -8,7 +9,8 @@ import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.remote.response.profile.MyDataResponse
 
 class MyDataRepository(
-    val service: MyDataService
+    val service: MyDataService,
+    val prefs: Prefs
 ) {
     fun getUserInfo(): LiveData<Resource<MyDataResponse>> {
         return object : NetworkOnlyResource<MyDataResponse, MyDataResponse>() {
@@ -20,6 +22,10 @@ class MyDataRepository(
                 return service.getUserInfo()
             }
         }.asLiveData()
+    }
+
+    fun saveUsername(userName : String?) {
+        prefs.userName = userName
     }
 
     fun updateUserInfo(
