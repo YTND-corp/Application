@@ -106,8 +106,8 @@
     <!-- Sign Up -->
     <string name="hint_phone">Номер телефона</string>
     <string name="hint_name">Имя</string>
-    <string name="hint_surname">Фамилия</string>
-    <string name="hint_email">Эл. почта</string>
+    <string name="hint_surname">Фамилия (не обязательно)</string>
+    <string name="hint_email">Эл. почта (не обязательно)</string>
     <string name="hint_address">Адрес</string>
     <string name="hint_password">Введите пароль</string>
     <string name="hint_repeat_password">Повторите пароль</string>

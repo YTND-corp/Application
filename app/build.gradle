@@ -7,6 +7,14 @@ apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('..\\keystore\\ModCo.jks')
+            storePassword '0011111'
+            keyAlias 'MOD CO'
+            keyPassword '0011111'
+        }
+    }
     compileSdkVersion 29
     defaultConfig {
         applicationId "uz.mod.templatex"
@@ -16,6 +24,7 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.bg_edit_text.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
     buildTypes {
         release {

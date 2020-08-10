@@ -72,25 +72,27 @@ class CheckoutFragment : ParentFragment() {
             }
         })
 
-        viewModel.getUserInfo().observe(this, Observer { result ->
-            when (result.status) {
-                Status.LOADING -> showLoading()
-                Status.ERROR -> {
-                    hideLoading()
-                    processError(result.error)
-                }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    Timber.e(result.data.toString())
-                    result.data?.user?.let {
-                        binding.name.setText(it.firstName)
-                        binding.surname.setText(it.lastName)
-                        binding.email.setText(it.email)
-                        binding.phone.setText(it.phone)
+        if (sharedViewModel.isAuthenticated.value == true) {
+            viewModel.getUserInfo().observe(this, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        processError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        Timber.e(result.data.toString())
+                        result.data?.user?.let {
+                            binding.name.setText(it.firstName)
+                            binding.surname.setText(it.lastName)
+                            binding.email.setText(it.email)
+                            binding.phone.setText(it.phone)
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
     }
 
     override fun onCreateView(

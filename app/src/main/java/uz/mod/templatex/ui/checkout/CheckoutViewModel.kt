@@ -24,7 +24,7 @@ class CheckoutViewModel constructor(
     }
 
     private val isEmailValid: LiveData<Boolean> = Transformations.map(email) {
-        !it.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(it).matches()
+        it.isNullOrEmpty() || Patterns.EMAIL_ADDRESS.matcher(it).matches()
     }
 
     private val navigator = MutableLiveData<Event<Int>>()
@@ -34,13 +34,11 @@ class CheckoutViewModel constructor(
             fun validateFrom() {
                 value = isPhoneValid.value ?: false
                         && !name.value.isNullOrEmpty()
-                        && !surname.value.isNullOrEmpty()
                         && isEmailValid.value ?: false
             }
 
             addSource(isPhoneValid) { validateFrom() }
             addSource(name) { validateFrom() }
-            addSource(surname) { validateFrom() }
             addSource(isEmailValid) { validateFrom() }
         }
 

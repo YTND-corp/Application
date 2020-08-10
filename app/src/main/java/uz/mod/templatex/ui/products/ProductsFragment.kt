@@ -206,6 +206,10 @@ class ProductsFragment : ParentFragment() {
         back.setOnClickListener {
             navController.popBackStack()
         }
+
+        search.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) navController.navigate(R.id.action_global_searchFragment)
+        }
     }
 
     private fun processError(error: ApiError?) = when (error?.code) {
