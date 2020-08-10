@@ -124,7 +124,7 @@
     <string name="profile_about_app">О MOD</string>
 
     <!-- Profile Authorized  -->
-    <string name="profile_authorized_name_title_first_part">ЗДРАВСТВУЙТЕ," "</string>
+    <string name="profile_authorized_name_title_first_part">Здравствуйте, %s</string>
     <string name="profile_authorized_name_subtitle">Этот раздел создан специально для вас</string>
     <string name="profile_authorized_item_my_orders">Мои заказы</string>
     <string name="profile_authorized_item_my_data">Мои данные</string>

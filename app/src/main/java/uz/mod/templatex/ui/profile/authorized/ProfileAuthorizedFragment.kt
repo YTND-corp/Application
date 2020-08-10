@@ -47,11 +47,8 @@ class ProfileAuthorizedFragment : ParentFragment() {
         executePendingBindings()
 
         val profileName = profileAuthorizedViewModel.getUserName() + "!"
-        val profileNameTitleText = SpannableStringBuilder()
-            .append(getString(R.string.profile_authorized_name_title_first_part))
-            .bold { append(profileName) }
 
-        profileNameTitleTv.text = profileNameTitleText
+        profileNameTitleTv.text = getString(R.string.profile_authorized_name_title_first_part, profileName)
 
         profileHeaderContainer.setOnClickListener {
             // TODO
