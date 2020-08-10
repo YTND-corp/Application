@@ -26,6 +26,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import timber.log.Timber
 import uz.mod.templatex.R
 
 /**
@@ -34,10 +35,11 @@ import uz.mod.templatex.R
  * This sample is a workaround until the Navigation Component supports multiple back stacks.
  */
 fun BottomNavigationView.setupWithNavController(
-    navGraphIds: List<Int>,
+    navGraphResourcesIds: List<Int>,
     fragmentManager: FragmentManager,
     containerId: Int,
-    intent: Intent
+    intent: Intent,
+    menuGraphsIds : List<Int>
 ): LiveData<NavController> {
 
     // Map of tags
@@ -48,7 +50,7 @@ fun BottomNavigationView.setupWithNavController(
     var firstFragmentGraphId = 0
 
     // First create a NavHostFragment for each NavGraph ID
-    navGraphIds.forEachIndexed { index, navGraphId ->
+    navGraphResourcesIds.forEachIndexed { index, navGraphId ->
         val fragmentTag = getFragmentTag(index)
 
         // Find or create the Navigation host fragment
@@ -136,10 +138,10 @@ fun BottomNavigationView.setupWithNavController(
     }
 
     // Optional: on item reselected, pop back stack to the destination of the graph
-    setupItemReselected(graphIdToTagMap, fragmentManager)
+    setupItemReselected(graphIdToTagMap, fragmentManager, menuGraphsIds)
 
     // Handle deep link
-    setupDeepLinks(navGraphIds, fragmentManager, containerId, intent)
+    setupDeepLinks(navGraphResourcesIds, fragmentManager, containerId, intent)
 
     // Finally, ensure that we update our BottomNavigationView when the back stack changes
     fragmentManager.addOnBackStackChangedListener {
@@ -185,17 +187,29 @@ private fun BottomNavigationView.setupDeepLinks(
 
 private fun BottomNavigationView.setupItemReselected(
     graphIdToTagMap: SparseArray<String>,
-    fragmentManager: FragmentManager
+    fragmentManager: FragmentManager,
+    menuGraphsIds: List<Int>
 ) {
     setOnNavigationItemReselectedListener { item ->
         val newlySelectedItemTag = graphIdToTagMap[item.itemId]
         val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
                 as NavHostFragment
         val navController = selectedFragment.navController
+
+
+
         // Pop the back stack to the start destination of the current navController graph
         navController.popBackStack(
             navController.graph.startDestination, false
         )
+
+        val destinationID = navController.graph.id
+        Timber.e("BottomView Item reselected ${menu.findItem(item.itemId).order}")
+
+        menuGraphsIds.indexOf(destinationID).let { menuIndex ->
+            Timber.e("Menu reselect index $menuIndex")
+            if (menuIndex != -1) menu.getItem(menuIndex).isChecked = true
+        }
     }
 }
 

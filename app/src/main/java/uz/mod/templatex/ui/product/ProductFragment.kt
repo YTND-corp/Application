@@ -25,6 +25,7 @@ import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.ui.product.adapter.*
+import uz.mod.templatex.ui.size_chart.SizeChartFragment
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.SnapOnScrollListener
@@ -68,7 +69,7 @@ class ProductFragment : ParentFragment() {
             navController.navigate(
                 R.id.fullScreenImageFragment,
                 bundleOf(
-                    "images" to items.toTypedArray(),
+                    "images" to items,
                     "selectedPosition" to position
                 )
             )

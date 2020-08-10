@@ -141,7 +141,7 @@ class MainActivity : ParentActivity() {
             appBarConfiguration = AppBarConfiguration(topLevelFragments)
 
             val controller = bottomNavigationView.setupWithNavController(
-                destinationGraphResourceIds, supportFragmentManager, R.id.nav_host_container, intent
+                destinationGraphResourceIds, supportFragmentManager, R.id.nav_host_container, intent, bottomNavMenuItemIds
             )
             currentNavController = controller
             controller.observe(this@MainActivity, Observer { navController ->
@@ -152,10 +152,11 @@ class MainActivity : ParentActivity() {
 
             mainViewModel.bottomNavBarSelection.observe(this@MainActivity, Observer {
                 it.getContentIfNotHandled()?.let { customArgs ->
-                    bottomNavMenuItemIds.indexOf(customArgs.destGraphID).let { menuIndex ->
+                    /*bottomNavMenuItemIds.indexOf(customArgs.destGraphID).let { menuIndex ->
                         if (menuIndex != -1) bottomNavigationView.menu.getItem(menuIndex).isChecked = true
                     }
-                    currentNavController.value?.navigate(customArgs.destFragmentID)
+                    currentNavController.value?.navigate(customArgs.destFragmentID)*/
+                    bottomNavigationView.selectedItemId = customArgs.destGraphID
                 }
             })
 
@@ -170,11 +171,11 @@ class MainActivity : ParentActivity() {
     }
 
     override fun onBackPressed() {
-        currentNavController.value?.graph?.id?.let {
+      /*  currentNavController.value?.graph?.id?.let {
             bottomNavMenuItemIds.indexOf(it).let { menuIndex ->
                 if (menuIndex != -1) binding.bottomNavigationView.menu.getItem(menuIndex).isChecked = true
             }
-        }
+        }*/
         super.onBackPressed()
     }
 
