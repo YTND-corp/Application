@@ -486,71 +486,60 @@
                     android:layout_marginEnd="8dp"
                     app:layout_constraintTop_toBottomOf="@id/return_hint" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/vk"
-                    link="@{viewModel.VK_URL}"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/socials_top_divider"
-                    app:srcCompat="@drawable/ic_vk" />
+            <LinearLayout
+                    android:id="@+id/social_site_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:weightSum="5"
+                    app:layout_constraintTop_toBottomOf="@id/socials_top_divider">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/instagram"
-                    link="@{viewModel.INSTAGRAM_URL}"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:scaleType="center"
-                    app:layout_constraintBottom_toBottomOf="@id/vk"
-                    app:layout_constraintEnd_toStartOf="@id/telegram"
-                    app:layout_constraintStart_toEndOf="@id/vk"
-                    app:layout_constraintTop_toTopOf="@id/vk"
-                    app:srcCompat="@drawable/ic_instagram" />
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/instagram"
+                        link="@{viewModel.INSTAGRAM_URL}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_instagram" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/telegram"
-                    link="@{viewModel.TELEGRAM_URL}"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:layout_constraintEnd_toStartOf="@id/tiktok"
-                    app:layout_constraintStart_toEndOf="@id/instagram"
-                    app:layout_constraintTop_toTopOf="@id/vk"
-                    app:srcCompat="@drawable/ic_telegram" />
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/telegram"
+                        link="@{viewModel.TELEGRAM_URL}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_telegram" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/tiktok"
-                    link="@{viewModel.TIKTOK_URL}"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:scaleType="center"
-                    app:layout_constraintBottom_toBottomOf="@id/vk"
-                    app:layout_constraintEnd_toStartOf="@id/facebook"
-                    app:layout_constraintStart_toEndOf="@id/telegram"
-                    app:layout_constraintTop_toTopOf="@id/vk"
-                    app:srcCompat="@drawable/ic_tik_tok" />
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/facebook"
+                        link="@{viewModel.FACEBOOK_URL}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_facebook" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/facebook"
-                    link="@{viewModel.FACEBOOK_URL}"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tiktok"
-                    app:layout_constraintTop_toTopOf="@id/vk"
-                    app:srcCompat="@drawable/ic_facebook" />
 
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/tik_tok"
+                        link="@{viewModel.TIKTOK_URL}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_tik_tok" />
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/vk"
+                        link="@{viewModel.VK_URL}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_vk" />
+
+            </LinearLayout>
 
             <View
                     android:id="@+id/socials_bottom_divider"
@@ -560,7 +549,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintTop_toBottomOf="@id/vk" />
+                    app:layout_constraintTop_toBottomOf="@id/social_site_container" />
 
             <TextView
                     android:id="@+id/relative_products_header"
