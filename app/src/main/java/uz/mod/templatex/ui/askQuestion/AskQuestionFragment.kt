@@ -22,7 +22,7 @@ import uz.mod.templatex.utils.extension.lazyFast
 
 class AskQuestionFragment : ParentFragment() {
 
-    val viewModel: AskQuestionViewModel by viewModel()
+    private val askQuestionViewModel: AskQuestionViewModel by viewModel()
 
     private val navController by lazyFast { findNavController() }
     private val binding by lazy { AskQuestionFragmentBinding.inflate(layoutInflater) }
@@ -44,7 +44,7 @@ class AskQuestionFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+        askQuestionViewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -60,7 +60,7 @@ class AskQuestionFragment : ParentFragment() {
     }
 
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@AskQuestionFragment.viewModel
+        viewModel = askQuestionViewModel
         executePendingBindings()
 
         regionPhone.text = getString(R.string.ask_question_phone_for_regions, Const.PHONE_NUMBER)
@@ -71,23 +71,21 @@ class AskQuestionFragment : ParentFragment() {
 
         sendButton.setOnClickListener {
             hideKeyboard()
-            viewModel?.askQuestion()
+            askQuestionViewModel.askQuestion()
         }
     }
 
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
     }
 
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-            if (it.getContentIfNotHandled() == true) viewModel.askQuestion()
+            if (it.getContentIfNotHandled() == true) askQuestionViewModel.askQuestion()
         })
         navController.navigate(destinationID)
     }

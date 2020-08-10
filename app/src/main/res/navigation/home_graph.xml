@@ -170,5 +170,5 @@
     <fragment
             android:id="@+id/askQuestionFragmentFromSelection"
             android:name="uz.mod.templatex.ui.askQuestion.AskQuestionFragment"
-            android:label="AskQuestionFragment" />
+            android:label="@string/title_ask_question" />
 </navigation>
