@@ -30,7 +30,6 @@ class AddressFragment : ParentFragment() {
     val args: AddressFragmentArgs by navArgs()
     private val adapter by lazyFast {
         AddressAdapter {
-            Timber.e("${it.price}")
             addressViewModel.delivery.value = it
         }
     }
@@ -49,7 +48,7 @@ class AddressFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@AddressFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -79,6 +78,7 @@ class AddressFragment : ParentFragment() {
 
                 binding.city.setOnFocusChangeListener { view, hasFocus ->
                     if (hasFocus) {
+                        hideKeyboard()
                         view.clearFocus()
 
                         val temp: Array<String> = Array(cities.size) { cities[it].name ?: "" }
