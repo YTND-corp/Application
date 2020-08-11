@@ -78,7 +78,7 @@
     <string name="title_checkout">Оформления заказа</string>
     <string name="title_adres">Адрес доставки</string>
     <string name="title_search">ПОИСК</string>
-    <string name="title_profile_authorized">АККАУНТ</string>
+    <string name="title_profile_authorized">ПРОФИЛЬ</string>
     <string name="title_profile_my_orders">МОИ ЗАКАЗЫ</string>
     <string name="title_code">Подтверждение телефона</string>
     <string name="action_checkout">ОФОРМИТЬ</string>
