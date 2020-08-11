@@ -23,14 +23,8 @@ class AuthRepository constructor(val service: AuthService, val prefs: Prefs) {
         phone: String
     ): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {
-            override fun processResult(item: Any?): Any? {
-                return item
-            }
-
-            override fun createCall(): LiveData<ApiResponse<Any>> {
-                return service.signUp(name, surname, email, phone)
-            }
-
+            override fun processResult(item: Any?) = item
+            override fun createCall() = service.signUp(name, surname, email, phone)
         }.asLiveData()
     }
 
