@@ -1,18 +1,14 @@
 package uz.mod.templatex.ui.code
 
 import android.app.Application
-import android.os.CountDownTimer
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import uz.mod.templatex.R
 import uz.mod.templatex.model.inApp.CountDownTimeMeta
 import uz.mod.templatex.model.local.entity.User
 import uz.mod.templatex.model.remote.network.Resource
-import uz.mod.templatex.model.remote.response.ConfirmResponse
 import uz.mod.templatex.model.repository.AuthRepository
 import uz.mod.templatex.model.repository.CheckoutRepository
+import uz.mod.templatex.utils.Event
 import uz.mod.templatex.utils.extension.backEndPhoneFormat
 
 class CodeViewModel constructor(
@@ -46,15 +42,15 @@ class CodeViewModel constructor(
     val authConfirmResponse: LiveData<Resource<User>> = Transformations.switchMap(authConfirmRequest) {
         authRepository.confirm(code.value!!)
     }
-    val checkoutConfirmResponse: LiveData<Resource<ConfirmResponse>> = Transformations.switchMap(checkoutConfirmRequest) {
+    val checkoutConfirmResponse = Transformations.switchMap(checkoutConfirmRequest) {
         repository.confirm(
             phone.value?.backEndPhoneFormat() ?: "",
             code.value!!
-        )
+        ).map { Event(it) }
     }
 
-    fun getCountDownTimerPeek(meta: CountDownTimeMeta) : Long {
-        val maxPeek = 120*1000L
+    fun getCountDownTimerPeek(meta: CountDownTimeMeta): Long {
+        val maxPeek = 120 * 1000L
         return when {
             meta.lastPhoneNumber == null || meta.lastPhoneNumber != phone.value -> {
                 meta.lastPhoneNumber = phone.value

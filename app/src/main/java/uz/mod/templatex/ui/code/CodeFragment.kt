@@ -54,27 +54,29 @@ class CodeFragment : ParentFragment() {
         initViews()
 
         if (args.isCheckout) {
-            codeViewModel.checkoutConfirmResponse.observe(viewLifecycleOwner, Observer { result ->
-                when (result.status) {
-                    Status.LOADING -> showLoading()
-                    Status.ERROR -> {
-                        hideLoading()
-                        processError(result.error)
-                    }
-                    Status.SUCCESS -> {
-                        hideLoading()
-                        binding.code.text = null
-                        sharedViewModel.loggedIn(result.data?.user)
-                        if (args.isCheckout) {
-                            navController.navigate(
-                                AddressFragmentDirections.actionGlobalAddressFragment(
-                                    args.cartResponse,
-                                    result.data,
-                                    args.phone
+            codeViewModel.checkoutConfirmResponse.observe(viewLifecycleOwner, Observer {
+                it.getContentIfNotHandled()?.let { result ->
+                    when (result.status) {
+                        Status.LOADING -> showLoading()
+                        Status.ERROR -> {
+                            hideLoading()
+                            processError(result.error)
+                        }
+                        Status.SUCCESS -> {
+                            hideLoading()
+                            binding.code.text = null
+                            sharedViewModel.loggedIn(result.data?.user)
+                            if (args.isCheckout) {
+                                navController.navigate(
+                                    AddressFragmentDirections.actionGlobalAddressFragment(
+                                        args.cartResponse,
+                                        result.data,
+                                        args.phone
+                                    )
                                 )
-                            )
-                        } else {
-                            navController.popBackStack(R.id.profileFragment, true)
+                            } else {
+                                navController.popBackStack(R.id.profileFragment, true)
+                            }
                         }
                     }
                 }
