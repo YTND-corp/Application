@@ -1,7 +1,10 @@
 package uz.mod.templatex.ui.code
 
 import android.app.Application
-import android.os.CountDownTimer
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,6 +17,7 @@ import uz.mod.templatex.model.remote.response.ConfirmResponse
 import uz.mod.templatex.model.repository.AuthRepository
 import uz.mod.templatex.model.repository.CheckoutRepository
 import uz.mod.templatex.utils.extension.backEndPhoneFormat
+
 
 class CodeViewModel constructor(
     application: Application,
@@ -98,6 +102,9 @@ class CodeViewModel constructor(
     }
 
     var getSubTitle = Transformations.map(phone) {
-        application.getString(R.string.code_subheader, it)
+        val formattedText = application.getString(R.string.code_subheader, it)
+        val spannable = SpannableStringBuilder(formattedText)
+        spannable.setSpan(StyleSpan(Typeface.BOLD), formattedText.indexOf("+"), formattedText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable
     }
 }
