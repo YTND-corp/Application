@@ -295,6 +295,8 @@
     <string name="sort_new">По новизне</string>
     <string name="sort_price_asc">По возрастанию цены</string>
     <string name="sort_price_desc">По убыванию цены</string>
+    <string name="sort_new_discount">По новить скидкам</string>
+    <string name="sort_discount">По скидком</string>
     <string name="sort_discounts">Скидки?</string>
     <string name="sort_discounts_new">Новые скидки?</string>
     <string name="filter_item_brands">Бренд</string>

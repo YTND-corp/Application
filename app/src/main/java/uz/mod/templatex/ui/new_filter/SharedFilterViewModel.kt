@@ -90,6 +90,8 @@ class SharedFilterViewModel(application: Application) : AndroidViewModel(applica
                 class PriceDescSort : Sort(SORT_PRICE_DESC, R.string.sort_price_desc) {
 //                    override fun hashCode(): Int = 4
                 }
+                class NewDiscount: Sort(SORT_DISCOUNTS_NEW, R.string.sort_new_discount)
+                class Discount : Sort(SORT_DISCOUNTS, R.string.sort_discount)
             }
 
         }
