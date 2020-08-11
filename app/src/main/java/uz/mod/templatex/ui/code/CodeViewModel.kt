@@ -2,7 +2,7 @@ package uz.mod.templatex.ui.code
 
 import android.app.Application
 import androidx.lifecycle.*
-android.graphics.Typeface
+import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
