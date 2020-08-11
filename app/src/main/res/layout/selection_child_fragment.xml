@@ -10,195 +10,192 @@
                 type="uz.mod.templatex.ui.selection.SelectionChildViewModel" />
     </data>
 
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.selection.SelectionChildFragment">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/selections"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/selection_item" />
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context=".ui.selection.SelectionChildFragment">
+                android:layout_marginVertical="20dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/selections">
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/selections"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:descendantFocusability="blocksDescendants"
-                    android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:listitem="@layout/selection_item" />
-
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/frequent_questions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="20dp"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/selections">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/frequent_questions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@string/frequently_asked_question_title"
-                        android:textAllCaps="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginTop="15dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/frequently_asked_question_title"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-                <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:scrollbars="none"
-                        app:layout_constraintTop_toBottomOf="@id/frequent_questions">
+            <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:scrollbars="none"
+                    app:layout_constraintTop_toBottomOf="@id/frequent_questions">
 
-                    <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/deliveryAndSampleSection"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="8dp"
-                                android:background="@drawable/bg_rounded_gray_stroke"
-                                android:padding="8dp"
-                                android:text="@string/delivery_and_sample_section"
-                                android:textAllCaps="true"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/askQuestionSection"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="8dp"
-                                android:background="@drawable/bg_rounded_gray_stroke"
-                                android:padding="8dp"
-                                android:text="@string/ask_question_section"
-                                android:textAllCaps="true"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-                    </LinearLayout>
-
-                </HorizontalScrollView>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-                    <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/first_vertical_divider"
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/deliveryAndSampleSection"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layout_constraintGuide_percent="0.33" />
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_rounded_gray_stroke"
+                            android:padding="8dp"
+                            android:text="@string/delivery_and_sample_section"
+                            android:textAllCaps="true"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                    <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/second_vertical_divider"
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/askQuestionSection"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layout_constraintGuide_percent="0.66" />
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_rounded_gray_stroke"
+                            android:padding="8dp"
+                            android:text="@string/ask_question_section"
+                            android:textAllCaps="true"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
 
-                    <LinearLayout
-                            android:id="@+id/call_us_holder"
-                            android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/first_vertical_divider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.33" />
+
+                <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/second_vertical_divider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.66" />
+
+
+                <LinearLayout
+                        android:id="@+id/call_us_holder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@id/first_vertical_divider"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:background="@drawable/bg_solid_gray"
+                            android:scaleType="centerInside"
+                            app:srcCompat="@drawable/ic_outgoing_call" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            app:layout_constraintEnd_toStartOf="@id/first_vertical_divider"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="@string/call_us"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_size_smaller" />
+                </LinearLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="130dp"
-                                android:background="@drawable/bg_solid_gray"
-                                android:scaleType="centerInside"
-                                app:srcCompat="@drawable/ic_outgoing_call" />
+                <LinearLayout
+                        android:id="@+id/write_us_holder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="@id/second_vertical_divider"
+                        app:layout_constraintStart_toStartOf="@id/first_vertical_divider"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:gravity="center"
-                                android:text="@string/call_us"
-                                android:textAllCaps="true"
-                                android:textSize="@dimen/text_size_smaller" />
-                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:background="@drawable/bg_solid_gray"
+                            android:scaleType="centerInside"
+                            app:srcCompat="@drawable/ic_message_us" />
 
-                    <LinearLayout
-                            android:id="@+id/write_us_holder"
-                            android:layout_width="0dp"
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:orientation="vertical"
-                            app:layout_constraintEnd_toEndOf="@id/second_vertical_divider"
-                            app:layout_constraintStart_toStartOf="@id/first_vertical_divider"
-                            app:layout_constraintTop_toTopOf="parent">
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="@string/write_to_us"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_size_smaller" />
+                </LinearLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="130dp"
-                                android:background="@drawable/bg_solid_gray"
-                                android:scaleType="centerInside"
-                                app:srcCompat="@drawable/ic_message_us" />
+                <LinearLayout
+                        android:id="@+id/ask_question_holder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/second_vertical_divider"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:gravity="center"
-                                android:text="@string/write_to_us"
-                                android:textAllCaps="true"
-                                android:textSize="@dimen/text_size_smaller" />
-                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:background="@drawable/bg_solid_gray"
+                            android:scaleType="centerInside"
+                            app:srcCompat="@drawable/ic_question_mark" />
 
-                    <LinearLayout
-                            android:id="@+id/ask_question_holder"
-                            android:layout_width="0dp"
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/second_vertical_divider"
-                            app:layout_constraintTop_toTopOf="parent">
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="@string/ask_question_from_us"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_size_smaller" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="130dp"
-                                android:background="@drawable/bg_solid_gray"
-                                android:scaleType="centerInside"
-                                app:srcCompat="@drawable/ic_question_mark" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:gravity="center"
-                                android:text="@string/ask_question_from_us"
-                                android:textAllCaps="true"
-                                android:textSize="@dimen/text_size_smaller" />
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 </layout>

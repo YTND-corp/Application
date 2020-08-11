@@ -21,8 +21,7 @@ val items: List<HomeSubItem>?
         parcel.readString(),
         parcel.readString(),
         parcel.createTypedArrayList(HomeSubItem)
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
@@ -56,8 +55,7 @@ data class HomeSubItem(val id: Int, val name: String?, val image: String?): Parc
         parcel.readInt(),
         parcel.readString(),
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)

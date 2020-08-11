@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import timber.log.Timber
 import uz.mod.templatex.databinding.SelectionItemBinding
 import uz.mod.templatex.model.local.entity.HomeItem
 
@@ -23,6 +24,7 @@ class SelectionAdapter(
 
     fun setItems(items: List<HomeItem>) {
         this.items = items
+        Timber.e("Items size ${items.size}")
         notifyDataSetChanged()
     }
 
@@ -40,6 +42,7 @@ class SelectionAdapter(
                         .into(image)
                 }
                 image.setOnClickListener {
+
                     it.findNavController().navigate(
                         SelectionFragmentDirections.actionGlobalProductsFragment(
                             homeItem.id,
@@ -50,8 +53,7 @@ class SelectionAdapter(
 
             } else {
                 actualHeader.text = homeItem.title
-                actuals.adapter =
-                    SelectionSubAdapter(homeItem.id, homeItem.items ?: arrayListOf())
+                actuals.adapter = SelectionSubAdapter(homeItem.id, homeItem.items ?: arrayListOf())
             }
         }
     }
