@@ -112,7 +112,6 @@
                         android:id="@+id/continue_button"
                         style="@style/ContainedButtonStyle"
                         android:enabled="@{viewModel.isAllValid()}"
-                        android:onClick="@{() -> viewModel.signUp()}"
                         android:text="@string/action_continue"
                         android:layout_marginTop="40dp"
                         app:layout_constraintEnd_toEndOf="parent"

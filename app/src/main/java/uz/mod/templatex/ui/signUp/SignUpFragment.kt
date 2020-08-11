@@ -75,6 +75,11 @@ class SignUpFragment : ParentFragment() {
     private fun initViews(): Unit = with(binding) {
         viewModel = signUpViewModel
         executePendingBindings()
+
+        continueButton.setOnClickListener {
+            hideKeyboard()
+            viewModel?.signUp()
+        }
     }
 
     override fun onResume() {

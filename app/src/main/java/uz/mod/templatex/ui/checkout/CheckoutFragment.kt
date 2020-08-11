@@ -130,6 +130,7 @@ class CheckoutFragment : ParentFragment() {
                 }
             }
         }
+
         @SuppressLint("SetTextI18n")
         if (BuildConfig.DEBUG) {
             name.setText("Jasurbek")
@@ -137,7 +138,6 @@ class CheckoutFragment : ParentFragment() {
             email.setText("jasurbek.abdiroziqov@gmail.com")
             phone.setText("+998 99 076 37 26")
         }
-
     }
 
     private fun processError(error: ApiError?) {

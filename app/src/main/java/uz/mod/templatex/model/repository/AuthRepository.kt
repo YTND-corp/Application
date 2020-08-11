@@ -18,8 +18,8 @@ class AuthRepository constructor(val service: AuthService, val prefs: Prefs) {
 
     fun signUp(
         name: String,
-        surname: String,
-        email: String,
+        surname: String?,
+        email: String?,
         phone: String
     ): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {

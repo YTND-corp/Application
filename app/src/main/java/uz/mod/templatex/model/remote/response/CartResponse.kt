@@ -11,17 +11,19 @@ data class CartResponse(val cart: Cart, val recommended: List<Product>)
 data class Cart(
     val id: Int,
     val uid: String?,
-    val carrier: List<Carrier>?,
+    val carrier: Carrier,
     @SerializedName("products_price") val productsPrice: Int,
     @SerializedName("delivery_price") val deliveryPrice: Int,
     @SerializedName("discount_price") val discountPrice: Int,
     @SerializedName("total_price") val totalPrice: Int,
     val quantity: Int,
     val products: List<Product>?
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class Carrier(
-    val id: Int,
-    val name: String
-):Parcelable
+    @SerializedName("is_active")
+    val isActive: Boolean,
+    @SerializedName("sort_order")
+    val sortOrder: Int
+) : Parcelable

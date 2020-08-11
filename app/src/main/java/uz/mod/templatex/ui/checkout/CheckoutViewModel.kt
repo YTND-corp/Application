@@ -34,7 +34,7 @@ class CheckoutViewModel constructor(
             fun validateFrom() {
                 value = isPhoneValid.value ?: false
                         && !name.value.isNullOrEmpty()
-                        && isEmailValid.value ?: false
+                        && isEmailValid.value ?: true
             }
 
             addSource(isPhoneValid) { validateFrom() }
@@ -46,8 +46,8 @@ class CheckoutViewModel constructor(
     val response = Transformations.switchMap(request) {
         repository.user(
             name.value!!,
-            surname.value!!,
-            email.value!!,
+            surname.value,
+            email.value,
             phone.value?.clear!!
         )
     }

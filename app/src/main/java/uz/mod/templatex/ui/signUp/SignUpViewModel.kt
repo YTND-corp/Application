@@ -23,7 +23,7 @@ class SignUpViewModel constructor(
     }
 
     val isEmailValid: LiveData<Boolean> = Transformations.map(email) {
-        !it.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(it).matches()
+        it.isNullOrEmpty() || Patterns.EMAIL_ADDRESS.matcher(it).matches()
     }
 
     val isAllValid = MediatorLiveData<Boolean>()
@@ -31,11 +31,11 @@ class SignUpViewModel constructor(
             fun validateFrom() {
                 value = isPhoneValid.value ?: false
                         && !name.value.isNullOrEmpty()
+                        && isEmailValid.value ?: true
             }
 
             addSource(isPhoneValid) { validateFrom() }
             addSource(name) { validateFrom() }
-            addSource(surname) { validateFrom() }
             addSource(isEmailValid) { validateFrom() }
         }
 
@@ -43,8 +43,8 @@ class SignUpViewModel constructor(
     val res: LiveData<Resource<Any>> = Transformations.switchMap(request) {
         repository.signUp(
             name.value!!,
-            surname.value!!,
-            email.value!!,
+            surname.value,
+            email.value,
             phone.value?.backEndPhoneFormat()!!
         )
     }

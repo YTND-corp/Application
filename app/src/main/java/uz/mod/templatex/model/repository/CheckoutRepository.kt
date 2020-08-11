@@ -19,8 +19,8 @@ class CheckoutRepository constructor(val service: CheckoutService, prefs: Prefs)
 
     fun user(
         name: String,
-        surname: String,
-        email: String,
+        surname: String?,
+        email: String?,
         phone: String
     ): LiveData<Resource<ConfirmResponse>> = object : NetworkOnlyResource<ConfirmResponse, ConfirmResponse>() {
         override fun processResult(item: ConfirmResponse?) = item

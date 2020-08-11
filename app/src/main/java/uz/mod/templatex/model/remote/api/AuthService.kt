@@ -13,8 +13,8 @@ interface AuthService {
     @POST("v1/auth/register")
     fun signUp(
         @Field("first_name") name: String,
-        @Field("last_name") surname: String,
-        @Field("email") email: String,
+        @Field("last_name") surname: String?,
+        @Field("email") email: String?,
         @Field("phone") phone: String
     ): LiveData<ApiResponse<Any>>
 
