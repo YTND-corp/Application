@@ -31,8 +31,6 @@ class SignUpViewModel constructor(
             fun validateFrom() {
                 value = isPhoneValid.value ?: false
                         && !name.value.isNullOrEmpty()
-                        && !surname.value.isNullOrEmpty()
-                        && isEmailValid.value ?: false
             }
 
             addSource(isPhoneValid) { validateFrom() }

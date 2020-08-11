@@ -40,6 +40,7 @@
                         android:id="@+id/profileNameTitleTv"
                         android:layout_width="match_parent"
                         android:gravity="center"
+                        android:fontFamily="@font/bold"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         tools:text="@string/profile_authorized_name_title_first_part"

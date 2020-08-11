@@ -65,7 +65,7 @@
                 android:layout_marginStart="17dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:text="@{item.brand}"
-                android:textSize="@dimen/text_size_tiny"
+                android:textSize="@dimen/text_size_smaller"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image"
                 app:layout_constraintTop_toTopOf="@id/image"

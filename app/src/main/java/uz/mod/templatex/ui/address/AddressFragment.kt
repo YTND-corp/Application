@@ -64,10 +64,7 @@ class AddressFragment : ParentFragment() {
                     hideLoading()
                     processError(result.error)
                 }
-                Status.SUCCESS -> {
-                    hideLoading()
-                    Timber.e(result.data.toString())
-                }
+                Status.SUCCESS -> hideLoading()
             }
         })
 
@@ -88,8 +85,7 @@ class AddressFragment : ParentFragment() {
                         AlertDialog.Builder(requireContext())
                             .setItems(temp) { _, i ->
                                 addressViewModel.city.value = cities[i]
-                            }
-                            .show()
+                            }.show()
                     }
                 }
             }
