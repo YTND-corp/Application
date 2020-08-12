@@ -51,18 +51,9 @@ class MyAddressesRepository constructor(
                 regionsDao.deleteAll()
                 regionsDao.insertAll(item.regions)
             }
-
-            override fun shouldFetch(data: List<ProfileRegion>?): Boolean {
-                return true
-            }
-
-            override fun loadFromDb(): LiveData<List<ProfileRegion>> {
-                return regionsDao.getAll()
-            }
-
-            override fun createCall(): LiveData<ApiResponse<MyAddressesCreateInfoResponse>> {
-                return service.getCreateInfo()
-            }
+            override fun shouldFetch(data: List<ProfileRegion>?) = true
+            override fun loadFromDb() = regionsDao.getAll()
+            override fun createCall() = service.getCreateInfo()
         }.asLiveData()
     }
 
@@ -127,7 +118,7 @@ class MyAddressesRepository constructor(
         entry: String?,
         postcode: String?,
         regionId: Int?,
-        isDefault: Boolean?
+        isDefault: Int?
     ): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {
             override fun processResult(item: Any?): Any? {

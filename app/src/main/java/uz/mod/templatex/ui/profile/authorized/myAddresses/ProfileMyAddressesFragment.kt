@@ -89,7 +89,7 @@ class ProfileMyAddressesFragment : ParentFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@ProfileMyAddressesFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

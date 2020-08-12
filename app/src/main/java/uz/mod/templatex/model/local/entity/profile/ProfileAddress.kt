@@ -1,5 +1,6 @@
 package uz.mod.templatex.model.local.entity.profile
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -13,7 +14,7 @@ class ProfileAddress(
     @SerializedName("last_name")
     val lastName: String?,
     val phone: String?,
-    val region: String?,
+    val region: ProfileRegion?,
     val city: String?,
     val street: String?,
     val building: String?,
