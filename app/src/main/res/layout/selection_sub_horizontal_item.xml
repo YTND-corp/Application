@@ -19,7 +19,7 @@
                 android:id="@+id/image"
                 url="@{item.image}"
                 android:layout_width="150dp"
-                android:layout_height="120dp"
+                android:layout_height="100dp"
                 app:layout_constraintDimensionRatio="1"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
