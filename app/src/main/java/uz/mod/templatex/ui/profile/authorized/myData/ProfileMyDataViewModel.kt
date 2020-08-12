@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.remote.network.Status
+import uz.mod.templatex.model.remote.response.profile.Gender
 import uz.mod.templatex.model.repository.profile.MyDataRepository
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -15,13 +16,15 @@ class ProfileMyDataViewModel(application: Application, val repository: MyDataRep
     AndroidViewModel(application) {
 
     private val request = MutableLiveData<Boolean>()
-    var selectedGender: String? = null
     val fullName = MutableLiveData<String>()
     val phone = MutableLiveData<String>()
     val email = MutableLiveData<String>()
     val birthday = MutableLiveData<String>()
     val isNotificationEnabled = MutableLiveData<Boolean>()
     val isSubscriptionEnabled = MutableLiveData<Boolean>()
+    val gender = MutableLiveData<String>()
+
+    val possibleGenders = MutableLiveData<List<Gender>>()
 
     val response = Transformations.switchMap(request) {
         repository.getUserInfo()
@@ -60,7 +63,7 @@ class ProfileMyDataViewModel(application: Application, val repository: MyDataRep
             phone.value,
             email.value,
             birthday,
-            selectedGender,
+            possibleGenders.value?.first { it.name == gender.value }?.type?.toString(),
             if (isNotificationEnabled.value == true) 1 else 0,
             if (isSubscriptionEnabled.value == true) 1 else 0
         )

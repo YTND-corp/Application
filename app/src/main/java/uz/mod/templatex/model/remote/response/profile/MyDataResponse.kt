@@ -1,6 +1,7 @@
 package uz.mod.templatex.model.remote.response.profile
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class MyDataResponse(
     val user: User,
@@ -59,6 +60,6 @@ enum class GenderType {
     FEMALE;
 
     override fun toString(): String {
-        return name.toLowerCase()
+        return name.toLowerCase(Locale.ROOT)
     }
 }

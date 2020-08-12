@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.annotation.IdRes
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,15 +28,10 @@ class ProfileMyDataFragment : ParentFragment() {
     private val profileViewModel: ProfileMyDataViewModel by viewModel()
 
     private val binding by lazy { ProfileMyDataFragmentBinding.inflate(layoutInflater) }
-    private lateinit var genderAdapter: GenderAdapter
     private var birthday = 12
     private var birthdayMonth = 9 //begins from zero
     private var birthdayYear = 1998
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        genderAdapter = GenderAdapter(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,22 +62,18 @@ class ProfileMyDataFragment : ParentFragment() {
                         email.setText(result?.data?.user?.email)
                         result?.data?.user?.birthday?.let {
                             birthDate.setText(
-                                LocalDate.parse(
-                                    it,
-                                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                                )
+                                LocalDate.parse(it, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                                     .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
                             )
                         }
                         sNotification.isChecked = result?.data?.user?.notifications == true
                         sSubscription.isChecked = result?.data?.user?.subscriptions == true
                     }
-                    genderAdapter.setItems(result.data?.genders)
-
-                    result.data?.genders?.forEachIndexed { index, gender ->
+                    profileViewModel.possibleGenders.value = result.data?.genders
+                    result.data?.genders?.forEach { gender ->
                         if (result?.data?.user?.gender == gender.type) {
-                            binding.gender.setSelection(index)
-                            return@forEachIndexed
+                            profileViewModel.gender.value = gender.name
+                            return@forEach
                         }
                     }
                 }
@@ -117,23 +108,19 @@ class ProfileMyDataFragment : ParentFragment() {
             })
         }
 
-        gender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                profileViewModel.selectedGender = genderAdapter.getGender(position).type.toString()
-            }
+        gender.setOnClickListener {
+            showGenderPickerDialog()
         }
 
-        gender.adapter = genderAdapter
-        
+    }
+
+    private fun showGenderPickerDialog() {
+        profileViewModel.possibleGenders.value?.map { it.name }?.let { genders->
+            AlertDialog.Builder(requireContext())
+                .setItems(genders.toTypedArray()) { _, i ->
+                    profileViewModel.gender.value = genders[i]
+                }.show()
+        }
     }
 
     private fun showDatePickerDialog() = context?.let {
@@ -153,14 +140,13 @@ class ProfileMyDataFragment : ParentFragment() {
     }
 
 
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
     }
+
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {

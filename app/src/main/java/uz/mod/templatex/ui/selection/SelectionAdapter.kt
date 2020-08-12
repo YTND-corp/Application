@@ -24,7 +24,6 @@ class SelectionAdapter(
 
     fun setItems(items: List<HomeItem>) {
         this.items = items
-        Timber.e("Items size ${items.size}")
         notifyDataSetChanged()
     }
 

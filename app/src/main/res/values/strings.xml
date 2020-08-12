@@ -159,6 +159,7 @@
     <string name="profile_my_data_full_name">Имя и фамилия</string>
     <string name="profile_my_data_phone">Номер телефона</string>
     <string name="profile_my_data_email">Эл. почта</string>
+    <string name="profile_my_data_gender">Пол</string>
     <string name="profile_my_birth_date">Дата Рождения</string>
 
     <!--Profile My Addresses-->
