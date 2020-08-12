@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import uz.mod.templatex.model.local.entity.profile.ProfileRegion
 import uz.mod.templatex.model.repository.profile.MyAddressesRepository
 import uz.mod.templatex.ui.profile.authorized.myAddresses.ProfileMyAddressesFragment
 
@@ -27,8 +28,8 @@ class ProfileMyAddressCreateEditViewModel(
     val phone = MutableLiveData<String>()
     val isPostalCodeExist = MutableLiveData<Boolean>()
     val isDefault = MutableLiveData<Boolean>()
+    val allRegions = MutableLiveData<List<ProfileRegion>>()
 
-    //private val address2 = MutableLiveData<String>()
     val response = Transformations.switchMap(request) {
         repository.getAddress(addressId)
     }
@@ -95,7 +96,7 @@ class ProfileMyAddressCreateEditViewModel(
                 3 -> entry = s.trim()
             }
         }
-
+        val isDefault = if (isDefault.value == true) 1 else 0
         repository.updateAddress(
             addressId,
             firstName,
@@ -108,7 +109,7 @@ class ProfileMyAddressCreateEditViewModel(
             entry,
             if (isPostalCodeExist.value == true) postcode.value else null,
             selectedRegionId,
-            isDefault.value
+            isDefault
         )
     }
 
@@ -119,8 +120,7 @@ class ProfileMyAddressCreateEditViewModel(
     }
 
     fun sendRequest() {
-        if (mode == ProfileMyAddressesFragment.Mode.EDIT)
-            request.value = true
+        if (mode == ProfileMyAddressesFragment.Mode.EDIT) request.value = true
     }
 
     fun getCreateInfo() = repository.getCreateInfo()

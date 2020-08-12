@@ -46,7 +46,7 @@ interface MyAddressesService {
         @Field("entry") entry: String?,
         @Field("postcode") postcode: String?,
         @Field("region_id") regionId: Int?,
-        @Field("is_default") isDefault: Boolean?
+        @Field("is_default") isDefault: Int? = 0
     ): LiveData<ApiResponse<Any>>
 
     @DELETE("v1/profile/addresses/{id}")

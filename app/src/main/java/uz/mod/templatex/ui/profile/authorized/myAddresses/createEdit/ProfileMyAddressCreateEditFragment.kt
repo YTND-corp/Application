@@ -2,8 +2,8 @@ package uz.mod.templatex.ui.profile.authorized.myAddresses.createEdit
 
 import android.os.Bundle
 import android.view.*
-import android.widget.AdapterView
 import androidx.annotation.IdRes
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -22,11 +22,11 @@ import uz.mod.templatex.utils.extension.lazyFast
 class ProfileMyAddressCreateEditFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
-    val viewModel: ProfileMyAddressCreateEditViewModel by viewModel()
+    private val profileAddressViewModel: ProfileMyAddressCreateEditViewModel by viewModel()
     val args: ProfileMyAddressCreateEditFragmentArgs by navArgs()
 
     private val binding by lazy { ProfileCreateEditAddressFragmentBinding.inflate(layoutInflater) }
-    lateinit var adapter: RegionAdapter
+
 
     companion object {
         fun newInstance() = ProfileMyAddressCreateEditFragment()
@@ -35,7 +35,6 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        adapter = RegionAdapter(context)
     }
 
     override fun onCreateView(
@@ -43,7 +42,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@ProfileMyAddressCreateEditFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -66,7 +65,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        viewModel.getCreateInfo().observe(viewLifecycleOwner, Observer { result ->
+        profileAddressViewModel.getCreateInfo().observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -75,19 +74,28 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    adapter.setItems(result.data)
-                    result.data?.forEachIndexed { index, region ->
-                        if (viewModel.region == region.name) {
-                            binding.region.setSelection(index)
-                            return@forEachIndexed
+                    profileAddressViewModel.allRegions.value = result.data
+                    if (ProfileMyAddressesFragment.Mode.CREATE == args.mode) result.data?.forEach { region ->
+                        if (region.name == getString(R.string.profile_my_address_default_city)) {
+                            profileAddressViewModel.city.value = region.name
+                            profileAddressViewModel.selectedRegionId = region.id
+                            return@forEach
                         }
                     }
+                    else result.data?.forEach { region ->
+                        if (profileAddressViewModel.region == region.name) {
+                            profileAddressViewModel.city.value = region.name
+                            profileAddressViewModel.selectedRegionId = region.id
+                            return@forEach
+                        }
+                    }
+
                 }
             }
         })
 
-        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
-            viewModel.region = result.region
+        profileAddressViewModel.response.observe(viewLifecycleOwner, Observer { result ->
+            profileAddressViewModel.region = result.region
             with(binding) {
                 receiverName.setText(result.getFullName())
                 address.setText(result.getStreetBuildingEntry())
@@ -97,7 +105,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
             }
         })
 
-        viewModel.responseStore.observe(viewLifecycleOwner, Observer { result ->
+        profileAddressViewModel.responseStore.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -111,7 +119,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
             }
         })
 
-        viewModel.responseUpdate.observe(viewLifecycleOwner, Observer { result ->
+        profileAddressViewModel.responseUpdate.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -125,7 +133,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
             }
         })
 
-        viewModel.setArgs(args)
+        profileAddressViewModel.setArgs(args)
 
         when (args.mode) {
             ProfileMyAddressesFragment.Mode.EDIT -> sharedViewModel.setTitle(getString(R.string.profile_my_addresses_edit_title))
@@ -134,42 +142,39 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
     }
 
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@ProfileMyAddressCreateEditFragment.viewModel
+        viewModel = profileAddressViewModel
         executePendingBindings()
 
         saveButton.setOnClickListener {
             hideKeyboard()
-            viewModel?.save()
+            profileAddressViewModel.save()
         }
 
-        region.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                viewModel?.selectedRegionId = adapter.getRegion(position).id
-            }
-        }
-
-        region.adapter = adapter
-    }
-
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
+        city.setOnClickListener {
+            showCitySelectionDialog()
         }
     }
+
+    private fun showCitySelectionDialog() = profileAddressViewModel.allRegions.value?.let { cityNames ->
+        AlertDialog.Builder(requireContext())
+            .setItems(cityNames.map { it.name }.toTypedArray()) { _, i ->
+                profileAddressViewModel.city.value = cityNames[i].name
+                profileAddressViewModel.selectedRegionId = cityNames[i].id
+            }.show()
+    }
+    
+
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
+    }
+
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-            if (it.getContentIfNotHandled() == true) viewModel.sendRequest()
+            if (it.getContentIfNotHandled() == true) profileAddressViewModel.sendRequest()
         })
         navController.navigate(destinationID)
     }
