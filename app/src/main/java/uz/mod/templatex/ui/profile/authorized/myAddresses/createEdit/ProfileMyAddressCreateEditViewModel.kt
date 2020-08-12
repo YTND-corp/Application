@@ -96,7 +96,7 @@ class ProfileMyAddressCreateEditViewModel(
                 3 -> entry = s.trim()
             }
         }
-
+        val isDefault = if (isDefault.value == true) 1 else 0
         repository.updateAddress(
             addressId,
             firstName,
@@ -109,7 +109,7 @@ class ProfileMyAddressCreateEditViewModel(
             entry,
             if (isPostalCodeExist.value == true) postcode.value else null,
             selectedRegionId,
-            isDefault.value
+            isDefault
         )
     }
 
@@ -120,8 +120,7 @@ class ProfileMyAddressCreateEditViewModel(
     }
 
     fun sendRequest() {
-        if (mode == ProfileMyAddressesFragment.Mode.EDIT)
-            request.value = true
+        if (mode == ProfileMyAddressesFragment.Mode.EDIT) request.value = true
     }
 
     fun getCreateInfo() = repository.getCreateInfo()

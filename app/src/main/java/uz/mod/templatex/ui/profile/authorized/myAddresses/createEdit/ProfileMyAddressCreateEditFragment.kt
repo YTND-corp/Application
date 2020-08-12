@@ -26,7 +26,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
     val args: ProfileMyAddressCreateEditFragmentArgs by navArgs()
 
     private val binding by lazy { ProfileCreateEditAddressFragmentBinding.inflate(layoutInflater) }
-    lateinit var adapter: RegionAdapter
+
 
     companion object {
         fun newInstance() = ProfileMyAddressCreateEditFragment()
@@ -35,7 +35,6 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        adapter = RegionAdapter(context)
     }
 
     override fun onCreateView(
@@ -79,12 +78,14 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
                     if (ProfileMyAddressesFragment.Mode.CREATE == args.mode) result.data?.forEach { region ->
                         if (region.name == getString(R.string.profile_my_address_default_city)) {
                             profileAddressViewModel.city.value = region.name
+                            profileAddressViewModel.selectedRegionId = region.id
                             return@forEach
                         }
                     }
                     else result.data?.forEach { region ->
                         if (profileAddressViewModel.region == region.name) {
                             profileAddressViewModel.city.value = region.name
+                            profileAddressViewModel.selectedRegionId = region.id
                             return@forEach
                         }
                     }
@@ -146,7 +147,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
 
         saveButton.setOnClickListener {
             hideKeyboard()
-            viewModel?.save()
+            profileAddressViewModel.save()
         }
 
         city.setOnClickListener {
@@ -154,14 +155,14 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
         }
     }
 
-    private fun showCitySelectionDialog() {
-        profileAddressViewModel.allRegions.value?.map { it.name }?.let { cityNames ->
-            AlertDialog.Builder(requireContext())
-                .setItems(cityNames.toTypedArray()) { _, i ->
-                    profileAddressViewModel.city.value = cityNames[i]
-                }.show()
-        }
+    private fun showCitySelectionDialog() = profileAddressViewModel.allRegions.value?.let { cityNames ->
+        AlertDialog.Builder(requireContext())
+            .setItems(cityNames.map { it.name }.toTypedArray()) { _, i ->
+                profileAddressViewModel.city.value = cityNames[i].name
+                profileAddressViewModel.selectedRegionId = cityNames[i].id
+            }.show()
     }
+    
 
     private fun processError(error: ApiError?) = when (error?.code) {
         Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)

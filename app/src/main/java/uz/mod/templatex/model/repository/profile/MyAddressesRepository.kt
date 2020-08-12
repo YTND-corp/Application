@@ -90,7 +90,7 @@ class MyAddressesRepository constructor(
         entry: String?,
         postcode: String?,
         regionId: Int?,
-        isDefault: Boolean?
+        isDefault: Int?
     ): LiveData<Resource<Any>> {
         return object : NetworkOnlyResource<Any, Any>() {
             override fun processResult(item: Any?): Any? {
