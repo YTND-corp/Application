@@ -40,6 +40,11 @@ class NoInternetFragmentDialog : DialogFragment(R.layout.include_no_internet) {
         setClickListeners()
     }
 
+    override fun onDestroyView() {
+        handler.removeCallbacks(hideProgressRunnable)
+        super.onDestroyView()
+    }
+
     private fun setClickListeners() {
         btnTryAgain.setOnClickListener { connectivityChecker() }
     }
