@@ -3,6 +3,7 @@ package uz.mod.templatex.ui.selection
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import timber.log.Timber
@@ -50,9 +51,13 @@ class SelectionAdapter(
                     )
                 }
 
+            }else if(homeItem.isVerticalComponent()) {
+                actuals.layoutManager = LinearLayoutManager(actuals.context, LinearLayoutManager.HORIZONTAL, false)
+                actualHeader.text = homeItem.title
+                actuals.adapter = SelectionSubAdapter(homeItem.items ?: arrayListOf(), homeItem)
             } else {
                 actualHeader.text = homeItem.title
-                actuals.adapter = SelectionSubAdapter(homeItem.id, homeItem.items ?: arrayListOf())
+                actuals.adapter = SelectionSubAdapter(homeItem.items ?: arrayListOf(), homeItem)
             }
         }
     }

@@ -48,6 +48,7 @@ val items: List<HomeSubItem>?
     }
 
     fun isBanner() = block.equals("component_001")
+    fun isVerticalComponent() = block.equals("component_002")
 }
 
 data class HomeSubItem(val id: Int, val name: String?, val image: String?): Parcelable {
