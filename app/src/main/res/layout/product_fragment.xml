@@ -445,7 +445,7 @@
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="start"
                     android:lineSpacingExtra="1.9sp"
-                    android:text="@{viewModel.delivery.date}"
+                    android:text="@{viewModel.delivery.getDateFormatted()}"
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintBottom_toBottomOf="@id/delivery_hint"
                     app:layout_constraintEnd_toEndOf="@id/title"
