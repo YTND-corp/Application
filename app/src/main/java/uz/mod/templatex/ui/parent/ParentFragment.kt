@@ -5,6 +5,7 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.analytics.FirebaseAnalytics
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import uz.mod.templatex.R
 import uz.mod.templatex.model.remote.network.ApiError
@@ -21,6 +22,13 @@ open class ParentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController.currentDestination?.let {
             sharedViewModel.destinationChanged(it)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.let {
+            FirebaseAnalytics.getInstance(it).setCurrentScreen(it, javaClass.simpleName, null)
         }
     }
 
