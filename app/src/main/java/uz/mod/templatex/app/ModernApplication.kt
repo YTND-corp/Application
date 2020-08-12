@@ -3,6 +3,7 @@ package uz.mod.templatex.app
 import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -21,7 +22,12 @@ class ModernApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) Timber.plant(DebugTree()) else Timber.plant(ProductionTree())
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        } else {
+            Timber.plant(ProductionTree())
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+        }
 
         val appSignature = AppSignatureHelper(this)
         appSignature.appSignatures

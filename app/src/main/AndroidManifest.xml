@@ -16,6 +16,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:allowBackup">
+
+        <meta-data
+                android:name="firebase_crashlytics_collection_enabled"
+                android:value="false" />
+
         <activity
                 android:name="uz.mod.templatex.ui.MainActivity"
                 android:configChanges="keyboard|keyboardHidden|locale"
