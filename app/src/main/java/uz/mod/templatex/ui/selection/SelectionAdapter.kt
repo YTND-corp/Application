@@ -6,7 +6,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import timber.log.Timber
 import uz.mod.templatex.databinding.SelectionItemBinding
 import uz.mod.templatex.model.local.entity.HomeItem
 
@@ -35,17 +34,17 @@ class SelectionAdapter(
             executePendingBindings()
             if (homeItem.isBanner()) {
                 bannerHeader.text = homeItem.title
-
-                if (homeItem.items?.isNotEmpty() == true) {
+                val subItem = homeItem.items?.firstOrNull()
+                if (subItem != null) {
                     Glide.with(binding.root.context)
-                        .load(homeItem.items.first().image)
+                        .load(subItem.image)
                         .into(image)
                 }
                 image.setOnClickListener {
 
                     it.findNavController().navigate(
                         SelectionFragmentDirections.actionGlobalProductsFragment(
-                            homeItem.id,
+                            subItem?.id ?: homeItem.id,
                             homeItem.title
                         )
                     )

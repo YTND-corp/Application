@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileCreateEditAddressFragmentBinding
 import uz.mod.templatex.model.remote.network.ApiError
@@ -27,8 +26,6 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
     val args: ProfileMyAddressCreateEditFragmentArgs by navArgs()
 
     private val binding by lazy { ProfileCreateEditAddressFragmentBinding.inflate(layoutInflater) }
-
-    private var order = 0
 
     companion object {
         fun newInstance() = ProfileMyAddressCreateEditFragment()
@@ -76,7 +73,6 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
-                    Timber.e("Execution order getCreateInfo ${++order} $result")
                     profileAddressViewModel.allRegions.value = result.data
                     if (ProfileMyAddressesFragment.Mode.CREATE == args.mode) result.data?.forEach { region ->
                         if (region.id == profileAddressViewModel.defaultRegionID) {
@@ -98,7 +94,6 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
         })
 
         profileAddressViewModel.response.observe(viewLifecycleOwner, Observer { result ->
-            Timber.e("Execution order response ${++order} $result")
             profileAddressViewModel.region = result.region
             profileAddressViewModel.isDefault.value = result.isDefault
             with(binding) {
@@ -111,7 +106,6 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
         })
 
         profileAddressViewModel.responseStore.observe(viewLifecycleOwner, Observer { result ->
-            Timber.e("Execution order responseStore ${++order}")
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -126,7 +120,6 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
         })
 
         profileAddressViewModel.responseUpdate.observe(viewLifecycleOwner, Observer { result ->
-            Timber.e("Execution order responseUpdate ${++order}")
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {

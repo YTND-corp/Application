@@ -133,18 +133,4 @@ class ProfileMyAddressCreateEditViewModel(
             ProfileMyAddressesFragment.Mode.EDIT -> requestUpdate.value = true
         }
     }
-
-    /*fun updateAddress(
-        firstName: String,
-        lastName: String,
-        phone: String,
-        email: String,
-        city: String,
-        street: String,
-        building: Int,
-        flat: Int,
-        entry: Int,
-        postcode: Int,
-        regionId: Int
-    ) = repository.updateAddress(addressId,)*/
 }
