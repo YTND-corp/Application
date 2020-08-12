@@ -474,7 +474,7 @@
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintBottom_toBottomOf="@id/return_hint"
                     app:layout_constraintEnd_toEndOf="@id/title"
-                    app:layout_constraintStart_toEndOf="@id/return_hint"
+                    app:layout_constraintStart_toEndOf="@id/delivery_hint"
                     app:layout_constraintTop_toTopOf="@id/return_hint"
                     tools:text="During 14 days after receiving product" />
 
