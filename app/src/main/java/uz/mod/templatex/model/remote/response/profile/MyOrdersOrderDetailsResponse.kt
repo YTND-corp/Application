@@ -51,11 +51,11 @@ data class Cart(
     val quantity: Int,
     val products: List<Product>
 ) {
-    fun printProductsPrice() = "$productsPrice сум"
+    fun printProductsPrice() = "$productsPrice UZS"
 
-    fun printDeliveryPrice() = "$deliveryPrice сум"
+    fun printDeliveryPrice() = "$deliveryPrice UZS"
 
-    fun printTotalPrice() = "$totalPrice сум"
+    fun printTotalPrice() = "$totalPrice UZS"
 }
 
 data class Product(
