@@ -44,7 +44,7 @@ class CodeFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@CodeFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -65,8 +65,10 @@ class CodeFragment : ParentFragment() {
                         Status.SUCCESS -> {
                             hideLoading()
                             binding.code.text = null
-                            sharedViewModel.loggedIn(result.data?.user)
+                            //TODO if it is checkout, then user does not need to be authorized
+                            //sharedViewModel.loggedIn(result.data?.user)
                             if (args.isCheckout) {
+                                //TODO this statement is always true, look outer if block it is checked there
                                 navController.navigate(
                                     AddressFragmentDirections.actionGlobalAddressFragment(
                                         args.cartResponse,

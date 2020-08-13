@@ -1,6 +1,5 @@
 package uz.mod.templatex.ui.checkout
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.checkout_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
-import uz.mod.templatex.BuildConfig
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.CheckoutFragmentBinding
 import uz.mod.templatex.model.remote.network.ApiError
@@ -28,7 +25,7 @@ import uz.mod.templatex.utils.extension.lazyFast
 class CheckoutFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
-    private val viewModel: CheckoutViewModel by viewModel()
+    private val checkOutViewModel: CheckoutViewModel by viewModel()
     private val binding by lazy { CheckoutFragmentBinding.inflate(layoutInflater) }
     private val args: CheckoutFragmentArgs by navArgs()
 
@@ -39,7 +36,7 @@ class CheckoutFragment : ParentFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.response.observe(this, Observer { result ->
+        checkOutViewModel.response.observe(this, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -55,14 +52,14 @@ class CheckoutFragment : ParentFragment() {
                                 CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment(
                                     args.cartResponse,
                                     it,
-                                    viewModel.getPhone()
+                                    checkOutViewModel.getPhone()
                                 )
                             )
                         } else {
                             navController.navigate(
                                 CheckoutFragmentDirections.actionCheckoutFragmentToCodeFragment(
                                     args.cartResponse,
-                                    viewModel.getPhone(),
+                                    checkOutViewModel.getPhone(),
                                     true
                                 )
                             )
@@ -73,7 +70,7 @@ class CheckoutFragment : ParentFragment() {
         })
 
         if (sharedViewModel.isAuthenticated.value == true) {
-            viewModel.getUserInfo().observe(this, Observer { result ->
+            checkOutViewModel.getUserInfo().observe(this, Observer { result ->
                 when (result.status) {
                     Status.LOADING -> showLoading()
                     Status.ERROR -> {
@@ -82,7 +79,6 @@ class CheckoutFragment : ParentFragment() {
                     }
                     Status.SUCCESS -> {
                         hideLoading()
-                        Timber.e(result.data.toString())
                         result.data?.user?.let {
                             binding.name.setText(it.firstName)
                             binding.surname.setText(it.lastName)
@@ -100,7 +96,7 @@ class CheckoutFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@CheckoutFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -115,7 +111,7 @@ class CheckoutFragment : ParentFragment() {
     }
 
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@CheckoutFragment.viewModel
+        viewModel = checkOutViewModel
         executePendingBindings()
 
         phone.addTextChangedListener(MaskWatcher.phoneWatcher())
@@ -132,18 +128,16 @@ class CheckoutFragment : ParentFragment() {
         }
     }
 
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
     }
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-            if (it.getContentIfNotHandled() == true) viewModel.user()
+            if (it.getContentIfNotHandled() == true) checkOutViewModel.user()
         })
         navController.navigate(destinationID)
     }

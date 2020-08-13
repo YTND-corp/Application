@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -114,30 +115,25 @@ class SearchFragment : ParentFragment() {
         })
     }
 
-    private fun addRightCancelDrawable(editText: EditText) {
-        context?.let {
-            val cancel = ContextCompat.getDrawable(it, R.drawable.ic_cancel)
-            cancel?.setBounds(0, 0, cancel.intrinsicWidth, cancel.intrinsicHeight)
-            editText.setCompoundDrawables(null, null, cancel, null)
-        }
+    private fun addRightCancelDrawable(editText: EditText) = context?.let {
+        val cancel = ContextCompat.getDrawable(it, R.drawable.ic_cancel)
+        cancel?.setBounds(0, 0, cancel.intrinsicWidth, cancel.intrinsicHeight)
+        editText.setCompoundDrawables(null, null, cancel, null)
     }
 
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) searchViewModel.search(searchViewModel.query.value ?: "")
-                })
-                navController.navigate(R.id.noInternetFragment)
-            }
-            Const.API_SERVER_FAIL_STATUS_CODE -> {
-                navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) searchViewModel.search(searchViewModel.query.value ?: "")
-                })
-                navController.navigate(R.id.serverErrorDialogFragment)
-            }
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
+    }
+
+
+    private fun navigateAndObserveResult(@IdRes destinationID: Int) {
+        navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
+            if (it.getContentIfNotHandled() == true) searchViewModel.search(searchViewModel.query.value ?: "")
+        })
+        navController.navigate(destinationID)
     }
 }

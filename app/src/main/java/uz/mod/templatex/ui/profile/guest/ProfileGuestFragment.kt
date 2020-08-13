@@ -32,7 +32,7 @@ class ProfileGuestFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@ProfileGuestFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
