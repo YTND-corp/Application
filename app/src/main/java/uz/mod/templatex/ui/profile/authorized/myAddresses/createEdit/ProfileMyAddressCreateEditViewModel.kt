@@ -19,8 +19,8 @@ class ProfileMyAddressCreateEditViewModel(
     private val requestStore = MutableLiveData<Boolean>()
     private var mode: ProfileMyAddressesFragment.Mode? = null
     private var addressId = -1
-    var region: String? = null
-    var selectedRegionId = -1
+    var region : ProfileRegion? = null
+    val defaultRegionID = 14 //Tashkent ID
     val receiverName = MutableLiveData<String>()
     val address = MutableLiveData<String>()
     val city = MutableLiveData<String>()
@@ -58,6 +58,8 @@ class ProfileMyAddressCreateEditViewModel(
             }
         }
 
+        val isDefault = if (isDefault.value == true) 1 else 0
+
         repository.storeAddress(
             firstName,
             lastName,
@@ -68,8 +70,8 @@ class ProfileMyAddressCreateEditViewModel(
             flat,
             entry,
             if (isPostalCodeExist.value == true) postcode.value else null,
-            selectedRegionId,
-            isDefault.value
+            region?.id,
+            isDefault
         )
     }
     val responseUpdate = Transformations.switchMap(requestUpdate) {
@@ -108,7 +110,7 @@ class ProfileMyAddressCreateEditViewModel(
             flat,
             entry,
             if (isPostalCodeExist.value == true) postcode.value else null,
-            selectedRegionId,
+            region?.id,
             isDefault
         )
     }
@@ -131,18 +133,4 @@ class ProfileMyAddressCreateEditViewModel(
             ProfileMyAddressesFragment.Mode.EDIT -> requestUpdate.value = true
         }
     }
-
-    /*fun updateAddress(
-        firstName: String,
-        lastName: String,
-        phone: String,
-        email: String,
-        city: String,
-        street: String,
-        building: Int,
-        flat: Int,
-        entry: Int,
-        postcode: Int,
-        regionId: Int
-    ) = repository.updateAddress(addressId,)*/
 }

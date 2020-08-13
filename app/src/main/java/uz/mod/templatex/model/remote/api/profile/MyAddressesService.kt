@@ -26,7 +26,7 @@ interface MyAddressesService {
         @Field("entry") entry: String?,
         @Field("postcode") postcode: String?,
         @Field("region_id") regionId: Int?,
-        @Field("is_default") isDefault: Boolean?
+        @Field("is_default") isDefault: Int?
     ): LiveData<ApiResponse<Any>>
 
     @GET("v1/profile/addresses/{id}/edit")

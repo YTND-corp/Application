@@ -27,7 +27,6 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
 
     private val binding by lazy { ProfileCreateEditAddressFragmentBinding.inflate(layoutInflater) }
 
-
     companion object {
         fun newInstance() = ProfileMyAddressCreateEditFragment()
     }
@@ -76,16 +75,16 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
                     hideLoading()
                     profileAddressViewModel.allRegions.value = result.data
                     if (ProfileMyAddressesFragment.Mode.CREATE == args.mode) result.data?.forEach { region ->
-                        if (region.name == getString(R.string.profile_my_address_default_city)) {
+                        if (region.id == profileAddressViewModel.defaultRegionID) {
                             profileAddressViewModel.city.value = region.name
-                            profileAddressViewModel.selectedRegionId = region.id
+                            profileAddressViewModel.region = region
                             return@forEach
                         }
                     }
                     else result.data?.forEach { region ->
-                        if (profileAddressViewModel.region == region.name) {
+                        if (profileAddressViewModel.region?.name == region.name) {
                             profileAddressViewModel.city.value = region.name
-                            profileAddressViewModel.selectedRegionId = region.id
+                            profileAddressViewModel.region = region
                             return@forEach
                         }
                     }
@@ -96,6 +95,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
 
         profileAddressViewModel.response.observe(viewLifecycleOwner, Observer { result ->
             profileAddressViewModel.region = result.region
+            profileAddressViewModel.isDefault.value = result.isDefault
             with(binding) {
                 receiverName.setText(result.getFullName())
                 address.setText(result.getStreetBuildingEntry())
@@ -155,14 +155,14 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
         }
     }
 
-    private fun showCitySelectionDialog() = profileAddressViewModel.allRegions.value?.let { cityNames ->
+    private fun showCitySelectionDialog() = profileAddressViewModel.allRegions.value?.let { regions ->
         AlertDialog.Builder(requireContext())
-            .setItems(cityNames.map { it.name }.toTypedArray()) { _, i ->
-                profileAddressViewModel.city.value = cityNames[i].name
-                profileAddressViewModel.selectedRegionId = cityNames[i].id
+            .setItems(regions.map { it.name }.toTypedArray()) { _, i ->
+                profileAddressViewModel.city.value = regions[i].name
+                profileAddressViewModel.region = regions[i]
             }.show()
     }
-    
+
 
     private fun processError(error: ApiError?) = when (error?.code) {
         Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)

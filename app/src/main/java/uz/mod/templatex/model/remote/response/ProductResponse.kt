@@ -3,6 +3,7 @@ package uz.mod.templatex.model.remote.response
 import com.google.gson.annotations.SerializedName
 import uz.mod.templatex.model.local.entity.Currency
 import uz.mod.templatex.model.local.entity.Product
+import java.util.*
 
 data class ProductDetailResponse(
     @SerializedName("details") val product: ProductDetail,
@@ -39,7 +40,10 @@ data class ProductDetail(
     fun compositionAndCare() = features?.joinToString("\n") { it.getText().toString() }
 }
 
-data class ProductDelivery(val date: String?, @SerializedName("return") val returnDate: String?)
+data class ProductDelivery(val date: String?, @SerializedName("return") val returnDate: String?) {
+    @ExperimentalStdlibApi
+    fun getDateFormatted() = date?.split(",")?.map { it.trim() }?.joinToString(", ") { it.capitalize(Locale.ROOT) }
+}
 
 data class ProductColor(
     val id: Int,

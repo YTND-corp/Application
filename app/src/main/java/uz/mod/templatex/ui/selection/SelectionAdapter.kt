@@ -6,7 +6,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import timber.log.Timber
 import uz.mod.templatex.databinding.SelectionItemBinding
 import uz.mod.templatex.model.local.entity.HomeItem
 
@@ -33,31 +32,34 @@ class SelectionAdapter(
         fun bind(homeItem: HomeItem): Unit = with(binding) {
             item = homeItem
             executePendingBindings()
-            if (homeItem.isBanner()) {
-                bannerHeader.text = homeItem.title
-
-                if (homeItem.items?.isNotEmpty() == true) {
-                    Glide.with(binding.root.context)
-                        .load(homeItem.items.first().image)
-                        .into(image)
-                }
-                image.setOnClickListener {
-
-                    it.findNavController().navigate(
-                        SelectionFragmentDirections.actionGlobalProductsFragment(
-                            homeItem.id,
-                            homeItem.title
+            when {
+                homeItem.isBanner() -> {
+                    val subItem = homeItem.items?.firstOrNull()
+                    bannerHeader.text = homeItem.title
+                    if (subItem != null) {
+                        Glide.with(binding.root.context)
+                            .load(subItem.image)
+                            .into(image)
+                    }
+                    image.setOnClickListener {
+                        it.findNavController().navigate(
+                            SelectionFragmentDirections.actionGlobalProductsFragment(
+                                subItem?.id ?: homeItem.id,
+                                homeItem.title
+                            )
                         )
-                    )
-                }
+                    }
 
-            }else if(homeItem.isVerticalComponent()) {
-                actuals.layoutManager = LinearLayoutManager(actuals.context, LinearLayoutManager.HORIZONTAL, false)
-                actualHeader.text = homeItem.title
-                actuals.adapter = SelectionSubAdapter(homeItem.items ?: arrayListOf(), homeItem)
-            } else {
-                actualHeader.text = homeItem.title
-                actuals.adapter = SelectionSubAdapter(homeItem.items ?: arrayListOf(), homeItem)
+                }
+                homeItem.isVerticalComponent() -> {
+                    actuals.layoutManager = LinearLayoutManager(actuals.context, LinearLayoutManager.HORIZONTAL, false)
+                    actualHeader.text = homeItem.title
+                    actuals.adapter = SelectionSubAdapter(homeItem.items ?: arrayListOf(), homeItem)
+                }
+                else -> {
+                    actualHeader.text = homeItem.title
+                    actuals.adapter = SelectionSubAdapter(homeItem.items ?: arrayListOf(), homeItem)
+                }
             }
         }
     }
