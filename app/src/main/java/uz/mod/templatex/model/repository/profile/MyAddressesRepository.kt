@@ -29,20 +29,20 @@ class MyAddressesRepository constructor(
                 addressesDao.deleteAll()
                 addressesDao.insertAll(item.addresses)
             }
-
-            override fun shouldFetch(data: List<ProfileAddress>?): Boolean {
-                return true
-            }
-
-            override fun loadFromDb(): LiveData<List<ProfileAddress>> {
-                return addressesDao.getAll()
-            }
-
-            override fun createCall(): LiveData<ApiResponse<MyAddressesResponse>> {
-                return service.getAddresses()
-            }
+            override fun shouldFetch(data: List<ProfileAddress>?) =  true
+            override fun loadFromDb() = addressesDao.getAll()
+            override fun createCall() = service.getAddresses()
         }.asLiveData()
     }
+
+    fun loadAddressesFromServer(): LiveData<Resource<List<ProfileAddress>>> {
+        return object : NetworkOnlyResource<List<ProfileAddress>, MyAddressesResponse>() {
+            override fun processResult(item: MyAddressesResponse?) =  item?.addresses
+            override fun createCall() =  service.getAddresses()
+        }.asLiveData()
+    }
+
+
 
     fun getCreateInfo(): LiveData<Resource<List<ProfileRegion>>> {
         return object :

@@ -56,6 +56,19 @@ class AddressFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
+
+        addressViewModel.userAddressesInServer.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
+                Status.LOADING, Status.ERROR -> {}
+                Status.SUCCESS -> {
+
+                    addressViewModel.setupWithDefaultAddress(
+                        result.data
+                    )
+                }
+            }
+        })
+
         addressViewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()

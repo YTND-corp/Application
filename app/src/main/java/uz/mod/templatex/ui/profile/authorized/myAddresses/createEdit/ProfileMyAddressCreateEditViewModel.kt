@@ -53,8 +53,8 @@ class ProfileMyAddressCreateEditViewModel(
             when (index) {
                 0 -> street = s.trim()
                 1 -> building = s.trim()
-                2 -> flat = s.trim()
-                3 -> entry = s.trim()
+                2 -> entry = s.trim()
+                3 -> flat = s.trim()
             }
         }
 
@@ -94,8 +94,8 @@ class ProfileMyAddressCreateEditViewModel(
             when (index) {
                 0 -> street = s.trim()
                 1 -> building = s.trim()
-                2 -> flat = s.trim()
-                3 -> entry = s.trim()
+                2 -> entry = s.trim()
+                3 -> flat = s.trim()
             }
         }
         val isDefault = if (isDefault.value == true) 1 else 0

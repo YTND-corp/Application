@@ -6,7 +6,6 @@ import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProfileMyAddressesFragmentBinding
 import uz.mod.templatex.model.remote.network.ApiError
@@ -22,11 +21,11 @@ import uz.mod.templatex.utils.extension.lazyFast
 class ProfileMyAddressesFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
-    val viewModel: ProfileMyAddressesViewModel by viewModel()
+    private val profileAddressViewModel: ProfileMyAddressesViewModel by viewModel()
 
     private val binding by lazy { ProfileMyAddressesFragmentBinding.inflate(layoutInflater) }
 
-    lateinit var myAddressesAdapterListener: MyAddressesAdapterListener
+    private lateinit var myAddressesAdapterListener: MyAddressesAdapterListener
     lateinit var adapter: ProfileMyAddressesAdapter
 
     enum class Mode {
@@ -43,7 +42,7 @@ class ProfileMyAddressesFragment : ParentFragment() {
         setHasOptionsMenu(true)
         myAddressesAdapterListener = object : MyAddressesAdapterListener {
             override fun toEditMyAddress(addressId: Int) {
-                viewModel.canEditAddress(addressId).observe(viewLifecycleOwner, Observer { result ->
+                profileAddressViewModel.canEditAddress(addressId).observe(viewLifecycleOwner, Observer { result ->
                     when (result.status) {
                         Status.LOADING -> showLoading()
                         Status.ERROR -> {
@@ -78,7 +77,7 @@ class ProfileMyAddressesFragment : ParentFragment() {
                     ProfileMyAddressesFragmentDirections.actionProfileMyAddressesFragmentToProfileMyAddressCreateEditFragment(
                         Mode.CREATE
                     )
-                findNavController().navigate(action)
+                navController.navigate(action)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -97,7 +96,7 @@ class ProfileMyAddressesFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+        profileAddressViewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -111,17 +110,16 @@ class ProfileMyAddressesFragment : ParentFragment() {
             }
         })
 
-        viewModel.isEmpty.observe(viewLifecycleOwner, Observer { result ->
-            Timber.e("IsEmpty = $result")
+        profileAddressViewModel.isEmpty.observe(viewLifecycleOwner, Observer { result ->
             binding.group.visibility = if (result == false) View.GONE else View.VISIBLE
         })
 
-        viewModel.getMyAddresses()
+        profileAddressViewModel.getMyAddresses()
     }
 
     private fun initViews() {
         binding.apply {
-            viewModel = this@ProfileMyAddressesFragment.viewModel
+            viewModel = profileAddressViewModel
             executePendingBindings()
 
             rvAddresses.addItemDecoration(
@@ -134,18 +132,17 @@ class ProfileMyAddressesFragment : ParentFragment() {
         }
     }
 
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navigateAndObserveResult(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navigateAndObserveResult(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
     }
+
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-            if (it.getContentIfNotHandled() == true) viewModel.getMyAddresses()
+            if (it.getContentIfNotHandled() == true) profileAddressViewModel.getMyAddresses()
         })
         navController.navigate(destinationID)
     }

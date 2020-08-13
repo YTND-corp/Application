@@ -30,4 +30,12 @@ class ProfileAddress(
     fun getAddress() = arrayOf(street, building, entry, city).filterNotNull().joinToString()
 
     fun getStreetBuildingEntry() = arrayOf(street,building, entry).filterNotNull().joinToString()
+
+    override fun toString(): String {
+        return "id $id firstName $firstName lastName $lastName" +
+                " phone $phone city $city street $street" +
+                " regionName ${region?.name} regionID ${region?.id}"+
+                " building $building entry $entry postcode $postcode" +
+                " isDefault $isDefault"
+    }
 }

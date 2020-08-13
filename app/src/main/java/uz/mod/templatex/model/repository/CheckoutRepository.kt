@@ -2,7 +2,6 @@ package uz.mod.templatex.model.repository
 
 import androidx.lifecycle.LiveData
 import timber.log.Timber
-import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.model.local.entity.City
 import uz.mod.templatex.model.remote.api.CheckoutService
 import uz.mod.templatex.model.remote.network.NetworkOnlyResource
@@ -10,12 +9,19 @@ import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.remote.response.CheckoutResponse
 import uz.mod.templatex.model.remote.response.ConfirmResponse
 import uz.mod.templatex.model.remote.response.StoreResponse
+import uz.mod.templatex.model.repository.profile.MyAddressesRepository
 
-class CheckoutRepository constructor(val service: CheckoutService, prefs: Prefs) {
+class CheckoutRepository
+constructor(
+    val service: CheckoutService,
+    private val addressRepository: MyAddressesRepository
+) {
 
     init {
         Timber.d("Injection CheckoutRepository")
     }
+
+    fun getMyAddressFromServer() = addressRepository.loadAddressesFromServer()
 
     fun user(
         name: String,
