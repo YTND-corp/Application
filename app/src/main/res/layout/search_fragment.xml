@@ -48,6 +48,7 @@
             <TextView
                     android:id="@+id/placeholder_message_text_view"
                     style="@style/Regular"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

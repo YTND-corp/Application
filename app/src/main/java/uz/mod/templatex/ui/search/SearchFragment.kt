@@ -30,7 +30,7 @@ import uz.mod.templatex.utils.extension.makeClearableEditText
 
 class SearchFragment : ParentFragment() {
 
-    private val viewModel: SearchViewModel by viewModel()
+    private val searchViewModel: SearchViewModel by viewModel()
 
     private val navController by lazyFast { findNavController() }
     private val binding by lazy { SearchFragmentBinding.inflate(layoutInflater) }
@@ -46,7 +46,7 @@ class SearchFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@SearchFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -54,7 +54,7 @@ class SearchFragment : ParentFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        viewModel.response.observe(viewLifecycleOwner, Observer { result ->
+        searchViewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -69,7 +69,7 @@ class SearchFragment : ParentFragment() {
             }
         })
 
-        viewModel.shouldClearResult.observe(viewLifecycleOwner, Observer {
+        searchViewModel.shouldClearResult.observe(viewLifecycleOwner, Observer {
             adapter.setItems(emptyList())
         })
     }
@@ -80,7 +80,7 @@ class SearchFragment : ParentFragment() {
     }
 
     private fun initViews(): Unit = with(binding) {
-        viewModel = this@SearchFragment.viewModel
+        viewModel = searchViewModel
         executePendingBindings()
 
         adapter = SearchAdapter { product ->
@@ -98,10 +98,10 @@ class SearchFragment : ParentFragment() {
         addRightCancelDrawable(searchEt)
         searchEt.makeClearableEditText(null, null)
         searchContainer.searchEt.hint = getString(R.string.hint_catalog_search)
-        searchContainer.searchEt.setOnEditorActionListener { v, actionId, event ->
+        searchContainer.searchEt.setOnEditorActionListener { _, actionId, event ->
             if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val searchQuery = searchContainer.searchEt.text.toString()
-                this@SearchFragment.viewModel.search(searchQuery)
+                searchViewModel.search(searchQuery)
                 hideKeyboard()
                 true
             } else {
@@ -110,7 +110,7 @@ class SearchFragment : ParentFragment() {
         }
 
         searchContainer.searchEt.addTextChangedListener(SimpleTextWatcher {
-            viewModel?.search(searchContainer.searchEt.text.toString())
+            searchViewModel.search(searchContainer.searchEt.text.toString())
         })
     }
 
@@ -126,13 +126,13 @@ class SearchFragment : ParentFragment() {
         when (error?.code) {
             Const.API_NO_CONNECTION_STATUS_CODE -> {
                 navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.search(viewModel.query.value ?: "")
+                    if (it.getContentIfNotHandled() == true) searchViewModel.search(searchViewModel.query.value ?: "")
                 })
                 navController.navigate(R.id.noInternetFragment)
             }
             Const.API_SERVER_FAIL_STATUS_CODE -> {
                 navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {
-                    if (it.getContentIfNotHandled() == true) viewModel.search(viewModel.query.value ?: "")
+                    if (it.getContentIfNotHandled() == true) searchViewModel.search(searchViewModel.query.value ?: "")
                 })
                 navController.navigate(R.id.serverErrorDialogFragment)
             }
