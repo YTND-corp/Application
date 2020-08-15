@@ -36,7 +36,7 @@ class CategoryChildFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@CategoryChildFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

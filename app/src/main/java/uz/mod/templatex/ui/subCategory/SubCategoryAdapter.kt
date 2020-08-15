@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import timber.log.Timber
 import uz.mod.templatex.databinding.SubCategoryItemBinding
 import uz.mod.templatex.model.local.entity.SubCategory
 
@@ -32,7 +33,7 @@ class SubCategoryAdapter(private var items: List<SubCategory> = listOf()) :
             item = subCategory
             executePendingBindings()
             root.setOnClickListener {
-                println("Subcategory parentID ${subCategory.parentId} name ${subCategory.name}")
+                Timber.e("Subcategory parentID ${subCategory.parentId} name ${subCategory.name}")
                 it.findNavController()
                     .navigate(
                         SubCategoryFragmentDirections.actionGlobalProductsFragment(
