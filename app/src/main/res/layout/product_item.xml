@@ -97,7 +97,7 @@
                 android:text="@{item.oldPriceFormatted}"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="11sp"
-                android:visibility="@{item.currencies.get(0).discount >0 ? View.VISIBLE : View.GONE}"
+                android:visibility="@{item.hasDiscount() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="@id/price"
                 app:layout_constraintEnd_toStartOf="@+id/price"
                 app:layout_constraintHorizontal_bias="0"

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.IdRes
-import androidx.core.os.bundleOf
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -94,6 +94,9 @@ class ProductFragment : ParentFragment() {
                 }
                 Status.SUCCESS -> {
                     hideLoading()
+                    if (result.data?.product?.currencies?.first()?.discount ?: 0 > 0)
+                        price.setTextColor(ContextCompat.getColor(price.context, R.color.red))
+                    else price.setTextColor(ContextCompat.getColor(price.context, R.color.blackTextColor))
                 }
             }
         })
@@ -155,122 +158,148 @@ class ProductFragment : ParentFragment() {
         })
     }
 
-    private fun initViews() {
-        binding.apply {
-            viewModel = productViewModel
-            executePendingBindings()
-            val displayMetrics = DisplayMetrics()
-            activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
-            val colorRowCount = displayMetrics.widthPixels / 48.toPx()
+    private fun initViews() = with(binding) {
+        viewModel = productViewModel
+        executePendingBindings()
+        val displayMetrics = DisplayMetrics()
+        activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+        val colorRowCount = displayMetrics.widthPixels / 48.toPx()
 
-            back.setOnClickListener {
-                navController.popBackStack()
-            }
+        back.setOnClickListener {
+            navController.popBackStack()
+        }
 
-            banners.adapter = bannerAdapter
-            indicators.adapter = indicatorAdapter
+        banners.adapter = bannerAdapter
+        indicators.adapter = indicatorAdapter
 
-            if (banners.onFlingListener == null) {
-                banners.attachSnapHelperWithListener(
-                    LinearSnapHelper(),
-                    SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
-                    object : SnapOnScrollListener.OnSnapPositionChangeListener {
-                        override fun onSnapPositionChange(snapPosition: Int) {
-                            indicatorAdapter.setSelected(snapPosition)
-                        }
-                    })
-            }
-
-            rvColors.layoutManager = GridLayoutManager(activity, colorRowCount)
-            rvColors.adapter = colorAdapter
-            sizes.adapter = sizeAdapter
-
-            relativeProductAdapter = ProductHorizontalAdapter(object :
-                ProductHorizontalAdapter.ClickListener {
-                override fun onItemClick(item: Product) {
-                    navController.navigate(
-                        ProductFragmentDirections.actionGlobalProductFragment(item.id)
-                    )
-                }
-
-                override fun onFavoriteClick(item: Product, position: Int) {
-                    productViewModel.seeAlsoFavoriteToggle(item.id).observe(viewLifecycleOwner, Observer { result ->
-                        when (result.status) {
-                            Status.LOADING -> showLoading()
-                            Status.ERROR -> {
-                                hideLoading()
-                                processError(result.error)
-                            }
-                            Status.SUCCESS -> {
-                                hideLoading()
-                                item.isFavorite = !item.isFavorite
-                                relativeProductAdapter.notifyItemChanged(position)
-                            }
-                        }
-                    })
-                }
-            })
-
-            relativeProducts.hasFixedSize()
-            relativeProducts.adapter = relativeProductAdapter
-//            val relativeSnapHelper = LinearSnapHelper()
-//            relativeSnapHelper.attachToRecyclerView(relativeProducts)
-
-            /*recentlyProductAdapter =
-                ProductHorizontalAdapter()
-            recentlyProducts.hasFixedSize()
-            recentlyProducts.adapter = recentlyProductAdapter*/
-//            val recentlySnapHelper = LinearSnapHelper()
-//            recentlySnapHelper.attachToRecyclerView(recentlyProducts)
-
-            infoToggle.setOnCheckedChangeListener { _, b ->
-                val visibility = if (b) View.VISIBLE else View.GONE
-                info.visibility = visibility
-                tvReferenceHint.visibility = visibility
-                tvReference.visibility = visibility
-            }
-
-            compositionToggle.setOnCheckedChangeListener { _, b ->
-                composition.visibility = if (b) View.VISIBLE else View.GONE
-            }
-
-            tvSizeTable.setOnClickListener {
-                productViewModel.sizeChart.observe(viewLifecycleOwner, Observer {
-                    it ?: return@Observer
-                    val direction= ProductFragmentDirections.actionProductFragmentToSizeChartFragment(it)
-                    navController.navigate(direction)
+        if (banners.onFlingListener == null) {
+            banners.attachSnapHelperWithListener(
+                LinearSnapHelper(),
+                SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
+                object : SnapOnScrollListener.OnSnapPositionChangeListener {
+                    override fun onSnapPositionChange(snapPosition: Int) {
+                        indicatorAdapter.setSelected(snapPosition)
+                    }
                 })
+        }
+
+        rvColors.layoutManager = GridLayoutManager(activity, colorRowCount)
+        rvColors.adapter = colorAdapter
+        sizes.adapter = sizeAdapter
+
+        relativeProductAdapter = ProductHorizontalAdapter(object :
+            ProductHorizontalAdapter.ClickListener {
+            override fun onItemClick(item: Product) {
+                navController.navigate(
+                    ProductFragmentDirections.actionGlobalProductFragment(item.id)
+                )
             }
 
-            /*categoryBrand.setOnClickListener {
-                navController.navigate(
-                    ProductFragmentDirections.actionGlobalProductsFragment(
-                        0,
-                        viewModel?.product?.value?.category,
-                        viewModel?.product?.value?.id ?: 0
-                    )
-                )
-
-                //navController.navigate(ProductFragmentDirections.actionGlobalProductFragment())
-            }
-*/
-            /*category.setOnClickListener {
-                navController.navigate(
-                    ProductFragmentDirections.actionGlobalProductsFragment(
-                        0,
-                        viewModel?.product?.value?.category?.name
-                    )
-                )
-            }*/
-
-            /*likeLayout.setOnClickListener {
-                Timber.d("like clicked!")
-                viewModel?.favoriteToggle()?.observe(viewLifecycleOwner, Observer { result ->
+            override fun onFavoriteClick(item: Product, position: Int) {
+                productViewModel.seeAlsoFavoriteToggle(item.id).observe(viewLifecycleOwner, Observer { result ->
                     when (result.status) {
                         Status.LOADING -> showLoading()
                         Status.ERROR -> {
                             hideLoading()
-                            showError(result.error)
+                            processError(result.error)
+                        }
+                        Status.SUCCESS -> {
+                            hideLoading()
+                            item.isFavorite = !item.isFavorite
+                            relativeProductAdapter.notifyItemChanged(position)
+                        }
+                    }
+                })
+            }
+        })
+
+        relativeProducts.hasFixedSize()
+        relativeProducts.adapter = relativeProductAdapter
+//            val relativeSnapHelper = LinearSnapHelper()
+//            relativeSnapHelper.attachToRecyclerView(relativeProducts)
+
+        /*recentlyProductAdapter =
+            ProductHorizontalAdapter()
+        recentlyProducts.hasFixedSize()
+        recentlyProducts.adapter = recentlyProductAdapter*/
+//            val recentlySnapHelper = LinearSnapHelper()
+//            recentlySnapHelper.attachToRecyclerView(recentlyProducts)
+
+        infoToggle.setOnCheckedChangeListener { _, b ->
+            val visibility = if (b) View.VISIBLE else View.GONE
+            info.visibility = visibility
+            tvReferenceHint.visibility = visibility
+            tvReference.visibility = visibility
+        }
+
+        compositionToggle.setOnCheckedChangeListener { _, b ->
+            composition.visibility = if (b) View.VISIBLE else View.GONE
+        }
+
+        tvSizeTable.setOnClickListener {
+            productViewModel.sizeChart.observe(viewLifecycleOwner, Observer {
+                it ?: return@Observer
+                val direction = ProductFragmentDirections.actionProductFragmentToSizeChartFragment(it)
+                navController.navigate(direction)
+            })
+        }
+
+        /*categoryBrand.setOnClickListener {
+            navController.navigate(
+                ProductFragmentDirections.actionGlobalProductsFragment(
+                    0,
+                    viewModel?.product?.value?.category,
+                    viewModel?.product?.value?.id ?: 0
+                )
+            )
+
+            //navController.navigate(ProductFragmentDirections.actionGlobalProductFragment())
+        }
+*/
+        /*category.setOnClickListener {
+            navController.navigate(
+                ProductFragmentDirections.actionGlobalProductsFragment(
+                    0,
+                    viewModel?.product?.value?.category?.name
+                )
+            )
+        }*/
+
+        /*likeLayout.setOnClickListener {
+            Timber.d("like clicked!")
+            viewModel?.favoriteToggle()?.observe(viewLifecycleOwner, Observer { result ->
+                when (result.status) {
+                    Status.LOADING -> showLoading()
+                    Status.ERROR -> {
+                        hideLoading()
+                        showError(result.error)
+                    }
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        Timber.e(result.data.toString())
+                    }
+                }
+            })
+        }*/
+
+        shareLayout.setOnClickListener {
+            productViewModel.shareText.observe(viewLifecycleOwner, Observer {
+                val intent = Intent()
+                intent.action = Intent.ACTION_SEND
+                intent.putExtra(Intent.EXTRA_TEXT, it)
+                intent.type = "text/plain"
+                startActivity(Intent.createChooser(intent, "Отправить"))
+            })
+        }
+
+        favorite.setOnCheckedChangeListener { compoundButton, _ ->
+            if (compoundButton.isPressed) {
+                productViewModel.favoriteToggle().observe(viewLifecycleOwner, Observer { result ->
+                    when (result.status) {
+                        Status.LOADING -> showLoading()
+                        Status.ERROR -> {
+                            hideLoading()
+                            processError(result.error)
                         }
                         Status.SUCCESS -> {
                             hideLoading()
@@ -278,56 +307,30 @@ class ProductFragment : ParentFragment() {
                         }
                     }
                 })
-            }*/
-
-            shareLayout.setOnClickListener {
-                productViewModel.shareText.observe(viewLifecycleOwner, Observer {
-                    val intent = Intent()
-                    intent.action = Intent.ACTION_SEND
-                    intent.putExtra(Intent.EXTRA_TEXT, it)
-                    intent.type = "text/plain"
-                    startActivity(Intent.createChooser(intent, "Отправить"))
-                })
-            }
-
-            favorite.setOnCheckedChangeListener { compoundButton, _ ->
-                if (compoundButton.isPressed) {
-                    productViewModel.favoriteToggle().observe(viewLifecycleOwner, Observer { result ->
-                        when (result.status) {
-                            Status.LOADING -> showLoading()
-                            Status.ERROR -> {
-                                hideLoading()
-                                processError(result.error)
-                            }
-                            Status.SUCCESS -> {
-                                hideLoading()
-                                Timber.e(result.data.toString())
-                            }
-                        }
-                    })
-                }
-            }
-
-            addToCart.setOnClickListener {
-                if (productViewModel.selectedSize.value == null) {
-                    sizes.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.shake))
-                } else {
-                    productViewModel.addToCart().observe(viewLifecycleOwner, Observer { result ->
-                        when (result.status) {
-                            Status.LOADING -> showLoading()
-                            Status.ERROR -> {
-                                hideLoading()
-                                processError(result.error)
-                            }
-                            Status.SUCCESS -> {
-                                hideLoading()
-                                Toast.makeText(activity, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    })
-                }
             }
         }
+
+        addToCart.setOnClickListener {
+            if (productViewModel.selectedSize.value == null) {
+                sizes.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.shake))
+            } else {
+                productViewModel.addToCart().observe(viewLifecycleOwner, Observer { result ->
+                    when (result.status) {
+                        Status.LOADING -> showLoading()
+                        Status.ERROR -> {
+                            hideLoading()
+                            processError(result.error)
+                        }
+                        Status.SUCCESS -> {
+                            hideLoading()
+                            Toast.makeText(activity, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+            }
+        }
+
+
     }
 
     private fun processError(error: ApiError?) {
