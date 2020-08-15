@@ -51,7 +51,7 @@ class FavoriteAdapter(private val listener: FavoriteAdapterListener) :
                     tvDiscount.text = "$discount%"
                 }
 
-                if (oldPrice == 0) {
+                if (getOldPrice() == 0) {
                     tvOldPrice.visibility = View.GONE
                 } else {
                     tvOldPrice.visibility = View.VISIBLE

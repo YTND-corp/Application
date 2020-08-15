@@ -17,6 +17,6 @@ class Favorite(
     val isFavorite: Boolean,
     val image: String
 ) {
-    fun priceFormatted() = "${currencies.first().price.moneyFormat()} ${currencies.first().currency}"
-    fun oldPriceFormatted() = "${currencies.first().oldPrice.moneyFormat()} ${currencies.first().currency}"
+    fun priceFormatted() = "${currencies.first().getPrice().moneyFormat()} ${currencies.first().currency}"
+    fun oldPriceFormatted() = "${currencies.first().getOldPrice().moneyFormat()} ${currencies.first().currency}"
 }

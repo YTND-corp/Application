@@ -3,6 +3,7 @@ package uz.mod.templatex.model.remote.response.profile
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import uz.mod.templatex.model.local.entity.Currency
 
 data class MyOrdersOrderDetailsResponse(
     val order: Order,
@@ -80,17 +81,6 @@ data class Carrier(
     val name: String
 )
 
-data class Currency(
-    @SerializedName("currency")
-    val currency: String,
-    val price: Int,
-    @SerializedName("old_price")
-    val oldPrice: Int,
-    val discount: Int
-) {
-    fun printPrice() = "$price $currency"
-}
-
 data class AttributeCombination(
     val key: String,
     val value: String
@@ -114,5 +104,6 @@ data class Address(
     val isDefault: Boolean?
 ) : Parcelable {
     fun getAddress() = arrayOf(street, building, entry, city).map { it?.trim() }.filter { !it.isNullOrEmpty() }.joinToString()
-    fun getAddressForSuccessPage() = arrayOf(city, street, building).map { it?.trim() }.filter { !it.isNullOrBlank() }.joinToString()
+    fun getAddressForSuccessPage() =
+        arrayOf(city, street, building).map { it?.trim() }.filter { !it.isNullOrBlank() }.joinToString()
 }

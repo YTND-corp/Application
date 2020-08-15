@@ -4,29 +4,34 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import uz.mod.templatex.utils.extension.moneyFormat
+import kotlin.math.ceil
 
 data class Currency(
     val currency: String?,
-    val price: Int,
+    private val price: Double,
     @SerializedName("old_price")
-    val oldPrice: Int,
+    private val oldPrice: Double,
     val discount: Int
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
-        parcel.readInt(),
-        parcel.readInt(),
+        parcel.readDouble(),
+        parcel.readDouble(),
         parcel.readInt()
     )
 
-    fun getMoneyFormat() = "${price.moneyFormat()} $currency"
+    fun getMoneyFormat() = "${getPrice().moneyFormat()} $currency"
 
-    fun getOldPriceFormat() = "${oldPrice.moneyFormat()} $currency"
+    fun getOldPriceFormat() = "${getOldPrice().moneyFormat()} $currency"
+
+    fun getPrice() = ceil(price).toInt()
+
+    fun getOldPrice() = ceil(oldPrice).toInt()
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(currency)
-        parcel.writeInt(price)
-        parcel.writeInt(oldPrice)
+        parcel.writeDouble(price)
+        parcel.writeDouble(oldPrice)
         parcel.writeInt(discount)
     }
 

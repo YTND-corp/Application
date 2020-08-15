@@ -38,7 +38,7 @@ class CheckoutFinalViewModel(application: Application, repository: CheckoutRepos
     }
 
     fun getProductsPriceRespectToQuantity(product: Product): String {
-        return "${(product.quantity * (product.currencies?.first()?.price ?: 1))} ${product.currencies?.first()?.currency}"
+        return "${(product.quantity * (product.currencies?.first()?.getPrice() ?: 1))} ${product.currencies?.first()?.currency}"
     }
 
 

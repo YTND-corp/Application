@@ -40,12 +40,12 @@ data class Product(
         parcel.createTypedArrayList(AttributeCombination)
     )
 
-    fun getPrice() = currencies?.first()?.price
+    fun getPrice() = currencies?.first()?.getPrice()
     fun quantityText() = "$quantity"
     fun subtitle() = "$brand - $category"
-    fun priceFormatted() = "${currencies?.first()?.price?.moneyFormat()} ${currencies?.first()?.currency}"
-    fun oldPriceFormatted() = "${currencies?.first()?.oldPrice?.moneyFormat()} ${currencies?.first()?.currency}"
-    fun totalPrice() = quantity * (currencies?.first()?.price ?: 0)
+    fun priceFormatted() = "${currencies?.first()?.getPrice()?.moneyFormat()} ${currencies?.first()?.currency}"
+    fun oldPriceFormatted() = "${currencies?.first()?.getOldPrice()?.moneyFormat()} ${currencies?.first()?.currency}"
+    fun totalPrice() = quantity * (currencies?.first()?.getPrice() ?: 0)
     fun totalPriceFormatted() = totalPrice().moneyFormat() + " ${currencies?.first()?.currency}"
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
