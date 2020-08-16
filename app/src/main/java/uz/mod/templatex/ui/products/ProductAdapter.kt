@@ -2,9 +2,11 @@ package uz.mod.templatex.ui.products
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.product_item.view.*
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.ProductItemBinding
 import uz.mod.templatex.model.local.entity.Product
 import uz.mod.templatex.ui.product.ProductFragmentDirections
@@ -53,6 +55,9 @@ class ProductAdapter(private var listener: (item: Product, position: Int) -> Uni
         fun bind(product: Product, position: Int): Unit = with(binding) {
             item = product
             executePendingBindings()
+
+            if (product.hasDiscount()) price.setTextColor(ContextCompat.getColor(price.context, R.color.red))
+            else price.setTextColor(ContextCompat.getColor(price.context, R.color.blackTextColor))
 
             favorite.setOnCheckedChangeListener { compoundButton, _ ->
                 if (compoundButton.isPressed) listener.invoke(product, position)

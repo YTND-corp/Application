@@ -43,7 +43,7 @@
                     android:layout_marginStart="4dp"
                     android:includeFontPadding="false"
                     android:text='@{item.value}'
-                    android:textColor="@color/black"
+                    android:textColor="@color/red"
                     android:textSize="@dimen/text_size_tiny"
                     android:textStyle="bold"
                     tools:text="149.900 UZS" />

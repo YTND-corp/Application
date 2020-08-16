@@ -11,7 +11,7 @@ import uz.mod.templatex.model.local.entity.SubCategory
 import uz.mod.templatex.model.remote.network.Resource
 import uz.mod.templatex.model.repository.CategoryRepository
 
-class SubCategoryViewModel constructor(application: Application, repository: CategoryRepository): AndroidViewModel(application) {
+class SubCategoryViewModel constructor(application: Application, repository: CategoryRepository) : AndroidViewModel(application) {
 
     val category = MutableLiveData<Category>()
     val subCategory = MutableLiveData<List<SubCategory>>()
@@ -26,7 +26,7 @@ class SubCategoryViewModel constructor(application: Application, repository: Cat
     }
 
     fun setArgs(args: SubCategoryFragmentArgs) {
-        category.value = args.category
-        subCategory.value = args.category?.subCategory
+        args.category?.let { category.value = it }
+        args.category?.subCategory?.let { subCategory.value = it }
     }
 }

@@ -3,7 +3,6 @@ package uz.mod.templatex.ui.cart
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.koin.ext.isInt
 import uz.mod.templatex.databinding.ItemCardAttributeBinding
 import uz.mod.templatex.databinding.ItemCardSaleAttributeBinding
 import uz.mod.templatex.model.local.entity.AttributeCombination
@@ -34,7 +33,7 @@ class AttributeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     override fun getItemViewType(position: Int): Int {
-        if (items[position].key?.split(" ")?.first()?.isInt() == true)
+        if (items[position].key?.endsWith("UZS") == true)
             return CartAttributeViewType.PRODUCT_ON_SALE
         return CartAttributeViewType.PRODUCT_IS_NOT_ON_SALE
     }

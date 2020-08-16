@@ -53,6 +53,7 @@ class SubCategoryFragment : ParentFragment() {
         initViews()
 
         viewModel.subCategory.observe(viewLifecycleOwner, Observer {
+
             adapter.setItems(it)
         })
     }

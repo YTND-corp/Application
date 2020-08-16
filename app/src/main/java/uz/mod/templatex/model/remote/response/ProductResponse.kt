@@ -1,5 +1,6 @@
 package uz.mod.templatex.model.remote.response
 
+import android.content.Context
 import com.google.gson.annotations.SerializedName
 import uz.mod.templatex.model.local.entity.Currency
 import uz.mod.templatex.model.local.entity.Product

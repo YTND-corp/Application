@@ -12,7 +12,7 @@ data class Product(
     @PrimaryKey
     val id: Int,
     val name: String?,
-    @SerializedName("currency")val currencies: List<Currency>?,
+    @SerializedName("currency") val currencies: List<Currency>?,
     @SerializedName("is_favorites_added") var isFavorite: Boolean,
     var selected: Boolean = false,
     val image: String?,
@@ -47,6 +47,8 @@ data class Product(
     fun oldPriceFormatted() = "${currencies?.first()?.getOldPrice()?.moneyFormat()} ${currencies?.first()?.currency}"
     fun totalPrice() = quantity * (currencies?.first()?.getPrice() ?: 0)
     fun totalPriceFormatted() = totalPrice().moneyFormat() + " ${currencies?.first()?.currency}"
+    fun hasDiscount() = currencies?.first()?.discount ?: 0 > 0
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeString(name)

@@ -19,4 +19,5 @@ class Favorite(
 ) {
     fun priceFormatted() = "${currencies.first().getPrice().moneyFormat()} ${currencies.first().currency}"
     fun oldPriceFormatted() = "${currencies.first().getOldPrice().moneyFormat()} ${currencies.first().currency}"
+    fun hasDiscount() = currencies.first().discount > 0
 }

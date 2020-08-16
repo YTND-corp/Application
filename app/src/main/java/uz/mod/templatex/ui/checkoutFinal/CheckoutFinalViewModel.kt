@@ -30,7 +30,7 @@ class CheckoutFinalViewModel(application: Application, repository: CheckoutRepos
     }
 
     fun getReference(product: Product): String {
-        return "Код ${product.reference}"
+        return "Код: ${product.reference}"
     }
 
     fun getProductsQuantity(product: Product): String {

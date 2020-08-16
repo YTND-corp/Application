@@ -16,7 +16,8 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:focusedByDefault="true"
-            tools:context=".ui.catalog.CatalogChildFragment">
+            tools:context=".ui.catalog.CatalogChildFragment"
+            tools:targetApi="o">
 
         <EditText
                 android:id="@+id/search_edit_text"

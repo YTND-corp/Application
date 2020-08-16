@@ -45,7 +45,7 @@ class AuthRepository constructor(val service: AuthService, val prefs: Prefs) {
     fun confirm(code: String): LiveData<Resource<User>> {
         return object : NetworkOnlyResource<User, AuthConfirmationResponse>() {
             override fun processResult(item: AuthConfirmationResponse?): User? {
-                prefs.userName = "${item?.user?.name} ${item?.user?.surname}"
+                prefs.userName = "${item?.user?.name} ${item?.user?.surname ?: ""}"
                 prefs.token = item?.meta?.token
 
                 return item?.user
@@ -62,7 +62,7 @@ class AuthRepository constructor(val service: AuthService, val prefs: Prefs) {
         prefs.token = null
     }
 
-    fun getUserName() = prefs.userName
+    fun getUserName() = prefs.userName?.trim()
 
     fun getUserPhone() = prefs.phone
 

@@ -2,8 +2,10 @@ package uz.mod.templatex.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.FavoriteItemBinding
 import uz.mod.templatex.model.local.entity.Favorite
 import uz.mod.templatex.ui.product.ProductFragmentDirections
@@ -31,6 +33,10 @@ class FavoriteAdapter(private var listener: (id: Int, isFavorite: Boolean) -> Un
         fun bind(favorite: Favorite): Unit = with(binding) {
             item = favorite
             executePendingBindings()
+
+            if (favorite.hasDiscount()) price.setTextColor(ContextCompat.getColor(price.context, R.color.red))
+            else price.setTextColor(ContextCompat.getColor(price.context, R.color.blackTextColor))
+
 
             chbFavorite.setOnCheckedChangeListener { compoundButton, _ ->
                 if (compoundButton.isPressed) {
