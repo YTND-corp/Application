@@ -86,9 +86,9 @@ class ProductRepository constructor(
         }.asLiveData()
     }*/
 
-    fun getProducts(id: Int, filter: SharedFilterViewModel.SelectedFitlerDto, page: Int): LiveData<Resource<List<Product>>> {
-        return object : NetworkOnlyResource<List<Product>, ProductsResponse>() {
-            override fun processResult(item: ProductsResponse?): List<Product>? {
+    fun getProducts(id: Int, filter: SharedFilterViewModel.SelectedFitlerDto, page: Int): LiveData<Resource<ProductsResponse>> {
+        return object : NetworkOnlyResource<ProductsResponse, ProductsResponse>() {
+            override fun processResult(item: ProductsResponse?): ProductsResponse? {
                 if (page == 1) {
                     filterDao.deleteAll()
                 }
@@ -99,7 +99,7 @@ class ProductRepository constructor(
                     filterDao.insert(it)
                 }
 
-                return item?.productWrapper?.data
+                return item
             }
 
             override fun createCall(): LiveData<ApiResponse<ProductsResponse>> {

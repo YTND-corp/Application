@@ -52,6 +52,11 @@ class SharedFilterViewModel(application: Application) : AndroidViewModel(applica
         needToReloadFeed = true
     }
 
+    fun clearFilter() {
+        activeFilter = SelectedFitlerDto()
+        currentFilter = null
+    }
+
     data class SelectedFitlerDto(
         var sort: Sort = Sort.PopularSort(),
         var brands: List<Int> = emptyList(),

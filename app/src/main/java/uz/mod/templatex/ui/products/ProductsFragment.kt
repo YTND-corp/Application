@@ -39,6 +39,7 @@ class ProductsFragment : ParentFragment() {
 
     private lateinit var adapter: ProductAdapter
     private lateinit var mBrandAdapter: BrandAdapter
+    private lateinit var mFastFilterAdapter: FastFilterAdapter
 
     private val args: ProductsFragmentArgs by navArgs()
 
@@ -72,6 +73,11 @@ class ProductsFragment : ParentFragment() {
             navController.navigate(ProductsFragmentDirections.actionGlobalProductsFragment(it.id, it.name))
         }
 
+        mFastFilterAdapter = FastFilterAdapter {
+            productsViewModel.onFastFilterClick(it)
+        }
+
+        sharedFilterViewModel.clearFilter()
         productsViewModel.setArgs(args)
     }
 
@@ -109,17 +115,24 @@ class ProductsFragment : ParentFragment() {
                         handleLoadingDone()
                         if (productsViewModel.page == 1) {
                             val string =
-                                resources.getString(R.string.products_subtitle, result.data?.size.toString())
+                                resources.getString(
+                                    R.string.products_subtitle,
+                                    result.data?.productWrapper?.data?.size.toString()
+                                )
                             Timber.d("binding.subtitle.text $string")
-                            adapter.setItems(result.data)
+                            adapter.setItems(result.data?.productWrapper?.data)
+
+                            if (sharedFilterViewModel.currentFilter == null) {
+                                sharedFilterViewModel.currentFilter = result.data?.filter
+                                mFastFilterAdapter.setItems(result.data?.filter?.brands)
+                            }
                         } else {
-                            adapter.addItems(result.data)
+                            adapter.addItems(result.data?.productWrapper?.data)
                         }
                     }
                 }
             }
         })
-
     }
 
     private fun handleLoadingDone() {
@@ -143,6 +156,7 @@ class ProductsFragment : ParentFragment() {
             sharedFilterViewModel.needToReloadFeed = false
             sharedFilterViewModel.fillActiveFilter()
             productsViewModel.filterParams = sharedFilterViewModel.activeFilter
+            mFastFilterAdapter.setItems(sharedFilterViewModel.currentFilter?.brands)
             productsViewModel.refresh()
         }
     }
@@ -162,6 +176,7 @@ class ProductsFragment : ParentFragment() {
         products.layoutManager = layoutManager
         products.adapter = adapter
         rvBrands.adapter = mBrandAdapter
+        rvFastFilter.adapter = mFastFilterAdapter
 
         var pastVisibleItems: Int
         var visibleItemCount: Int

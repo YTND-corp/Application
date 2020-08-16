@@ -1,8 +1,12 @@
 package uz.mod.templatex.ui.products
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import uz.mod.templatex.R
+import uz.mod.templatex.model.local.entity.Brand
 import uz.mod.templatex.model.repository.ProductRepository
 import uz.mod.templatex.ui.new_filter.SharedFilterViewModel
 import uz.mod.templatex.utils.Event
@@ -14,7 +18,7 @@ class ProductsViewModel constructor(application: Application, val repository: Pr
     var page: Int = 1
     var totalCount = ""
 
-    var filterParams : SharedFilterViewModel.SelectedFitlerDto = SharedFilterViewModel.SelectedFitlerDto()
+    var filterParams: SharedFilterViewModel.SelectedFitlerDto = SharedFilterViewModel.SelectedFitlerDto()
     var title = MutableLiveData<String>()
 
     private val request = MutableLiveData<Boolean>()
@@ -31,7 +35,7 @@ class ProductsViewModel constructor(application: Application, val repository: Pr
     }
 
     val total = Transformations.map(filter) {
-        application.getString(R.string.products_subtitle,it?.pagination?.total.toString())
+        application.getString(R.string.products_subtitle, it?.pagination?.total.toString())
     }
 
     fun setArgs(args: ProductsFragmentArgs) {
@@ -50,5 +54,14 @@ class ProductsViewModel constructor(application: Application, val repository: Pr
     fun loadMore() {
         page++
         request.value = true
+    }
+
+    fun onFastFilterClick(item: Brand) {
+        if (item.selected)
+            filterParams.brands = filterParams.brands.plus(item.id)
+        else
+            filterParams.brands = filterParams.brands.minus(item.id)
+
+        refresh()
     }
 }

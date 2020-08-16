@@ -39,14 +39,16 @@
                     style="@style/Medium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_marginEnd="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:singleLine="true"
                     android:text="@{viewModel.title}"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     app:layout_constraintBottom_toTopOf="@id/subtitle"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/back"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="ВЕРХНЯЯ ОДЕЖДА" />
 
@@ -62,8 +64,8 @@
                     android:textColor="@color/secondaryTextColor"
                     android:textSize="@dimen/text_size_smaller"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintStart_toStartOf="@id/title"
                     app:layout_constraintTop_toBottomOf="@id/title"
                     tools:text="@string/products_subtitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -153,6 +155,18 @@
                 app:layout_constraintTop_toBottomOf="@id/filter" />
 
         <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFastFilter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/filter_bottom_divider"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_fast_filter" />
+
+        <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/products"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -163,7 +177,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/filter_bottom_divider"
+                app:layout_constraintTop_toBottomOf="@id/rvFastFilter"
                 app:spanCount="2"
                 tools:listitem="@layout/product_item" />
 
@@ -176,7 +190,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/filter_bottom_divider">
+                app:layout_constraintTop_toBottomOf="@id/rvFastFilter">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
