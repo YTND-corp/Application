@@ -2,6 +2,7 @@ package uz.mod.templatex.model.repository
 
 import androidx.lifecycle.LiveData
 import timber.log.Timber
+import uz.mod.templatex.model.local.Prefs
 import uz.mod.templatex.model.local.entity.City
 import uz.mod.templatex.model.remote.api.CheckoutService
 import uz.mod.templatex.model.remote.network.NetworkOnlyResource
@@ -14,7 +15,8 @@ import uz.mod.templatex.model.repository.profile.MyAddressesRepository
 class CheckoutRepository
 constructor(
     val service: CheckoutService,
-    private val addressRepository: MyAddressesRepository
+    private val addressRepository: MyAddressesRepository,
+    val prefs: Prefs
 ) {
 
     init {
@@ -35,7 +37,13 @@ constructor(
 
     fun confirm(phone: String, code: String): LiveData<Resource<ConfirmResponse>> {
         return object : NetworkOnlyResource<ConfirmResponse, ConfirmResponse>() {
-            override fun processResult(item: ConfirmResponse?) = item
+            override fun processResult(item: ConfirmResponse?): ConfirmResponse? {
+                prefs.userName = "${item?.user?.name} ${item?.user?.surname ?: ""}"
+                prefs.token = item?.user?.token
+
+                return item
+            }
+
             override fun createCall() = service.confirm(phone, code)
         }.asLiveData()
     }

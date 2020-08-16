@@ -147,7 +147,7 @@ val repositoryModule = module {
     single { AuthRepository(get(), get()) }
     single { CartRepository(get(), get(), get(), get()) }
     single { MyAddressesRepository(get(), get(), get(), get()) }
-    single { CheckoutRepository(get(), get()) }
+    single { CheckoutRepository(get(), get(), get()) }
     single { MyOrdersRepository(get(), get(), get()) }
     single { MyDataRepository(get(), get()) }
     single { FavoriteRepository(get(), get(), get()) }

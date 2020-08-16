@@ -15,5 +15,7 @@ data class User(
     val phone: String?,
     val gender: String?,
     val birthday: String?,
-    val country: String?
+    val country: String?,
+    @SerializedName("access_token")
+    val token: String? //only used in checkout
 ) : Parcelable

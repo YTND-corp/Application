@@ -65,20 +65,14 @@ class CodeFragment : ParentFragment() {
                         Status.SUCCESS -> {
                             hideLoading()
                             binding.code.text = null
-                            //TODO if it is checkout, then user does not need to be authorized
-                            //sharedViewModel.loggedIn(result.data?.user)
-                            if (args.isCheckout) {
-                                //TODO this statement is always true, look outer if block it is checked there
-                                navController.navigate(
-                                    AddressFragmentDirections.actionGlobalAddressFragment(
-                                        args.cartResponse,
-                                        result.data,
-                                        args.phone
-                                    )
+                            sharedViewModel.loggedIn(result.data?.user)
+                            navController.navigate(
+                                AddressFragmentDirections.actionGlobalAddressFragment(
+                                    args.cartResponse,
+                                    result.data,
+                                    args.phone
                                 )
-                            } else {
-                                navController.popBackStack(R.id.profileFragment, true)
-                            }
+                            )
                         }
                     }
                 }
