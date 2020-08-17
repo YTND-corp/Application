@@ -105,5 +105,5 @@ data class Address(
 ) : Parcelable {
     fun getAddress() = arrayOf(street, building, entry, city).map { it?.trim() }.filter { !it.isNullOrEmpty() }.joinToString()
     fun getAddressForSuccessPage() =
-        arrayOf(city, street, building).map { it?.trim() }.filter { !it.isNullOrBlank() }.joinToString()
+        arrayOf(region, city, street, building, entry).map { it?.trim() }.filter { !it.isNullOrBlank() }.joinToString()
 }

@@ -48,7 +48,8 @@ class CheckoutFinalViewModel(application: Application, repository: CheckoutRepos
     )
 
     fun getAddress(): String {
-        return arguments?.storeResponse?.address?.getAddressForSuccessPage() ?: "Unknown Address"
+        val details = arguments?.storeDetails
+        return "${details?.region?.name}, ${details?.street}, ${details?.home}, ${details?.flat}"
     }
 
     fun getDeliveryCost(): String {

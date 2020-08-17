@@ -78,7 +78,7 @@ class CheckoutFinalFragment : ParentFragment() {
         rvProducts.adapter = productAdapter
         rvPrices.adapter = priceAdapter
         tvDescription.text = getString(R.string.checkout_description_text, args.storeResponse?.order?.id.toString())
-        tvDeliveryType.text = getString(R.string.delivery_type_text, viewModel?.getDeliveryType())
+        tvDeliveryType.text = getString(R.string.delivery_type_text, checkoutFinalViewModel.getDeliveryType())
 
         btnCallback.setOnClickListener {
             navController.navigate(R.id.action_checkoutFinalFragment_to_callMeFragment)

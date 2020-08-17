@@ -110,6 +110,7 @@ class PaymentDetailsFragment : ParentFragment() {
                     PaymentDetailsFragmentDirections.actionPaymentDetailsFragmentToCheckoutFinalFragment(
                         args.cartResponse,
                         args.response,
+                        args.details,
                         result.data
                     ).run { navController.navigate(this) }
                 }

@@ -124,6 +124,11 @@
                 app:argType="uz.mod.templatex.model.remote.response.ConfirmResponse"
                 app:nullable="true" />
 
+        <argument
+                android:name="storeDetails"
+                android:defaultValue="@null"
+                app:argType="uz.mod.templatex.model.remote.request.StoreRequest"
+                app:nullable="true" />
 
         <argument
                 android:name="storeResponse"

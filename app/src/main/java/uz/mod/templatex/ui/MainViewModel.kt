@@ -18,7 +18,7 @@ import uz.mod.templatex.utils.Event
 
 class MainViewModel constructor(
     application: Application,
-    private val authRepository: AuthRepository,
+    authRepository: AuthRepository,
     private val cartRepository: CartRepository,
     val prefs: Prefs
 ) : AndroidViewModel(application) {

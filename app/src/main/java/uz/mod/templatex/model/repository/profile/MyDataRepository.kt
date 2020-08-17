@@ -14,13 +14,8 @@ class MyDataRepository(
 ) {
     fun getUserInfo(): LiveData<Resource<MyDataResponse>> {
         return object : NetworkOnlyResource<MyDataResponse, MyDataResponse>() {
-            override fun processResult(item: MyDataResponse?): MyDataResponse? {
-                return item
-            }
-
-            override fun createCall(): LiveData<ApiResponse<MyDataResponse>> {
-                return service.getUserInfo()
-            }
+            override fun processResult(item: MyDataResponse?) = item
+            override fun createCall() = service.getUserInfo()
         }.asLiveData()
     }
 

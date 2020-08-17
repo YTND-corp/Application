@@ -52,6 +52,7 @@ class PaymentFragment : ParentFragment() {
                         PaymentFragmentDirections.actionPaymentFragmentToCheckoutFinalFragment(
                             args.cartResponse,
                             args.response,
+                            args.details,
                             result.data
                         )
                     )
