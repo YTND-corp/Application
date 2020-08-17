@@ -39,8 +39,7 @@ class ProfileMyDataFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //binding = DataBindingUtil.inflate<ProfileMyDataFragmentBinding>(inflater, R.layout.profile_my_data_fragment, container, false)
-        binding = ProfileMyDataFragmentBinding.inflate(inflater, container, false)
+        binding = ProfileMyDataFragmentBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -87,8 +86,8 @@ class ProfileMyDataFragment : ParentFragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         (binding.root.parent as? ViewGroup)?.removeView(binding.root)
+        super.onDestroyView()
     }
     private fun initViews(): Unit = with(binding) {
         viewModel = profileViewModel
