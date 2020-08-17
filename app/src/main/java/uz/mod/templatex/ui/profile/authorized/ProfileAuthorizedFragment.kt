@@ -3,11 +3,9 @@ package uz.mod.templatex.ui.profile.authorized
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.bold
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -81,7 +79,7 @@ class ProfileAuthorizedFragment : ParentFragment() {
             MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
                 .setMessage(R.string.logout_text)
                 .setPositiveButton(R.string.action_yes) { _, _ ->
-                    viewModel?.logout()
+                    profileAuthorizedViewModel.logout()
                     sharedViewModel.loggedOut()
                     navController.navigate(R.id.action_profileAuthorizedFragment_to_profileFragment)
                 }

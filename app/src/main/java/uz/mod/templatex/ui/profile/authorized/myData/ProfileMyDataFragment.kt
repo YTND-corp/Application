@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,7 +28,7 @@ class ProfileMyDataFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val profileViewModel: ProfileMyDataViewModel by viewModel()
 
-    private val binding by lazy { ProfileMyDataFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: ProfileMyDataFragmentBinding
     private var birthday = 12
     private var birthdayMonth = 9 //begins from zero
     private var birthdayYear = 1998
@@ -38,7 +39,9 @@ class ProfileMyDataFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this
+        //binding = DataBindingUtil.inflate<ProfileMyDataFragmentBinding>(inflater, R.layout.profile_my_data_fragment, container, false)
+        binding = ProfileMyDataFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -83,6 +86,10 @@ class ProfileMyDataFragment : ParentFragment() {
         profileViewModel.getUserInfo()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (binding.root.parent as? ViewGroup)?.removeView(binding.root)
+    }
     private fun initViews(): Unit = with(binding) {
         viewModel = profileViewModel
 
@@ -115,7 +122,7 @@ class ProfileMyDataFragment : ParentFragment() {
     }
 
     private fun showGenderPickerDialog() {
-        profileViewModel.possibleGenders.value?.map { it.name }?.let { genders->
+        profileViewModel.possibleGenders.value?.map { it.name }?.let { genders ->
             AlertDialog.Builder(requireContext())
                 .setItems(genders.toTypedArray()) { _, i ->
                     profileViewModel.gender.value = genders[i]
