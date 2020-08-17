@@ -20,4 +20,6 @@ object Const {
     const val API_NO_CONNECTION_STATUS_CODE = -1
     const val API_SERVER_FAIL_STATUS_CODE = 500
     const val API_NEW_VERSION_AVAILABLE_STATUS_CODE = 418
+
+    const val DEFAULT_USER_REGION_ID = 14 //Tashkent is by default
 }

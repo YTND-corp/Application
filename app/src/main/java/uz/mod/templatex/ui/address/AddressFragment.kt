@@ -85,7 +85,7 @@ class AddressFragment : ParentFragment() {
                 Timber.e(cities.toString())
 
                 if (addressViewModel.city.value == null)
-                    cities.find { it.id == 14 }?.let {
+                    cities.find { it.id == Const.DEFAULT_USER_REGION_ID }?.let {
                         addressViewModel.city.value = it
                     }
 

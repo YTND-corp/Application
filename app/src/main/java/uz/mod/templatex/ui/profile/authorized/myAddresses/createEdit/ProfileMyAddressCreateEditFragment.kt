@@ -75,7 +75,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
                     hideLoading()
                     profileAddressViewModel.allRegions.value = result.data
                     if (ProfileMyAddressesFragment.Mode.CREATE == args.mode) result.data?.forEach { region ->
-                        if (region.id == profileAddressViewModel.defaultRegionID) {
+                        if (region.id == Const.DEFAULT_USER_REGION_ID) {
                             profileAddressViewModel.city.value = region.name
                             profileAddressViewModel.region = region
                             return@forEach

@@ -20,7 +20,6 @@ class ProfileMyAddressCreateEditViewModel(
     private var mode: ProfileMyAddressesFragment.Mode? = null
     private var addressId = -1
     var region : ProfileRegion? = null
-    val defaultRegionID = 14 //Tashkent ID
     val receiverName = MutableLiveData<String>()
     val address = MutableLiveData<String>()
     val city = MutableLiveData<String>()
