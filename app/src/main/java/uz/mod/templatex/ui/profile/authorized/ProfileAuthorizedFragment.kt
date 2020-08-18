@@ -20,7 +20,7 @@ class ProfileAuthorizedFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val profileAuthorizedViewModel: ProfileAuthorizedViewModel by viewModel()
 
-    private val binding by lazy { ProfileAuthorizedFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: ProfileAuthorizedFragmentBinding
 
     companion object {
         fun newInstance() = ProfileAuthorizedFragment()
@@ -31,6 +31,7 @@ class ProfileAuthorizedFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = ProfileAuthorizedFragmentBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
