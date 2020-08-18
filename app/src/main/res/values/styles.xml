@@ -15,6 +15,12 @@
         <item name="windowNoTitle">true</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:windowLightStatusBar">true</item>
+        <!--
+        Disable multi touch event inside app
+        This causes crash when selecting multiple destinations simultaneously
+        -->
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
     </style>
 
     <style name="AppTheme.Launcher">

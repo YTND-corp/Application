@@ -14,6 +14,7 @@ import uz.mod.templatex.databinding.ProfileAuthorizedFragmentBinding
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.extension.lazyFast
+import java.lang.IllegalArgumentException
 
 class ProfileAuthorizedFragment : ParentFragment() {
 
@@ -38,7 +39,11 @@ class ProfileAuthorizedFragment : ParentFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
+        try {
+            initViews()
+        }catch (e: IllegalArgumentException) {
+
+        }
     }
 
     private fun initViews(): Unit = with(binding) {
