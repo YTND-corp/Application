@@ -34,6 +34,7 @@ open class ParentFragment : Fragment() {
 
     override fun onDetach() {
         hideKeyboard()
+        hideLoading()
         super.onDetach()
     }
 
