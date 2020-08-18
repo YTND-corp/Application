@@ -22,7 +22,7 @@ class ProfileMyFavoriteFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     val viewModel: ProfileMyFavoriteViewModel by viewModel()
 
-    private val binding by lazy { ProfileMyFavoriteFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: ProfileMyFavoriteFragmentBinding
     private lateinit var adapter: FavoriteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +54,8 @@ class ProfileMyFavoriteFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this
+        binding = ProfileMyFavoriteFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

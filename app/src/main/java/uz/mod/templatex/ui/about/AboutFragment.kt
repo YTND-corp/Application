@@ -18,7 +18,7 @@ class AboutFragment : ParentFragment() {
     val viewModel: AboutViewModel by viewModel()
 
 
-    private val binding by lazy { AboutFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: AboutFragmentBinding
 
     companion object {
         fun newInstance() = AboutFragment()
@@ -49,16 +49,19 @@ class AboutFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = AboutFragmentBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = this@AboutFragment
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
     }
 
-    private fun initViews(): Unit = with(binding) {
+    private fun initViews() = binding.apply {
         viewModel = this@AboutFragment.viewModel
         executePendingBindings()
 

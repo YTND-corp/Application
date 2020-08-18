@@ -24,13 +24,14 @@ import uz.mod.templatex.utils.extension.lazyFast
 
 class PaymentDetailsFragment : ParentFragment() {
 
-    private val args : PaymentDetailsFragmentArgs by navArgs()
+    private val args: PaymentDetailsFragmentArgs by navArgs()
     private val paymentViewModel: PaymentDetailsViewModel by viewModel()
-    private val binding by lazy { FragmentPaymentDetailsBinding.inflate(layoutInflater) }
+    private lateinit var binding: FragmentPaymentDetailsBinding
     private val navController by lazyFast { findNavController() }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentPaymentDetailsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -44,7 +45,7 @@ class PaymentDetailsFragment : ParentFragment() {
         observeStoringState()
     }
 
-    private fun initViews() : Unit = with(binding) {
+    private fun initViews(): Unit = with(binding) {
         viewModel = paymentViewModel
         executePendingBindings()
         sharedViewModel.title.value = args.paymentData.provider?.name
@@ -85,7 +86,7 @@ class PaymentDetailsFragment : ParentFragment() {
 
 
     private fun observePayState() {
-        paymentViewModel.response.observe(viewLifecycleOwner, Observer {result->
+        paymentViewModel.response.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {
@@ -98,7 +99,7 @@ class PaymentDetailsFragment : ParentFragment() {
     }
 
     private fun observeStoringState() {
-        paymentViewModel.store.observe(viewLifecycleOwner, Observer { result->
+        paymentViewModel.store.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> showLoading()
                 Status.ERROR -> {

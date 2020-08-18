@@ -27,7 +27,7 @@ class PaymentFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val paymentViewModel: PaymentViewModel by viewModel()
     val args: PaymentFragmentArgs by navArgs()
-    private val binding by lazy { PaymentFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: PaymentFragmentBinding
 
     private lateinit var paymentMethodAdapter: PaymentMethodAdapter
 
@@ -66,6 +66,7 @@ class PaymentFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = PaymentFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

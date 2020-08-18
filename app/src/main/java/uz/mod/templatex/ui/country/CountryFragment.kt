@@ -15,7 +15,7 @@ class CountryFragment : Fragment() {
 
     val viewModel: CountryViewModel by viewModel()
 
-    private val binding by lazy { CountryFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: CountryFragmentBinding
 
     companion object {
         fun newInstance() = CountryFragment()
@@ -26,7 +26,8 @@ class CountryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@CountryFragment
+        binding = CountryFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

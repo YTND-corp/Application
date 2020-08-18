@@ -13,7 +13,7 @@ class FilterFragment : Fragment() {
 
     val viewModel: FilterViewModel by viewModel()
 
-    private val binding by lazy { FilterFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: FilterFragmentBinding
 
 
     companion object {
@@ -25,6 +25,7 @@ class FilterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FilterFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this@FilterFragment
         return binding.root
     }

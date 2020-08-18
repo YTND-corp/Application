@@ -21,7 +21,7 @@ class ProfileGuestFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     val viewModel: ProfileGuestViewModel by viewModel()
 
-    private val binding by lazy { ProfileGuestFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: ProfileGuestFragmentBinding
 
     companion object {
         fun newInstance() = ProfileGuestFragment()
@@ -32,6 +32,7 @@ class ProfileGuestFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = ProfileGuestFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -46,10 +47,15 @@ class ProfileGuestFragment : ParentFragment() {
                 //binding.unauthorized
                 navController.navigate(R.id.action_profileFragment_to_profileAuthorizedFragment)
             }
-
             binding.name.text = viewModel.getUserName()
             binding.phone.text = viewModel.getUserPhone()
+
         })
+    }
+
+    override fun onStop() {
+        (binding.root.parent?.parent as? ViewGroup)?.removeView(binding.root)
+        super.onStop()
     }
 
     private fun initViews(): Unit = with(binding) {

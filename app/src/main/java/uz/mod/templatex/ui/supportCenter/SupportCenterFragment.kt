@@ -23,7 +23,7 @@ class SupportCenterFragment : ParentFragment() {
     val viewModel: SupportCenterViewModel by viewModel()
 
     private val navController by lazyFast { findNavController() }
-    private val binding by lazy { SupportCenterFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: SupportCenterFragmentBinding
     private lateinit var adapter: SupportCenterAdapter
 
     companion object {
@@ -42,7 +42,8 @@ class SupportCenterFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@SupportCenterFragment
+        binding = SupportCenterFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

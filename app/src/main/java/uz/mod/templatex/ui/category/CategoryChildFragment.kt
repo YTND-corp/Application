@@ -17,8 +17,8 @@ class CategoryChildFragment : ParentFragment() {
 
     val viewModel: CategoryChildViewModel by viewModel()
     private val navController by lazyFast { findNavController() }
-    private val binding by lazy { CategoryChildFragmentBinding.inflate(layoutInflater) }
     private lateinit var adapter: CategoryAdapter
+    private lateinit var binding: CategoryChildFragmentBinding
 
     companion object {
         const val GENDER = "catalog_gender"
@@ -36,6 +36,7 @@ class CategoryChildFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = CategoryChildFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

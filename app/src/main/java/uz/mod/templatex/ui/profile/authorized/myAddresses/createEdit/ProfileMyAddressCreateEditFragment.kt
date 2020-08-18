@@ -25,7 +25,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
     private val profileAddressViewModel: ProfileMyAddressCreateEditViewModel by viewModel()
     val args: ProfileMyAddressCreateEditFragmentArgs by navArgs()
 
-    private val binding by lazy { ProfileCreateEditAddressFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: ProfileCreateEditAddressFragmentBinding
 
     companion object {
         fun newInstance() = ProfileMyAddressCreateEditFragment()
@@ -41,6 +41,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = ProfileCreateEditAddressFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

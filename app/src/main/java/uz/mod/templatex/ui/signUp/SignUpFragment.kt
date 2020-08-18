@@ -26,7 +26,7 @@ class SignUpFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     private val signUpViewModel: SignUpViewModel by viewModel()
-    private val binding by lazy { SignUpFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: SignUpFragmentBinding
     private val textWatcher by lazyFast { MaskWatcher.phoneWatcher() }
     private val focusChangeLister by lazyFast { PhoneFieldFocusChangeListener() }
 
@@ -39,6 +39,7 @@ class SignUpFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = SignUpFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -92,7 +93,6 @@ class SignUpFragment : ParentFragment() {
         super.onStop()
         binding.phone.removeTextChangedListener(textWatcher)
     }
-
 
 
     private fun processError(error: ApiError?) = when (error?.code) {

@@ -21,7 +21,7 @@ class CheckoutFinalFragment : ParentFragment() {
     private val checkoutFinalViewModel: CheckoutFinalViewModel by viewModel()
     private lateinit var productAdapter: ProductAdapter
     private lateinit var priceAdapter: PriceAdapter
-    private val binding by lazy { CheckoutFinalFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: CheckoutFinalFragmentBinding
     val args: CheckoutFinalFragmentArgs by navArgs()
 
     companion object {
@@ -38,6 +38,7 @@ class CheckoutFinalFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = CheckoutFinalFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

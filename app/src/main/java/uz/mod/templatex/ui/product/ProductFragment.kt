@@ -77,7 +77,7 @@ class ProductFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@ProductFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

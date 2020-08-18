@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.products_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uz.mod.templatex.R
@@ -35,11 +34,12 @@ class ProductsFragment : ParentFragment() {
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
     private val productsViewModel: ProductsViewModel by viewModel()
 
-    private val binding by lazy { ProductsFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: ProductsFragmentBinding
 
     private lateinit var adapter: ProductAdapter
+
     private lateinit var mBrandAdapter: BrandAdapter
-    private lateinit var mFastFilterAdapter: FastFilterAdapter
+    //private lateinit var mFastFilterAdapter: FastFilterAdapter
 
     private val args: ProductsFragmentArgs by navArgs()
 
@@ -69,13 +69,12 @@ class ProductsFragment : ParentFragment() {
             })
         }
 
-        mBrandAdapter = BrandAdapter {
-            navController.navigate(ProductsFragmentDirections.actionGlobalProductsFragment(it.id, it.name))
-        }
-
-        mFastFilterAdapter = FastFilterAdapter {
+            mBrandAdapter = BrandAdapter {
+                navController.navigate(ProductsFragmentDirections.actionGlobalProductsFragment(it.id, it.name))
+            }
+       /* mFastFilterAdapter = FastFilterAdapter {
             productsViewModel.onFastFilterClick(it)
-        }
+        }*/
 
         sharedFilterViewModel.clearFilter()
         productsViewModel.setArgs(args)
@@ -91,6 +90,7 @@ class ProductsFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = ProductsFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -124,7 +124,7 @@ class ProductsFragment : ParentFragment() {
 
                             if (sharedFilterViewModel.currentFilter == null) {
                                 sharedFilterViewModel.currentFilter = result.data?.filter
-                                mFastFilterAdapter.setItems(result.data?.filter?.brands)
+                              //  mFastFilterAdapter.setItems(result.data?.filter?.brands)
                             }
                         } else {
                             adapter.addItems(result.data?.productWrapper?.data)
@@ -145,9 +145,12 @@ class ProductsFragment : ParentFragment() {
         if (!isLoadingMore) showLoading()
     }
 
+
+
     private fun stopShimmer() {
-        shimmer.stopShimmer()
-        shimmer.visibility = View.GONE
+        if (binding.shimmer.visibility == View.GONE) return
+        binding.shimmer.stopShimmer()
+        binding.shimmer.visibility = View.GONE
     }
 
     override fun onResume() {
@@ -156,8 +159,12 @@ class ProductsFragment : ParentFragment() {
             sharedFilterViewModel.needToReloadFeed = false
             sharedFilterViewModel.fillActiveFilter()
             productsViewModel.filterParams = sharedFilterViewModel.activeFilter
-            mFastFilterAdapter.setItems(sharedFilterViewModel.currentFilter?.brands)
+          //  mFastFilterAdapter.setItems(sharedFilterViewModel.currentFilter?.brands)
             productsViewModel.refresh()
+        }
+
+        if (!isLoadingMore) {
+            stopShimmer()
         }
     }
 
@@ -176,7 +183,7 @@ class ProductsFragment : ParentFragment() {
         products.layoutManager = layoutManager
         products.adapter = adapter
         rvBrands.adapter = mBrandAdapter
-        rvFastFilter.adapter = mFastFilterAdapter
+      //  rvFastFilter.adapter = mFastFilterAdapter
 
         var pastVisibleItems: Int
         var visibleItemCount: Int

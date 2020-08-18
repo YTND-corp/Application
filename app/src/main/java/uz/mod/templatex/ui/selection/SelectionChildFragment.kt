@@ -24,7 +24,7 @@ interface OurServiceClickEvent {
 class SelectionChildFragment : Fragment() {
     private val selectionViewModel: SelectionChildViewModel by viewModel()
 
-    private val binding by lazy { SelectionChildFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding:SelectionChildFragmentBinding
 
     private lateinit var adapter: SelectionAdapter
     private lateinit var listener: OurServiceClickEvent
@@ -56,6 +56,7 @@ class SelectionChildFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = SelectionChildFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

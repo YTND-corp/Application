@@ -136,7 +136,7 @@ fun BottomNavigationView.setupWithNavController(
     }
 
     // Optional: on item reselected, pop back stack to the destination of the graph
-    setupItemReselected(graphIdToTagMap, fragmentManager)
+    //setupItemReselected(graphIdToTagMap, fragmentManager)
 
     // Handle deep link
     setupDeepLinks(navGraphResourcesIds, fragmentManager, containerId, intent)
@@ -187,15 +187,36 @@ private fun BottomNavigationView.setupItemReselected(
     graphIdToTagMap: SparseArray<String>,
     fragmentManager: FragmentManager
 ) {
+
+    val bottomMenuStartDestinations = arrayOf(
+        R.id.selectionFragment,
+        R.id.categoryFragment,
+        R.id.favoriteFragment,
+        R.id.profileFragment,
+        R.id.cartFragment
+    )
     setOnNavigationItemReselectedListener { item ->
         val newlySelectedItemTag = graphIdToTagMap[item.itemId]
         val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
                 as NavHostFragment
         val navController = selectedFragment.navController
 
+
+        val startDestination = navController.graph.startDestination
+
+        if(navController.currentDestination?.id == startDestination){
+            println("It is checking point $startDestination")
+
+        }
+
+
+        /*If user pressed continuously pressing */
+        if (selectedFragment.childFragmentManager.backStackEntryCount == 1){
+            return@setOnNavigationItemReselectedListener
+        }
         // Pop the back stack to the start destination of the current navController graph
         navController.popBackStack(
-            navController.graph.startDestination, false
+            startDestination, false
         )
     }
 }

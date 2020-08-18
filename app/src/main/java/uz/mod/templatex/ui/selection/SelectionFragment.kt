@@ -8,12 +8,10 @@ import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.mod.templatex.R
 import uz.mod.templatex.databinding.SelectionFragmentBinding
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.model.remote.network.Status
-import uz.mod.templatex.ui.common.*
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const
 import uz.mod.templatex.utils.Event
@@ -25,8 +23,7 @@ class SelectionFragment : ParentFragment(), OurServiceClickEvent {
     private val navController by lazyFast { findNavController() }
     val viewModel: SelectionViewModel by viewModel()
 
-    private val binding by lazy { SelectionFragmentBinding.inflate(layoutInflater) }
-
+    private lateinit var binding: SelectionFragmentBinding
     private lateinit var pageAdapter: SelectionPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +54,7 @@ class SelectionFragment : ParentFragment(), OurServiceClickEvent {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = SelectionFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

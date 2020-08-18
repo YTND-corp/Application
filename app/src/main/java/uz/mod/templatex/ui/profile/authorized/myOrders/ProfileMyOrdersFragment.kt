@@ -24,7 +24,7 @@ class ProfileMyOrdersFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     val viewModel: ProfileMyOrdersViewModel by viewModel()
 
-    private val binding by lazy { ProfileMyOrdersFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: ProfileMyOrdersFragmentBinding
 
     private val myOrdersAdapterListener = object : MyOrdersAdapterListener {
         override fun toMyOrder(orderId: Int) {
@@ -47,7 +47,8 @@ class ProfileMyOrdersFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@ProfileMyOrdersFragment
+        binding = ProfileMyOrdersFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

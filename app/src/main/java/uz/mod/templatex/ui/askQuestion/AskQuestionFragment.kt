@@ -25,7 +25,7 @@ class AskQuestionFragment : ParentFragment() {
     private val askQuestionViewModel: AskQuestionViewModel by viewModel()
 
     private val navController by lazyFast { findNavController() }
-    private val binding by lazy { AskQuestionFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: AskQuestionFragmentBinding
 
     companion object {
         fun newInstance() = AskQuestionFragment()
@@ -36,7 +36,8 @@ class AskQuestionFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@AskQuestionFragment
+        binding = AskQuestionFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

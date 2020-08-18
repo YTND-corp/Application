@@ -26,8 +26,8 @@ class CheckoutFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     private val checkOutViewModel: CheckoutViewModel by viewModel()
-    private val binding by lazy { CheckoutFragmentBinding.inflate(layoutInflater) }
     private val args: CheckoutFragmentArgs by navArgs()
+    private lateinit var binding: CheckoutFragmentBinding
 
     companion object {
         fun newInstance() = CheckoutFragment()
@@ -96,6 +96,7 @@ class CheckoutFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = CheckoutFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

@@ -28,8 +28,8 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
 
     private val navController by lazyFast { findNavController() }
     val viewModel: CartViewModel by viewModel()
-    private val binding by lazy { CartFragmentBinding.inflate(layoutInflater) }
     private lateinit var adapter: CartAdapter
+    private lateinit var binding: CartFragmentBinding
 
     companion object {
         fun newInstance() = CartFragment()
@@ -40,7 +40,8 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@CartFragment
+        binding = CartFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -125,14 +126,14 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
             }
         }
 
-            placeholderButton.setOnClickListener {
-                sharedViewModel.bottomNavBarSelection.value = Event(
-                    BottomNavCustomSelectionArgs(
-                        R.id.catalog_graph,
-                        R.id.categoryFragment
-                    )
+        placeholderButton.setOnClickListener {
+            sharedViewModel.bottomNavBarSelection.value = Event(
+                BottomNavCustomSelectionArgs(
+                    R.id.catalog_graph,
+                    R.id.categoryFragment
                 )
-            }
+            )
+        }
 
         products.adapter = adapter
 

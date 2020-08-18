@@ -14,7 +14,7 @@ class CheckOrderStatusFragment : ParentFragment() {
 
     val viewModel: CheckOrderStatusViewModel by viewModel()
 
-    private val binding by lazy { CheckOrderStatusFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: CheckOrderStatusFragmentBinding
 
     companion object {
         fun newInstance() = CheckOrderStatusFragment()
@@ -25,7 +25,8 @@ class CheckOrderStatusFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@CheckOrderStatusFragment
+        binding = CheckOrderStatusFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

@@ -23,8 +23,7 @@ class ProfileMyAddressesFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val profileAddressViewModel: ProfileMyAddressesViewModel by viewModel()
 
-    private val binding by lazy { ProfileMyAddressesFragmentBinding.inflate(layoutInflater) }
-
+    private lateinit var binding: ProfileMyAddressesFragmentBinding
     private lateinit var myAddressesAdapterListener: MyAddressesAdapterListener
     lateinit var adapter: ProfileMyAddressesAdapter
 
@@ -88,6 +87,7 @@ class ProfileMyAddressesFragment : ParentFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = ProfileMyAddressesFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

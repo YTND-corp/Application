@@ -15,8 +15,6 @@ import uz.mod.templatex.model.remote.network.Status
 import uz.mod.templatex.model.remote.response.profile.StateType
 import uz.mod.templatex.ui.parent.ParentFragment
 import uz.mod.templatex.utils.Const
-import uz.mod.templatex.utils.Event
-import uz.mod.templatex.utils.extension.getNavigationResult
 import uz.mod.templatex.utils.extension.lazyFast
 
 class ProfileMyOrderFragment : ParentFragment() {
@@ -25,7 +23,7 @@ class ProfileMyOrderFragment : ParentFragment() {
     val viewModel: ProfileMyOrderViewModel by viewModel()
     val args: ProfileMyOrderFragmentArgs by navArgs()
 
-    private val binding by lazy { ProfileMyOrderFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: ProfileMyOrderFragmentBinding
     lateinit var adapter: ProductAdapter
 
     companion object {
@@ -43,6 +41,7 @@ class ProfileMyOrderFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = ProfileMyOrderFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

@@ -25,7 +25,7 @@ class SubCategoryFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     val viewModel: SubCategoryViewModel by viewModel()
-    private val binding by lazy { SubCategoryFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: SubCategoryFragmentBinding
     val args: SubCategoryFragmentArgs by navArgs()
     private lateinit var adapter: SubCategoryAdapter
 
@@ -38,6 +38,7 @@ class SubCategoryFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = SubCategoryFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

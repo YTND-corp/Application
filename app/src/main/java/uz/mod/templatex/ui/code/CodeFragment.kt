@@ -27,7 +27,7 @@ class CodeFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val codeViewModel: CodeViewModel by viewModel()
     val args: CodeFragmentArgs by navArgs()
-    private val binding by lazy { CodeFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: CodeFragmentBinding
     private lateinit var countDownTimer: CountDownTimer
 
     companion object {
@@ -44,6 +44,7 @@ class CodeFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = CodeFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

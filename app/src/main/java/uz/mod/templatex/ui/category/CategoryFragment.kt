@@ -23,8 +23,7 @@ class CategoryFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     val viewModel: CategoryViewModel by viewModel()
 
-    private val binding by lazy { CategoryFragmentBinding.inflate(layoutInflater) }
-
+    private lateinit var binding: CategoryFragmentBinding
     private lateinit var pageAdapter: CategoryPagerAdapter
 
     companion object {
@@ -43,6 +42,7 @@ class CategoryFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = CategoryFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -94,7 +94,7 @@ class CategoryFragment : ParentFragment() {
         Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
         else -> showError(error)
     }
-    
+
 
     private fun navigateAndObserveResult(@IdRes destinationID: Int) {
         navController.getNavigationResult<Event<Boolean>>()?.observe(viewLifecycleOwner, Observer {

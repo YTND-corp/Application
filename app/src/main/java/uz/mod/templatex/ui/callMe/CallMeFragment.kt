@@ -25,7 +25,7 @@ class CallMeFragment : ParentFragment() {
     val viewModel: CallMeViewModel by viewModel()
 
     private val navController by lazyFast { findNavController() }
-    private val binding by lazy { CallMeFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: CallMeFragmentBinding
 
     companion object {
         fun newInstance() = CallMeFragment()
@@ -36,7 +36,8 @@ class CallMeFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.lifecycleOwner = this@CallMeFragment
+        binding = CallMeFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -70,7 +71,7 @@ class CallMeFragment : ParentFragment() {
             hideKeyboard()
             viewModel?.callback()
         }
-        
+
     }
 
     private fun processError(error: ApiError?) {

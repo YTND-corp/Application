@@ -157,6 +157,7 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvFastFilter"
                 android:layout_width="0dp"
+                isVisible="@{false}"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

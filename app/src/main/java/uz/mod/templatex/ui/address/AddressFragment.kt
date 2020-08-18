@@ -26,13 +26,13 @@ class AddressFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     private val addressViewModel: AddressViewModel by viewModel()
-    private val binding by lazy { AddressFragmentBinding.inflate(layoutInflater) }
     val args: AddressFragmentArgs by navArgs()
     private val adapter by lazyFast {
         AddressAdapter {
             addressViewModel.delivery.value = it
         }
     }
+    private lateinit var binding: AddressFragmentBinding
 
     companion object {
         fun newInstance() = AddressFragment()
@@ -48,6 +48,7 @@ class AddressFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = AddressFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -59,7 +60,8 @@ class AddressFragment : ParentFragment() {
 
         addressViewModel.userAddressesInServer.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
-                Status.LOADING, Status.ERROR -> {}
+                Status.LOADING, Status.ERROR -> {
+                }
                 Status.SUCCESS -> {
 
                     addressViewModel.setupWithDefaultAddress(

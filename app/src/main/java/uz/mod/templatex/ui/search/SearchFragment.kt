@@ -34,7 +34,7 @@ class SearchFragment : ParentFragment() {
     private val searchViewModel: SearchViewModel by viewModel()
 
     private val navController by lazyFast { findNavController() }
-    private val binding by lazy { SearchFragmentBinding.inflate(layoutInflater) }
+    private lateinit var binding: SearchFragmentBinding
 
     private lateinit var adapter: SearchAdapter
 
@@ -47,6 +47,7 @@ class SearchFragment : ParentFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = SearchFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
