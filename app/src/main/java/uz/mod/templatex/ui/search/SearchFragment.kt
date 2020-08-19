@@ -2,9 +2,7 @@ package uz.mod.templatex.ui.search
 
 import android.os.Bundle
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.annotation.IdRes
@@ -34,7 +32,8 @@ class SearchFragment : ParentFragment() {
     private val searchViewModel: SearchViewModel by viewModel()
 
     private val navController by lazyFast { findNavController() }
-    private lateinit var binding: SearchFragmentBinding
+    private val binding: SearchFragmentBinding
+        get() = childBinding as SearchFragmentBinding
 
     private lateinit var adapter: SearchAdapter
 
@@ -42,15 +41,7 @@ class SearchFragment : ParentFragment() {
         fun newInstance() = SearchFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = SearchFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.search_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

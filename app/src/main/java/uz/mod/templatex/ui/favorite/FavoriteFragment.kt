@@ -24,7 +24,8 @@ class FavoriteFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     val viewModel: FavoriteViewModel by viewModel()
 
-    private lateinit var binding: FavoriteFragmentBinding
+    private val binding: FavoriteFragmentBinding
+        get() = childBinding as FavoriteFragmentBinding
 
     private lateinit var adapter: FavoriteAdapter
 
@@ -51,15 +52,7 @@ class FavoriteFragment : ParentFragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FavoriteFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.favorite_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

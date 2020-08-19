@@ -1,17 +1,14 @@
 package uz.mod.templatex.ui.subCategory
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-
-import uz.mod.templatex.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.SubCategoryFragmentBinding
 import uz.mod.templatex.model.remote.network.ApiError
 import uz.mod.templatex.ui.custom.LineDividerItemDecoration
@@ -25,23 +22,16 @@ class SubCategoryFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     val viewModel: SubCategoryViewModel by viewModel()
-    private lateinit var binding: SubCategoryFragmentBinding
     val args: SubCategoryFragmentArgs by navArgs()
     private lateinit var adapter: SubCategoryAdapter
+    private val binding: SubCategoryFragmentBinding
+        get() = childBinding as SubCategoryFragmentBinding
 
     companion object {
         fun newInstance() = SubCategoryFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = SubCategoryFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int? = R.layout.sub_category_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

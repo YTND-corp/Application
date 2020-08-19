@@ -1,9 +1,7 @@
 package uz.mod.templatex.ui.signIn
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -26,23 +24,16 @@ class SignInFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     val viewModel: SignInViewModel by viewModel()
-    private lateinit var binding: SignInFragmentBinding
     private val textWatcher by lazyFast { MaskWatcher.phoneWatcher() }
     private val focusChangeListener by lazyFast { PhoneFieldFocusChangeListener() }
+    private val binding: SignInFragmentBinding
+        get() = childBinding as SignInFragmentBinding
 
     companion object {
         fun newInstance() = SignInFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = SignInFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int? = R.layout.sign_in_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

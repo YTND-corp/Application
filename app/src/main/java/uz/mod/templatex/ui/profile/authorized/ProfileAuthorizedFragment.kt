@@ -3,9 +3,7 @@ package uz.mod.templatex.ui.profile.authorized
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,31 +18,20 @@ class ProfileAuthorizedFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val profileAuthorizedViewModel: ProfileAuthorizedViewModel by viewModel()
 
-    private lateinit var binding: ProfileAuthorizedFragmentBinding
+    private val binding: ProfileAuthorizedFragmentBinding
+        get() = childBinding as ProfileAuthorizedFragmentBinding
 
     companion object {
         fun newInstance() = ProfileAuthorizedFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = ProfileAuthorizedFragmentBinding.inflate(layoutInflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int?  = R.layout.profile_authorized_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
     }
 
-    override fun onStop() {
-        (binding.root.parent?.parent as? ViewGroup)?.removeView(binding.root)
-        super.onStop()
-    }
     
 
     private fun initViews(): Unit = with(binding) {

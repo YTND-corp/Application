@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -26,15 +24,11 @@ class PaymentDetailsFragment : ParentFragment() {
 
     private val args: PaymentDetailsFragmentArgs by navArgs()
     private val paymentViewModel: PaymentDetailsViewModel by viewModel()
-    private lateinit var binding: FragmentPaymentDetailsBinding
     private val navController by lazyFast { findNavController() }
+    private val binding: FragmentPaymentDetailsBinding
+        get() = childBinding as FragmentPaymentDetailsBinding
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentPaymentDetailsBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int? = R.layout.fragment_payment_details
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

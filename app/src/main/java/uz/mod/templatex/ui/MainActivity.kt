@@ -2,8 +2,10 @@ package uz.mod.templatex.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
 import androidx.lifecycle.LiveData
@@ -153,13 +155,28 @@ class MainActivity : ParentActivity() {
         }
     }
 
+    private var countDownTimer: CountDownTimer? = null
+    private fun startToolBarConfigTimer(toolbar: Toolbar, navController: NavController) {
+        countDownTimer = object : CountDownTimer(200, 200) {
+            override fun onFinish() {
+                countDownTimer = null
+                hideKeyboard()
+                hideLoading()
+                toolbar.setupWithNavController(navController, appBarConfiguration)
+                mainViewModel.destinationChanged(navController.currentDestination!!)
+            }
+
+            override fun onTick(p0: Long) {}
+        }.start()
+    }
+
     private fun @NotNull MainActivityBinding.onNavControllerChanged(
         navController: NavController
     ) {
-        hideKeyboard()
-        hideLoading()
-        toolbar.setupWithNavController(navController, appBarConfiguration)
-        viewModel!!.destinationChanged(navController.currentDestination!!)
+        if (countDownTimer != null) {
+            countDownTimer?.cancel()
+        }
+        startToolBarConfigTimer(toolbar, navController)
     }
 
     override fun onSupportNavigateUp(): Boolean =

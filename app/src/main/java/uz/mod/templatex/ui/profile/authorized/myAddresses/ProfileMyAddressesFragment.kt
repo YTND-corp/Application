@@ -23,7 +23,9 @@ class ProfileMyAddressesFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val profileAddressViewModel: ProfileMyAddressesViewModel by viewModel()
 
-    private lateinit var binding: ProfileMyAddressesFragmentBinding
+    private val binding: ProfileMyAddressesFragmentBinding
+        get() = childBinding as ProfileMyAddressesFragmentBinding
+
     private lateinit var myAddressesAdapterListener: MyAddressesAdapterListener
     lateinit var adapter: ProfileMyAddressesAdapter
 
@@ -83,14 +85,7 @@ class ProfileMyAddressesFragment : ParentFragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = ProfileMyAddressesFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.profile_my_addresses_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

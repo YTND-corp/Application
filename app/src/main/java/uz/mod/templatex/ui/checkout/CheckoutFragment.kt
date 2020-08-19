@@ -1,9 +1,7 @@
 package uz.mod.templatex.ui.checkout
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -27,7 +25,8 @@ class CheckoutFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val checkOutViewModel: CheckoutViewModel by viewModel()
     private val args: CheckoutFragmentArgs by navArgs()
-    private lateinit var binding: CheckoutFragmentBinding
+    private val binding: CheckoutFragmentBinding
+        get() = childBinding as CheckoutFragmentBinding
 
     companion object {
         fun newInstance() = CheckoutFragment()
@@ -91,15 +90,7 @@ class CheckoutFragment : ParentFragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = CheckoutFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.checkout_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

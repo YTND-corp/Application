@@ -1,9 +1,7 @@
 package uz.mod.templatex.ui.address
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
@@ -32,25 +30,19 @@ class AddressFragment : ParentFragment() {
             addressViewModel.delivery.value = it
         }
     }
-    private lateinit var binding: AddressFragmentBinding
+
+    private val binding : AddressFragmentBinding
+        get() = childBinding as AddressFragmentBinding
 
     companion object {
         fun newInstance() = AddressFragment()
     }
 
+    override fun getLayoutID() = R.layout.address_fragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addressViewModel.setArgs(args)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = AddressFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,6 +100,8 @@ class AddressFragment : ParentFragment() {
 
         addressViewModel.getCities()
     }
+
+
 
     private fun initViews(): Unit = with(binding) {
         viewModel = addressViewModel

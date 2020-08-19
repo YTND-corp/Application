@@ -25,21 +25,14 @@ class AskQuestionFragment : ParentFragment() {
     private val askQuestionViewModel: AskQuestionViewModel by viewModel()
 
     private val navController by lazyFast { findNavController() }
-    private lateinit var binding: AskQuestionFragmentBinding
+    private val binding: AskQuestionFragmentBinding
+        get() = childBinding as AskQuestionFragmentBinding
 
     companion object {
         fun newInstance() = AskQuestionFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = AskQuestionFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.ask_question_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

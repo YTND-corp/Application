@@ -30,6 +30,8 @@ class SortFragment : ParentFragment() {
         return inflater.inflate(R.layout.sort_fragment, container, false)
     }
 
+    override fun getLayoutID(): Int? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

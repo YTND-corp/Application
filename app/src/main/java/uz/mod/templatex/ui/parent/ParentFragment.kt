@@ -1,8 +1,12 @@
 package uz.mod.templatex.ui.parent
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -13,10 +17,22 @@ import uz.mod.templatex.ui.MainViewModel
 import uz.mod.templatex.utils.extension.lazyFast
 import uz.mod.templatex.utils.extension.toast
 
-open class ParentFragment : Fragment() {
+abstract class ParentFragment : Fragment() {
 
     private val navController by lazyFast { findNavController() }
     val sharedViewModel: MainViewModel by sharedViewModel()
+    var childBinding: ViewDataBinding? = null
+        private set
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val resID = getLayoutID() ?: return super.onCreateView(inflater, container, savedInstanceState)
+        childBinding = DataBindingUtil.inflate(inflater, resID, container, false)
+        childBinding?.lifecycleOwner = viewLifecycleOwner
+        return childBinding?.root
+    }
+
+    /** Pass @null If you want do not want to use DataBinding */
+    abstract fun getLayoutID() : Int?
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,17 +41,20 @@ open class ParentFragment : Fragment() {
         }
     }
 
+
+    override fun onDestroyView() {
+        hideKeyboard()
+        hideLoading()
+        (childBinding?.root?.parent as? ViewGroup)?.removeView(childBinding?.root)
+        childBinding = null
+        super.onDestroyView()
+    }
+
     override fun onResume() {
         super.onResume()
         activity?.let {
             FirebaseAnalytics.getInstance(it).setCurrentScreen(it, javaClass.simpleName, null)
         }
-    }
-
-    override fun onDetach() {
-        hideKeyboard()
-        hideLoading()
-        super.onDetach()
     }
 
     open fun showLoading() {

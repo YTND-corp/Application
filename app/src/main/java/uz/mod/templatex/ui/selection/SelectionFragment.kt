@@ -23,8 +23,9 @@ class SelectionFragment : ParentFragment(), OurServiceClickEvent {
     private val navController by lazyFast { findNavController() }
     val viewModel: SelectionViewModel by viewModel()
 
-    private lateinit var binding: SelectionFragmentBinding
     private lateinit var pageAdapter: SelectionPagerAdapter
+    private val binding: SelectionFragmentBinding
+        get() = childBinding as SelectionFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +54,7 @@ class SelectionFragment : ParentFragment(), OurServiceClickEvent {
         return true
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = SelectionFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int? = R.layout.selection_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

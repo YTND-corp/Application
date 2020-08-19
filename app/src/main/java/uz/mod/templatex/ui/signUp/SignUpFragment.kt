@@ -1,9 +1,7 @@
 package uz.mod.templatex.ui.signUp
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -26,23 +24,16 @@ class SignUpFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     private val signUpViewModel: SignUpViewModel by viewModel()
-    private lateinit var binding: SignUpFragmentBinding
     private val textWatcher by lazyFast { MaskWatcher.phoneWatcher() }
     private val focusChangeLister by lazyFast { PhoneFieldFocusChangeListener() }
+    private val binding: SignUpFragmentBinding
+        get() = childBinding as SignUpFragmentBinding
 
     companion object {
         fun newInstance() = SignUpFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = SignUpFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int? = R.layout.sign_up_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

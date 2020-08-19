@@ -1,9 +1,7 @@
 package uz.mod.templatex.ui.profile.authorized.myFavorite
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,8 +20,9 @@ class ProfileMyFavoriteFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     val viewModel: ProfileMyFavoriteViewModel by viewModel()
 
-    private lateinit var binding: ProfileMyFavoriteFragmentBinding
     private lateinit var adapter: FavoriteAdapter
+    private val binding: ProfileMyFavoriteFragmentBinding
+        get() = childBinding as ProfileMyFavoriteFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,15 +48,7 @@ class ProfileMyFavoriteFragment : ParentFragment() {
         })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = ProfileMyFavoriteFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int? = R.layout.profile_my_favorite_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -83,12 +74,11 @@ class ProfileMyFavoriteFragment : ParentFragment() {
         rvFavorites.adapter = adapter
     }
 
-    private fun processError(error: ApiError?) {
-        when (error?.code) {
-            Const.API_NO_CONNECTION_STATUS_CODE -> navController.navigate(R.id.noInternetFragment)
-            Const.API_SERVER_FAIL_STATUS_CODE -> navController.navigate(R.id.serverErrorDialogFragment)
-            Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
-            else -> showError(error)
-        }
+    private fun processError(error: ApiError?) = when (error?.code) {
+        Const.API_NO_CONNECTION_STATUS_CODE -> navController.navigate(R.id.noInternetFragment)
+        Const.API_SERVER_FAIL_STATUS_CODE -> navController.navigate(R.id.serverErrorDialogFragment)
+        Const.API_NEW_VERSION_AVAILABLE_STATUS_CODE -> navController.navigate(R.id.newVersionAvailableFragmentDialog)
+        else -> showError(error)
     }
+
 }

@@ -26,7 +26,7 @@ class FilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FilterFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this@FilterFragment
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

@@ -24,9 +24,17 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import timber.log.Timber
 import uz.mod.templatex.R
+import uz.mod.templatex.ui.cart.CartFragment
+import uz.mod.templatex.ui.category.CategoryFragment
+import uz.mod.templatex.ui.favorite.FavoriteFragment
+import uz.mod.templatex.ui.profile.authorized.ProfileAuthorizedFragment
+import uz.mod.templatex.ui.profile.guest.ProfileGuestFragment
+import uz.mod.templatex.ui.selection.SelectionFragment
 
 /**
  * Manages the various graphs needed for a [BottomNavigationView].
@@ -136,7 +144,7 @@ fun BottomNavigationView.setupWithNavController(
     }
 
     // Optional: on item reselected, pop back stack to the destination of the graph
-    //setupItemReselected(graphIdToTagMap, fragmentManager)
+    setupItemReselected(graphIdToTagMap, fragmentManager)
 
     // Handle deep link
     setupDeepLinks(navGraphResourcesIds, fragmentManager, containerId, intent)
@@ -188,13 +196,7 @@ private fun BottomNavigationView.setupItemReselected(
     fragmentManager: FragmentManager
 ) {
 
-    val bottomMenuStartDestinations = arrayOf(
-        R.id.selectionFragment,
-        R.id.categoryFragment,
-        R.id.favoriteFragment,
-        R.id.profileFragment,
-        R.id.cartFragment
-    )
+
     setOnNavigationItemReselectedListener { item ->
         val newlySelectedItemTag = graphIdToTagMap[item.itemId]
         val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
@@ -204,20 +206,29 @@ private fun BottomNavigationView.setupItemReselected(
 
         val startDestination = navController.graph.startDestination
 
-        if(navController.currentDestination?.id == startDestination){
-            println("It is checking point $startDestination")
 
-        }
-
-
-        /*If user pressed continuously pressing */
-        if (selectedFragment.childFragmentManager.backStackEntryCount == 1){
+        /*This will check */
+        /*if (navController.currentDestination?.id == startDestination ||
+            selectedFragment.id == startDestination ||
+            selectedFragment.childFragmentManager.fragments.firstOrNull()?.id == startDestination ||
+            selectedFragment.childFragmentManager.backStackEntryCount == 0
+        ) {
             return@setOnNavigationItemReselectedListener
         }
+
+        if (selectedFragment.childFragmentManager.backStackEntryCount == 1 &&
+            startDestination == R.id.profileFragment)
+            return@setOnNavigationItemReselectedListener
+*/
+        when (selectedFragment.childFragmentManager.fragments.firstOrNull()) {
+            is SelectionFragment, is CartFragment, is CategoryFragment,
+            is FavoriteFragment, is ProfileAuthorizedFragment,
+                is ProfileGuestFragment -> {}
+            else ->navController.popBackStack(startDestination, false)
+        }
+
         // Pop the back stack to the start destination of the current navController graph
-        navController.popBackStack(
-            startDestination, false
-        )
+       // navController.popBackStack(startDestination, false)
     }
 }
 

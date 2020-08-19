@@ -1,9 +1,7 @@
 package uz.mod.templatex.ui.profile.authorized.myOrder
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,8 +21,9 @@ class ProfileMyOrderFragment : ParentFragment() {
     val viewModel: ProfileMyOrderViewModel by viewModel()
     val args: ProfileMyOrderFragmentArgs by navArgs()
 
-    private lateinit var binding: ProfileMyOrderFragmentBinding
     lateinit var adapter: ProductAdapter
+    private val binding: ProfileMyOrderFragmentBinding
+        get() = childBinding as ProfileMyOrderFragmentBinding
 
     companion object {
         fun newInstance() = ProfileMyOrderFragment()
@@ -36,15 +35,7 @@ class ProfileMyOrderFragment : ParentFragment() {
         adapter = ProductAdapter()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = ProfileMyOrderFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int? = R.layout.profile_my_order_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

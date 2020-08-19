@@ -2,9 +2,7 @@ package uz.mod.templatex.ui.code
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -27,8 +25,9 @@ class CodeFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val codeViewModel: CodeViewModel by viewModel()
     val args: CodeFragmentArgs by navArgs()
-    private lateinit var binding: CodeFragmentBinding
     private lateinit var countDownTimer: CountDownTimer
+    private val binding: CodeFragmentBinding
+        get() = childBinding as CodeFragmentBinding
 
     companion object {
         fun newInstance() = CodeFragment()
@@ -39,15 +38,7 @@ class CodeFragment : ParentFragment() {
         codeViewModel.setArguments(args)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = CodeFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.code_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

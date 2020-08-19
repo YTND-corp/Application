@@ -1,9 +1,7 @@
 package uz.mod.templatex.ui.products
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -34,7 +32,8 @@ class ProductsFragment : ParentFragment() {
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
     private val productsViewModel: ProductsViewModel by viewModel()
 
-    private lateinit var binding: ProductsFragmentBinding
+    private val binding: ProductsFragmentBinding
+        get() = childBinding as ProductsFragmentBinding
 
     private lateinit var adapter: ProductAdapter
 
@@ -85,15 +84,8 @@ class ProductsFragment : ParentFragment() {
         requireActivity().toast(message)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = ProductsFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+
+    override fun getLayoutID(): Int? = R.layout.products_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

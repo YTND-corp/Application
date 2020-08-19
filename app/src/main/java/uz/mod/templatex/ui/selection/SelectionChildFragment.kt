@@ -2,15 +2,14 @@ package uz.mod.templatex.ui.selection
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_our_service.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mod.templatex.R
 import uz.mod.templatex.databinding.SelectionChildFragmentBinding
 import uz.mod.templatex.model.local.entity.HomeGender
+import uz.mod.templatex.ui.parent.ParentFragment
 
 const val CALL_US = 0
 const val ASK_QUESTION = 1
@@ -21,11 +20,12 @@ interface OurServiceClickEvent {
     fun onServiceItemClicked(id: Int)
 }
 
-class SelectionChildFragment : Fragment() {
+class SelectionChildFragment : ParentFragment() {
     private val selectionViewModel: SelectionChildViewModel by viewModel()
 
-    private lateinit var binding:SelectionChildFragmentBinding
-
+    private val binding: SelectionChildFragmentBinding
+        get() = childBinding as SelectionChildFragmentBinding
+    
     private lateinit var adapter: SelectionAdapter
     private lateinit var listener: OurServiceClickEvent
 
@@ -51,15 +51,8 @@ class SelectionChildFragment : Fragment() {
         selectionViewModel.setArgs(arguments?.getParcelable(GENDER))
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = SelectionChildFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+
+    override fun getLayoutID(): Int?  = R.layout.selection_child_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

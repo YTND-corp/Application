@@ -25,7 +25,8 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
     private val profileAddressViewModel: ProfileMyAddressCreateEditViewModel by viewModel()
     val args: ProfileMyAddressCreateEditFragmentArgs by navArgs()
 
-    private lateinit var binding: ProfileCreateEditAddressFragmentBinding
+    private val binding: ProfileCreateEditAddressFragmentBinding
+        get() = childBinding as ProfileCreateEditAddressFragmentBinding
 
     companion object {
         fun newInstance() = ProfileMyAddressCreateEditFragment()
@@ -36,15 +37,7 @@ class ProfileMyAddressCreateEditFragment : ParentFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = ProfileCreateEditAddressFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int? = R.layout.profile_create_edit_address_fragment
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

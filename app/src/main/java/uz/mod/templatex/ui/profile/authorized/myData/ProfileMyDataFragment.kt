@@ -2,9 +2,7 @@ package uz.mod.templatex.ui.profile.authorized.myData
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
@@ -27,21 +25,13 @@ class ProfileMyDataFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val profileViewModel: ProfileMyDataViewModel by viewModel()
 
-    private lateinit var binding: ProfileMyDataFragmentBinding
     private var birthday = 12
     private var birthdayMonth = 9 //begins from zero
     private var birthdayYear = 1998
+    private val binding: ProfileMyDataFragmentBinding
+        get() = childBinding as ProfileMyDataFragmentBinding
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = ProfileMyDataFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int? = R.layout.profile_my_data_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -3,9 +3,7 @@ package uz.mod.templatex.ui.product
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.IdRes
@@ -37,8 +35,9 @@ class ProductFragment : ParentFragment() {
 
     private val navController by lazyFast { findNavController() }
     private val productViewModel: ProductViewModel by viewModel()
-    private val binding by lazy { ProductFragmentBinding.inflate(layoutInflater) }
     private val args: ProductFragmentArgs by navArgs()
+    private val binding: ProductFragmentBinding
+        get() = childBinding as ProductFragmentBinding
 
     private var indicatorAdapter = ProductBannerIndicatorAdapter()
     private lateinit var bannerAdapter: ProductBannerAdapter
@@ -72,14 +71,8 @@ class ProductFragment : ParentFragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+
+    override fun getLayoutID(): Int? = R.layout.product_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

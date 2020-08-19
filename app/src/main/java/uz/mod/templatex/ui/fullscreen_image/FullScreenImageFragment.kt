@@ -27,6 +27,8 @@ class FullScreenImageFragment : ParentFragment() {
         return inflater.inflate(R.layout.fullscreen_image_fragment, container, false)
     }
 
+    override fun getLayoutID(): Int? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         totalImageSize = args.images.size

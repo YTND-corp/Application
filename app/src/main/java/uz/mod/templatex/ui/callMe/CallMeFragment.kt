@@ -1,9 +1,7 @@
 package uz.mod.templatex.ui.callMe
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -25,21 +23,14 @@ class CallMeFragment : ParentFragment() {
     val viewModel: CallMeViewModel by viewModel()
 
     private val navController by lazyFast { findNavController() }
-    private lateinit var binding: CallMeFragmentBinding
+    private val binding: CallMeFragmentBinding
+        get() = childBinding as CallMeFragmentBinding
 
     companion object {
         fun newInstance() = CallMeFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = CallMeFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.call_me_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

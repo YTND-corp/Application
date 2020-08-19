@@ -1,7 +1,6 @@
 package uz.mod.templatex.ui.cart
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
@@ -29,21 +28,14 @@ class CartFragment : ParentFragment(), CartAdapter.ItemListener {
     private val navController by lazyFast { findNavController() }
     val viewModel: CartViewModel by viewModel()
     private lateinit var adapter: CartAdapter
-    private lateinit var binding: CartFragmentBinding
+    private val binding: CartFragmentBinding
+        get() = childBinding as CartFragmentBinding
 
     companion object {
         fun newInstance() = CartFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = CartFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.cart_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

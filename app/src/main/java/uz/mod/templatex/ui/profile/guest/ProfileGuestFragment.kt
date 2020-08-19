@@ -3,9 +3,7 @@ package uz.mod.templatex.ui.profile.guest
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,21 +19,14 @@ class ProfileGuestFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     val viewModel: ProfileGuestViewModel by viewModel()
 
-    private lateinit var binding: ProfileGuestFragmentBinding
+    private val binding: ProfileGuestFragmentBinding
+        get() = childBinding as ProfileGuestFragmentBinding
 
     companion object {
         fun newInstance() = ProfileGuestFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = ProfileGuestFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.profile_guest_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,11 +42,6 @@ class ProfileGuestFragment : ParentFragment() {
             binding.phone.text = viewModel.getUserPhone()
 
         })
-    }
-
-    override fun onStop() {
-        (binding.root.parent?.parent as? ViewGroup)?.removeView(binding.root)
-        super.onStop()
     }
 
     private fun initViews(): Unit = with(binding) {

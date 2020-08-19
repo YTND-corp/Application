@@ -23,8 +23,9 @@ class SupportCenterFragment : ParentFragment() {
     val viewModel: SupportCenterViewModel by viewModel()
 
     private val navController by lazyFast { findNavController() }
-    private lateinit var binding: SupportCenterFragmentBinding
     private lateinit var adapter: SupportCenterAdapter
+    private val binding: SupportCenterFragmentBinding
+        get() = childBinding as SupportCenterFragmentBinding
 
     companion object {
         fun newInstance() = SupportCenterFragment()
@@ -37,15 +38,7 @@ class SupportCenterFragment : ParentFragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = SupportCenterFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID(): Int?  = R.layout.support_center_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -23,8 +23,9 @@ class CategoryFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     val viewModel: CategoryViewModel by viewModel()
 
-    private lateinit var binding: CategoryFragmentBinding
     private lateinit var pageAdapter: CategoryPagerAdapter
+    private val binding: CategoryFragmentBinding
+        get() = childBinding as CategoryFragmentBinding
 
     companion object {
         fun newInstance() = CategoryFragment()
@@ -37,15 +38,7 @@ class CategoryFragment : ParentFragment() {
         pageAdapter = CategoryPagerAdapter(childFragmentManager)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = CategoryFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.category_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

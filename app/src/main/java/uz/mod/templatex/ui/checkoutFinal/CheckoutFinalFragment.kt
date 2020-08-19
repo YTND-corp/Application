@@ -21,8 +21,9 @@ class CheckoutFinalFragment : ParentFragment() {
     private val checkoutFinalViewModel: CheckoutFinalViewModel by viewModel()
     private lateinit var productAdapter: ProductAdapter
     private lateinit var priceAdapter: PriceAdapter
-    private lateinit var binding: CheckoutFinalFragmentBinding
     val args: CheckoutFinalFragmentArgs by navArgs()
+    private val binding: CheckoutFinalFragmentBinding
+        get() = childBinding as CheckoutFinalFragmentBinding
 
     companion object {
         fun newInstance() = CheckoutFinalFragment()
@@ -33,15 +34,6 @@ class CheckoutFinalFragment : ParentFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = CheckoutFinalFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -57,6 +49,8 @@ class CheckoutFinalFragment : ParentFragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun getLayoutID() = R.layout.checkout_final_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

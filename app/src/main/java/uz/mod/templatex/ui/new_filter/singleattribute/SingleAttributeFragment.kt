@@ -33,6 +33,7 @@ class SingleAttributeFragment : ParentFragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_main_filter, container, false)
 
+    override fun getLayoutID(): Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

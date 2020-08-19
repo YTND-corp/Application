@@ -18,7 +18,8 @@ class CategoryChildFragment : ParentFragment() {
     val viewModel: CategoryChildViewModel by viewModel()
     private val navController by lazyFast { findNavController() }
     private lateinit var adapter: CategoryAdapter
-    private lateinit var binding: CategoryChildFragmentBinding
+    private val binding: CategoryChildFragmentBinding
+        get() = childBinding as CategoryChildFragmentBinding
 
     companion object {
         const val GENDER = "catalog_gender"
@@ -31,15 +32,8 @@ class CategoryChildFragment : ParentFragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = CategoryChildFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+
+    override fun getLayoutID() = R.layout.category_child_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

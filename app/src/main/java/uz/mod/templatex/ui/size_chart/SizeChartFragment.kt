@@ -12,6 +12,8 @@ import uz.mod.templatex.ui.parent.ParentFragment
 class SizeChartFragment : ParentFragment() {
     val args: SizeChartFragmentArgs by navArgs()
 
+    override fun getLayoutID(): Int? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.size_chart_fragment, container, false)
     }

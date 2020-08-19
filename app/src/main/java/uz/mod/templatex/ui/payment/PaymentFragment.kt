@@ -27,7 +27,8 @@ class PaymentFragment : ParentFragment() {
     private val navController by lazyFast { findNavController() }
     private val paymentViewModel: PaymentViewModel by viewModel()
     val args: PaymentFragmentArgs by navArgs()
-    private lateinit var binding: PaymentFragmentBinding
+    private val binding: PaymentFragmentBinding
+        get() = childBinding as PaymentFragmentBinding
 
     private lateinit var paymentMethodAdapter: PaymentMethodAdapter
 
@@ -61,15 +62,7 @@ class PaymentFragment : ParentFragment() {
         })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = PaymentFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
+    override fun getLayoutID() = R.layout.payment_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

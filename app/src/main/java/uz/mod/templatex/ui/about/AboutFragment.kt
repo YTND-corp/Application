@@ -18,15 +18,13 @@ class AboutFragment : ParentFragment() {
     val viewModel: AboutViewModel by viewModel()
 
 
-    private lateinit var binding: AboutFragmentBinding
-
     companion object {
         fun newInstance() = AboutFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -44,16 +42,8 @@ class AboutFragment : ParentFragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = AboutFragmentBinding.inflate(layoutInflater, container, false)
-        binding.lifecycleOwner = this@AboutFragment
-        return binding.root
-    }
 
+    override fun getLayoutID() = R.layout.about_fragment
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,7 +51,7 @@ class AboutFragment : ParentFragment() {
         initViews()
     }
 
-    private fun initViews() = binding.apply {
+    private fun initViews() = (childBinding as AboutFragmentBinding).apply {
         viewModel = this@AboutFragment.viewModel
         executePendingBindings()
 
