@@ -319,4 +319,5 @@
     <!--Card details-->
     <string name="hint_card_number">Введите номер карты</string>
     <string name="hint_card_expire_date">Введите срок годности</string>
+    <string name="app_version">Версия %s</string>
 </resources>
