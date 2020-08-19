@@ -246,6 +246,8 @@
     <string name="product_added_to_cart">Товар добавлен в корзину</string>
 
     <string name="recent_products">Вы недавно просматривали</string>
+    <!--About page-->
+    <string name="app_version">Версия %s</string>
 
     <!--Cart-->
     <string name="cart_title">КОРЗИНА</string>
@@ -319,5 +321,5 @@
     <!--Card details-->
     <string name="hint_card_number">Введите номер карты</string>
     <string name="hint_card_expire_date">Введите срок годности</string>
-    <string name="app_version">Версия %s</string>
+
 </resources>
