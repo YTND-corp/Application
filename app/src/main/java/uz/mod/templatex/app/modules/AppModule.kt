@@ -183,8 +183,10 @@ val retrofitModule = module {
 
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val logging =
-            HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
-                Timber.tag("OkHttp").d(message)
+            HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+                override fun log(message: String) {
+                    Timber.tag("OkHttp").d(message)
+                }
             })
         logging.level =
             if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE

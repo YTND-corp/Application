@@ -15,7 +15,7 @@ data class User(
     @SerializedName("first_name")
     val firstName: String,
     @SerializedName("last_name")
-    val lastName: String,
+    val lastName: String?,
     val gender: GenderType,
     val birthday: String?,
     val email: String,
@@ -26,7 +26,13 @@ data class User(
     val language: Language,
     val image: String
 ) {
-    fun printFullName() = "$firstName $lastName"
+    fun printFullName(): String {
+        return if (lastName != null)
+            "$firstName $lastName"
+        else
+            firstName
+
+    }
 }
 
 data class Language(

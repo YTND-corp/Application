@@ -227,18 +227,6 @@
                 app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
-    <fragment
-            android:id="@+id/productFragment"
-            android:name="uz.mod.templatex.ui.product.ProductFragment"
-            android:label=""
-            tools:layout="@layout/product_fragment">
-
-        <argument
-                android:name="product_id"
-                android:defaultValue="0"
-                app:argType="integer" />
-    </fragment>
-
 
     <fragment
             android:id="@+id/filterFragment"
@@ -250,10 +238,6 @@
             android:name="uz.mod.templatex.ui.search.SearchFragment"
             android:label="@string/title_search"
             tools:layout="@layout/search_fragment" />
-
-    <action
-            android:id="@+id/action_global_productFragment"
-            app:destination="@id/productFragment" />
 
     <action
             android:id="@+id/action_global_productsFragment"

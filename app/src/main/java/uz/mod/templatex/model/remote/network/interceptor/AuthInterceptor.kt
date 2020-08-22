@@ -11,7 +11,6 @@ import uz.mod.templatex.BuildConfig
 class AuthInterceptor constructor(val context: Context, val prefs: Prefs) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var req = chain.request()
-        var url = req.url()
         val mobuid = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.e("Mobile-UID: $mobuid")
         val reqBuilder = req.newBuilder()

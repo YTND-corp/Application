@@ -63,7 +63,7 @@ class ProfileMyDataViewModel(application: Application, val repository: MyDataRep
             phone.value,
             email.value,
             birthday,
-            possibleGenders.value?.first { it.name == gender.value }?.type?.toString(),
+            possibleGenders.value?.firstOrNull { it.name == gender.value }?.type?.toString(),
             if (isNotificationEnabled.value == true) 1 else 0,
             if (isSubscriptionEnabled.value == true) 1 else 0
         )
