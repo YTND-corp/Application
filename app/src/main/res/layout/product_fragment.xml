@@ -13,11 +13,11 @@
     </data>
 
     <ScrollView
-            isVisible="@{viewModel.isContentVisible}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+                isVisible="@{viewModel.isContentVisible}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:context=".ui.product.ProductFragment">
@@ -146,15 +146,14 @@
                     android:gravity="start"
                     android:text="@string/color"
                     android:textSize="@dimen/text_size_smaller"
-                    tools:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintStart_toStartOf="@id/title"
-                    app:layout_constraintTop_toBottomOf="@id/colors_top_divider" />
+                    app:layout_constraintTop_toBottomOf="@id/colors_top_divider"
+                    tools:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvColors"
                     android:layout_width="0dp"
-                    tools:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal"
@@ -162,7 +161,8 @@
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintStart_toStartOf="@id/title"
                     app:layout_constraintTop_toBottomOf="@id/tvColor"
-                    tools:listitem="@layout/product_size_item" />
+                    tools:listitem="@layout/product_size_item"
+                    tools:visibility="gone" />
 
             <TextView
                     android:id="@+id/size_header"
@@ -207,9 +207,9 @@
                     android:id="@+id/add_to_cart"
                     style="@style/ContainedButtonStyle"
                     android:layout_marginTop="8dp"
+                    android:text="@string/action_order"
                     android:textAllCaps="true"
                     android:textSize="@dimen/text_size_small"
-                    android:text="@string/action_add_to_cart"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvSizeTable"

@@ -30,6 +30,7 @@
     <string name="action_pay">Оплатить</string>
     <string name="action_call_us">Позвоните нам</string>
     <string name="action_call_you">Позвонить вам</string>
+    <string name="action_order">Заказать</string>
 
     <string name="action_start_shopping">Начать покупки</string>
     <string name="action_forgot_password">Забыли пароль?</string>
